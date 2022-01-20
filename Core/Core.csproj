@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Entities\Concrete\" />
-    <Folder Include="DataAccess\" />
   </ItemGroup>
 
   <ItemGroup>
