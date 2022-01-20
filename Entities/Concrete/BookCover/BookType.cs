@@ -4,13 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.BookCover
 {
-    public class BookCover : IEntity
+    public class BookType : IEntity
     {
         [Key]
         [JsonIgnore]
         public int Id { get; set; }
 
         [Required]
-        public string? BookSkinType { get; set; }
+        public int BookTypeNumber { get; set; }
     }
 }

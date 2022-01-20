@@ -23,10 +23,11 @@ namespace Entities.Concrete.BookFirstPage
         public string PhoneNumber { get; set; }
 
         [MaxLength(15)]
-        public string? FaxNumber { get; set; }
+        public string FaxNumber { get; set; }
 
         [Required]
         [MaxLength(64)]
         public string WebSite { get; set; }
+
     }
 }
