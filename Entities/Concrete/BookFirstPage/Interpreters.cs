@@ -7,5 +7,9 @@ namespace Entities.Concrete.BookFirstPage
     {
         [MaxLength(16)]
         public string? WhichToLanguage { get; set; }
+
+        public Interpreters(string name, string surName) : base(name, surName)
+        {
+        }
     }
 }

@@ -16,5 +16,12 @@ namespace Entities.Concrete.BookFirstPage
 
         [MaxLength(32)]
         public string SurName { get; set; }
+
+        public BookFirstPagePersonBase(string name, string surName)
+        {
+            Name = name;
+            SurName = surName;
+        }
+
     }
 }

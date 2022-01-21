@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Entities.Concrete.BookFirstPage
 {
     public class Publisher : IEntity
-    {
+    {        
         [Key]
         [JsonIgnore]
         public int Id { get; set; }
@@ -23,11 +23,19 @@ namespace Entities.Concrete.BookFirstPage
         public string PhoneNumber { get; set; }
 
         [MaxLength(15)]
-        public string FaxNumber { get; set; }
+        public string? FaxNumber { get; set; }
 
         [Required]
         [MaxLength(64)]
         public string WebSite { get; set; }
 
+        public Publisher(string name, string address, string phoneNumber, string? faxNumber, string webSite)
+        {
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            FaxNumber = faxNumber;
+            WebSite = webSite;
+        }
     }
 }

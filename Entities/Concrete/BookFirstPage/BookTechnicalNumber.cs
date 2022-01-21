@@ -11,10 +11,10 @@ namespace Entities.Concrete.BookFirstPage
         public long? Barcode { get; set; }
 
         [MaxLength(56)]
-        public string ISBN { get; set; }
+        public string? ISBN { get; set; }
 
         [MaxLength(24)]
-        public string StockCode { get; set; }
+        public string? StockCode { get; set; }
 
         public long? StockNumber { get; set; }
 
