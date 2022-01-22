@@ -4,13 +4,14 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.BookCover
 {
-    public class BookCover : IEntity
-    {
+    public class BookCoverCap : IEntity
+    {// kitap kapağı tipi, karton, deri,  vs vs
         [Key]
         [JsonIgnore]
         public int Id { get; set; }
 
         [Required]
-        public string? BookSkinType { get; set; }
+        [MaxLength(32)]
+        public string BookSkinType { get; set; }
     }
 }

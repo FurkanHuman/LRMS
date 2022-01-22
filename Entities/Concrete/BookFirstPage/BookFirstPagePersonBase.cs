@@ -6,22 +6,14 @@ namespace Entities.Concrete.BookFirstPage
 {
     public class BookFirstPagePersonBase : IEntity
     {
-        [Key]
-        [JsonIgnore]
+        [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(32)]
+        [MaxLength(32), Required]
         public string Name { get; set; }
 
-        [MaxLength(32)]
+
+        [MaxLength(32), Required]
         public string SurName { get; set; }
-
-        public BookFirstPagePersonBase(string name, string surName)
-        {
-            Name = name;
-            SurName = surName;
-        }
-
     }
 }

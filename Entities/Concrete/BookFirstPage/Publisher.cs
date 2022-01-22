@@ -6,36 +6,22 @@ namespace Entities.Concrete.BookFirstPage
 {
     public class Publisher : IEntity
     {        
-        [Key]
-        [JsonIgnore]
+        [Key,JsonIgnore]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(128)]
+        [Required, MaxLength(128)]
         public string Name { get; set; }
 
-        [Required]
-        [MaxLength(128)]
+        [Required, MaxLength(128)]
         public string Address { get; set; }
 
-        [Required]
-        [MaxLength(15)]
+        [Required,MaxLength(16)]
         public string PhoneNumber { get; set; }
 
-        [MaxLength(15)]
+        [MaxLength(16)]
         public string? FaxNumber { get; set; }
 
-        [Required]
-        [MaxLength(64)]
+        [Required,MaxLength(64)]
         public string WebSite { get; set; }
-
-        public Publisher(string name, string address, string phoneNumber, string? faxNumber, string webSite)
-        {
-            Name = name;
-            Address = address;
-            PhoneNumber = phoneNumber;
-            FaxNumber = faxNumber;
-            WebSite = webSite;
-        }
     }
 }
