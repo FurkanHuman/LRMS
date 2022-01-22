@@ -1,14 +1,12 @@
 ﻿{
-  "PostgreConnectionConfigrator": {
-    "UserId": 1,
-    "Password": "",
+  "PostgreConnectionconfigurator": {
     "Host": "",
     "Port": 5432,
     "Database": "",
-    "Pooling": true,
-    "IntegratedSecurity": true
+    "Username": "",
+    "Password": "",
+    "IntegratedSecurity": true,
+    "Pooling": true
   },
-  "PostgreConnectionString": {
-    "DefaultConnection": "User ID=1;Password=1234;Host=localhost;Port=5432;Database=Demo;Pooling=true;Integrated Security=true;"
-  }
+  "PostgreConnectionString": "Host=localhost,Database=LRMS_DataBase;Username=postgres;Password=12345"
 }
