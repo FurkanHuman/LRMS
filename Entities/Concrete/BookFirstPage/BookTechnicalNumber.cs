@@ -11,14 +11,14 @@ namespace Entities.Concrete.BookFirstPage
         [Required]
         public long Barcode { get; set; }
 
-        [MaxLength(56)]
-        public string ISBN { get; set; }
+        [Required]
+        public ulong ISBN { get; set; }
 
         [MaxLength(24)]
         public string StockCode { get; set; }
 
         [Required]
-        public long StockNumber { get; set; }
+        public ulong StockNumber { get; set; }
 
         [MaxLength(64)]
         public string CertificateCode { get; set; }

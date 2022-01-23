@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
+
 namespace Entities.Concrete.BookFirstPage
 {
     public class Publisher : IEntity
@@ -12,16 +13,15 @@ namespace Entities.Concrete.BookFirstPage
         [Required, MaxLength(128)]
         public string Name { get; set; }
 
-        [Required, MaxLength(128)]
+        [Required, MaxLength(256)]
         public string Address { get; set; }
 
-        [Required,MaxLength(16)]
-        public string PhoneNumber { get; set; }
+        [Required]
+        public ulong PhoneNumber { get; set; }
 
-        [MaxLength(16)]
-        public string? FaxNumber { get; set; }
+        public ulong? FaxNumber { get; set; }
 
-        [Required,MaxLength(64)]
+        [Required]
         public string WebSite { get; set; }
     }
 }

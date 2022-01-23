@@ -1,7 +1,6 @@
 ﻿using Core.Entities.Abstract;
 using Entities.Concrete.BookFirstPage;
 using Entities.Concrete.BookCover;
-using NHibernate.Mapping;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
