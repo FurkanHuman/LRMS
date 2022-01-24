@@ -1,7 +1,7 @@
 ﻿using Core.DataAccess.PostgreDb;
 using DataAccess.Abstract;
 using DataAccess.Context;
-using Entities.Concrete.BookCover;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class EfBookCoverDal:EfEntityRepositoryBase<BookCoverCap,PostgreDbContext>,IBookCoverDal
+    public class EfNewsPaperDal: EfEntityRepositoryBase<NewsPaper, PostgreDbContext>,INewsPaperDal
     {
     }
 }
