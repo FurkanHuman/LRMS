@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class Book:BasePaper,IEntity
+    public class NewsPaper:BasePaper,IEntity
     {
     }
 }
