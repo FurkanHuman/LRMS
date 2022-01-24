@@ -1,5 +1,5 @@
 ﻿using Core.DataAccess;
-using Entities.Concrete.BookCover;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IBookCoverDal: IEntityRepository<BookCoverCap>
+    public interface IMagazineDal: IEntityRepository<Magazine>
     {
     }
 }
