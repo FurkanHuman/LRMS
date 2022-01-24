@@ -27,12 +27,16 @@ namespace Core.DataAccess.PostgreDb
         {
             using TContext context = new();
             EntityEntry<TEntity> AddEntity = context.Entry(entity);
+            AddEntity.State = EntityState.Added;
+            context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
             using TContext context = new();
             EntityEntry<TEntity> deleteEntity = context.Remove(entity);
+            deleteEntity.State = EntityState.Deleted;
+            context.SaveChanges();
         }
 
 
