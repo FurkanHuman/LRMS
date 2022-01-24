@@ -5,3 +5,9 @@ dotnet_diagnostic.CS8618.severity = none
 
 # CS5001: Program does not contain a static 'Main' method suitable for an entry point
 dotnet_diagnostic.CS5001.severity = none
+
+# CS8604: Possible null reference argument.
+dotnet_diagnostic.CS8604.severity = none
+
+# S3246: Generic type parameters should be co/contravariant when possible
+dotnet_diagnostic.S3246.severity = none
