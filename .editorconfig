@@ -11,3 +11,9 @@ dotnet_diagnostic.CS8604.severity = none
 
 # S3246: Generic type parameters should be co/contravariant when possible
 dotnet_diagnostic.S3246.severity = none
+
+# S2933: Fields that are only assigned in the constructor should be "readonly"
+dotnet_diagnostic.S2933.severity = none
+
+# IDE0044: Add readonly modifier
+dotnet_diagnostic.IDE0044.severity = none

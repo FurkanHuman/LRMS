@@ -8,9 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Entities\Concrete\" />
+    <Folder Include="Utilities\Business\" />
+    <Folder Include="Utilities\Interceptors\" />
+    <Folder Include="Utilities\IoC\" />
+    <Folder Include="Utilities\Messages\" />
+    <Folder Include="Utilities\Security\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
