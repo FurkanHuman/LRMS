@@ -1,7 +1,8 @@
 ﻿using Core.Entities.Abstract;
+using Entities.Concrete.Base;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entities.Concrete.FirstPage
+namespace Entities.Concrete.Infos
 {
     public class Interpreters : FirstPagePersonBase, IEntity
     {// çevirenler hangi dilden cevirdi

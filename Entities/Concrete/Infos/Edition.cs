@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Abstract;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entities.Concrete.FirstPage
+namespace Entities.Concrete.Infos
 {
     public class Edition : Publisher, IEntity
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Entities.Concrete.Cover
+namespace Entities.Concrete.Infos
 {
     public class CoverCap : IEntity
     {// kitap kapağı tipi, karton, deri,  vs vs

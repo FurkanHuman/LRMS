@@ -1,13 +1,9 @@
 ﻿using Core.Entities.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Concrete.Base;
 
 namespace Entities.Concrete
 {
-    public class NewsPaper:BasePaper,IEntity
+    public class NewsPaper : BasePaper, IEntity
     {
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Core.Entities.Abstract;
-using Entities.Concrete.Cover;
-using Entities.Concrete.FirstPage;
+using Entities.Concrete.Infos;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Entities.Concrete
+namespace Entities.Concrete.Base
 {
     public class BasePaper : IEntity
     {
@@ -44,7 +43,7 @@ namespace Entities.Concrete
         public Publisher Publisher { get; set; }
 
         [Required]
-        public TechnicalNumber BookTechnicalNumber { get; set; }
+        public TechnicalNumber TechnicalNumber { get; set; }
 
         public bool IsDeleted { get; set; }
 

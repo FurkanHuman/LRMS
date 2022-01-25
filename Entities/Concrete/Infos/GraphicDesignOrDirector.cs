@@ -1,5 +1,7 @@
 ﻿using Core.Entities.Abstract;
-namespace Entities.Concrete.FirstPage
+using Entities.Concrete.Base;
+
+namespace Entities.Concrete.Infos
 {
     public class GraphicDesignOrDirector : FirstPagePersonBase, IEntity
     {

@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Abstract;
+using Entities.Concrete.Base;
 
-namespace Entities.Concrete.FirstPage
+namespace Entities.Concrete.Infos
 {
     public class Redaction : FirstPagePersonBase, IEntity
     {
