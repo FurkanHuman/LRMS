@@ -1,5 +1,5 @@
 ﻿using Core.DataAccess;
-using Entities.Concrete.FirstPage;
+using Entities.Concrete.Infos;
 
 namespace DataAccess.Abstract
 {

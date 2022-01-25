@@ -1,6 +1,5 @@
 ﻿using Entities.Concrete;
-using Entities.Concrete.Cover;
-using Entities.Concrete.FirstPage;
+using Entities.Concrete.Infos;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Context
