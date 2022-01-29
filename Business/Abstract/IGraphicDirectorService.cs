@@ -2,7 +2,7 @@
 
 namespace Business.Abstract
 {
-    internal interface IGraphicDirectorService: IFirstPersonBaseService<GraphicDirector>
+    public interface IGraphicDirectorService: IFirstPersonBaseService<GraphicDirector>
     {
     }
 }
