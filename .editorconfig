@@ -17,3 +17,18 @@ dotnet_diagnostic.S2933.severity = none
 
 # IDE0044: Add readonly modifier
 dotnet_diagnostic.IDE0044.severity = none
+
+# S3011: Reflection should not be used to increase accessibility of classes, methods, or fields
+dotnet_diagnostic.S3011.severity = none
+
+# CS8602: Dereference of a possibly null reference.
+dotnet_diagnostic.CS8602.severity = none
+
+# CS8601: Possible null reference assignment.
+dotnet_diagnostic.CS8601.severity = none
+
+# S112: General exceptions should never be thrown
+dotnet_diagnostic.S112.severity = none
+
+# CS8600: Converting null literal or possible null value to non-nullable type.
+dotnet_diagnostic.CS8600.severity = none

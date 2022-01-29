@@ -9,7 +9,7 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [Required]
+        [MinLength(2),Required]
         public string CategoryName { get; set; }
     }
 }
