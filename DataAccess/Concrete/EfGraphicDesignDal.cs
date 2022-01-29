@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfGraphicDesignOrDirectorDal : EfEntityRepositoryBase<GraphicDesignOrDirector, PostgreDbContext>, IGraphicDesignOrDirectorDal
+    public class EfGraphicDesignDal : EfEntityRepositoryBase<GraphicDesign, PostgreDbContext>, IGraphicDesignDal
     {
     }
 }

@@ -3,7 +3,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Abstract
 {
-    public interface IGraphicDesignOrDirectorDal : IEntityRepository<GraphicDesignOrDirector>
+    public interface IGraphicDesignDal : IEntityRepository<GraphicDesign>
     {
     }
 }
