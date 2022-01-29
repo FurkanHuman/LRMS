@@ -25,7 +25,9 @@ namespace DataAccess.Context
         public DbSet<TechnicalNumber> BookTechnicalNumbers { get; set; }
         public DbSet<Writer> BookWriters { get; set; }
         public DbSet<Edition> Editions { get; set; }
-        public DbSet<GraphicDesignOrDirector> GraphicDesignOrDirectors { get; set; }
+        public DbSet<GraphicDirector> GraphicDirectors { get; set; }
+        public DbSet<GraphicDesign> GraphicDesign { get; set; }
+        public DbSet<Director> Directors { get; set; }
         public DbSet<Interpreters> Interpreters { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Redaction> Redactions { get; set; }
