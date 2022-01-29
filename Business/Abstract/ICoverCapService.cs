@@ -8,8 +8,7 @@ namespace Business.Abstract
         IDataResult<CoverCap> GetById(int id);
         IDataResult<CoverCap> GetByName(string name);
         IDataResult<List<CoverCap>> GetList();
-        IResult Add(CoverCap CoverCap);
-        IResult Delete(CoverCap coverCap);
-        IResult Update(CoverCap coverCap);
+        IResult Add(CoverCap coverCap);
+        IResult Update(CoverCap coverCap, string changedName);
     }
 }
