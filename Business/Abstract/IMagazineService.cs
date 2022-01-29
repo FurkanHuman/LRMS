@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IMagazineService : IBasePaperService<Magazine>
     {
-        IDataResult<Magazine> GetByTitle(string title);
+        IDataResult<Magazine> GetBySubject(string title);
     }
 }
