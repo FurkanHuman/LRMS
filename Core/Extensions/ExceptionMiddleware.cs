@@ -29,7 +29,7 @@ namespace Core.Extensions
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext httpContext, Exception e)
+        private static Task HandleExceptionAsync(HttpContext httpContext, Exception e)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
