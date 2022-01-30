@@ -10,7 +10,7 @@ namespace Business.Abstract
         IDataResult<TechnicalNumber> GetByISBN(ulong ISBNNumber);
         IDataResult<TechnicalNumber> GetByCertificateNum(string certificateNum);
         IDataResult<List<TechnicalNumber>> StockCode(string stockCode);
-        IDataResult<List<TechnicalNumber>> StockNumber(string stockNumber);
+        IDataResult<List<TechnicalNumber>> StockNumber(ulong stockNumber);
         IDataResult<List<TechnicalNumber>> Getlist();
         IResult Add(TechnicalNumber technicalNumber);
         IResult Delete(TechnicalNumber technicalNumber);
