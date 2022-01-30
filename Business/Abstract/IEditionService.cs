@@ -7,14 +7,14 @@ namespace Business.Abstract
     {
         IDataResult<Edition> GetById(int id);
         IDataResult<Edition> GetByPhoneNumber(ulong phoneNumber);
-        IDataResult<Edition> GetByAdress(string address);
+        IDataResult<List<Edition>> GetByAdress(string address);
         IDataResult<Edition> GetByName(string name);
-        IDataResult<Edition> GetByEditionNumber(int editionNumber);
+        IDataResult<List<Edition>> GetByEditionNumber(int editionNumber);
         IDataResult<Edition?> GetByFaxNumber(ulong faxNumber);
-        IDataResult<Edition> GetByWebsites(string webSite);
+        IDataResult<List<Edition>> GetByWebsites(string webSite);
         IDataResult<List<Edition>> GetList();
-        IResult Add(Edition Edition);
-        IResult Delete(Edition Edition);
-        IResult Update(Edition Edition);
+        IResult Add(Edition  edition);
+        IResult Delete(Edition edition);
+        IResult Update(Edition oldEdition, Edition newEdition);
     }
 }
