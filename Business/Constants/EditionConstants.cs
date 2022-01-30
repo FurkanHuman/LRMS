@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Constants
 {
-    public static class PublisherConstants
+    public static class EditionConstants
     {
         public const string AddSucces = "Adding succeeded.";
         public const string UpdateSuccess = "Update success.";
@@ -27,12 +27,15 @@ namespace Business.Constants
         public const string PhoneNumberGet = "Phone number fetch succeeded.";
         public const string NameNotGet = "Name not get.";
         public const string NameDataGet = "Name fetch succeeded.";
-        public const string PublisherNotNull = "Publisher not null";
-        public const string PublisherNameNotNull = "Publisher name not null";
-        public const string PublisherAddressNotNull = "Publisher address not null";
-        public const string PublisherWebAddressNotNull = "Publisher web address not null";
-        public const string PublisherPhoneNotNull = "Publisher phone not null";
-        public const string PublisherEquals = "publishers cannot be the same";
+        public const string EditionNotNull = "Edition not null";
+        public const string EditionNameNotNull = "Edition name not null";
+        public const string EditionAddressNotNull = "Edition address not null";
+        public const string EditionWebAddressNotNull = "Edition web address not null";
+        public const string EditionPhoneNotNull = "Edition phone not null";
+        public const string EditionEquals = "Editions cannot be the same";
         public const string DeleteSuccess = "Delete Success";
+        public const string EditionNumberNotFound = "Edition number not found";
+        public const string EditionNumberFound = "Edition number found";
+        public const string EditionNumberNull = "Edition number is null";
     }
 }
