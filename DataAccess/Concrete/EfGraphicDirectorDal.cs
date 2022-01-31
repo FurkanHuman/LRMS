@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class EfGraphicDirectorDal: EfEntityRepositoryBase<GraphicDirector,PostgreDbContext>, IGraphicDirector
+    public class EfGraphicDirectorDal: EfEntityRepositoryBase<GraphicDirector,PostgreDbContext>, IGraphicDirectorDal
     {
     }
 }
