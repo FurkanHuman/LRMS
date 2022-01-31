@@ -19,8 +19,8 @@ namespace Core.DataAccess.PostgreDb
         {
             using TContext context = new();
             return filter == null ?
-            context.Set<TEntity>().ToList() :
-            context.Set<TEntity>().Where(filter).ToList();
+                context.Set<TEntity>().ToList() :
+                context.Set<TEntity>().Where(filter).ToList();
         }
 
         public void Add(TEntity entity)
