@@ -14,6 +14,6 @@ namespace Business.Abstract
         IDataResult<List<Publisher>> GetList();
         IResult Add(Publisher publisher);
         IResult Delete(Publisher publisher);
-        IResult Update(Publisher oldPublisher,Publisher newPublisher);
+        IResult Update(Publisher oldPublisher, Publisher newPublisher);
     }
 }

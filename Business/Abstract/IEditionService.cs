@@ -13,7 +13,7 @@ namespace Business.Abstract
         IDataResult<Edition?> GetByFaxNumber(ulong faxNumber);
         IDataResult<List<Edition>> GetByWebsites(string webSite);
         IDataResult<List<Edition>> GetList();
-        IResult Add(Edition  edition);
+        IResult Add(Edition edition);
         IResult Delete(Edition edition);
         IResult Update(Edition oldEdition, Edition newEdition);
     }
