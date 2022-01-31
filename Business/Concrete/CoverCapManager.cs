@@ -5,11 +5,6 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -41,22 +36,22 @@ namespace Business.Concrete
 
             coverCap.BookSkinType = changedName;
             _coverCapDal.Update(coverCap);
-            
+
             return new SuccessResult(CoverCapConstants.UpdateSuccess);
         }
 
         public IDataResult<CoverCap> GetById(int id)
         {
-            CoverCap? coverCap = _coverCapDal.Get(u=>u.Id==id);
+            CoverCap? coverCap = _coverCapDal.Get(u => u.Id == id);
             return coverCap == null
                 ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
-                : new SuccessDataResult<CoverCap>(coverCap,CategoryConstants.DataGet);
+                : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
 
         }
 
         public IDataResult<CoverCap> GetByName(string name)
         {
-            CoverCap? coverCap = _coverCapDal.Get(u => u.BookSkinType== name);
+            CoverCap? coverCap = _coverCapDal.Get(u => u.BookSkinType == name);
             return coverCap == null
                 ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
@@ -80,7 +75,7 @@ namespace Business.Concrete
         {
             if (coverCap == null)
                 return new ErrorResult(CoverCapConstants.CoverCapNameNull);
-            if (coverCap.BookSkinType == null || coverCap.BookSkinType== string.Empty)
+            if (coverCap.BookSkinType == null || coverCap.BookSkinType == string.Empty)
                 return new ErrorResult(CoverCapConstants.CoverCapNameNull);
             if (_coverCapDal.Get(x => x.BookSkinType.ToLower() == coverCap.BookSkinType.ToLower()) != null)
                 return new ErrorResult(CoverCapConstants.CoverCapNameExist);

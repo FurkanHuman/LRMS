@@ -5,11 +5,6 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -119,8 +114,8 @@ namespace Business.Concrete
         private static IResult EditionUpdateControl(Edition oldEdition, Edition newEdition)
         {
             return oldEdition == newEdition
-                ? new ErrorResult(EditionConstants.EditionEquals) 
-                :new SuccessResult();
+                ? new ErrorResult(EditionConstants.EditionEquals)
+                : new SuccessResult();
         }
 
         private static IResult EditionControl(Edition edition)
@@ -131,7 +126,7 @@ namespace Business.Concrete
                 return new ErrorResult(EditionConstants.EditionNameNotNull);
             if (edition.Address.Equals(null) || edition.Address.Equals(string.Empty))
                 return new ErrorResult(EditionConstants.EditionAddressNotNull);
-            if (edition.WebSite.Equals(null) || edition.WebSite.Equals(String.Empty))
+            if (edition.WebSite.Equals(null) || edition.WebSite.Equals(string.Empty))
                 return new ErrorResult(EditionConstants.EditionWebAddressNotNull);
             if (((char)edition.PhoneNumber).Equals(null) || ((char)edition.PhoneNumber).Equals(string.Empty))
                 return new ErrorResult(EditionConstants.EditionPhoneNotNull);

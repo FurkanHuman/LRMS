@@ -5,11 +5,6 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -117,7 +112,7 @@ namespace Business.Concrete
                 return new ErrorResult(PublisherConstants.PublisherNameNotNull);
             if (publisher.Address.Equals(null) || publisher.Address.Equals(string.Empty))
                 return new ErrorResult(PublisherConstants.PublisherAddressNotNull);
-            if (publisher.WebSite.Equals(null) || publisher.WebSite.Equals(String.Empty))
+            if (publisher.WebSite.Equals(null) || publisher.WebSite.Equals(string.Empty))
                 return new ErrorResult(PublisherConstants.PublisherWebAddressNotNull);
             if (((char)publisher.PhoneNumber).Equals(null) || ((char)publisher.PhoneNumber).Equals(string.Empty))
                 return new ErrorResult(PublisherConstants.PublisherPhoneNotNull);
