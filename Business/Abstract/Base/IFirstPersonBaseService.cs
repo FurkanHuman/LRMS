@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Base;
+using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
@@ -9,9 +10,9 @@ namespace Business.Abstract
         IDataResult<T> GetByName(string name);
         IDataResult<T> GetBySurname(string surname);
         IDataResult<List<T>> GetList();
-        IDataResult<List<T>> GetByFilterList();
-        IResult Add(T Entity);
-        IResult Delete(T Entity);
-        IResult Update(T Entity);
+        IDataResult<List<T>> GetByFilterList(Expression<Func<T, bool>>? filter = null);
+        IResult Add(T entity);
+        IResult Delete(T entity);
+        IResult Update(T entity);
     }
 }
