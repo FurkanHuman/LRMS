@@ -1,14 +1,13 @@
-﻿namespace Business.Constants
-{
-    public static class EditorConstants
-    {
+﻿using Business.Constants.Base;
 
-        public const string AddSucces = "Adding succeeded.";
-        public const string DataNotGet = "Data not get.";
-        public const string DataGet = "Data fetch succeeded.";
+namespace Business.Constants
+{
+    public class EditorConstants: BaseConstants
+    {
         public const string EditorNull = "Editor is null.";
         public const string EditorNameLengthNotEnough = "Editor name length is insufficient.";
-        public const string EfDeletedSuccsess = "Effectively deleted.";
         public const string EditorEquals = "Data equals.";
+        public const string EditorNameNull= "Editor name is null.";
+        public const string EditorSurnameNull= "Editor surname is null.";
     }
 }

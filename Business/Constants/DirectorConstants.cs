@@ -1,13 +1,13 @@
-﻿namespace Business.Constants
+﻿using Business.Constants.Base;
+
+namespace Business.Constants
 {
-    public static class DirectorConstants
+    public class DirectorConstants : BaseConstants
     {
-        public const string AddSucces = "Adding succeeded.";
-        public const string DataNotGet = "Data not get.";
-        public const string DataGet = "Data fetch succeeded.";
         public const string DirectorNull = "Director is null.";
         public const string DirectorNameLengthNotEnough = "Director name length is insufficient.";
-        public const string EfDeletedSuccsess = "Effectively deleted.";
         public const string DirectorEquals = "Data equals.";
+        public const string DirectorNameNull = "Director name is null.";
+        public const string DirectorSurnameNull = "Director surname is null.";
     }
 }

@@ -1,13 +1,13 @@
-﻿namespace Business.Constants
+﻿using Business.Constants.Base;
+
+namespace Business.Constants
 {
-    public static class InterpretersConstants
+    public class InterpretersConstants:BaseConstants
     {
-        public const string AddSucces = "Adding succeeded.";
-        public const string DataNotGet = "Data not get.";
-        public const string DataGet = "Data fetch succeeded.";
         public const string InterpretersNull = "Interpreters is null.";
         public const string InterpretersNameLengthNotEnough = "Interpreters name length is insufficient.";
-        public const string EfDeletedSuccsess = "Effectively deleted.";
         public const string InterpretersEquals = "Data equals.";
+        public const string InterpretersNameNull = "Interpreters name is null.";
+        public const string InterpretersSurNameNull = "Interpreters Surname is null.";
     }
 }

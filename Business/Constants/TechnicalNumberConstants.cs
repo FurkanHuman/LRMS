@@ -1,12 +1,13 @@
-﻿namespace Business.Constants
+﻿using Business.Constants.Base;
+
+namespace Business.Constants
 {
-    public static class TechnicalNumberConstants
+    public class TechnicalNumberConstants: BaseConstants
     {
         public const string StockNumberEmpty = "Stock number not fetched.";
         public const string StockNumberFetched = "Stock number fetched.";
         public const string StockCodeEmpty = "Stock code not fetched.";
         public const string StockCodeFetched = "Stock code fetched.";
-        public const string DataGet = "Data fetched.";
         public const string ISBNNumberEmpty = "ISBN data is empty.";
         public const string ISBNNumberFetched = "ISBN data fetched.";
         public const string DataNoGet = "Data no fetched.";

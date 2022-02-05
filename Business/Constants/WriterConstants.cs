@@ -1,13 +1,14 @@
-﻿namespace Business.Constants
+﻿using Business.Constants.Base;
+
+namespace Business.Constants
 {
-    public static class WriterConstants
+
+    public class WriterConstants : BaseConstants
     {
-        public const string AddSucces = "Adding succeeded.";
-        public const string DataNotGet = "Data not get.";
-        public const string DataGet = "Data fetch succeeded.";
-        public const string WriterNull = "Writer is null.";
-        public const string WriterNameLengthNotEnough = "Writer name length is insufficient.";
-        public const string EfDeletedSuccsess = "Effectively deleted.";
+        public const string WriterNameNull = "Writer name is null.";
+        public const string WriterSurnameNull = "Writer Surname is null.";
+        public const string WriterNameLengthNotEnough = "Redaction name length is insufficient.";
         public const string WriterEquals = "Data equals.";
+        public const string WriterNameOrSurnameExist = "Name or Surname conflicts";
     }
 }
