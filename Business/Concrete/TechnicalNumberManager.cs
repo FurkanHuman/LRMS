@@ -19,9 +19,6 @@ namespace Business.Concrete
 
         public IResult Add(TechnicalNumber technicalNumber)
         {
-            IResult result = BusinessRules.Run(TechnicalNumberControl(technicalNumber));
-            if (result != null)
-                return result;
             technicalNumber.IsDeleted = false;
             _technicalNumberDal.Add(technicalNumber);
             return new SuccessResult(TechnicalNumberConstants.AddedSuccess);
@@ -29,18 +26,12 @@ namespace Business.Concrete
 
         public IResult Delete(TechnicalNumber technicalNumber)
         {
-            IResult result = BusinessRules.Run(DeleteControl(technicalNumber));
-            if (result != null)
-                return result;
             _technicalNumberDal.Delete(technicalNumber);
             return new SuccessResult();
         }
 
         public IResult Update(TechnicalNumber technicalNumber)
         {
-            IResult result = BusinessRules.Run(TechnicalNumberControl(technicalNumber));
-            if (result != null)
-                return result;
             _technicalNumberDal.Update(technicalNumber);
             return new SuccessResult(TechnicalNumberConstants.AddedSuccess);
         }
@@ -80,48 +71,6 @@ namespace Business.Concrete
         public IDataResult<List<TechnicalNumber>> Getlist()
         {
             return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(u => !u.IsDeleted).ToList(), TechnicalNumberConstants.DataGet);
-        }
-
-        public IDataResult<List<TechnicalNumber>> StockCode(string stockCode)
-        {
-            List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => u.StockCode.Equals(stockCode) && !u.IsDeleted).ToList();
-            return technicalNumbers == null
-                ? new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.StockNumberEmpty)
-                : new ErrorDataResult<List<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.StockCodeFetched);
-        }
-
-        public IDataResult<List<TechnicalNumber>> StockNumber(ulong stockNumber)
-        {
-            List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => u.StockNumber.Equals(stockNumber) && !u.IsDeleted).ToList();
-            return technicalNumbers == null
-                ? new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.StockNumberEmpty)
-                : new ErrorDataResult<List<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.StockCodeFetched);
-        }
-
-        private static IResult TechnicalNumberControl(TechnicalNumber technicalNumber)
-        {
-            if (technicalNumber.Barcode.Equals(null))
-                return new ErrorResult(TechnicalNumberConstants.BarcodeNull);
-            if (technicalNumber.ISBN.Equals(null))
-                return new ErrorResult(TechnicalNumberConstants.ISBNNumberEmpty);
-            if (technicalNumber.StockCode.Equals(null) || technicalNumber.StockCode.Equals(string.Empty))
-                return new ErrorResult(TechnicalNumberConstants.StockCodeEmpty);
-            if (technicalNumber.StockNumber.Equals(null))
-                return new ErrorResult(TechnicalNumberConstants.StockNumberEmpty);
-            if (technicalNumber.CertificateCode.Equals(null) || technicalNumber.CertificateCode.Equals(string.Empty))
-                return new ErrorResult(TechnicalNumberConstants.CertificateCodeNull);
-
-            return new SuccessResult();
-        }
-
-        private static IResult DeleteControl(TechnicalNumber technicalNumber)
-        {
-            if (technicalNumber.Id.Equals(null))
-                return new ErrorResult(TechnicalNumberConstants.IdNull);
-            if (technicalNumber.IsDeleted)
-                return new ErrorResult(TechnicalNumberConstants.NotDeleted);
-
-            return new SuccessResult();
         }
     }
 }
