@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -13,45 +15,39 @@ namespace Business.Concrete
     {
         private readonly IInterpretersDal _interpretersDal;
 
-        private static int namelength = 3;
-        private static int surnameNamelength = 2;
-
         public InterpretersManager(IInterpretersDal interpretersDal)
         {
             _interpretersDal = interpretersDal;
         }
 
+
+        [ValidationAspect(typeof(InterpretersValidator), Priority = 1)]
         public IResult Add(Interpreters entity)
         {
-            IResult result = BusinessRules.Run(InterpretersControl(entity));
+            IResult result = BusinessRules.Run(InterpretersNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+
+            entity.IsDeleted = false;
             _interpretersDal.Add(entity);
             return new SuccessResult(InterpretersConstants.AddSucces);
         }
 
         public IResult Delete(Interpreters entity)
         {
-            IResult result = BusinessRules.Run(InterpretersControl(entity));
-            if (result != null)
-                return result;
-            entity.IsDeleted = true;
-            _interpretersDal.Update(entity);
-            return new SuccessResult(InterpretersConstants.AddSucces);
+            _interpretersDal.Delete(entity);
+            return new SuccessResult(InterpretersConstants.DeleteSucces);
         }
 
         public IResult Update(Interpreters entity)
         {
-            IResult result = BusinessRules.Run(InterpretersControl(entity), UpdateControl(entity));
-            if (result != null)
-                return result;
             _interpretersDal.Update(entity);
-            return new SuccessResult(InterpretersConstants.AddSucces);
+            return new SuccessResult(InterpretersConstants.UpdateSucces);
         }
 
         public IDataResult<Interpreters> GetById(int id)
         {
-            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id && !i.IsDeleted));
+            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id && !i.IsDeleted), InterpretersConstants.DataGet);
         }
 
         public IDataResult<Interpreters> GetByName(string name)
@@ -87,29 +83,14 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(filter).ToList(), InterpretersConstants.DataGet);
         }
-        private static IResult InterpretersControl(Interpreters entity)
+
+        private IResult InterpretersNameOrSurnameExist(Interpreters entity)
         {
-            if (entity == null)
-                return new ErrorResult(InterpretersConstants.InterpretersNull);
-            if (entity.Name.Equals(null) || entity.Name.Equals(string.Empty) || entity.Name.Length >= namelength)
-                return new ErrorResult(InterpretersConstants.InterpretersNameLengthNotEnough);
-            if (entity.SurName.Equals(null) || entity.SurName.Equals(string.Empty) || entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(InterpretersConstants.InterpretersNameLengthNotEnough);
-
-            return new SuccessResult();
-        }
-
-        private IResult UpdateControl(Interpreters entity)
-        {
-            Interpreters updateInterpreters = _interpretersDal.Get(i => i == entity);
-
-            if (updateInterpreters == null)
-                return new ErrorResult(InterpretersConstants.InterpretersNull);
-            if (entity.Name.Equals(updateInterpreters.Name) || entity.SurName.Equals(updateInterpreters.SurName)
-                || entity.Name.Length >= namelength && entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(InterpretersConstants.InterpretersEquals);
-
-            return new SuccessResult();
+            bool result = _interpretersDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            return !result
+                ? new ErrorResult(InterpretersConstants.NameOrSurnameExist)
+                : new SuccessResult(InterpretersConstants.DataGet);
         }
     }
 }

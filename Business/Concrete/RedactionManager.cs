@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -13,40 +15,32 @@ namespace Business.Concrete
     {
         private readonly IRedactionDal _redactionDal;
 
-        private static int namelength = 3;
-        private static int surnameNamelength = 2;
-
         public RedactionManager(IRedactionDal redactionDal)
         {
             _redactionDal = redactionDal;
         }
 
+        [ValidationAspect(typeof(RedactionValidator), Priority = 1)]
         public IResult Add(Redaction entity)
         {
-            IResult result = BusinessRules.Run(RedactionControl(entity));
+            IResult result = BusinessRules.Run(RedactionNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+            entity.IsDeleted = false;
             _redactionDal.Add(entity);
             return new SuccessResult(RedactionConstants.AddSucces);
         }
 
         public IResult Delete(Redaction entity)
         {
-            IResult result = BusinessRules.Run(RedactionControl(entity));
-            if (result != null)
-                return result;
-            entity.IsDeleted = true;
-            _redactionDal.Update(entity);
-            return new SuccessResult(RedactionConstants.AddSucces);
+            _redactionDal.Delete(entity);
+            return new SuccessResult(RedactionConstants.DeleteSucces);
         }
 
         public IResult Update(Redaction entity)
         {
-            IResult result = BusinessRules.Run(RedactionControl(entity), UpdateControl(entity));
-            if (result != null)
-                return result;
             _redactionDal.Update(entity);
-            return new SuccessResult(RedactionConstants.AddSucces);
+            return new SuccessResult(RedactionConstants.UpdateSucces);
         }
 
         public IDataResult<List<Redaction>> GetByFilterList(Expression<Func<Redaction, bool>>? filter = null)
@@ -80,29 +74,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll().ToList(), RedactionConstants.DataGet);
         }
 
-        private static IResult RedactionControl(Redaction entity)
+        private IResult RedactionNameOrSurnameExist(Redaction entity)
         {
-            if (entity == null)
-                return new ErrorResult(RedactionConstants.RedactionNull);
-            if (entity.Name.Equals(null) || entity.Name.Equals(string.Empty) || entity.Name.Length >= namelength)
-                return new ErrorResult(RedactionConstants.RedactionNameLengthNotEnough);
-            if (entity.SurName.Equals(null) || entity.SurName.Equals(string.Empty) || entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(RedactionConstants.RedactionNameLengthNotEnough);
-
-            return new SuccessResult();
-        }
-
-        private IResult UpdateControl(Redaction entity)
-        {
-            Redaction updateRedaction = _redactionDal.Get(i => i == entity);
-
-            if (updateRedaction == null)
-                return new ErrorResult(RedactionConstants.RedactionNull);
-            if (entity.Name.Equals(updateRedaction.Name) || entity.SurName.Equals(updateRedaction.SurName)
-                || entity.Name.Length >= namelength && entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(RedactionConstants.RedactionEquals);
-
-            return new SuccessResult();
+            bool result = _redactionDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            return !result
+                ? new ErrorResult(RedactionConstants.NameOrSurnameExist)
+                : new SuccessResult(RedactionConstants.DataGet);
         }
     }
 }

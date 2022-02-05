@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -13,40 +15,32 @@ namespace Business.Concrete
     {
         private readonly IGraphicDesignDal _graphicDesignDal;
 
-        private static int namelength = 3;
-        private static int surnameNamelength = 2;
-
         public GraphicDesignManager(IGraphicDesignDal graphicDesignDal)
         {
             _graphicDesignDal = graphicDesignDal;
         }
 
+        [ValidationAspect(typeof(GraphicDesignValidator), Priority = 1)]
         public IResult Add(GraphicDesign entity)
         {
-            IResult result = BusinessRules.Run(GraphicDesignControl(entity));
+            IResult result = BusinessRules.Run(GraphicDesignNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+ 
             _graphicDesignDal.Add(entity);
             return new SuccessResult(GraphicDesignConstants.AddSucces);
         }
 
         public IResult Delete(GraphicDesign entity)
         {
-            IResult result = BusinessRules.Run(GraphicDesignControl(entity));
-            if (result != null)
-                return result;
-            entity.IsDeleted = true;
-            _graphicDesignDal.Update(entity);
-            return new SuccessResult(GraphicDesignConstants.AddSucces);
+            _graphicDesignDal.Delete(entity);
+            return new SuccessResult(GraphicDesignConstants.DeleteSucces);
         }
 
         public IResult Update(GraphicDesign entity)
         {
-            IResult result = BusinessRules.Run(GraphicDesignControl(entity), UpdateControl(entity));
-            if (result != null)
-                return result;
             _graphicDesignDal.Update(entity);
-            return new SuccessResult(GraphicDesignConstants.AddSucces);
+            return new SuccessResult(GraphicDesignConstants.UpdateSucces);
         }
 
         public IDataResult<List<GraphicDesign>> GetByFilterList(Expression<Func<GraphicDesign, bool>>? filter = null)
@@ -56,7 +50,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDesign> GetById(int id)
         {
-            return new SuccessDataResult<GraphicDesign>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted));
+            return new SuccessDataResult<GraphicDesign>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted),GraphicDesignConstants.DataGet);
         }
 
         public IDataResult<GraphicDesign> GetByName(string name)
@@ -80,29 +74,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDesign>>(_graphicDesignDal.GetAll().ToList(), GraphicDesignConstants.DataGet);
         }
 
-        private static IResult GraphicDesignControl(GraphicDesign entity)
+        private IResult GraphicDesignNameOrSurnameExist(GraphicDesign entity)
         {
-            if (entity == null)
-                return new ErrorResult(GraphicDesignConstants.GraphicDesignNull);
-            if (entity.Name.Equals(null) || entity.Name.Equals(string.Empty) || entity.Name.Length >= namelength)
-                return new ErrorResult(GraphicDesignConstants.GraphicDesignNameLengthNotEnough);
-            if (entity.SurName.Equals(null) || entity.SurName.Equals(string.Empty) || entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(GraphicDesignConstants.GraphicDesignNameLengthNotEnough);
-
-            return new SuccessResult();
-        }
-
-        private IResult UpdateControl(GraphicDesign entity)
-        {
-            GraphicDesign updateGraphicDesign = _graphicDesignDal.Get(i => i == entity);
-
-            if (updateGraphicDesign == null)
-                return new ErrorResult(GraphicDesignConstants.GraphicDesignNull);
-            if (entity.Name.Equals(updateGraphicDesign.Name) || entity.SurName.Equals(updateGraphicDesign.SurName)
-                || entity.Name.Length >= namelength && entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(GraphicDesignConstants.GraphicDesignEquals);
-
-            return new SuccessResult();
+            bool result = _graphicDesignDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            return !result
+                ? new ErrorResult(GraphicDesignConstants.NameOrSurnameExist)
+                : new SuccessResult(GraphicDesignConstants.DataGet);
         }
     }
 }

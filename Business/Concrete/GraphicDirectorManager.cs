@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -14,17 +16,15 @@ namespace Business.Concrete
 
         private readonly IGraphicDirectorDal _graphicDirectorDal;
 
-        private static int namelength = 3;
-        private static int surnameNamelength = 2;
-
         public GraphicDirectorManager(IGraphicDirectorDal graphicDirectorDal)
         {
             _graphicDirectorDal = graphicDirectorDal;
         }
 
+        [ValidationAspect(typeof(GraphicDirectorValidator), Priority = 1)]
         public IResult Add(GraphicDirector entity)
         {
-            IResult result = BusinessRules.Run(GraphicDirectorControl(entity));
+            IResult result = BusinessRules.Run(GraphicDirectorNameOrSurnameExist(entity));
             if (result != null)
                 return result;
             _graphicDirectorDal.Add(entity);
@@ -33,21 +33,14 @@ namespace Business.Concrete
 
         public IResult Delete(GraphicDirector entity)
         {
-            IResult result = BusinessRules.Run(GraphicDirectorControl(entity));
-            if (result != null)
-                return result;
-            entity.IsDeleted = true;
-            _graphicDirectorDal.Update(entity);
-            return new SuccessResult(GraphicDirectorConstants.AddSucces);
+            _graphicDirectorDal.Delete(entity);
+            return new SuccessResult(GraphicDirectorConstants.DeleteSucces);
         }
 
         public IResult Update(GraphicDirector entity)
         {
-            IResult result = BusinessRules.Run(GraphicDirectorControl(entity), UpdateControl(entity));
-            if (result != null)
-                return result;
             _graphicDirectorDal.Update(entity);
-            return new SuccessResult(GraphicDirectorConstants.AddSucces);
+            return new SuccessResult(GraphicDirectorConstants.UpdateSucces);
         }
 
         public IDataResult<List<GraphicDirector>> GetByFilterList(Expression<Func<GraphicDirector, bool>>? filter = null)
@@ -57,7 +50,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDirector> GetById(int id)
         {
-            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id && !i.IsDeleted));
+            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id && !i.IsDeleted),GraphicDirectorConstants.DataGet);
         }
 
         public IDataResult<GraphicDirector> GetByName(string name)
@@ -81,29 +74,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll().ToList(), GraphicDirectorConstants.DataGet);
         }
 
-        private static IResult GraphicDirectorControl(GraphicDirector entity)
+        private  IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)
         {
-            if (entity == null)
-                return new ErrorResult(GraphicDirectorConstants.GraphicDirectorNull);
-            if (entity.Name.Equals(null) || entity.Name.Equals(string.Empty) || entity.Name.Length >= namelength)
-                return new ErrorResult(GraphicDirectorConstants.GraphicDirectorNameLengthNotEnough);
-            if (entity.SurName.Equals(null) || entity.SurName.Equals(string.Empty) || entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(GraphicDirectorConstants.GraphicDirectorNameLengthNotEnough);
 
-            return new SuccessResult();
+            bool result =_graphicDirectorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            return !result
+                ? new ErrorResult(GraphicDirectorConstants.NameOrSurnameExist)
+                : new SuccessResult(GraphicDirectorConstants.DataGet);
+
         }
 
-        private IResult UpdateControl(GraphicDirector entity)
-        {
-            GraphicDirector updateGraphicDirector = _graphicDirectorDal.Get(i => i == entity);
-
-            if (updateGraphicDirector == null)
-                return new ErrorResult(GraphicDirectorConstants.GraphicDirectorNull);
-            if (entity.Name.Equals(updateGraphicDirector.Name) || entity.SurName.Equals(updateGraphicDirector.SurName)
-                || entity.Name.Length >= namelength && entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(GraphicDirectorConstants.GraphicDirectorEquals);
-
-            return new SuccessResult();
-        }
     }
 }

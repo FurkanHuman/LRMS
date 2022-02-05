@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -12,17 +14,16 @@ namespace Business.Concrete
     public class EditorManager : IEditorService
     {
         private readonly IEditorDal _editorDal;
-        private static int namelength = 3;
-        private static int surnameNamelength = 2;
 
         public EditorManager(IEditorDal editorDal)
         {
             _editorDal = editorDal;
         }
 
+        [ValidationAspect(typeof(EditorValidator), Priority = 1)]
         public IResult Add(Editor entity)
         {
-            IResult result = BusinessRules.Run(EditorControl(entity));
+            IResult result = BusinessRules.Run(EditorNameOrSurnameExist(entity));
             if (result != null)
                 return result;
 
@@ -33,21 +34,12 @@ namespace Business.Concrete
 
         public IResult Delete(Editor entity)
         {
-            IResult result = BusinessRules.Run(EditorControl(entity));
-            if (result != null)
-                return result;
-
-            entity.IsDeleted = true;
-            _editorDal.Update(entity);
+            _editorDal.Delete(entity);
             return new SuccessResult(EditorConstants.EfDeletedSuccsess);
         }
 
         public IResult Update(Editor entity)
         {
-            IResult result = BusinessRules.Run(EditorControl(entity), UpdateControl(entity));
-            if (result != null)
-                return result;
-
             _editorDal.Update(entity);
             return new SuccessResult(EditorConstants.EfDeletedSuccsess);
         }
@@ -86,29 +78,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(filter).ToList(), EditionConstants.DataGet);
         }
 
-        private static IResult EditorControl(Editor entity)
+        private IResult EditorNameOrSurnameExist(Editor entity)
         {
-            if (entity == null)
-                return new ErrorResult(EditorConstants.EditorNull);
-            if (entity.Name.Equals(null) || entity.Name.Equals(string.Empty) || entity.Name.Length >= namelength)
-                return new ErrorResult(EditorConstants.EditorNameLengthNotEnough);
-            if (entity.SurName.Equals(null) || entity.SurName.Equals(string.Empty) || entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(EditorConstants.EditorNameLengthNotEnough);
 
-            return new SuccessResult();
+            bool result = _editorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            return !result
+                ? new ErrorResult(EditorConstants.NameOrSurnameExist)
+                : new SuccessResult(EditorConstants.DataGet);
+
         }
 
-        private IResult UpdateControl(Editor entity)
-        {
-            Editor updateEditor = _editorDal.Get(i => i == entity);
-
-            if (updateEditor == null)
-                return new ErrorResult(EditorConstants.EditorNull);
-            if (entity.Name.Equals(updateEditor.Name) || entity.SurName.Equals(updateEditor.SurName)
-                || entity.Name.Length >= namelength && entity.SurName.Length >= surnameNamelength)
-                return new ErrorResult(EditorConstants.EditorEquals);
-
-            return new SuccessResult();
-        }
     }
 }
