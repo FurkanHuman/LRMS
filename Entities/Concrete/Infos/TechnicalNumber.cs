@@ -8,20 +8,14 @@ namespace Entities.Concrete.Infos
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public long Barcode { get; set; }
+        public long? Barcode { get; set; }
 
-        [Required]
-        public ulong ISBN { get; set; }
+        public ulong? ISBN { get; set; }
 
-        [MaxLength(24)]
-        public string StockCode { get; set; }
-
-        [Required]
-        public ulong StockNumber { get; set; }
+        public ulong? ISSN { get; set; }
 
         [MaxLength(64)]
-        public string CertificateCode { get; set; }
+        public string? CertificateCode { get; set; }
 
         public bool IsDeleted { get; set; }
     }
