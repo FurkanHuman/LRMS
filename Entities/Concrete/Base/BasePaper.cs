@@ -51,6 +51,8 @@ namespace Entities.Concrete.Base
         [Required]
         public TechnicalNumber TechnicalNumber { get; set; }
 
+        public TechnicalPlaceholder? TechnicalPlaceholder { get; set; }
+
         public bool IsDeleted { get; set; }
 
     }
