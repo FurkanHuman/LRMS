@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Base
 {
-    public class FirstPagePersonBase : IEntity
+    public class FirstPagePersonBase
     {
         [Key, JsonIgnore]
         public int Id { get; set; }

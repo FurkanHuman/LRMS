@@ -5,17 +5,8 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Base
 {
-    public class BasePaper : IEntity
+    public class BasePaper : MaterialBase
     {
-        [Key, JsonIgnore]
-        public int Id { get; set; }
-
-        [Required, MaxLength(512)]
-        public string Name { get; set; }
-
-        [Required]
-        public List<Category> Categorys { get; set; }
-
         [Required]
         public List<Writer> Writers { get; set; }
 
@@ -43,17 +34,14 @@ namespace Entities.Concrete.Base
         public List<Interpreters> Interpreters { get; set; }
 
         [Required]
+        public TechnicalNumber TechnicalNumber { get; set; }
+
+        [Required]
         public Edition Edition { get; set; }
 
         [Required]
         public Publisher Publisher { get; set; }
 
-        [Required]
-        public TechnicalNumber TechnicalNumber { get; set; }
-
-        public TechnicalPlaceholder? TechnicalPlaceholder { get; set; }
-
         public bool IsDeleted { get; set; }
-
     }
 }
