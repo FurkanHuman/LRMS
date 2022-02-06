@@ -15,7 +15,7 @@ namespace Entities.Concrete.Infos
         public ulong StockNumber { get; set; }
 
         [Required]
-        public string WhereMaterial { get; set; }
+        public string WhereIsMaterial { get; set; }
 
         public bool IsDeleted { get; set; }
 
