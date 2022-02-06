@@ -6,10 +6,10 @@ namespace Entities.Concrete.Infos
 {
     public class CoverCap : IEntity
     {// kitap kapağı tipi, karton, deri,  vs vs
-        [Key,JsonIgnore]
+        [Key, JsonIgnore]
         public int Id { get; set; }
-        
-        [Required,MinLength(2)]
+
+        [Required, MinLength(2)]
         public string BookSkinType { get; set; }
     }
 }

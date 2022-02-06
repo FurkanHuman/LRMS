@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class CategoryConstants:BaseConstants
+    public class CategoryConstants : BaseConstants
     {
         public const string CategoryNameNull = "Category name is empty.";
         public const string CategoryNameExist = "Category name is exist.";

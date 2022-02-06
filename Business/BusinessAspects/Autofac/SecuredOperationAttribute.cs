@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Business.Constants;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using Core.Extensions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
@@ -14,12 +10,12 @@ namespace Business.BusinessAspects.Autofac
     public class SecuredOperationAttribute : MethodInterceptionAttribute
     {
         private string[] _roles;
-        private  IHttpContextAccessor _httpContextAccessor;
+        private IHttpContextAccessor _httpContextAccessor;
 
         public SecuredOperationAttribute(string roles)
         {
             _roles = roles.Split(',');
-            _httpContextAccessor =  ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
 
         }
 
@@ -29,7 +25,7 @@ namespace Business.BusinessAspects.Autofac
             foreach (string role in _roles)
                 if (roleClaims.Contains(role))
                     return;
-                
+
             throw new Exception(/* mesaj gelecek*/);
         }
     }

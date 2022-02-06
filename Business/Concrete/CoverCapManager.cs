@@ -65,7 +65,7 @@ namespace Business.Concrete
 
         private IResult CoverCapChecker(CoverCap coverCap)
         {
-            bool r = _coverCapDal.GetAll(cc=>cc.BookSkinType.ToLowerInvariant().Contains(coverCap.BookSkinType.ToLowerInvariant())).Any();
+            bool r = _coverCapDal.GetAll(cc => cc.BookSkinType.ToLowerInvariant().Contains(coverCap.BookSkinType.ToLowerInvariant())).Any();
             return r
                 ? new ErrorResult(CoverCapConstants.CoverCapNameExist)
                 : new SuccessResult();

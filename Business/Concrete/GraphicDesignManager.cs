@@ -26,7 +26,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(GraphicDesignNameOrSurnameExist(entity));
             if (result != null)
                 return result;
- 
+
             _graphicDesignDal.Add(entity);
             return new SuccessResult(GraphicDesignConstants.AddSuccess);
         }
@@ -50,7 +50,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDesign> GetById(int id)
         {
-            return new SuccessDataResult<GraphicDesign>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted),GraphicDesignConstants.DataGet);
+            return new SuccessDataResult<GraphicDesign>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted), GraphicDesignConstants.DataGet);
         }
 
         public IDataResult<GraphicDesign> GetByName(string name)

@@ -89,8 +89,8 @@ namespace Business.Concrete
             List<Publisher> publishers = _publisherDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
             && f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites+ ", " + PublisherConstants.AddressLengthLess)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites );
+                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites + ", " + PublisherConstants.AddressLengthLess)
+                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites);
         }
 
         public IDataResult<List<Publisher>> GetList()

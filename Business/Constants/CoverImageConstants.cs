@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class CoverImageConstants:BaseConstants
+    public class CoverImageConstants : BaseConstants
     {
         public static readonly string[] CoverImageExtension = { ".jpeg", ".jpg", ".png", ".gif", ".pdf", ".bmp", ".docx", ".doc", ".tiff" };
         public const string DataStatusUnchanged = "Data status unchanged.";

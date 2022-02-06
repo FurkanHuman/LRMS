@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Core.Utilities.IoC;
+﻿using Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Extensions
@@ -13,7 +10,7 @@ namespace Core.Extensions
         {
             foreach (var module in modules)
             {
-               module.Load(services); 
+                module.Load(services);
             }
 
             return ServiceTool.Create(services);

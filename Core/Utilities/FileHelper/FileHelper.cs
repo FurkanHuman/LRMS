@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Core.Utilities.FileHelper
 {
-    public class FileHelper:IFileHelper
+    public class FileHelper : IFileHelper
     {
         public string FullPath { get; set; }
 

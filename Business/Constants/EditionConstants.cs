@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class EditionConstants:BaseConstants
+    public class EditionConstants : BaseConstants
     {
         public const string AddressNotFound = "address not found.";
         public const string AddressLengthLess = "length must be greater than 5 characters";

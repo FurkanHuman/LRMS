@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class CoverCapConstants:BaseConstants
+    public class CoverCapConstants : BaseConstants
     {
         public const string CoverCapNameNull = "Cover Cap name is empty.";
         public const string CoverCapNameExist = "Cover Cap name is exist.";

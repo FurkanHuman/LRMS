@@ -50,7 +50,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDirector> GetById(int id)
         {
-            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id && !i.IsDeleted),GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id && !i.IsDeleted), GraphicDirectorConstants.DataGet);
         }
 
         public IDataResult<GraphicDirector> GetByName(string name)
@@ -74,10 +74,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll().ToList(), GraphicDirectorConstants.DataGet);
         }
 
-        private  IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)
+        private IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)
         {
-            bool result =_graphicDirectorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _graphicDirectorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
             return result
                 ? new ErrorResult(GraphicDirectorConstants.NameOrSurnameExists)
                 : new SuccessResult(GraphicDirectorConstants.DataGet);

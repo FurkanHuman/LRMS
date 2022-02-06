@@ -29,10 +29,10 @@ namespace Entities.Concrete.Base
         public List<Editor> Editors { get; set; }
 
         [Required]
-        public List<Director> Directors{ get; set; }
+        public List<Director> Directors { get; set; }
 
         [Required]
-        public List<GraphicDirector> GraphicDirectors  { get; set; }
+        public List<GraphicDirector> GraphicDirectors { get; set; }
 
         [Required]
         public List<GraphicDesign> GraphicDesigns { get; set; }

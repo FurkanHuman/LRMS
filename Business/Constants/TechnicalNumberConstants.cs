@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class TechnicalNumberConstants: BaseConstants
+    public class TechnicalNumberConstants : BaseConstants
     {
         public const string StockNumberFetched = "Stock number fetched.";
         public const string StockCodeEmpty = "Stock code not fetched.";

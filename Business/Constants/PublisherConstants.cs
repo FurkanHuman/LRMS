@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class PublisherConstants:BaseConstants
+    public class PublisherConstants : BaseConstants
     {
         public const string DevNotes = "I know Not runing";
         public const string AddressNotFound = "address not found.";
@@ -25,6 +25,6 @@ namespace Business.Constants
         public const string PublisherWebAddressNotNull = "Publisher web address not null";
         public const string PublisherPhoneNotNull = "Publisher phone not null";
         public const string PublisherEquals = "publishers cannot be the same";
-        public const string DateOfPublicationNull= "date year cannot be empty";
+        public const string DateOfPublicationNull = "date year cannot be empty";
     }
 }

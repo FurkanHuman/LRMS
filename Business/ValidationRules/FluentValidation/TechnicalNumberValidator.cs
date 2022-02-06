@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Business.Concrete
 {
-    public class TechnicalNumberValidator:AbstractValidator<TechnicalNumber>
+    public class TechnicalNumberValidator : AbstractValidator<TechnicalNumber>
     {
         public TechnicalNumberValidator()
         {

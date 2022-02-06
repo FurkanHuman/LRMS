@@ -20,7 +20,7 @@ namespace Business.Concrete
             _directorDal = directorDal;
         }
 
-        [ValidationAspect(typeof(DirectorValidator),Priority=1)]
+        [ValidationAspect(typeof(DirectorValidator), Priority = 1)]
         public IResult Add(Director entity)
         {
             IResult result = BusinessRules.Run(DirectorNameOrSurnameExist(entity));
@@ -46,7 +46,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Director>> GetByFilterList(Expression<Func<Director, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(),DirectorConstants.DataGet);
+            return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }
 
         public IDataResult<Director> GetById(int id)
@@ -54,7 +54,7 @@ namespace Business.Concrete
             Director director = _directorDal.Get(i => i.Id == id && !i.IsDeleted);
             return director == null ?
                 new ErrorDataResult<Director>(DirectorConstants.DataNotGet) :
-                new SuccessDataResult<Director>(director,DirectorConstants.DataGet);
+                new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
         }
 
         public IDataResult<Director> GetByName(string name)

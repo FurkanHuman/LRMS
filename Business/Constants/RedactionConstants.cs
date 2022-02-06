@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class RedactionConstants:BaseConstants
+    public class RedactionConstants : BaseConstants
     {
 
         public const string RedactionNameNull = "Writer name is null.";

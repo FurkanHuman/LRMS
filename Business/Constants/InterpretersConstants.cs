@@ -2,7 +2,7 @@
 
 namespace Business.Constants
 {
-    public class InterpretersConstants:BaseConstants
+    public class InterpretersConstants : BaseConstants
     {
         public const string InterpretersNull = "Interpreters is null.";
         public const string InterpretersNameLengthNotEnough = "Interpreters name length is insufficient.";
