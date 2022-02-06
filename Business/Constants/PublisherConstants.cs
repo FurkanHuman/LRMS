@@ -1,11 +1,9 @@
-﻿namespace Business.Constants
+﻿using Business.Constants.Base;
+
+namespace Business.Constants
 {
-    public static class PublisherConstants
+    public class PublisherConstants:BaseConstants
     {
-        public const string AddSucces = "Adding succeeded.";
-        public const string UpdateSuccess = "Update success.";
-        public const string DataGet = "Data fetch succeeded.";
-        public const string DataNotGet = "Data not get.";
         public const string DevNotes = "I know Not runing";
         public const string AddressNotFound = "address not found.";
         public const string AddressLengthLess = "length must be greater than 5 characters";
@@ -27,6 +25,6 @@
         public const string PublisherWebAddressNotNull = "Publisher web address not null";
         public const string PublisherPhoneNotNull = "Publisher phone not null";
         public const string PublisherEquals = "publishers cannot be the same";
-        public const string DeleteSuccess = "Delete Success";
+        public const string DateOfPublicationNull= "date year cannot be empty";
     }
 }
