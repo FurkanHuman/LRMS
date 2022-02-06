@@ -21,7 +21,7 @@ namespace Entities.Concrete.Infos
 
         public ulong? FaxNumber { get; set; }
 
-        public DateTime? DateOfPublication { get; set; }
+        public DateTime DateOfPublication { get; set; }
 
         [Required]
         public string WebSite { get; set; }

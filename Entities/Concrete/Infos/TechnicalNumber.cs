@@ -8,9 +8,9 @@ namespace Entities.Concrete.Infos
         [Key]
         public int Id { get; set; }
 
-        public long? Barcode { get; set; }
+        public long Barcode { get; set; }
 
-        public ulong? ISBN { get; set; }
+        public ulong ISBN { get; set; }
 
         public ulong? ISSN { get; set; }
 
