@@ -15,6 +15,6 @@ namespace Business.Abstract
         IDataResult<List<Edition>> GetList();
         IResult Add(Edition edition);
         IResult Delete(Edition edition);
-        IResult Update(Edition oldEdition, Edition newEdition);
+        IResult Update(Edition edition);
     }
 }

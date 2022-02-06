@@ -9,6 +9,7 @@ namespace Business.Abstract
         IDataResult<Category> GetByName(string name);
         IDataResult<List<Category>> GetList();
         IResult Add(Category category);
-        IResult Update(Category category, string changedName);
+        IResult Delete(Category category);
+        IResult Update(Category category);
     }
 }
