@@ -13,5 +13,6 @@ namespace Business.Constants
         public const string AddedSuccess = "Technical numbers added. ";
         public const string CertificateCodeNull = "Certificate Code is empty";
         public const string IdNull = "Id is null.";
+        public const string BarcodeNull="Barcode is null.";
     }
 }
