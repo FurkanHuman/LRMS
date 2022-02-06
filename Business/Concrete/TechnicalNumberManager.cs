@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -17,6 +19,8 @@ namespace Business.Concrete
             _technicalNumberDal = technicalNumberDal;
         }
 
+
+        [ValidationAspect(typeof(TechnicalNumberValidator), Priority = 1)]
         public IResult Add(TechnicalNumber technicalNumber)
         {
             technicalNumber.IsDeleted = false;

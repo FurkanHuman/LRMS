@@ -28,19 +28,19 @@ namespace Business.Concrete
                 return result;
  
             _graphicDesignDal.Add(entity);
-            return new SuccessResult(GraphicDesignConstants.AddSucces);
+            return new SuccessResult(GraphicDesignConstants.AddSuccess);
         }
 
         public IResult Delete(GraphicDesign entity)
         {
             _graphicDesignDal.Delete(entity);
-            return new SuccessResult(GraphicDesignConstants.DeleteSucces);
+            return new SuccessResult(GraphicDesignConstants.DeleteSuccess);
         }
 
         public IResult Update(GraphicDesign entity)
         {
             _graphicDesignDal.Update(entity);
-            return new SuccessResult(GraphicDesignConstants.UpdateSucces);
+            return new SuccessResult(GraphicDesignConstants.UpdateSuccess);
         }
 
         public IDataResult<List<GraphicDesign>> GetByFilterList(Expression<Func<GraphicDesign, bool>>? filter = null)
@@ -78,8 +78,8 @@ namespace Business.Concrete
         {
             bool result = _graphicDesignDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
-            return !result
-                ? new ErrorResult(GraphicDesignConstants.NameOrSurnameExist)
+            return result
+                ? new ErrorResult(GraphicDesignConstants.NameOrSurnameExists)
                 : new SuccessResult(GraphicDesignConstants.DataGet);
         }
     }

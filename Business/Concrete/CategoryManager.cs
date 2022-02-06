@@ -19,23 +19,23 @@ namespace Business.Concrete
 
         public IResult Add(Category category)
         {
-            IResult result = BusinessRules.Run(CategoryChecker(category));
+            IResult result = BusinessRules.Run(CategoryNameChecker(category));
             if (result != null)
                 return result;
 
             _categoryDal.Add(category);
-            return new SuccessResult(CategoryConstants.AddSucces);
+            return new SuccessResult(CategoryConstants.AddSuccess);
         }
 
-        public IResult Update(Category category, string changedName)
+        public IResult Delete(Category category)
         {
-            IResult result = BusinessRules.Run(CategoryChecker(category), ChangedNameChecker(changedName));
-            if (result != null)
-                return result;
+            _categoryDal.Delete(category);
+            return new SuccessResult(CategoryConstants.DeleteSuccess);
+        }
 
-            category.CategoryName = changedName;
+        public IResult Update(Category category)
+        {
             _categoryDal.Update(category);
-
             return new SuccessResult(CategoryConstants.UpdateSuccess);
         }
 
@@ -62,24 +62,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(), CategoryConstants.DataGet);
         }
 
-        private static IResult ChangedNameChecker(string changedName)
+        private IResult CategoryNameChecker(Category category)
         {
-            if (changedName.Length <= 2)
-                return new ErrorResult(CategoryConstants.KeywordNumberCounter);
-            if (changedName == string.Empty)
-                return new ErrorResult(CategoryConstants.CategoryNameNull);
-            return new SuccessResult();
-        }
+            bool res = _categoryDal.GetAll(c => c.CategoryName.ToLowerInvariant().Contains(category.CategoryName.ToLowerInvariant())).Any();
 
-        private IResult CategoryChecker(Category category)
-        {
-            if (category == null)
-                return new ErrorResult(CategoryConstants.CategoryNameNull);
-            if (category.CategoryName == null || category.CategoryName == string.Empty)
-                return new ErrorResult(CategoryConstants.CategoryNameNull);
-            if (_categoryDal.Get(x => x.CategoryName.ToLower() == category.CategoryName.ToLower()) != null)
-                return new ErrorResult(CategoryConstants.CategoryNameExist);
-            return new SuccessResult();
+            return res
+                ? new ErrorResult(CategoryConstants.DataNotGet)
+                : new SuccessResult(CategoryConstants.DataGet);
+
         }
     }
 }

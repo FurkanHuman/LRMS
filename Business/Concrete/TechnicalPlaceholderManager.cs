@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -21,23 +23,25 @@ namespace Business.Concrete
             _placeholderDal = placeholderDal;
         }
 
+
+        [ValidationAspect(typeof(TechnicalPlaceholderValidator), Priority = 1)]
         public IResult Add(TechnicalPlaceholder technicalPlaceholder)
         {
             technicalPlaceholder.IsDeleted = false;
             _placeholderDal.Add(technicalPlaceholder);
-            return new SuccessResult(TechnicalPlaceholderConstants.AddSucces);
+            return new SuccessResult(TechnicalPlaceholderConstants.AddSuccess);
         }
 
         public IResult Delete(TechnicalPlaceholder technicalPlaceholder)
         {
             _placeholderDal.Delete(technicalPlaceholder);
-            return new SuccessResult(TechnicalPlaceholderConstants.DeleteSucces);
+            return new SuccessResult(TechnicalPlaceholderConstants.DeleteSuccess);
         }
 
         public IResult Update(TechnicalPlaceholder technicalPlaceholder)
         {
             _placeholderDal.Update(technicalPlaceholder);
-            return new SuccessResult(TechnicalPlaceholderConstants.UpdateSucces);
+            return new SuccessResult(TechnicalPlaceholderConstants.UpdateSuccess);
         }
 
         public IDataResult<TechnicalPlaceholder> GetById(int id)

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -10,7 +12,6 @@ namespace Business.Concrete
 {
     public class CoverCapManager : ICoverCapService
     {
-
         private readonly ICoverCapDal _coverCapDal;
 
         public CoverCapManager(ICoverCapDal coverCapDal)
@@ -18,6 +19,7 @@ namespace Business.Concrete
             _coverCapDal = coverCapDal;
         }
 
+        [ValidationAspect(typeof(CoverCapValidator), Priority = 1)]
         public IResult Add(CoverCap coverCap)
         {
             IResult result = BusinessRules.Run(CoverCapChecker(coverCap));
@@ -25,18 +27,18 @@ namespace Business.Concrete
                 return result;
 
             _coverCapDal.Add(coverCap);
-            return new SuccessResult(CoverCapConstants.AddSucces);
+            return new SuccessResult(CoverCapConstants.AddSuccess);
         }
 
-        public IResult Update(CoverCap coverCap, string changedName)
+        public IResult Delete(CoverCap coverCap)
         {
-            IResult result = BusinessRules.Run(CoverCapChecker(coverCap), ChangedNameChecker(changedName));
-            if (result != null)
-                return result;
+            _coverCapDal.Delete(coverCap);
+            return new SuccessResult(CoverCapConstants.DeleteSuccess);
+        }
 
-            coverCap.BookSkinType = changedName;
+        public IResult Update(CoverCap coverCap)
+        {
             _coverCapDal.Update(coverCap);
-
             return new SuccessResult(CoverCapConstants.UpdateSuccess);
         }
 
@@ -46,12 +48,11 @@ namespace Business.Concrete
             return coverCap == null
                 ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
-
         }
 
         public IDataResult<CoverCap> GetByName(string name)
         {
-            CoverCap? coverCap = _coverCapDal.Get(u => u.BookSkinType == name);
+            CoverCap? coverCap = _coverCapDal.Get(u => u.BookSkinType.ToUpperInvariant().Contains(name.ToUpperInvariant()));
             return coverCap == null
                 ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
@@ -62,24 +63,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CoverCap>>((List<CoverCap>)_coverCapDal.GetAll());
         }
 
-        private static IResult ChangedNameChecker(string changedName)
-        {
-            if (changedName.Length <= 2)
-                return new ErrorResult(CoverCapConstants.KeywordNumberCounter);
-            if (changedName == string.Empty)
-                return new ErrorResult(CoverCapConstants.CoverCapNameNull);
-            return new SuccessResult();
-        }
-
         private IResult CoverCapChecker(CoverCap coverCap)
         {
-            if (coverCap == null)
-                return new ErrorResult(CoverCapConstants.CoverCapNameNull);
-            if (coverCap.BookSkinType == null || coverCap.BookSkinType == string.Empty)
-                return new ErrorResult(CoverCapConstants.CoverCapNameNull);
-            if (_coverCapDal.Get(x => x.BookSkinType.ToLower() == coverCap.BookSkinType.ToLower()) != null)
-                return new ErrorResult(CoverCapConstants.CoverCapNameExist);
-            return new SuccessResult();
+            bool r = _coverCapDal.GetAll(cc=>cc.BookSkinType.ToLowerInvariant().Contains(coverCap.BookSkinType.ToLowerInvariant())).Any();
+            return r
+                ? new ErrorResult(CoverCapConstants.CoverCapNameExist)
+                : new SuccessResult();
         }
     }
 }

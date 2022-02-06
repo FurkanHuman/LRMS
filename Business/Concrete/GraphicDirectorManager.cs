@@ -28,19 +28,19 @@ namespace Business.Concrete
             if (result != null)
                 return result;
             _graphicDirectorDal.Add(entity);
-            return new SuccessResult(GraphicDirectorConstants.AddSucces);
+            return new SuccessResult(GraphicDirectorConstants.AddSuccess);
         }
 
         public IResult Delete(GraphicDirector entity)
         {
             _graphicDirectorDal.Delete(entity);
-            return new SuccessResult(GraphicDirectorConstants.DeleteSucces);
+            return new SuccessResult(GraphicDirectorConstants.DeleteSuccess);
         }
 
         public IResult Update(GraphicDirector entity)
         {
             _graphicDirectorDal.Update(entity);
-            return new SuccessResult(GraphicDirectorConstants.UpdateSucces);
+            return new SuccessResult(GraphicDirectorConstants.UpdateSuccess);
         }
 
         public IDataResult<List<GraphicDirector>> GetByFilterList(Expression<Func<GraphicDirector, bool>>? filter = null)
@@ -76,14 +76,11 @@ namespace Business.Concrete
 
         private  IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)
         {
-
             bool result =_graphicDirectorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
-            return !result
-                ? new ErrorResult(GraphicDirectorConstants.NameOrSurnameExist)
+            return result
+                ? new ErrorResult(GraphicDirectorConstants.NameOrSurnameExists)
                 : new SuccessResult(GraphicDirectorConstants.DataGet);
-
         }
-
     }
 }

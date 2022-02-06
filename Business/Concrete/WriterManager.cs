@@ -28,19 +28,19 @@ namespace Business.Concrete
                 return result;
             entity.IsDeleted = false;
             _writerDal.Add(entity);
-            return new SuccessResult(WriterConstants.AddSucces);
+            return new SuccessResult(WriterConstants.AddSuccess);
         }
 
         public IResult Delete(Writer entity)
         {
             _writerDal.Delete(entity);
-            return new SuccessResult(WriterConstants.AddSucces);
+            return new SuccessResult(WriterConstants.DeleteSuccess);
         }
 
         public IResult Update(Writer entity)
         {
             _writerDal.Update(entity);
-            return new SuccessResult(WriterConstants.AddSucces);
+            return new SuccessResult(WriterConstants.UpdateSuccess);
         }
 
         public IDataResult<List<Writer>> GetByFilterList(Expression<Func<Writer, bool>>? filter = null)
@@ -85,7 +85,7 @@ namespace Business.Concrete
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())
             && w.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null).Any();
-            return !result
+            return result
                 ? new ErrorResult(WriterConstants.WriterNameOrSurnameExist)
                 : new SuccessResult(WriterConstants.DataGet);
         }

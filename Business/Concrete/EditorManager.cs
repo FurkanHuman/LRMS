@@ -29,19 +29,19 @@ namespace Business.Concrete
 
             entity.IsDeleted = false;
             _editorDal.Add(entity);
-            return new SuccessResult(EditorConstants.AddSucces);
+            return new SuccessResult(EditorConstants.AddSuccess);
         }
 
         public IResult Delete(Editor entity)
         {
             _editorDal.Delete(entity);
-            return new SuccessResult(EditorConstants.EfDeletedSuccsess);
+            return new SuccessResult(EditorConstants.DeleteSuccess);
         }
 
         public IResult Update(Editor entity)
         {
             _editorDal.Update(entity);
-            return new SuccessResult(EditorConstants.EfDeletedSuccsess);
+            return new SuccessResult(EditorConstants.UpdateSuccess);
         }
 
         public IDataResult<Editor> GetById(int id)
@@ -83,8 +83,8 @@ namespace Business.Concrete
 
             bool result = _editorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
-            return !result
-                ? new ErrorResult(EditorConstants.NameOrSurnameExist)
+            return result
+                ? new ErrorResult(EditorConstants.NameOrSurnameExists)
                 : new SuccessResult(EditorConstants.DataGet);
 
         }

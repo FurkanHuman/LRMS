@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -18,6 +20,8 @@ namespace Business.Concrete
             _publisherDal = publisherDal;
         }
 
+
+        [ValidationAspect(typeof(PublisherValidator), Priority = 1)]
         public IResult Add(Publisher publisher)
         {
             IResult result = BusinessRules.Run(PublisherControl(publisher));
@@ -25,28 +29,18 @@ namespace Business.Concrete
                 return result;
 
             _publisherDal.Add(publisher);
-            return new SuccessResult(PublisherConstants.AddSucces);
+            return new SuccessResult(PublisherConstants.AddSuccess);
         }
 
         public IResult Delete(Publisher publisher)
         {
-            IResult result = BusinessRules.Run(PublisherControl(publisher));
-            if (result != null)
-                return result;
-
-            Publisher delPublisher = _publisherDal.Get(u => u.IsDeleted);
-            _publisherDal.Delete(delPublisher);
+            _publisherDal.Delete(publisher);
             return new SuccessResult(PublisherConstants.DeleteSuccess);
         }
 
-        public IResult Update(Publisher oldPublisher, Publisher newPublisher)
+        public IResult Update(Publisher publisher)
         {
-            IResult result = BusinessRules.Run(PublisherUpdateControl(oldPublisher, newPublisher));
-            if (result != null)
-                return result;
-
-            oldPublisher = newPublisher;
-            _publisherDal.Update(oldPublisher);
+            _publisherDal.Update(publisher);
             return new SuccessResult(PublisherConstants.UpdateSuccess);
         }
 
@@ -95,8 +89,8 @@ namespace Business.Concrete
             List<Publisher> publishers = _publisherDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
             && f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites + ", " + PublisherConstants.AddressLengthLess);
+                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites+ ", " + PublisherConstants.AddressLengthLess)
+                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites );
         }
 
         public IDataResult<List<Publisher>> GetList()
@@ -104,27 +98,18 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Publisher>>((List<Publisher>)_publisherDal.GetAll(f => !f.IsDeleted), PublisherConstants.AllDataGet);
         }
 
-        private static IResult PublisherControl(Publisher publisher)
+        private IResult PublisherControl(Publisher publisher)
         {
-            if (publisher == null)
-                return new ErrorResult(PublisherConstants.PublisherNotNull);
-            if (publisher.Name.Equals(null) || publisher.Name.Equals(string.Empty))
-                return new ErrorResult(PublisherConstants.PublisherNameNotNull);
-            if (publisher.Address.Equals(null) || publisher.Address.Equals(string.Empty))
-                return new ErrorResult(PublisherConstants.PublisherAddressNotNull);
-            if (publisher.WebSite.Equals(null) || publisher.WebSite.Equals(string.Empty))
-                return new ErrorResult(PublisherConstants.PublisherWebAddressNotNull);
-            if (((char)publisher.PhoneNumber).Equals(null) || ((char)publisher.PhoneNumber).Equals(string.Empty))
-                return new ErrorResult(PublisherConstants.PublisherPhoneNotNull);
+            bool result = _publisherDal.GetAll(p =>
+               p.Name.ToLowerInvariant().Equals(publisher.Name.ToLowerInvariant())
+            && p.Address.ToLowerInvariant().Contains(publisher.Address.ToLowerInvariant())
+            && p.PhoneNumber.Equals(publisher.PhoneNumber)
+            && p.DateOfPublication.Equals(publisher.DateOfPublication)
+            && p.WebSite.ToLower().Contains(publisher.WebSite.ToLower())).Any();
 
-            return new SuccessResult();
-        }
-
-        private static IResult PublisherUpdateControl(Publisher oldPublisher, Publisher newPublisher)
-        {
-            return oldPublisher == newPublisher
+            return result
                 ? new ErrorResult(PublisherConstants.PublisherEquals)
-                : new SuccessResult();
+                : new SuccessResult(PublisherConstants.AllDataGet);
         }
     }
 }

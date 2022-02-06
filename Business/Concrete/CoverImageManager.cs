@@ -33,7 +33,7 @@ namespace Business.Concrete
             coverImage.IsDeleted = false;
 
             _coverImage.Add(coverImage);
-            return new SuccessResult(CoverImageConstants.AddSucces);
+            return new SuccessResult(CoverImageConstants.AddSuccess);
         }
 
         public IResult EfDelete(CoverImage coverImage, bool isdel)

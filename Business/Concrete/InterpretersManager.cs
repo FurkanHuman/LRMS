@@ -30,19 +30,19 @@ namespace Business.Concrete
 
             entity.IsDeleted = false;
             _interpretersDal.Add(entity);
-            return new SuccessResult(InterpretersConstants.AddSucces);
+            return new SuccessResult(InterpretersConstants.AddSuccess);
         }
 
         public IResult Delete(Interpreters entity)
         {
             _interpretersDal.Delete(entity);
-            return new SuccessResult(InterpretersConstants.DeleteSucces);
+            return new SuccessResult(InterpretersConstants.DeleteSuccess);
         }
 
         public IResult Update(Interpreters entity)
         {
             _interpretersDal.Update(entity);
-            return new SuccessResult(InterpretersConstants.UpdateSucces);
+            return new SuccessResult(InterpretersConstants.UpdateSuccess);
         }
 
         public IDataResult<Interpreters> GetById(int id)
@@ -88,8 +88,8 @@ namespace Business.Concrete
         {
             bool result = _interpretersDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
-            return !result
-                ? new ErrorResult(InterpretersConstants.NameOrSurnameExist)
+            return result
+                ? new ErrorResult(InterpretersConstants.NameOrSurnameExists)
                 : new SuccessResult(InterpretersConstants.DataGet);
         }
     }

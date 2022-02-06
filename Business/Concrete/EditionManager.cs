@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -18,6 +20,7 @@ namespace Business.Concrete
             _editionDal = editionDal;
         }
 
+        [ValidationAspect(typeof(EditionValidator), Priority = 1)]
         public IResult Add(Edition edition)
         {
             IResult result = BusinessRules.Run(EditionControl(edition));
@@ -25,7 +28,7 @@ namespace Business.Concrete
                 return result;
 
             _editionDal.Add(edition);
-            return new SuccessResult(EditionConstants.AddSucces);
+            return new SuccessResult(EditionConstants.AddSuccess);
         }
 
         public IResult Delete(Edition edition)
@@ -39,13 +42,9 @@ namespace Business.Concrete
             return new SuccessResult(EditionConstants.DeleteSuccess);
         }
 
-        public IResult Update(Edition oldEdition, Edition newEdition)
+        public IResult Update(Edition edition)
         {
-            IResult result = BusinessRules.Run(EditionUpdateControl(oldEdition, newEdition));
-            if (result != null)
-                return result;
-            oldEdition = newEdition;
-            _editionDal.Update(oldEdition);
+            _editionDal.Update(edition);
             return new SuccessResult(EditionConstants.UpdateSuccess);
         }
 
@@ -111,29 +110,19 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Edition>>((List<Edition>)_editionDal.GetAll(f => !f.IsDeleted), EditionConstants.AllDataGet);
         }
 
-        private static IResult EditionUpdateControl(Edition oldEdition, Edition newEdition)
+        private IResult EditionControl(Edition edition)
         {
-            return oldEdition == newEdition
+            bool result = _editionDal.GetAll(e =>
+               e.Name.ToLowerInvariant().Equals(edition.Name.ToLowerInvariant())
+            && e.Address.ToLowerInvariant().Contains(edition.Address.ToLowerInvariant())
+            && e.PhoneNumber.Equals(edition.PhoneNumber)
+            && e.DateOfPublication.Equals(edition.DateOfPublication)
+            && e.WebSite.ToLower().Contains(edition.WebSite.ToLower())
+            && e.EditionNumber.Equals(edition.EditionNumber)).Any();
+
+            return result
                 ? new ErrorResult(EditionConstants.EditionEquals)
-                : new SuccessResult();
-        }
-
-        private static IResult EditionControl(Edition edition)
-        {
-            if (edition == null)
-                return new ErrorResult(EditionConstants.EditionNotNull);
-            if (edition.Name.Equals(null) || edition.Name.Equals(string.Empty))
-                return new ErrorResult(EditionConstants.EditionNameNotNull);
-            if (edition.Address.Equals(null) || edition.Address.Equals(string.Empty))
-                return new ErrorResult(EditionConstants.EditionAddressNotNull);
-            if (edition.WebSite.Equals(null) || edition.WebSite.Equals(string.Empty))
-                return new ErrorResult(EditionConstants.EditionWebAddressNotNull);
-            if (((char)edition.PhoneNumber).Equals(null) || ((char)edition.PhoneNumber).Equals(string.Empty))
-                return new ErrorResult(EditionConstants.EditionPhoneNotNull);
-            if (edition.EditionNumber.Equals(null) || edition.EditionNumber.Equals(string.Empty))
-                return new ErrorResult(EditionConstants.EditionNumberNull);
-
-            return new SuccessResult();
+                : new SuccessResult(PublisherConstants.AllDataGet);
         }
     }
 }

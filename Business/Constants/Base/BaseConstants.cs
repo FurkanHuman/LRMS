@@ -10,10 +10,10 @@ namespace Business.Constants.Base
     {
         protected BaseConstants() { }
 
-        public const string AddSucces = "Adding succeeded.";
-        public const string UpdateSucces = "Update succeeded.";
-        public const string DeleteSucces = "Delete succeeded.";
-        public const string NameOrSurnameExist = "Name or Surname conflicts";
+        public const string AddSuccess = "Adding succeeded.";
+        public const string UpdateSuccess = "Update succeeded.";
+        public const string DeleteSuccess = "Delete succeeded.";
+        public const string NameOrSurnameExists = "Name or Surname conflicts.";
         public const string DataNotGet = "Data not get.";
         public const string DataNotSet = "Data not set.";
         public const string DataGet = "Data fetch succeeded.";

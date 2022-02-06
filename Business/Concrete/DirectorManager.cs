@@ -29,19 +29,19 @@ namespace Business.Concrete
 
             entity.IsDeleted = false;
             _directorDal.Add(entity);
-            return new SuccessResult(DirectorConstants.AddSucces);
+            return new SuccessResult(DirectorConstants.AddSuccess);
         }
 
         public IResult Delete(Director entity)
         {
             _directorDal.Delete(entity);
-            return new SuccessResult(DirectorConstants.DeleteSucces);
+            return new SuccessResult(DirectorConstants.DeleteSuccess);
         }
 
         public IResult Update(Director entity)
         {
             _directorDal.Update(entity);
-            return new SuccessResult(EditorConstants.UpdateSucces);
+            return new SuccessResult(EditorConstants.UpdateSuccess);
         }
 
         public IDataResult<List<Director>> GetByFilterList(Expression<Func<Director, bool>>? filter = null)
@@ -82,8 +82,8 @@ namespace Business.Concrete
         {
             bool result = _directorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
-            return !result
-                ? new ErrorResult(DirectorConstants.NameOrSurnameExist)
+            return result
+                ? new ErrorResult(DirectorConstants.NameOrSurnameExists)
                 : new SuccessResult(DirectorConstants.DataGet);
         }
     }
