@@ -7,7 +7,7 @@ namespace Business.Constants
     {
         public const string WriterNameNull = "Writer name is null.";
         public const string WriterSurnameNull = "Writer Surname is null.";
-        public const string WriterNameLengthNotEnough = "Redaction name length is insufficient.";
+        public const string WriterNameLengthNotEnough = "Writer name length is insufficient.";
         public const string WriterEquals = "Data equals.";
         public const string WriterNameOrSurnameExist = "Name or Surname conflicts";
     }
