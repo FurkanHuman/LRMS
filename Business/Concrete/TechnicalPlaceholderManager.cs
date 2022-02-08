@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<TechnicalPlaceholder>> WhereIsMaterial(string whereMaterial)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.WhereMaterial.ToLowerInvariant().Contains(whereMaterial.ToLowerInvariant()) && !T.IsDeleted).ToList();
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.WhereIsMaterial.ToLowerInvariant().Contains(whereMaterial.ToLowerInvariant()) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
                 ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
