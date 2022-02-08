@@ -12,7 +12,6 @@ namespace Entities.Concrete.Base
         [MaxLength(32), Required]
         public string Name { get; set; }
 
-
         [MaxLength(32), Required]
         public string SurName { get; set; }
 
