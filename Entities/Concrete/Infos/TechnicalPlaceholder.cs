@@ -8,6 +8,8 @@ namespace Entities.Concrete.Infos
         [Key]
         public int Id { get; set; }
 
+        public Library Library { get; set; }
+
         [MaxLength(24)]
         public string? StockCode { get; set; }
 
