@@ -13,6 +13,7 @@ namespace DataAccess.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // I know Todo
             optionsBuilder.UseNpgsql("Host=localhost,Database=LRMS_DataBase;Username=postgres;Password=12345");
         }
         // entity Frontend
