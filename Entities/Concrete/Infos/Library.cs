@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
-    public class Library:IEntity
+    public class Library : IEntity
     {
         [Key, JsonIgnore]
         public ulong Id { get; set; }
