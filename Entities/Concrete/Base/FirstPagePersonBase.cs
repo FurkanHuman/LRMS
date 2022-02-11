@@ -1,5 +1,4 @@
-﻿using Core.Entities.Abstract;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Base
