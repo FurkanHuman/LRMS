@@ -18,13 +18,16 @@ namespace Entities.Concrete.Base
         [Required, MaxLength(512)]
         public string Description { get; set; }
 
-        [Required, MaxLength(512)]
-        public string State { get; set; }
-
         [Required]
         public List<Category> Categories { get; set; }
 
         [Required]
         public List<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
+
+        [Required]
+        public Dimension Dimension { get; set; }
+
+        [Required, MaxLength(512)]
+        public string State { get; set; }
     }
 }
