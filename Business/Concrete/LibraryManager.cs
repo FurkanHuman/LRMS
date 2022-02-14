@@ -7,11 +7,6 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -75,7 +70,7 @@ namespace Business.Concrete
 
         private IResult LibraryExistControl(Library library)
         {
-            bool resul = _libraryDal.GetAll(l=>
+            bool resul = _libraryDal.GetAll(l =>
             l.Name.ToLowerInvariant().Contains(library.Name.ToLowerInvariant())
             && l.Address.ToLowerInvariant().Contains(library.Address.ToLowerInvariant())).Any();
 

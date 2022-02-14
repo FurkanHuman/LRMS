@@ -8,7 +8,7 @@ namespace Business.Constants
         public const string BarcodeNull = "Barcode is empty";
         public const string StockNumberEmpty = "Stock number not fetched.";
         public const string WhereMaterialEmpty = "material placeholder cannot be empty.";
-        public const string StockNumberNotNull= "Stock number is not null.";
-        public const string LibraryEmpty="Library is empty.";
+        public const string StockNumberNotNull = "Stock number is not null.";
+        public const string LibraryEmpty = "Library is empty.";
     }
 }

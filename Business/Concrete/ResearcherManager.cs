@@ -7,12 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -76,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
         {
-           List<Researcher> researchers= _researcherDal.GetAll(n => n.NamePreAttachment.ToLowerInvariant().Contains(namePreAttachment.ToLowerInvariant()) && !n.IsDeleted).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.ToLowerInvariant().Contains(namePreAttachment.ToLowerInvariant()) && !n.IsDeleted).ToList();
             return researchers == null
                    ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -95,7 +90,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll().ToList(), ResearcherConstants.DataGet);
 
         }
-        
+
         private IResult ResearcherNameOrSurnameExist(Researcher entity)
         {
             bool result = _researcherDal.GetAll(r =>

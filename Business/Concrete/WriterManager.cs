@@ -72,7 +72,7 @@ namespace Business.Concrete
         public IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment)
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.ToLowerInvariant().Contains(namePreAttachment.ToLowerInvariant())
-            && !n.IsDeleted).ToList(),WriterConstants.DataGet);
+            && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
 
         public IDataResult<List<Writer>> GetList()

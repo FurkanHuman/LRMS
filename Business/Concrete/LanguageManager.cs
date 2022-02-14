@@ -7,15 +7,10 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class LanguageManager:ILanguageService
+    public class LanguageManager : ILanguageService
     {
         private readonly ILanguageDal _languageDal;
 
@@ -49,16 +44,16 @@ namespace Business.Concrete
 
         public IDataResult<List<Language>> Getlist()
         {
-            return new SuccessDataResult<List<Language>>(_languageDal.GetAll().ToList<Language>(),LanguageConstants.DataGet);
+            return new SuccessDataResult<List<Language>>(_languageDal.GetAll().ToList<Language>(), LanguageConstants.DataGet);
         }
 
         public IDataResult<Language> GetById(int id)
         {
-            Language language = _languageDal.Get(l=>l.Id==id&&!l.IsDeleted);
+            Language language = _languageDal.Get(l => l.Id == id && !l.IsDeleted);
 
-            return language==null
-                ? new ErrorDataResult<Language>(LanguageConstants.DataNotGet) 
-                :new SuccessDataResult<Language>(language,LanguageConstants.DataGet);
+            return language == null
+                ? new ErrorDataResult<Language>(LanguageConstants.DataNotGet)
+                : new SuccessDataResult<Language>(language, LanguageConstants.DataGet);
         }
 
         public IDataResult<Language> GetByLanguageName(string languageName)
@@ -72,8 +67,8 @@ namespace Business.Concrete
         private IResult CheckLanguageByExists(Language language)
         {
             Language languageExist = _languageDal.Get(l => l.LanguageName.ToLowerInvariant().Contains(language.LanguageName.ToLowerInvariant()));
-            return languageExist == null 
-                ? new SuccessResult() 
+            return languageExist == null
+                ? new SuccessResult()
                 : new ErrorResult(LanguageConstants.LanguageExist);
         }
     }
