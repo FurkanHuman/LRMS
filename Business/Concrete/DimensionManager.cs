@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -24,26 +25,26 @@ namespace Business.Concrete
         {
             IResult result = BusinessRules.Run(DimensionExist(dimension));
             if (result != null)
-                return new ErrorResult();
+                return result;
 
             _dimensionDal.Add(dimension);
-            return new SuccessResult();
+            return new SuccessResult(DimensionConstants.AddSuccess);
         }
 
         public IResult Delete(Dimension dimension)
         {
             _dimensionDal.Delete(dimension);
-            return new SuccessResult();
+            return new SuccessResult(DimensionConstants.DeleteSuccess);
         }
 
         public IResult Update(Dimension dimension)
         {
             IResult result = BusinessRules.Run(DimensionExist(dimension));
             if (result != null)
-                return new ErrorResult();
+                return result;
 
             _dimensionDal.Update(dimension);
-            return new SuccessResult();
+            return new SuccessResult(DimensionConstants.UpdateSuccess);
         }
 
         public IDataResult<Dimension> Get(Dimension dimension)
@@ -54,21 +55,21 @@ namespace Business.Concrete
             d.Height.Equals(dimension.Height));
 
             return dimensionGet == null
-                ? new ErrorDataResult<Dimension>()
-                : new SuccessDataResult<Dimension>();
+                ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<Dimension>(dimensionGet,DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetAll()
         {
-            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList());
+            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList(),DimensionConstants.DataGet);
         }
 
         public IDataResult<Dimension> GetById(int id)
         {
             Dimension dimensionGet = _dimensionDal.Get(d => d.Id.Equals(id));
             return dimensionGet == null
-                ? new ErrorDataResult<Dimension>()
-                : new SuccessDataResult<Dimension>(dimensionGet);
+                ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<Dimension>(dimensionGet,DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByX(double xMM)
@@ -76,8 +77,8 @@ namespace Business.Concrete
             List<Dimension> dimensionXmm = _dimensionDal.GetAll(d => d.Width.Equals(xMM)).ToList();
 
             return dimensionXmm == null
-                ? new ErrorDataResult<List<Dimension>>()
-                : new SuccessDataResult<List<Dimension>>(dimensionXmm);
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<List<Dimension>>(dimensionXmm,DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByY(double yMM)
@@ -85,8 +86,8 @@ namespace Business.Concrete
             List<Dimension> dimensionYmm = _dimensionDal.GetAll(d => d.Height.Equals(yMM)).ToList();
 
             return dimensionYmm == null
-                ? new ErrorDataResult<List<Dimension>>()
-                : new SuccessDataResult<List<Dimension>>(dimensionYmm);
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet) 
+                : new SuccessDataResult<List<Dimension>>(dimensionYmm, DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByZ(double zMM)
@@ -94,8 +95,8 @@ namespace Business.Concrete
             List<Dimension> dimensionZmm = _dimensionDal.GetAll(d => d.Length.Equals(zMM)).ToList();
 
             return dimensionZmm == null
-                ? new ErrorDataResult<List<Dimension>>()
-                : new SuccessDataResult<List<Dimension>>(dimensionZmm);
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet) 
+                : new SuccessDataResult<List<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
         }
 
         private IResult DimensionExist(Dimension dimension)
@@ -107,7 +108,7 @@ namespace Business.Concrete
 
             return dimensionCheck
                 ? new SuccessResult()
-                : new ErrorResult();
+                : new ErrorResult(DimensionConstants.AlreadyExists);
         }
     }
 }
