@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfCoverImageDal : EfEntityRepositoryBase<CoverImage, PostgreDbContext>, ICoverImageDal
+    public class EfImageDal : EfEntityRepositoryBase<Image, PostgreDbContext>, IImageDal
     {
     }
 }

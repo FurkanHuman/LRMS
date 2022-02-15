@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
-    public class CoverImage : IEntity
+    public class Image : IEntity
     {
         [Key, JsonIgnore]
         public int Id { get; set; }
