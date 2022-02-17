@@ -1,14 +1,37 @@
 ﻿using Core.Entities.Abstract;
 using Entities.Concrete.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Concrete.Infos;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Dissertation: MaterialBase, IEntity
+    public class Dissertation : MaterialBase, IEntity //  akedemik araştırma... tezin bir üstü
     {
+        [Required]
+        public University University { get; set; }
+
+        [Required]
+        public Researcher Researcher { get; set; }
+
+        [Required]
+        public Language Language { get; set; }
+
+        [Required]
+        public City City { get; set; }
+
+        [Required]
+        public ushort DateTimeYear { get; set; }
+
+        [Required]
+        public int DissertationNumber { get; set; }
+
+        [Required]
+        public bool PermissionStatus { get; set; }
+
+        [Required]
+        public bool ApprovalStatus { get; set; }
+
+        [Required]
+        public bool IsSecret { get; set; }
     }
 }
