@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Abstract;
 using Entities.Concrete.Base;
 
-namespace Entities
+namespace Entities.Concrete.Infos
 {
     public class Composer : FirstPagePersonBase, IEntity
     {

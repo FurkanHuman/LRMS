@@ -6,7 +6,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
-using Entities;
+using Entities.Concrete.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
