@@ -11,5 +11,7 @@ namespace Entities.Concrete.Infos
 
         [Required, MinLength(2)]
         public string BookSkinType { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
