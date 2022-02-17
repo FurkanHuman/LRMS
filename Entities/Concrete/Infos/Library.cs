@@ -15,7 +15,6 @@ namespace Entities.Concrete.Infos
         [Required, MaxLength(512)]
         public string Address { get; set; }
 
-        [Required]
         public bool IsDeleted { get; set; }
     }
 }
