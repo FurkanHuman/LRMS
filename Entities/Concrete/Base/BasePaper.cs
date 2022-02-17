@@ -9,10 +9,7 @@ namespace Entities.Concrete.Base
         public List<Writer> Writers { get; set; }
 
         [Required]
-        public CoverCap CoverCap { get; set; }
-
-        [Required]
-        public CoverImage CoverImage { get; set; }
+        public Image CoverImage { get; set; }
 
         [Required]
         public List<Editor> Editors { get; set; }
