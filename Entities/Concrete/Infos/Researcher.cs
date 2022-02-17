@@ -10,5 +10,7 @@ namespace Entities.Concrete.Infos
 
         [Required]
         public string Specialty { get; set; }
+
+        public University? University { get; set; }
     }
 }
