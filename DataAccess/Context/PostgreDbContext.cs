@@ -19,7 +19,7 @@ namespace DataAccess.Context
         // entity Frontend
         public DbSet<CoverCap> BookCovers { get; set; }
         public DbSet<Category> BookCategories { get; set; }
-        public DbSet<CoverImage> BookCoverImages { get; set; }
+        public DbSet<Image> BookCoverImages { get; set; }
 
         // entity Backend
         public DbSet<Editor> BookEditors { get; set; }

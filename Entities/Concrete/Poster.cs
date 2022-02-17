@@ -3,7 +3,7 @@ using Entities.Concrete.Base;
 
 namespace Entities.Concrete
 {
-    public class AcademicMagazine : Magazine, IEntity
+    public class Poster : MaterialBase, IEntity
     {
     }
 }
