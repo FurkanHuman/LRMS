@@ -24,6 +24,8 @@ namespace Entities.Concrete.Base
         [Required]
         public List<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
 
+        public EMaterialFile? EMaterialFile { get; set; }
+
         [Required]
         public Dimension Dimension { get; set; }
 
