@@ -5,5 +5,6 @@ namespace Entities.Concrete
 {
     public class NewsPaper : BasePaper, IEntity
     {
+        public DateTime Date { get; set; }
     }
 }
