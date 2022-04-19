@@ -37,7 +37,6 @@ namespace Entities.Concrete
         [Required]
         public bool ApprovalStatus { get; set; }
 
-        [Required]
         public bool IsSecret { get; set; }
     }
 }
