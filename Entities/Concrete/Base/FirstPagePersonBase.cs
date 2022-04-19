@@ -8,10 +8,10 @@ namespace Entities.Concrete.Base
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [MaxLength(32), Required]
+        [Required]
         public string Name { get; set; }
 
-        [MaxLength(32), Required]
+        [Required]
         public string SurName { get; set; }
 
         public bool IsDeleted { get; set; }
