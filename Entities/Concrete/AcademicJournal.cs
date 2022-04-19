@@ -23,12 +23,14 @@ namespace Entities.Concrete
         public ushort Volume { get; set; }
 
         [Required]
-        public ushort No { get; set; }
+        public ushort AJNumber { get; set; }
 
         [Required]
         public ushort StartPageNumber { get; set; }
 
         [Required]
         public ushort EndPageNumber { get; set; }
+
+        public bool IsSecret { get; set; }
     }
 }
