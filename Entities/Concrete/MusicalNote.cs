@@ -12,5 +12,7 @@ namespace Entities.Concrete
 
         [Required]
         public DateTime DateOfWriting { get; set; }
+
+        public bool IsSecret { get; set; }
     }
 }
