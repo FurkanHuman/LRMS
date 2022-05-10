@@ -17,13 +17,14 @@ namespace Entities.Concrete.Infos
         public string Address { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        public ulong PhoneNumber { get; set; }
 
-        public string? FaxNumber { get; set; }
-
-        public string? WebSite { get; set; }
+        public ulong? FaxNumber { get; set; }
 
         public DateTime DateOfPublication { get; set; }
+
+        [Required]
+        public string WebSite { get; set; }
 
         public bool IsDeleted { get; set; }
     }
