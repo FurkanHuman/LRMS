@@ -9,7 +9,6 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [Required]
         public string CityName { get; set; }
 
         public bool IsDeleted { get; set; }

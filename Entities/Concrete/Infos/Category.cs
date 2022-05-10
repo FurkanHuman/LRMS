@@ -9,7 +9,6 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [MinLength(2), Required]
         public string CategoryName { get; set; }
 
         public bool IsDeleted { get; set; }

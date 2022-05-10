@@ -9,13 +9,10 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public ulong Id { get; set; }
 
-        [Required]
         public string FileName { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
-        [Required]
         public double FileSizeMB { get; set; }
 
         public bool IsSecret { get; set; }
