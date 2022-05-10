@@ -9,6 +9,8 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
+        public University University{ get; set; }
+
         [Required]
         public string Name { get; set; }
 
