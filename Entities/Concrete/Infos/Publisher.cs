@@ -10,21 +10,24 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [Required, MaxLength(128)]
+        [Required]
         public string Name { get; set; }
 
-        [Required, MaxLength(256)]
-        public string Address { get; set; }
+        [Required]
+        public Address Address { get; set; }
 
         [Required]
-        public ulong PhoneNumber { get; set; }
-
-        public ulong? FaxNumber { get; set; }
-
-        public DateTime DateOfPublication { get; set; }
+        public string PhoneNumber { get; set; }
+        
+        public string? FaxNumber { get; set; }
+        
+        [Required]
+        public string Email { get; set; }
 
         [Required]
         public string WebSite { get; set; }
+
+        public DateTime DateOfPublication { get; set; }
 
         public bool IsDeleted { get; set; }
     }
