@@ -9,12 +9,14 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public ulong Id { get; set; }
 
-        [Required, MaxLength(512)]
-        public string Name { get; set; }
+        [Required]
+        public string LibraryName { get; set; }
+                
+        public string LibraryType { get; set; }
 
-        [Required, MaxLength(512)]
-        public string Address { get; set; }
+        [Required]
+        public Address Address { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDestroyed { get; set; }
     }
 }
