@@ -46,15 +46,15 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByAddress(string address)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(a => a.Address.ToLower().Contains(address.ToLower()) && a.Address.Length >= addressSearchLength && !a.IsDeleted).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(a => a.Address.Equals(address.ToLower()) && !a.IsDeleted).ToList();
             return publishers == null
                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound + ", " + PublisherConstants.AddressLengthLess)
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<Publisher?> GetByFaxNumber(ulong faxNumber)
+        public IDataResult<Publisher?> GetByFaxNumber(string faxNumber)
         {
-            Publisher? publisher = _publisherDal.Get(a => a.FaxNumber == faxNumber && !a.IsDeleted);
+            Publisher? publisher = _publisherDal.Get(a => a.FaxNumber.Equals(faxNumber)&& !a.IsDeleted);
             return publisher == null
                 ? new ErrorDataResult<Publisher?>(PublisherConstants.FaxNotFound)
                 : new SuccessDataResult<Publisher?>(publisher, PublisherConstants.FaxFound);
@@ -76,9 +76,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.NameDataGet);
         }
 
-        public IDataResult<Publisher> GetByPhoneNumber(ulong phoneNumber)
+        public IDataResult<Publisher> GetByPhoneNumber(string phoneNumber)
         {
-            Publisher publisher = _publisherDal.Get(f => f.PhoneNumber == phoneNumber && !f.IsDeleted);
+            Publisher publisher = _publisherDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
             return publisher == null
                 ? new ErrorDataResult<Publisher>(PublisherConstants.PhoneNumberNotGet)
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.PhoneNumberGet);
@@ -100,9 +100,9 @@ namespace Business.Concrete
 
         private IResult PublisherControl(Publisher publisher)
         {
+            // fix it Todo
             bool result = _publisherDal.GetAll(p =>
                p.Name.ToLowerInvariant().Equals(publisher.Name.ToLowerInvariant())
-            && p.Address.ToLowerInvariant().Contains(publisher.Address.ToLowerInvariant())
             && p.PhoneNumber.Equals(publisher.PhoneNumber)
             && p.DateOfPublication.Equals(publisher.DateOfPublication)
             && p.WebSite.ToLower().Contains(publisher.WebSite.ToLower())).Any();

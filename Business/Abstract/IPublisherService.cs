@@ -6,10 +6,9 @@ namespace Business.Abstract
     public interface IPublisherService
     {
         IDataResult<Publisher> GetById(int id);
-        IDataResult<Publisher> GetByPhoneNumber(ulong phoneNumber);
-        IDataResult<List<Publisher>> GetByAddress(string address);
+        IDataResult<Publisher> GetByPhoneNumber(string phoneNumber);
         IDataResult<Publisher> GetByName(string name);
-        IDataResult<Publisher?> GetByFaxNumber(ulong faxNumber);
+        IDataResult<Publisher?> GetByFaxNumber(string faxNumber);
         IDataResult<List<Publisher>> GetByWebsitess(string webSite);
         IDataResult<List<Publisher>> GetList();
         IResult Add(Publisher publisher);

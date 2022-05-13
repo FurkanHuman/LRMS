@@ -48,13 +48,13 @@ namespace Business.Concrete
             return new SuccessResult(EditionConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Edition>> GetByAdress(string address)
-        {
-            List<Edition> editions = _editionDal.GetAll(a => a.Address.ToLower().Contains(address.ToLower()) && a.Address.Length >= addressSearchLength && !a.IsDeleted).ToList();
-            return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound + ", " + EditionConstants.AddressLengthLess)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
-        }
+        //public IDataResult<List<Edition>> GetByAdress(string address)
+        //{
+        //    List<Edition> editions = _editionDal.GetAll(a => a.Address.ToLower().Contains(address.ToLower()) && a.Address.Length >= addressSearchLength && !a.IsDeleted).ToList();
+        //    return editions == null
+        //        ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound + ", " + EditionConstants.AddressLengthLess)
+        //        : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+        //}
 
         public IDataResult<List<Edition>> GetByEditionNumber(int editionNumber)
         {
@@ -64,9 +64,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Edition>>(editions, EditionConstants.EditionNumberFound);
         }
 
-        public IDataResult<Edition?> GetByFaxNumber(ulong faxNumber)
+        public IDataResult<Edition?> GetByFaxNumber(string faxNumber)
         {
-            Edition? edition = _editionDal.Get(a => a.FaxNumber == faxNumber && !a.IsDeleted);
+            Edition? edition = _editionDal.Get(a => a.FaxNumber.Equals(faxNumber) && !a.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition?>(EditionConstants.FaxNotFound)
                 : new SuccessDataResult<Edition?>(edition, EditionConstants.FaxFound);
@@ -88,9 +88,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
         }
 
-        public IDataResult<Edition> GetByPhoneNumber(ulong phoneNumber)
+        public IDataResult<Edition> GetByPhoneNumber(string phoneNumber)
         {
-            Edition edition = _editionDal.Get(f => f.PhoneNumber == phoneNumber && !f.IsDeleted);
+            Edition edition = _editionDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition>(EditionConstants.DataNotGet)
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
@@ -112,9 +112,10 @@ namespace Business.Concrete
 
         private IResult EditionControl(Edition edition)
         {
+            // fix it Todo
             bool result = _editionDal.GetAll(e =>
                e.Name.ToLowerInvariant().Equals(edition.Name.ToLowerInvariant())
-            && e.Address.ToLowerInvariant().Contains(edition.Address.ToLowerInvariant())
+            && e.Address.Equals(edition.Address)
             && e.PhoneNumber.Equals(edition.PhoneNumber)
             && e.DateOfPublication.Equals(edition.DateOfPublication)
             && e.WebSite.ToLower().Contains(edition.WebSite.ToLower())
