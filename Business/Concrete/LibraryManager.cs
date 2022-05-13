@@ -44,24 +44,24 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetById(int id)
         {
-            return new SuccessDataResult<Library>(_libraryDal.Get(l => l.Id.Equals(id) && !l.IsDeleted), LibraryConstants.DataGet);
+            return new SuccessDataResult<Library>(_libraryDal.Get(l => l.Id.Equals(id) && !l.IsDestroyed), LibraryConstants.DataGet);
         }
 
         public IDataResult<List<Library>> GetByName(string name)
         {
-            List<Library> libraries = _libraryDal.GetAll(l => l.Name.ToLowerInvariant().Equals(name.ToLowerInvariant()) && !l.IsDeleted).ToList();
+            List<Library> libraries = _libraryDal.GetAll(l => l.LibraryName.ToLowerInvariant().Equals(name.ToLowerInvariant()) && !l.IsDestroyed).ToList();
             return libraries == null
                 ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByAddress(string address)
-        {
-            List<Library> libraries = _libraryDal.GetAll(l => l.Address.ToLowerInvariant().Equals(address.ToLowerInvariant()) && !l.IsDeleted).ToList();
-            return libraries == null
-                ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
-                : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
-        }
+        //public IDataResult<List<Library>> GetByAddress(string address)
+        //{
+        //    List<Library> libraries = _libraryDal.GetAll(l => l.Address. && !l.IsDestroyed).ToList();
+        //    return libraries == null
+        //        ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
+        //        : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
+        //}
 
         public IDataResult<List<Library>> GetAll()
         {
@@ -70,9 +70,10 @@ namespace Business.Concrete
 
         private IResult LibraryExistControl(Library library)
         {
+            // fix it
             bool resul = _libraryDal.GetAll(l =>
-            l.Name.ToLowerInvariant().Contains(library.Name.ToLowerInvariant())
-            && l.Address.ToLowerInvariant().Contains(library.Address.ToLowerInvariant())).Any();
+            l.LibraryName.ToLowerInvariant().Contains(library.LibraryName.ToLowerInvariant())
+            && l.Address.Equals(library.Address)).Any();
 
             return !resul
                 ? new SuccessResult()

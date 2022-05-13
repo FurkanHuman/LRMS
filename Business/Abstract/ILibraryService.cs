@@ -10,7 +10,6 @@ namespace Business.Abstract
         IResult Update(Library library);
         IDataResult<Library> GetById(int id);
         IDataResult<List<Library>> GetByName(string name);
-        IDataResult<List<Library>> GetByAddress(string address);
         IDataResult<List<Library>> GetAll();
     }
 }
