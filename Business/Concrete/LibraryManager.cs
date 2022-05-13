@@ -55,14 +55,6 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        //public IDataResult<List<Library>> GetByAddress(string address)
-        //{
-        //    List<Library> libraries = _libraryDal.GetAll(l => l.Address. && !l.IsDestroyed).ToList();
-        //    return libraries == null
-        //        ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
-        //        : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
-        //}
-
         public IDataResult<List<Library>> GetAll()
         {
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll().ToList(), LibraryConstants.DataGet);
@@ -70,7 +62,7 @@ namespace Business.Concrete
 
         private IResult LibraryExistControl(Library library)
         {
-            // fix it
+            // fix it Todo
             bool resul = _libraryDal.GetAll(l =>
             l.LibraryName.ToLowerInvariant().Contains(library.LibraryName.ToLowerInvariant())
             && l.Address.Equals(library.Address)).Any();
