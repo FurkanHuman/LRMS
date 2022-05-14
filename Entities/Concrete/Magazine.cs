@@ -6,7 +6,7 @@ namespace Entities.Concrete
 {
     public class Magazine : BasePaper, IEntity
     {
-        [Required, MaxLength(128)]
+        [Required]
         public string Subject { get; set; }
     }
 }

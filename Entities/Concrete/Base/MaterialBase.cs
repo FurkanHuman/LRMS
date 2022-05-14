@@ -9,18 +9,23 @@ namespace Entities.Concrete.Base
         [Key, JsonIgnore]
         public ulong Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public List<Category> Categories { get; set; }
 
+        [Required]
         public List<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
 
         public EMaterialFile? EMaterialFile { get; set; }
 
+        [Required]
         public Dimension Dimension { get; set; }
 
         public string State { get; set; }

@@ -8,5 +8,7 @@ namespace Entities.Concrete
     {
         [Required]
         public DateTime ImageCreatedDate { get; set; }
+
+        public bool IsDestroyed { get; set; }
     }
 }
