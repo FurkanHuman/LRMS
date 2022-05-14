@@ -6,6 +6,8 @@ namespace DataAccess.Context
 {
     public class PostgreDbContext : DbContext
     {
+        // Todo Can Maping
+
         public PostgreDbContext() : base()
         {
 
