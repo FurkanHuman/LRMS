@@ -8,8 +8,8 @@ namespace Entities.Concrete
     public class Poster : MaterialBase, IEntity
     {
         [Required]
-        public string  Owner { get; set; }
-        
+        public string Owner { get; set; }
+
         [Required]
         public Image Image { get; set; }
 

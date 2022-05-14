@@ -14,7 +14,7 @@ namespace Entities.Concrete
         public List<string> Audience { get; set; }
 
         [Required]
-        public DateOnly ArticleDate  { get; set; }
+        public DateOnly ArticleDate { get; set; }
 
         public byte SecretLevel { get; set; }
     }

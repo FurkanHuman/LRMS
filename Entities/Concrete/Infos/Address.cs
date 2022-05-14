@@ -4,11 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
-    public class Address: IEntity
+    public class Address : IEntity
     {
         [Key, JsonIgnore]
         public ulong Id { get; set; }
-       
+
         [Required]
         public Country Country { get; set; }
 
@@ -17,7 +17,7 @@ namespace Entities.Concrete.Infos
 
         [Required]
         public string PostalCode { get; set; }
-        
+
         [Required]
         public string AddressLine1 { get; set; }
 

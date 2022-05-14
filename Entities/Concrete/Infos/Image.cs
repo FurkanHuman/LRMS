@@ -8,7 +8,7 @@ namespace Entities.Concrete.Infos
     {
         [Key, JsonIgnore]
         public int Id { get; set; }
-                
+
         public string ImagePath { get; set; }
 
         public DateTime Date { get; set; }
