@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfComposerDal : EfEntityRepositoryBase<Composer, PostgreDbContext>, IComposerDal
+    public class EfAddressDal : EfEntityRepositoryBase<Address, PostgreDbContext>, IAddressDal
     {
     }
 }
