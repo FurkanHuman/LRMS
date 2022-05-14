@@ -14,18 +14,7 @@ namespace Entities.Concrete.Infos
         public string Name { get; set; }
 
         [Required]
-        public Address Address { get; set; }
-
-        [Required]
-        public string PhoneNumber { get; set; }
-        
-        public string? FaxNumber { get; set; }
-        
-        [Required]
-        public string Email { get; set; }
-
-        [Required]
-        public string WebSite { get; set; }
+        public Communication Communication { get; set; }
 
         public DateTime DateOfPublication { get; set; }
 
