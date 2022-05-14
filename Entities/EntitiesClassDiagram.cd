@@ -32,7 +32,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Entities.Concrete.Infos.Address" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="28" Y="8.25" Width="1.5" />
+    <Position X="25.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAACAAAAAAAIIAAAAAAAAAIAAAAAAAAAAQAQAAA=</HashCode>
       <FileName>Concrete\Infos\Address.cs</FileName>
@@ -40,7 +40,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Entities.Concrete.Infos.Branch" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="30.25" Y="8.25" Width="1.5" />
+    <Position X="28" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Branch.cs</FileName>
@@ -48,7 +48,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Entities.Concrete.Infos.Category" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="32.5" Y="8.25" Width="1.5" />
+    <Position X="30.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Category.cs</FileName>
@@ -194,7 +194,7 @@
   <Class Name="Entities.Concrete.Infos.Publisher" Collapsed="true">
     <Position X="63" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAIAAQAQAAAAAIAACAAAAAQAAgAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQIAgAA=</HashCode>
       <FileName>Concrete\Infos\Publisher.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -404,6 +404,14 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAgAAAAAIAAAAAACAAAAA=</HashCode>
       <FileName>Concrete\TradePublication.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entities.Concrete.Infos.Communication" Collapsed="true">
+    <Position X="32.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAAAACAAAAAAAIAAQAAAAAAAIAACAAAAAQAAAAA=</HashCode>
+      <FileName>Concrete\Infos\Communication.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
