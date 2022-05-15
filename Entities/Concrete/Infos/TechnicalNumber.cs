@@ -1,11 +1,12 @@
 ﻿using Core.Entities.Abstract;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
     public class TechnicalNumber : IEntity
     {
-        [Key]
+        [Key,JsonIgnore]
         public ulong Id { get; set; }
 
         public long Barcode { get; set; }

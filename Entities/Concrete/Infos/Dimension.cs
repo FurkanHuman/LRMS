@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class Dimension : IEntity
     {
         [Key, JsonIgnore]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public double Width { get; set; }
 

@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class Address : IEntity
     {
         [Key, JsonIgnore]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public Country Country { get; set; }

@@ -1,12 +1,13 @@
 ﻿using Core.Entities.Abstract;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
     public class TechnicalPlaceholder : IEntity
     {
-        [Key]
-        public int Id { get; set; }
+        [Key,JsonIgnore]
+        public Guid Id { get; set; }
 
         public Library Library { get; set; }
 

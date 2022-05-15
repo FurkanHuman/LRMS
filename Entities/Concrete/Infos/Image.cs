@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class Image : IEntity
     {
         [Key, JsonIgnore]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string ImagePath { get; set; }
 

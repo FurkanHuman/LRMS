@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class University : IEntity
     {
         [Key, JsonIgnore]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string UniversityName { get; set; }

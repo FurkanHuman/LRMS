@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class EMaterialFile : IEntity
     {
         [Key, JsonIgnore]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         public string FileName { get; set; }
 
