@@ -48,7 +48,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(filter).ToList(), ComposerConstants.DataGet);
         }
 
-        public IDataResult<Composer> GetById(int id)
+        public IDataResult<Composer> GetById(Guid id)
         {
             return new SuccessDataResult<Composer>(_composerDal.Get(c => c.Id.Equals(id) && !c.IsDeleted), ComposerConstants.DataGet);
         }

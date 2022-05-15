@@ -44,7 +44,7 @@ namespace Business.Concrete
             return new SuccessResult(EditorConstants.UpdateSuccess);
         }
 
-        public IDataResult<Editor> GetById(int id)
+        public IDataResult<Editor> GetById(Guid id)
         {
             Editor editor = _editorDal.Get(i => i.Id == id && !i.IsDeleted);
             return editor == null ?

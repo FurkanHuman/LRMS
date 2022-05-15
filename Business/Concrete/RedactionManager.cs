@@ -48,7 +48,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(filter).ToList(), RedactionConstants.DataGet);
         }
 
-        public IDataResult<Redaction> GetById(int id)
+        public IDataResult<Redaction> GetById(Guid id)
         {
             return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == id && !i.IsDeleted));
         }

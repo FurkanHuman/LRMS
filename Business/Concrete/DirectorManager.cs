@@ -49,7 +49,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }
 
-        public IDataResult<Director> GetById(int id)
+        public IDataResult<Director> GetById(Guid id)
         {
             Director director = _directorDal.Get(i => i.Id == id && !i.IsDeleted);
             return director == null ?

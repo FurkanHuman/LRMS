@@ -39,7 +39,7 @@ namespace Business.Concrete
             return new SuccessResult(TechnicalPlaceholderConstants.UpdateSuccess);
         }
 
-        public IDataResult<TechnicalPlaceholder> GetById(int id)
+        public IDataResult<TechnicalPlaceholder> GetById(Guid id)
         {
             TechnicalPlaceholder technicalPlaceholder = _placeholderDal.Get(T => T.Id == id && !T.IsDeleted);
             return technicalPlaceholder == null

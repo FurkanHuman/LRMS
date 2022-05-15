@@ -62,7 +62,7 @@ namespace Business.Concrete
             return new SuccessResult(ImageConstants.UpdateSuccess);
         }
 
-        public IDataResult<Image> GetById(int id)
+        public IDataResult<Image> GetById(Guid id)
         {
             Image? image = _image.Get(Z => Z.Id == id && !Z.IsDeleted);
             return image == null

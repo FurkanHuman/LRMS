@@ -48,7 +48,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(filter).ToList(), ResearcherConstants.DataGet);
         }
 
-        public IDataResult<Researcher> GetById(int id)
+        public IDataResult<Researcher> GetById(Guid id)
         {
             return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == id && !i.IsDeleted), ResearcherConstants.DataGet);
         }

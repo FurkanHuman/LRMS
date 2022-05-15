@@ -60,7 +60,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher?>(publisher, PublisherConstants.FaxFound);
         }
 
-        public IDataResult<Publisher> GetById(int id)
+        public IDataResult<Publisher> GetById(Guid id)
         {
             Publisher publisher = _publisherDal.Get(f => f.Id == id && !f.IsDeleted);
             return publisher == null

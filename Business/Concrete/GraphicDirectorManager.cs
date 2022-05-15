@@ -48,7 +48,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<GraphicDirector> GetById(int id)
+        public IDataResult<GraphicDirector> GetById(Guid id)
         {
             return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id && !i.IsDeleted), GraphicDirectorConstants.DataGet);
         }

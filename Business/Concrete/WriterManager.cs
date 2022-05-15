@@ -48,7 +48,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
 
-        public IDataResult<Writer> GetById(int id)
+        public IDataResult<Writer> GetById(Guid id)
         {
             return new SuccessDataResult<Writer>(_writerDal.Get(i => i.Id == id && !i.IsDeleted), WriterConstants.DataGet);
         }

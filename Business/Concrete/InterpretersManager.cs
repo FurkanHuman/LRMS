@@ -45,7 +45,7 @@ namespace Business.Concrete
             return new SuccessResult(InterpretersConstants.UpdateSuccess);
         }
 
-        public IDataResult<Interpreters> GetById(int id)
+        public IDataResult<Interpreters> GetById(Guid id)
         {
             return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id && !i.IsDeleted), InterpretersConstants.DataGet);
         }
