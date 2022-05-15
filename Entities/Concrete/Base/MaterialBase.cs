@@ -7,7 +7,7 @@ namespace Entities.Concrete.Base
     public class MaterialBase
     {
         [Key, JsonIgnore]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -23,11 +23,13 @@ namespace Entities.Concrete.Base
         [Required]
         public List<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
 
-        public EMaterialFile? EMaterialFile { get; set; }
-
         [Required]
         public Dimension Dimension { get; set; }
 
+        public List<EMaterialFile>? EMaterialFiles { get; set; }
+
         public string State { get; set; }
+
+        public byte SecretLevel { get; set; }
     }
 }
