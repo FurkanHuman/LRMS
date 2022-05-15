@@ -1,21 +1,24 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Core.Entities.Abstract;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Base;
+using System.Linq.Expressions;
 
 namespace Business.Abstract.Base
 {
-    public interface IBasePaperService<T> where T : BasePaper
+    public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper,IEntity,new()
     {
-        IDataResult<T> GetById(int id);
-        IDataResult<List<T>> GetByName(string names);
-        IDataResult<List<T>> GetList();
-        IDataResult<List<T>> GetByCategory(int categoryId);
-        IDataResult<List<T>> GetByWriter(int writerId);
-        IDataResult<List<T>> GetByEdition(int editionNum);
-        IDataResult<List<T>> GetByPublisher(int publisherNum);
-        IDataResult<List<T>> GetByCoverCap(int CoverCapNum);
-        IDataResult<List<T>> GetByFilterList();
-        IResult Add(T Entity);
-        IResult Delete(T Entity);
-        IResult Update(T Entity);
+        IDataResult<List<T>> GetByWriters(Guid writerId);
+        IDataResult<T> GetByCoverImage(Guid CImageId);
+        IDataResult<List<T>> GetByEditors(Guid id);
+        IDataResult<List<T>> GetByDirectors(Guid id);
+        IDataResult<List<T>> GetByGraphicDirectors(Guid id);
+        IDataResult<List<T>> GetByGraphicDesigns(Guid id);
+        IDataResult<List<T>> GetByRedactions(Guid id);
+        IDataResult<List<T>> GetByInterpreters(Guid id);
+        IDataResult<List<T>> GetByTechnicalNumbers(Guid id);
+        IDataResult<List<T>> GetByCommunications(Guid id);
+        IDataResult<List<T>> GetByEditions(Guid editionNum);
+        IDataResult<List<T>> GetByPublishers(Guid publisherNum);
+        IDataResult<List<T>> GetByCoverCaps(int CoverCapNum);
     }
 }

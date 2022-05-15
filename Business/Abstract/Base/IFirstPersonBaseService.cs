@@ -1,12 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Core.Entities.Abstract;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Base;
 using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
-    public interface IFirstPersonBaseService<T> where T : FirstPagePersonBase
+    public interface IFirstPersonBaseService<T> where T : FirstPagePersonBase,IEntity,new()
     {
-        IDataResult<T> GetById(int id);
+        IDataResult<T> GetById(Guid id);
         IDataResult<T> GetByName(string name);
         IDataResult<T> GetBySurname(string surname);
         IDataResult<List<T>> GetList();
