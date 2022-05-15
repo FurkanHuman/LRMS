@@ -5,7 +5,7 @@ namespace Business.Abstract
 {
     public interface ITechnicalPlaceholder
     {
-        IDataResult<TechnicalPlaceholder> GetById(int id);
+        IDataResult<TechnicalPlaceholder> GetById(Guid id);
         IDataResult<List<TechnicalPlaceholder>> StockCode(string stockCode);
         IDataResult<List<TechnicalPlaceholder>> StockNumber(ulong stockNumber);
         IDataResult<List<TechnicalPlaceholder>> WhereIsMaterial(string whereMaterial);

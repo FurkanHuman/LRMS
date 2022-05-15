@@ -5,7 +5,7 @@ namespace Business.Abstract
 {
     public interface IPublisherService
     {
-        IDataResult<Publisher> GetById(int id);
+        IDataResult<Publisher> GetById(Guid id);
         IDataResult<Publisher> GetByPhoneNumber(string phoneNumber);
         IDataResult<Publisher> GetByName(string name);
         IDataResult<Publisher?> GetByFaxNumber(string faxNumber);

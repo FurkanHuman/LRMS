@@ -5,7 +5,7 @@ namespace Business.Abstract
 {
     public interface IEditionService
     {
-        IDataResult<Edition> GetById(int id);
+        IDataResult<Edition> GetById(Guid id);
         IDataResult<Edition> GetByPhoneNumber(string phoneNumber);
         IDataResult<Edition> GetByName(string name);
         IDataResult<List<Edition>> GetByEditionNumber(int editionNumber);
