@@ -6,7 +6,7 @@ namespace Business.Abstract
 {
     public interface IImageService
     {
-        IDataResult<Image> GetById(int id);
+        IDataResult<Image> GetById(Guid id);
         IDataResult<List<Image>> GetList();
         IResult Add(IFormFile file, Image image);
         IResult Delete(Image image);
