@@ -17,6 +17,5 @@ namespace Core.Utilities.Result.Concrete
             Success = success;
             Message = message;
         }
-
     }
 }
