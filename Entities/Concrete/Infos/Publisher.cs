@@ -14,6 +14,9 @@ namespace Entities.Concrete.Infos
         public string Name { get; set; }
 
         [Required]
+        public Address Address { get; set; }
+
+        [Required]
         public Communication Communication { get; set; }
 
         public DateTime DateOfPublication { get; set; }
