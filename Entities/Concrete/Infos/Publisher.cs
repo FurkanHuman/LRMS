@@ -8,7 +8,7 @@ namespace Entities.Concrete.Infos
     public class Publisher : IEntity
     {
         [Key, JsonIgnore]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
