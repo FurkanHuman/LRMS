@@ -1,4 +1,6 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.JsonHelper.Abstract;
+using Core.Utilities.JsonHelper.Concrete;
+using Entities.Concrete;
 using Entities.Concrete.Infos;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,13 @@ namespace DataAccess.Context
         // Todo Can Maping
 
         public PostgreDbContext() : base() { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            IJsonReader reader = new JsonReaderMicrosoft();
+
+            optionsBuilder.UseNpgsql(reader.Reader("PostgreSQLConfig.json", "PostgreConnectionString"));
+        }
 
         // Infos
 
@@ -63,11 +72,5 @@ namespace DataAccess.Context
         public DbSet<Thesis> Theses { get; set; }
         public DbSet<TradePublication> TradePublications { get; set; }
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // I know Todo
-            optionsBuilder.UseNpgsql("Host=localhost,Database=LRMS_DataBase;Username=postgres;Password=12345");
-        }
     }
 }
