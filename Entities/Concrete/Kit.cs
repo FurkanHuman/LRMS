@@ -7,8 +7,6 @@ namespace Entities.Concrete
     public class Kit : MaterialBase, IEntity
     {
         [Required]
-        public List<IEntity> Entities { get; set; }
-
-        public byte SecretLevel { get; set; }
+        public List<MaterialBase> Entities { get; set; }
     }
 }
