@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Core.Constants;
+using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using Microsoft.AspNetCore.Http;
 
@@ -12,39 +13,45 @@ namespace Core.Utilities.FileHelper
         {
             var (path, halfPath) = NewPath(file);
 
-            Task.Run(() =>
+            Task task = Task.Run(() =>
             {
                 using FileStream filestream = File.Create(path);
                 file.CopyTo(filestream);
                 filestream.Flush();
             });
-            return new SuccessDataResult<string>(halfPath);
+            return !task.IsFaulted
+                ? new ErrorDataResult<string>(CoreConstants.FileAddTaskFault)
+                : new SuccessDataResult<string>(halfPath);
         }
 
         public IDataResult<string> UpdateAsync(string sourcePath, IFormFile file)
         {
             var (path, halfPath) = NewPath(file);
-            Task.Run(() =>
-            {
-                using FileStream stream = File.Create(path);
-                file.CopyTo(stream);
-                stream.Flush();
-                DeleteAsync(sourcePath);
-            });
-            return new SuccessDataResult<string>(halfPath);
+            Task task = Task.Run(() =>
+             {
+                 using FileStream stream = File.Create(path);
+                 file.CopyTo(stream);
+                 stream.Flush();
+                 DeleteAsync(sourcePath);
+             });
+            return !task.IsFaulted
+                ? new ErrorDataResult<string>(CoreConstants.FileUpdatedTaskFault)
+                : new SuccessDataResult<string>(halfPath);
         }
 
         public IResult DeleteAsync(string path)
         {
-            Task.Run(() => File.Delete(Environment.CurrentDirectory + path));
-            return new SuccessResult();
+            Task task = Task.Run(() => File.Delete(Environment.CurrentDirectory + path));
+            return !task.IsFaulted
+                ? new ErrorResult(CoreConstants.FileDeleteTaskFault)
+                : new SuccessResult();
         }
 
         private (string path, string halfPath) NewPath(IFormFile file)
         {
             string fileExtension = Path.GetExtension(file.FileName);
 
-            string creatingUniqueFilename = Guid.NewGuid().ToString("B") + fileExtension;
+            string creatingUniqueFilename = Guid.NewGuid().ToString("D") + fileExtension;
 
             string result = FullPath + creatingUniqueFilename;
 
