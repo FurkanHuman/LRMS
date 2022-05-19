@@ -7,19 +7,13 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
     public class CityManager : ICityService
     {
         private readonly ICityDal _cityDal;
-
 
         public CityManager(ICityDal cityDal)
         {
@@ -56,7 +50,7 @@ namespace Business.Concrete
             City city = _cityDal.Get(c => c.Id == cityId && c.IsDeleted.Equals(false) && c.IsDeleted.Equals(null));
             return city == null
                 ? new SuccessDataResult<City>(city, CityConstants.DataGet)
-                : new ErrorDataResult<City>(CityConstants.CityIdExist);
+                : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }
 
         public IDataResult<List<City>> GetAll()
@@ -65,7 +59,7 @@ namespace Business.Concrete
         }
 
         public IDataResult<List<City>> GetByFilterLists(Expression<Func<City, bool>>? filter = null)
-        {
+        {   // Danger Methot
             return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList<City>(), CityConstants.DataGet);
         }
 
@@ -75,7 +69,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            City city = new() { Id = cityId,IsDeleted=true};
+            City city = new() { Id = cityId, IsDeleted = true };
 
             _cityDal.Update(city);
             return new SuccessResult(CityConstants.ShadowDeleteSuccess);
@@ -84,7 +78,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CityValidator), Priority = 1)]
         public IResult Update(int cityId, string cityName)
         {
-            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(cityId,cityName));
+            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(cityId, cityName));
             if (result != null)
                 return result;
             City city = new() { CityName = cityName, IsDeleted = false };
@@ -97,7 +91,7 @@ namespace Business.Concrete
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
         {
             City cityExist = _cityDal.Get(c => c.CityName.ToLowerInvariant().Contains(cityName.ToLowerInvariant())
-            &&c.Id.Equals(cityId));
+            && c.Id.Equals(cityId));
             return cityExist == null
                 ? new SuccessResult()
                 : new ErrorResult(CityConstants.NoTMatch);
@@ -116,8 +110,7 @@ namespace Business.Concrete
             City cityExist = _cityDal.Get(c => c.Id == cityId);
             return cityExist == null
                 ? new SuccessResult()
-                : new ErrorResult(CityConstants.CityIdExist);
+                : new ErrorResult(CityConstants.CityNotFound);
         }
-
     }
 }
