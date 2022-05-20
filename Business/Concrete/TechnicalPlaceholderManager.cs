@@ -9,7 +9,7 @@ using Entities.Concrete.Infos;
 
 namespace Business.Concrete
 {
-    public class TechnicalPlaceholderManager : ITechnicalPlaceholder
+    public class TechnicalPlaceholderManager : ITechnicalPlaceholderService
     {
         private readonly ITechnicalPlaceholderDal _placeholderDal;
 
