@@ -54,10 +54,11 @@ namespace Business.Concrete
 
         public IDataResult<Publisher?> GetByFaxNumber(string faxNumber)
         {
-            Publisher? publisher = _publisherDal.Get(a => a.FaxNumber.Equals(faxNumber)&& !a.IsDeleted);
-            return publisher == null
-                ? new ErrorDataResult<Publisher?>(PublisherConstants.FaxNotFound)
-                : new SuccessDataResult<Publisher?>(publisher, PublisherConstants.FaxFound);
+            return new ErrorDataResult<Publisher?>(PublisherConstants.Disabled);
+            //Publisher? publisher = _publisherDal.Get(a => a.FaxNumber.Equals(faxNumber) && !a.IsDeleted);
+            //return publisher == null
+            //    ? new ErrorDataResult<Publisher?>(PublisherConstants.FaxNotFound)
+            //    : new SuccessDataResult<Publisher?>(publisher, PublisherConstants.FaxFound);
         }
 
         public IDataResult<Publisher> GetById(Guid id)
@@ -78,19 +79,23 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByPhoneNumber(string phoneNumber)
         {
-            Publisher publisher = _publisherDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
-            return publisher == null
-                ? new ErrorDataResult<Publisher>(PublisherConstants.PhoneNumberNotGet)
-                : new SuccessDataResult<Publisher>(publisher, PublisherConstants.PhoneNumberGet);
+
+            return new ErrorDataResult<Publisher>(PublisherConstants.Disabled);
+            //Publisher publisher = _publisherDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
+            //return publisher == null
+            //    ? new ErrorDataResult<Publisher>(PublisherConstants.PhoneNumberNotGet)
+            //    : new SuccessDataResult<Publisher>(publisher, PublisherConstants.PhoneNumberGet);
         }
 
         public IDataResult<List<Publisher>> GetByWebsitess(string webSite)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
-            && f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
-            return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites + ", " + PublisherConstants.AddressLengthLess)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites);
+
+            return new ErrorDataResult<List<Publisher>>(PublisherConstants.Disabled);
+            //List<Publisher> publishers = _publisherDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
+            //&& f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
+            //return publishers == null
+            //    ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGetWebSites + ", " + PublisherConstants.AddressLengthLess)
+            //    : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGetWebSites);
         }
 
         public IDataResult<List<Publisher>> GetList()
@@ -103,9 +108,7 @@ namespace Business.Concrete
             // fix it Todo
             bool result = _publisherDal.GetAll(p =>
                p.Name.ToLowerInvariant().Equals(publisher.Name.ToLowerInvariant())
-            && p.PhoneNumber.Equals(publisher.PhoneNumber)
-            && p.DateOfPublication.Equals(publisher.DateOfPublication)
-            && p.WebSite.ToLower().Contains(publisher.WebSite.ToLower())).Any();
+            && p.DateOfPublication.Equals(publisher.DateOfPublication)).Any();
 
             return result
                 ? new ErrorResult(PublisherConstants.PublisherEquals)

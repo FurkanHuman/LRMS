@@ -48,13 +48,15 @@ namespace Business.Concrete
             return new SuccessResult(EditionConstants.UpdateSuccess);
         }
 
-        //public IDataResult<List<Edition>> GetByAdress(string address)
-        //{
-        //    List<Edition> editions = _editionDal.GetAll(a => a.Address.ToLower().Contains(address.ToLower()) && a.Address.Length >= addressSearchLength && !a.IsDeleted).ToList();
-        //    return editions == null
-        //        ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound + ", " + EditionConstants.AddressLengthLess)
-        //        : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
-        //}
+        public IDataResult<List<Edition>> GetByAdress(string address)
+        {
+
+            return new ErrorDataResult<List<Edition>>(EditionConstants.Disabled);
+            //  List<Edition> editions = _editionDal.GetAll(a => a.Address.ToLower().Contains(address.ToLower()) && a.Address.Length >= addressSearchLength && !a.IsDeleted).ToList();
+            //  return editions == null
+            //    ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound + ", " + EditionConstants.AddressLengthLess)
+            //    : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+        }
 
         public IDataResult<List<Edition>> GetByEditionNumber(int editionNumber)
         {
@@ -66,13 +68,15 @@ namespace Business.Concrete
 
         public IDataResult<Edition?> GetByFaxNumber(string faxNumber)
         {
-            Edition? edition = _editionDal.Get(a => a.FaxNumber.Equals(faxNumber) && !a.IsDeleted);
-            return edition == null
-                ? new ErrorDataResult<Edition?>(EditionConstants.FaxNotFound)
-                : new SuccessDataResult<Edition?>(edition, EditionConstants.FaxFound);
+            return new ErrorDataResult<Edition?>(EditionConstants.Disabled);
+
+            //Edition? edition = _editionDal.Get(a => a.FaxNumber.Equals(faxNumber) && !a.IsDeleted);
+            //return edition == null
+            //    ? new ErrorDataResult<Edition?>(EditionConstants.FaxNotFound)
+            //    : new SuccessDataResult<Edition?>(edition, EditionConstants.FaxFound);
         }
 
-        public IDataResult<Edition> GetById(int id)
+        public IDataResult<Edition> GetById(Guid id)
         {
             Edition edition = _editionDal.Get(f => f.Id == id && !f.IsDeleted);
             return edition == null
@@ -90,19 +94,22 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByPhoneNumber(string phoneNumber)
         {
-            Edition edition = _editionDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
-            return edition == null
-                ? new ErrorDataResult<Edition>(EditionConstants.DataNotGet)
-                : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
+            return new ErrorDataResult<Edition>(EditionConstants.Disabled);
+            //Edition edition = _editionDal.Get(f => f.PhoneNumber.Equals(phoneNumber) && !f.IsDeleted);
+            //return edition == null
+            //    ? new ErrorDataResult<Edition>(EditionConstants.DataNotGet)
+            //    : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
         }
 
         public IDataResult<List<Edition>> GetByWebsites(string webSite)
         {
-            List<Edition> editions = _editionDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
-            && f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
-            return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGetWebSites)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGetWebSites);
+            //    List<Edition> editions = _editionDal.GetAll(f => f.WebSite.ToLower().Contains(webSite)
+            //    && f.WebSite.ToLower().Length >= addressSearchLength && !f.IsDeleted).ToList();
+            //    return editions == null
+            //        ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGetWebSites)
+            //        : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGetWebSites);
+
+            return new ErrorDataResult<List<Edition>>(EditionConstants.Disabled);
         }
 
         public IDataResult<List<Edition>> GetList()
@@ -116,9 +123,7 @@ namespace Business.Concrete
             bool result = _editionDal.GetAll(e =>
                e.Name.ToLowerInvariant().Equals(edition.Name.ToLowerInvariant())
             && e.Address.Equals(edition.Address)
-            && e.PhoneNumber.Equals(edition.PhoneNumber)
             && e.DateOfPublication.Equals(edition.DateOfPublication)
-            && e.WebSite.ToLower().Contains(edition.WebSite.ToLower())
             && e.EditionNumber.Equals(edition.EditionNumber)).Any();
 
             return result
