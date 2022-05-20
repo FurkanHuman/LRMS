@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Business.Abstract.Base
 {
-    public interface IMaterialBaseService<T> where T : MaterialBase,IEntity,new()
+    public interface IMaterialBaseService<T> where T : MaterialBase, IEntity, new()
     {
         IDataResult<T> GetById(Guid id);
         IDataResult<T> GetByName(string name);
