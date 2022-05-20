@@ -12,7 +12,10 @@ namespace Entities.Concrete.Infos
         [Required]
         public string CountryName { get; set; }
 
+        [Required]
         public string CountryCode { get; set; }
+
+        public List<City> Cities { get; set; }
 
         public bool IsDeleted { get; set; }
     }
