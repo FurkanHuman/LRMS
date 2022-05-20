@@ -8,7 +8,5 @@ namespace Entities.Concrete
     {
         [Required]
         public DateTime RecordDate { get; set; }
-
-        public byte SecretLevel { get; set; }
     }
 }
