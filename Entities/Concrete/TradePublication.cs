@@ -16,6 +16,6 @@ namespace Entities.Concrete
         [Required]
         public DateOnly ArticleDate { get; set; }
 
-        public byte SecretLevel { get; set; }
+        public float Price { get; set; }
     }
 }
