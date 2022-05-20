@@ -1,11 +1,10 @@
 ﻿using Core.Entities.Abstract;
 using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Base;
-using System.Linq.Expressions;
 
 namespace Business.Abstract.Base
 {
-    public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper,IEntity,new()
+    public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper, IEntity, new()
     {
         IDataResult<List<T>> GetByWriters(Guid writerId);
         IDataResult<T> GetByCoverImage(Guid CImageId);
