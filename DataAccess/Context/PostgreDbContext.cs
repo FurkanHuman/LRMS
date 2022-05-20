@@ -16,7 +16,7 @@ namespace DataAccess.Context
         {
             IJsonReader reader = new JsonReaderMicrosoft();
 
-            optionsBuilder.UseNpgsql(reader.Reader("PostgreSQLConfig.json", "PostgreConnectionString"));
+            optionsBuilder.UseNpgsql(reader.Reader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention();
         }
 
         // Infos
