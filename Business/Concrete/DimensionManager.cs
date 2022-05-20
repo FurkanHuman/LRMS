@@ -56,12 +56,12 @@ namespace Business.Concrete
 
             return dimensionGet == null
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<Dimension>(dimensionGet,DimensionConstants.DataGet);
+                : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetAll()
         {
-            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList(),DimensionConstants.DataGet);
+            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList(), DimensionConstants.DataGet);
         }
 
         public IDataResult<Dimension> GetById(int id)
@@ -69,7 +69,7 @@ namespace Business.Concrete
             Dimension dimensionGet = _dimensionDal.Get(d => d.Id.Equals(id));
             return dimensionGet == null
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<Dimension>(dimensionGet,DimensionConstants.DataGet);
+                : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByX(double xMM)
@@ -78,7 +78,7 @@ namespace Business.Concrete
 
             return dimensionXmm == null
                 ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensionXmm,DimensionConstants.DataGet);
+                : new SuccessDataResult<List<Dimension>>(dimensionXmm, DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByY(double yMM)
@@ -86,7 +86,7 @@ namespace Business.Concrete
             List<Dimension> dimensionYmm = _dimensionDal.GetAll(d => d.Height.Equals(yMM)).ToList();
 
             return dimensionYmm == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet) 
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<List<Dimension>>(dimensionYmm, DimensionConstants.DataGet);
         }
 
@@ -95,7 +95,7 @@ namespace Business.Concrete
             List<Dimension> dimensionZmm = _dimensionDal.GetAll(d => d.Length.Equals(zMM)).ToList();
 
             return dimensionZmm == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet) 
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<List<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
         }
 
