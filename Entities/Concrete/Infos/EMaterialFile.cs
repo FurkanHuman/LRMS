@@ -13,6 +13,8 @@ namespace Entities.Concrete.Infos
 
         public string Title { get; set; }
 
+        public string FilePath { get; set; }
+        
         public double FileSizeMB { get; set; }
 
         public bool IsSecret { get; set; }
