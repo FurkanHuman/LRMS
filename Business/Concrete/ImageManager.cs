@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.FileHelper;
 using Core.Utilities.Result.Abstract;
@@ -13,8 +15,9 @@ namespace Business.Concrete
     public class ImageManager : IImageService
     {
         private readonly IImageDal _image;
+        private readonly IFileHelper fileHelper;
 
-        readonly IFileHelper fileHelper;
+        
         public ImageManager(IImageDal image, IFileHelper fileHelper)
         {
             _image = image;
@@ -22,13 +25,16 @@ namespace Business.Concrete
             this.fileHelper.FullPath = Environment.CurrentDirectory + @"\wwwroot\Images\";
         }
 
+        [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IResult Add(IFormFile file, Image image)
         {
-            IResult result = BusinessRules.Run(ImageCheck(file), ImageCheck(image));
+            IDataResult<string> fileResult = this.fileHelper.AddAsync(file);
+
+            IResult result = BusinessRules.Run(ImageCheck(file), ImageCheck(image), fileResult);
             if (result != null)
                 return result;
 
-            image.ImagePath = this.fileHelper.AddAsync(file).Data;
+            image.ImagePath = fileResult.Data;
             image.Date = DateTime.Now;
             image.IsDeleted = false;
 
@@ -52,6 +58,7 @@ namespace Business.Concrete
             return new SuccessResult(ImageConstants.FileDeleted);
         }
 
+        [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IResult Update(IFormFile file, Image image)
         {
             string oldPath = GetById(image.Id).Data.ImagePath;
@@ -77,18 +84,23 @@ namespace Business.Concrete
 
         private static IResult ImageCheck(Image image)
         {
+            // Come on Logic error. Brain Melted
             if (image.IsDeleted)
-                return new ErrorResult(ImageConstants.IsDeleted);
-            return new SuccessResult();
+                return new ErrorResult(ImageConstants.BuildedTime);
+            return new SuccessResult(ImageConstants.BuildedTime);
         }
 
         private static IResult ImageCheck(IFormFile file)
         {
-            if (file.Length > 0)
+            /* Fix it. Todo
+             * this here write Image Comparator and
+             * File virus checker.
+            */
+            if (file.Length > 0 || file.Length >= 2000000000)
                 return new ErrorResult(ImageConstants.InvalidFileSize);
 
             if (!ImageConstants.ImageExtension.Any(F => F == Path.GetExtension(file.FileName.ToLower())))
-                return new ErrorResult(ImageConstants.InvalidFileSize);
+                return new ErrorResult(ImageConstants.InvalidFileExtension);
 
             return new SuccessResult();
         }
