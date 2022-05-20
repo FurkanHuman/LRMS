@@ -3,9 +3,9 @@ using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Base;
 using System.Linq.Expressions;
 
-namespace Business.Abstract
+namespace Business.Abstract.Base
 {
-    public interface IFirstPersonBaseService<T> where T : FirstPagePersonBase,IEntity,new()
+    public interface IFirstPersonBaseService<T> where T : FirstPagePersonBase, IEntity, new()
     {
         IDataResult<T> GetById(Guid id);
         IDataResult<T> GetByName(string name);
