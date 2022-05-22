@@ -9,13 +9,9 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
-        [Required]
         public string CountryName { get; set; }
 
-        [Required]
         public string CountryCode { get; set; }
-
-        public List<City> Cities { get; set; }
 
         public bool IsDeleted { get; set; }
     }

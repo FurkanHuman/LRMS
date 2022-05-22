@@ -8,7 +8,6 @@ namespace Business.Constants
         public const string CountryNameLong = "Country name too long.";
         public const string CountryCodeNull = "Country code is null.";
         public const string CountryCodeLong = "Country code too long.";
-        public const string CountryCityNull = "Must be at least one city";
-        public const string CountryNameAndCodeAndCitiesNotMatch = "Country Name And Code And Cities do not match.";
+        public const string CountryNameAndCodeNotMatch = "Country Name And Code do not match.";
     }
 }
