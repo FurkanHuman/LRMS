@@ -4,7 +4,7 @@ using Entities.Concrete;
 using Entities.Concrete.Infos;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Context
+namespace DataAccess.Contexts
 {
     public class PostgreDbContext : DbContext
     {
