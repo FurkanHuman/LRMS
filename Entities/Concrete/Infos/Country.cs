@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class Country : IEntity
     {
         [Key, JsonIgnore]
-        public ulong Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string CountryName { get; set; }
