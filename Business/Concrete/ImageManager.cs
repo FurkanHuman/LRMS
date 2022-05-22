@@ -17,7 +17,6 @@ namespace Business.Concrete
         private readonly IImageDal _image;
         private readonly IFileHelper fileHelper;
 
-        
         public ImageManager(IImageDal image, IFileHelper fileHelper)
         {
             _image = image;
