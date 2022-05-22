@@ -68,7 +68,6 @@ namespace Business.Concrete
         public IDataResult<List<Country>> GetAll()
         {
             return new SuccessDataResult<List<Country>>(_countryDal.GetAll().ToList(), CountryConstants.DataGet);
-
         }
 
         public IDataResult<Country> GetByCountry(int countryId)
