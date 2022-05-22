@@ -10,7 +10,7 @@
         public const string ShadowDeleteSuccess = "Shadow delete succeeded.";
         public const string NameOrSurnameExists = "Name or Surname conflicts.";
         public const string DataNotGet = "Data not get.";
-        public const string NoTMatch = "No match found.";
+        public const string NotMatch = "No match found.";
         public const string InvalidFileSize = "Invalid file size.";
         public const string InvalidFileExtension = "Invalid file extension.";
         public const string DataNotSet = "Data not set.";
