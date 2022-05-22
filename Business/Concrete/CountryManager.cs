@@ -77,19 +77,13 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ClountryValidator), Priority = 1)]
-        public IResult Update(int oldCountryId, Country newCountry)
+        public IResult Update(Country country)
         {
-            IResult result = BusinessRules.Run(CountryControl(newCountry));
+            IResult result = BusinessRules.Run(CountryControl(country));
             if (result != null)
                 return result;
 
-            Country oldCountry = _countryDal.Get(c => c.Id == oldCountryId && !c.IsDeleted);
-            if (oldCountry == null)
-                return new ErrorResult(CountryConstants.NotMatch);
-
-            newCountry.Id = oldCountryId;
-
-            _countryDal.Update(newCountry);
+            _countryDal.Update(country);
 
             return new SuccessResult(CountryConstants.UpdateSuccess);
         }
@@ -120,12 +114,10 @@ namespace Business.Concrete
         {
             // Todo fix it. #issues, brain melted compare system.
 
-
             int? countryNameId = _countryDal.Get(c => c.CountryName.ToLowerInvariant().Contains(country.CountryName.ToLowerInvariant()) && !c.IsDeleted).Id;
             int? countryCodeId = _countryDal.Get(c => c.CountryCode.ToLowerInvariant().Contains(country.CountryCode.ToLowerInvariant()) && !c.IsDeleted).Id;
-            int? citiesId = _countryDal.Get(c => c.Cities.Equals(country.Cities) && !c.IsDeleted).Id;
 
-            if (countryCodeId != countryNameId || countryCodeId != citiesId || countryNameId != citiesId)
+            if (countryCodeId != countryNameId)
                 return new ErrorResult(CountryConstants.CountryNameAndCodeAndCitiesNotMatch);
 
             return new ErrorResult(CountryConstants.Disabled + " CountryControl()");
