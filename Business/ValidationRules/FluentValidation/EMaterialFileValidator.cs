@@ -1,10 +1,10 @@
-﻿using Entities.Concrete.Infos;
-using Business.Constants;
+﻿using Business.Constants;
+using Entities.Concrete.Infos;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class EMaterialFileValidator: AbstractValidator<EMaterialFile>
+    public class EMaterialFileValidator : AbstractValidator<EMaterialFile>
     {
         public EMaterialFileValidator()
         {

@@ -7,11 +7,6 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -51,7 +46,7 @@ namespace Business.Concrete
         {
             Branch branch = _branchDal.Get(i => i.Id == bId && !i.IsDeleted);
             return branch != null
-                ? new SuccessDataResult<Branch>(branch,BranchConstants.DataGet)
+                ? new SuccessDataResult<Branch>(branch, BranchConstants.DataGet)
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
         }
 
@@ -67,7 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Branch>> GetAll()
         {
-            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b=>!b.IsDeleted).ToList(),BranchConstants.DataGet);
+            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => !b.IsDeleted).ToList(), BranchConstants.DataGet);
         }
 
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]

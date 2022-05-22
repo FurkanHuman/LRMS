@@ -9,7 +9,6 @@ using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
