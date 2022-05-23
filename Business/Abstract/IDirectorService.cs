@@ -1,4 +1,5 @@
-﻿using Entities.Concrete.Infos;
+﻿using Business.Abstract.Base;
+using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
