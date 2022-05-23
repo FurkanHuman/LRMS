@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -17,6 +19,7 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
+        [ValidationAspect(typeof(CategoryValidator), Priority = 1)]
         public IResult Add(Category category)
         {
             IResult result = BusinessRules.Run(CategoryNameChecker(category));
@@ -33,6 +36,8 @@ namespace Business.Concrete
             return new SuccessResult(CategoryConstants.DeleteSuccess);
         }
 
+
+        [ValidationAspect(typeof(CategoryValidator), Priority = 1)]
         public IResult Update(Category category)
         {
             _categoryDal.Update(category);
