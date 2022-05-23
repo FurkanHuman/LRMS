@@ -9,6 +9,7 @@ namespace Entities.Concrete.Infos
         [Key, JsonIgnore]
         public int Id { get; set; }
 
+        [Required]
         public string CountryName { get; set; }
 
         public string CountryCode { get; set; }
