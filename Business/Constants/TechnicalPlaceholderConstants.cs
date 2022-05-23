@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class TechnicalPlaceholderConstants : BaseConstants
     {
+        protected TechnicalPlaceholderConstants() { }
+
         public const string ISBNNumberEmpty = "ISBN data is empty.";
         public const string BarcodeNull = "Barcode is empty";
         public const string StockNumberEmpty = "Stock number not fetched.";

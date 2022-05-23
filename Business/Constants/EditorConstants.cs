@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class EditorConstants : BaseConstants
     {
+        protected EditorConstants() { }
+
         public const string EditorNull = "Editor is null.";
         public const string EditorNameLengthNotEnough = "Editor name length is insufficient.";
         public const string EditorEquals = "Data equals.";

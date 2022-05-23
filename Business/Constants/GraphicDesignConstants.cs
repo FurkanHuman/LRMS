@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class GraphicDesignConstants : BaseConstants
     {
+        protected GraphicDesignConstants() { }
+
         public const string GraphicDesignNull = "GraphicDesign is null.";
         public const string GraphicDesignNameLengthNotEnough = "GraphicDesign name length is insufficient.";
         public const string GraphicDesignEquals = "Data equals.";

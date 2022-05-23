@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class CityConstants : BaseConstants
     {
+        protected CityConstants() { }
+
         public const string CityExist = "City already exist.";
         public const string CityNameNull = "City name is null";
         public const string CityAddedNotDeleted = "It cannot be deleted as a shadow when adding a city. Don't try :)";

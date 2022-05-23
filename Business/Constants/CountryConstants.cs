@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class CountryConstants : BaseConstants
     {
+        protected CountryConstants() { }
+
         public const string CountryNameNull = "Country name is null.";
         public const string CountryNameLong = "Country name too long.";
         public const string CountryCodeNull = "Country code is null.";

@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class TechnicalNumberConstants : BaseConstants
     {
+        protected TechnicalNumberConstants() { }
+
         public const string StockNumberFetched = "Stock number fetched.";
         public const string StockCodeEmpty = "Stock code not fetched.";
         public const string StockCodeFetched = "Stock code fetched.";

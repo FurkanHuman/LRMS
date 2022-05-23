@@ -5,6 +5,8 @@ namespace Business.Constants
 
     public class WriterConstants : BaseConstants
     {
+        protected WriterConstants() { }
+
         public const string WriterNameNull = "Writer name is null.";
         public const string WriterSurnameNull = "Writer Surname is null.";
         public const string WriterNameLengthNotEnough = "Writer name length is insufficient.";

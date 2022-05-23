@@ -4,6 +4,8 @@ namespace Business.Constants
 {
     public class InterpretersConstants : BaseConstants
     {
+        protected InterpretersConstants() { }
+
         public const string InterpretersNull = "Interpreters is null.";
         public const string InterpretersNameLengthNotEnough = "Interpreters name length is insufficient.";
         public const string InterpretersEquals = "Data equals.";
