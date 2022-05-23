@@ -2,8 +2,10 @@
 
 namespace Business.Constants
 {
-    public class EditionConstants : BaseConstants
+    public class EditionConstants : BaseConstants // Todo control
     {
+        protected EditionConstants() { }
+
         public const string AddressNotFound = "address not found.";
         public const string AddressLengthLess = "length must be greater than 5 characters";
         public const string AddressFound = "addresses found.";

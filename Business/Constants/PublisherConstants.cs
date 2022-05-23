@@ -2,9 +2,10 @@
 
 namespace Business.Constants
 {
-    public class PublisherConstants : BaseConstants
+    public class PublisherConstants : BaseConstants // Todo control
     {
-        public const string DevNotes = "I know Not runing";
+        protected PublisherConstants() { }
+
         public const string AddressNotFound = "address not found.";
         public const string AddressLengthLess = "length must be greater than 5 characters";
         public const string AddressFound = "addresses found.";
