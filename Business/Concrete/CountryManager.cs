@@ -19,7 +19,7 @@ namespace Business.Concrete
             _countryDal = countryDal;
         }
 
-        [ValidationAspect(typeof(ClountryValidator), Priority = 1)]
+        [ValidationAspect(typeof(CountryValidator), Priority = 1)]
         public IResult Add(Country country)
         {
             IResult result = BusinessRules.Run(CountryControl(country));
@@ -53,7 +53,7 @@ namespace Business.Concrete
             return new SuccessResult(CountryConstants.ShadowDeleteSuccess);
         }
 
-        [ValidationAspect(typeof(ClountryValidator), Priority = 1)]
+        [ValidationAspect(typeof(CountryValidator), Priority = 1)]
         public IResult Update(Country country)
         {
             IResult result = BusinessRules.Run(CountryControl(country));
