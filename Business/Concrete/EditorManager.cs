@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
-    public class EditorManager : IEditorService
+    public class EditorManager : IEditorService // Todo ReWrite
     {
         private readonly IEditorDal _editorDal;
 

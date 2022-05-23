@@ -10,7 +10,7 @@ using Entities.Concrete.Infos;
 
 namespace Business.Concrete
 {
-    public class LibraryManager : ILibraryService
+    public class LibraryManager : ILibraryService // Todo ReWrite
     {
         private readonly ILibraryDal _libraryDal;
 

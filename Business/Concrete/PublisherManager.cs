@@ -10,7 +10,7 @@ using Entities.Concrete.Infos;
 
 namespace Business.Concrete
 {
-    public class PublisherManager : IPublisherService
+    public class PublisherManager : IPublisherService // todo ReWrite
     {
         private const byte addressSearchLength = 5;
         private readonly IPublisherDal _publisherDal;
