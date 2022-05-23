@@ -90,11 +90,11 @@ namespace Business.Concrete
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
         {
-            City cityExist = _cityDal.Get(c => c.CityName.ToLowerInvariant().Contains(cityName.ToLowerInvariant())
-            && c.Id.Equals(cityId));
-            return cityExist == null
+            bool cityExist = _cityDal.GetAll(c => c.CityName.ToLowerInvariant().Contains(cityName.ToLowerInvariant())
+            && c.Id.Equals(cityId)).Any();
+            return !cityExist
                 ? new SuccessResult()
-                : new ErrorResult(CityConstants.NoTMatch);
+                : new ErrorResult(CityConstants.NotMatch);
         }
 
         private IResult CheckCityByExists(string cityName)
