@@ -4,6 +4,7 @@
     {
         protected BaseConstants() { }
 
+        public const string AlreadyExists = "Data already exists";
         public const string AddSuccess = "Adding succeeded.";
         public const string UpdateSuccess = "Update succeeded.";
         public const string DeleteSuccess = "Delete succeeded.";
