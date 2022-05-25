@@ -22,7 +22,7 @@
 
 ### Core
 
-### Business
+### Business (Logic)
 
 ### API
 
