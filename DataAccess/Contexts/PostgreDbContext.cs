@@ -41,6 +41,7 @@ namespace DataAccess.Contexts
         public DbSet<Interpreters> Interpreters { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Library> Libraries { get; set; }
+        public DbSet<OtherPeople> OtherPeoples { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Redaction> Redactions { get; set; }
         public DbSet<Researcher> Researchers { get; set; }
