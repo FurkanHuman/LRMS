@@ -45,9 +45,41 @@ namespace Business.Concrete
             return new SuccessResult(AddressConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid addressGId)
+        {
+            Address address = _addressDal.Get(a => a.Id == addressGId && !a.IsDeleted);
+            if (address == null)
+                return new ErrorResult(AddressConstants.NotMatch);
+
+            address.IsDeleted = true;
+            _addressDal.Update(address);
+            return new SuccessResult(AddressConstants.ShadowDeleteSuccess);
+        }
+
+        [ValidationAspect(typeof(AddressValidator), Priority = 1)]
+        public IResult Update(Address address)
+        {
+            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
+            if (result != null)
+                return result;
+
+            address.IsDeleted = false;
+            _addressDal.Update(address);
+            return new SuccessResult(AddressConstants.UpdateSuccess);
+        }
+
         public IDataResult<List<Address>> GetAll()
         {
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll().ToList(), AddressConstants.DataGet);
+        }
+
+        public IDataResult<Address> GetById(Guid guid)
+        {
+            Address address = _addressDal.Get(a => a.Id == guid && !a.IsDeleted);
+
+            return address == null
+                ? new ErrorDataResult<Address>(AddressConstants.NotMatch)
+                : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
         }
 
         public IDataResult<List<Address>> GetByCityId(int cityId)
@@ -74,15 +106,6 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<Address> GetById(Guid guid)
-        {
-            Address address = _addressDal.Get(a => a.Id == guid && !a.IsDeleted);
-
-            return address == null
-                ? new ErrorDataResult<Address>(AddressConstants.NotMatch)
-                : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
-        }
-
         public IDataResult<List<Address>> GetByPostalCode(string postalCode)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.PostalCode == postalCode && !a.IsDeleted).ToList();
@@ -97,29 +120,6 @@ namespace Business.Concrete
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
-        }
-
-        public IResult ShadowDelete(Guid addressGId)
-        {
-            Address address = _addressDal.Get(a => a.Id == addressGId && !a.IsDeleted);
-            if (address == null)
-                return new ErrorResult(AddressConstants.NotMatch);
-
-            address.IsDeleted = true;
-            _addressDal.Update(address);
-            return new SuccessResult(AddressConstants.ShadowDeleteSuccess);
-        }
-
-        [ValidationAspect(typeof(AddressValidator), Priority = 1)]
-        public IResult Update(Address address)
-        {
-            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
-            if (result != null)
-                return result;
-
-            address.IsDeleted = false;
-            _addressDal.Update(address);
-            return new SuccessResult(AddressConstants.UpdateSuccess);
         }
     }
 }
