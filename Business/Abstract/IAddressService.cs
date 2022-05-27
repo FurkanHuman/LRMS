@@ -9,6 +9,7 @@ namespace Business.Abstract
         IResult Delete(Guid addressGId);
         IResult ShadowDelete(Guid addressGId);
         IResult Update(Address address);
+        IDataResult<Address> GetById(Guid guid);
         IDataResult<List<Address>> GetByPostalCode(string postalCode);
         IDataResult<List<Address>> GetByCityId(int cityId);
         IDataResult<List<Address>> GetByCountryId(int countryId);
