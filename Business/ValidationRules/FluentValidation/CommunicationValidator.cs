@@ -14,6 +14,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.PhoneNumber).NotNull().NotEmpty().WithMessage(CommunicationConstants.PhoneNull);
             RuleFor(c => c.Email).NotNull().NotEmpty().WithMessage(CommunicationConstants.EmailNull);
             RuleFor(c => c.WebSite).NotNull().NotEmpty().WithMessage(CommunicationConstants.WebSiteNull);
+            RuleFor(c => c.Address.Id).NotNull().NotEmpty().WithMessage(CommunicationConstants.AddressNull);
         }
     }
 }
