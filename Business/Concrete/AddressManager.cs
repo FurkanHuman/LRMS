@@ -13,22 +13,23 @@ namespace Business.Concrete
     public class AddressManager : IAddressService
     {
         private readonly IAddressDal _addressDal;
-        private readonly ICityService _cityService;
-        private readonly ICountryService _countryService;
+        private readonly ICityDal _cityDal;
+        private readonly ICountryDal _countryDal;
 
-        public AddressManager(IAddressDal addressDal, ICityService cityService, ICountryService countryService)
+        public AddressManager(IAddressDal addressDal, ICityDal cityDal, ICountryDal countryDal)
         {
             _addressDal = addressDal;
-            _cityService = cityService;
-            _countryService = countryService;
+            _cityDal = cityDal;
+            _countryDal = countryDal;
         }
 
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Add(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
+            IResult result = BusinessRules.Run(AddressControl(address));
             if (result != null)
                 return result;
+
 
             address.IsDeleted = false;
             _addressDal.Add(address);
@@ -74,15 +75,6 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<Address> GetById(Guid guid)
-        {
-            Address address = _addressDal.Get(a => a.Id == guid && !a.IsDeleted);
-
-            return address == null
-                ? new ErrorDataResult<Address>(AddressConstants.NotMatch)
-                : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
-        }
-
         public IDataResult<List<Address>> GetByPostalCode(string postalCode)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.PostalCode == postalCode && !a.IsDeleted).ToList();
@@ -113,13 +105,23 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Update(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
+            IResult result = BusinessRules.Run(AddressControl(address));
             if (result != null)
                 return result;
 
             address.IsDeleted = false;
             _addressDal.Update(address);
             return new SuccessResult(AddressConstants.UpdateSuccess);
+        }
+
+        private IResult AddressControl(Address address)
+        {
+
+            if (_cityDal.Get(c => c.Id == address.City.Id && !c.IsDeleted) == null)
+                return new ErrorResult(CityConstants.CityNotFound);
+            if (_countryDal.Get(c => c.Id == address.Country.Id && !c.IsDeleted) == null)
+                return new ErrorResult(CountryConstants.CountryNotFound);
+            return new ErrorResult(AddressConstants.Disabled);
         }
     }
 }
