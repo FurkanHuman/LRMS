@@ -13,7 +13,7 @@ namespace Business.Concrete
     public class CountryManager : ICountryService
     {
         private readonly ICountryDal _countryDal;
-        
+
         public CountryManager(ICountryDal countryDal)
         {
             _countryDal = countryDal;
