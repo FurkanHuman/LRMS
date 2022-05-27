@@ -13,20 +13,20 @@ namespace Business.Concrete
     public class UniversityManager : IUniversityService
     {
         private readonly IUniversityDal _universityDal;
-        private readonly IBranchDal _branchDal;
-        private readonly IAddressDal _addressDal;
+        private readonly IAddressService _addressService;
+        private readonly IBranchService _branchService;
 
-        public UniversityManager(IUniversityDal universityDal, IBranchDal branchDal, IAddressDal addressDal)
+        public UniversityManager(IUniversityDal universityDal, IAddressService addressService, IBranchService branchService)
         {
             _universityDal = universityDal;
-            _branchDal = branchDal;
-            _addressDal = addressDal;
+            _addressService = addressService;
+            _branchService = branchService;
         }
 
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Add(University university)
         {
-            IResult result = BusinessRules.Run();
+            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.Get(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
@@ -54,7 +54,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Update(University university)
         {
-            IResult result = BusinessRules.Run();
+            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.Get(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
@@ -69,7 +69,6 @@ namespace Business.Concrete
             return university == null
                 ? new ErrorDataResult<University>(UniversityConstants.DataNotGet)
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
-
         }
 
         public IDataResult<University> GetByAddressId(Guid guid)
@@ -161,6 +160,21 @@ namespace Business.Concrete
         public IDataResult<List<University>> GetAll()
         {
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(u => !u.IsDeleted).ToList(), UniversityConstants.DataGet);
+        }
+
+        private IResult UniversityChecker(University university)
+        {
+            bool findUni = _universityDal.GetAll(u =>
+               u.UniversityName.Contains(university.UniversityName, StringComparison.CurrentCultureIgnoreCase)
+           && u.Institute.Contains(university.Institute, StringComparison.CurrentCultureIgnoreCase)
+           && u.Address.Id == university.Address.Id
+           && u.Branch.Id == university.Branch.Id
+           && !u.IsDeleted).Any();
+
+            if (findUni)
+                return new ErrorResult(UniversityConstants.UniversityExist);
+
+            return new SuccessResult();
         }
     }
 }
