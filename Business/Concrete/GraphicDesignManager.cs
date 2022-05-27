@@ -37,6 +37,17 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDesignConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            GraphicDesign graphicDesign = _graphicDesignDal.Get(g => g.Id == guid && !g.IsDeleted);
+            if (graphicDesign == null)
+                return new ErrorResult(GraphicDesignConstants.NotMatch);
+
+            graphicDesign.IsDeleted = true;
+            _graphicDesignDal.Update(graphicDesign);
+            return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(GraphicDesign entity)
         {
             _graphicDesignDal.Update(entity);
@@ -53,20 +64,21 @@ namespace Business.Concrete
             return new SuccessDataResult<GraphicDesign>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted), GraphicDesignConstants.DataGet);
         }
 
-        public IDataResult<GraphicDesign> GetByName(string name)
+        public IDataResult<List<GraphicDesign>> GetByNames(string name)
         {
-            GraphicDesign graphicDesign = _graphicDesignDal.Get(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted);
-            return graphicDesign == null
-                ? new ErrorDataResult<GraphicDesign>(GraphicDesignConstants.DataNotGet)
-                : new SuccessDataResult<GraphicDesign>(graphicDesign, GraphicDesignConstants.DataGet);
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+
+            return graphicDesigns == null
+                ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
+                : new SuccessDataResult<List<GraphicDesign>>(graphicDesigns, GraphicDesignConstants.DataGet);
         }
 
-        public IDataResult<GraphicDesign> GetBySurname(string surname)
+        public IDataResult<List<GraphicDesign>> GetBySurnames(string surname)
         {
-            GraphicDesign graphicDesign = _graphicDesignDal.Get(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted);
-            return graphicDesign == null
-                ? new ErrorDataResult<GraphicDesign>(GraphicDesignConstants.DataNotGet)
-                : new SuccessDataResult<GraphicDesign>(graphicDesign, GraphicDesignConstants.DataGet);
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            return graphicDesigns == null
+                ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
+                : new SuccessDataResult<List<GraphicDesign>>(graphicDesigns, GraphicDesignConstants.DataGet);
         }
 
         public IDataResult<List<GraphicDesign>> GetList()

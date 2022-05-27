@@ -37,6 +37,17 @@ namespace Business.Concrete
             return new SuccessResult(ComposerConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Composer composer = _composerDal.Get(g => g.Id == guid && !g.IsDeleted);
+            if (composer == null)
+                return new ErrorResult(GraphicDesignConstants.NotMatch);
+
+            composer.IsDeleted = true;
+            _composerDal.Update(composer);
+            return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(Composer entity)
         {
             _composerDal.Update(entity);
@@ -58,20 +69,20 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll().ToList(), ComposerConstants.DataGet);
         }
 
-        public IDataResult<Composer> GetByName(string name)
+        public IDataResult<List<Composer>> GetByNames(string name)
         {
-            Composer composer = _composerDal.Get(c => c.Name.ToLowerInvariant().Equals(name.ToLowerInvariant()) && !c.IsDeleted);
-            return composer == null
-                ? new ErrorDataResult<Composer>(ComposerConstants.DataNotGet)
-                : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
+            List<Composer> composers = _composerDal.GetAll(c => c.Name.ToLowerInvariant().Equals(name.ToLowerInvariant()) && !c.IsDeleted).ToList();
+            return composers == null
+                ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
+                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<Composer> GetBySurname(string surname)
+        public IDataResult<List<Composer>> GetBySurnames(string surname)
         {
-            Composer composer = _composerDal.Get(c => c.SurName.ToLowerInvariant().Equals(surname.ToLowerInvariant()) && !c.IsDeleted);
-            return composer == null
-               ? new ErrorDataResult<Composer>(ComposerConstants.DataNotGet)
-               : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
+            List<Composer> composers = _composerDal.GetAll(c => c.SurName.ToLowerInvariant().Equals(surname.ToLowerInvariant()) && !c.IsDeleted).ToList();
+            return composers == null
+               ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
+               : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
         }
 
         public IDataResult<List<Composer>> GetNamePreAttachmentList(string namePreAttachment)

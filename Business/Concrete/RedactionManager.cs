@@ -37,6 +37,18 @@ namespace Business.Concrete
             return new SuccessResult(RedactionConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Redaction redaction = _redactionDal.Get(r => r.Id == guid && !r.IsDeleted);
+            if (redaction == null)
+                return new ErrorResult(RedactionConstants.NotMatch);
+
+            redaction.IsDeleted = true;
+            _redactionDal.Update(redaction);
+            return new SuccessResult(RedactionConstants.ShadowDeleteSuccess);
+
+        }
+
         public IResult Update(Redaction entity)
         {
             _redactionDal.Update(entity);
@@ -48,25 +60,25 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(filter).ToList(), RedactionConstants.DataGet);
         }
 
-        public IDataResult<Redaction> GetById(Guid id)
+        public IDataResult<Redaction> GetById(Guid guid)
         {
-            return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == id && !i.IsDeleted));
+            return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == guid && !i.IsDeleted));
         }
 
-        public IDataResult<Redaction> GetByName(string name)
+        public IDataResult<List<Redaction>> GetByNames(string name)
         {
-            Redaction Redaction = _redactionDal.Get(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted);
-            return Redaction == null
-                ? new ErrorDataResult<Redaction>(RedactionConstants.DataNotGet)
-                : new SuccessDataResult<Redaction>(Redaction, RedactionConstants.DataGet);
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.ToLower().Contains(name.ToLower()) && !r.IsDeleted).ToList();
+            return redactions == null
+                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<Redaction> GetBySurname(string surname)
+        public IDataResult<List<Redaction>> GetBySurnames(string surname)
         {
-            Redaction Redaction = _redactionDal.Get(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted);
-            return Redaction == null
-                ? new ErrorDataResult<Redaction>(RedactionConstants.DataNotGet)
-                : new SuccessDataResult<Redaction>(Redaction, RedactionConstants.DataGet);
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.ToLower().Contains(surname.ToLower()) && !r.IsDeleted).ToList();
+            return redactions == null
+                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
         public IDataResult<List<Redaction>> GetList()

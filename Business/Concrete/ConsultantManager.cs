@@ -71,7 +71,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
         }
 
-        public IDataResult<List<Consultant>> GetByName(string name)
+        public IDataResult<List<Consultant>> GetByNames(string name)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.ToLowerInvariant() == name.ToLowerInvariant() && !c.IsDeleted).ToList();
 
@@ -80,7 +80,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetBySurname(string surname)
+        public IDataResult<List<Consultant>> GetBySurnames(string surname)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.ToLowerInvariant() == surname.ToLowerInvariant() && !c.IsDeleted).ToList();
 

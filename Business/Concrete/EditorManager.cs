@@ -38,34 +38,45 @@ namespace Business.Concrete
             return new SuccessResult(EditorConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Editor editor = _editorDal.Get(g => g.Id == guid && !g.IsDeleted);
+            if (editor == null)
+                return new ErrorResult(EditorConstants.NotMatch);
+
+            editor.IsDeleted = true;
+            _editorDal.Update(editor);
+            return new SuccessResult(EditorConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(Editor entity)
         {
             _editorDal.Update(entity);
             return new SuccessResult(EditorConstants.UpdateSuccess);
         }
 
-        public IDataResult<Editor> GetById(Guid id)
+        public IDataResult<Editor> GetById(Guid guid)
         {
-            Editor editor = _editorDal.Get(i => i.Id == id && !i.IsDeleted);
+            Editor editor = _editorDal.Get(i => i.Id == guid && !i.IsDeleted);
             return editor == null ?
                 new ErrorDataResult<Editor>(EditorConstants.DataNotGet) :
                 new SuccessDataResult<Editor>(EditorConstants.DataGet);
         }
 
-        public IDataResult<Editor> GetByName(string name)
+        public IDataResult<List<Editor>> GetByNames(string name)
         {
-            Editor editor = _editorDal.Get(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted);
-            return editor == null
-                ? new ErrorDataResult<Editor>(editor, EditorConstants.EditorNull)
-                : new SuccessDataResult<Editor>(editor, EditionConstants.DataGet);
+            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            return editors == null
+                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<Editor> GetBySurname(string surname)
+        public IDataResult<List<Editor>> GetBySurnames(string surname)
         {
-            Editor editor = _editorDal.Get(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted);
-            return editor == null
-                ? new ErrorDataResult<Editor>(editor, EditorConstants.EditorNull)
-                : new SuccessDataResult<Editor>(editor, EditionConstants.DataGet);
+            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            return editors == null
+                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
         public IDataResult<List<Editor>> GetList()
@@ -80,14 +91,11 @@ namespace Business.Concrete
 
         private IResult EditorNameOrSurnameExist(Editor entity)
         {
-
             bool result = _editorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
             return result
                 ? new ErrorResult(EditorConstants.NameOrSurnameExists)
                 : new SuccessResult(EditorConstants.DataGet);
-
         }
-
     }
 }

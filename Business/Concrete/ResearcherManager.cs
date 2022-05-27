@@ -37,6 +37,17 @@ namespace Business.Concrete
             return new SuccessResult(ResearcherConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Researcher researcher = _researcherDal.Get(r => r.Id == guid && !r.IsDeleted);
+            if (researcher == null)
+                return new ErrorResult(ResearcherConstants.NotMatch);
+
+            researcher.IsDeleted = true;
+            _researcherDal.Update(researcher);
+            return new SuccessResult(ResearcherConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(Researcher entity)
         {
             _researcherDal.Update(entity);
@@ -48,25 +59,25 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(filter).ToList(), ResearcherConstants.DataGet);
         }
 
-        public IDataResult<Researcher> GetById(Guid id)
+        public IDataResult<Researcher> GetById(Guid guid)
         {
-            return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == id && !i.IsDeleted), ResearcherConstants.DataGet);
+            return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == guid && !i.IsDeleted), ResearcherConstants.DataGet);
         }
 
-        public IDataResult<Researcher> GetByName(string name)
+        public IDataResult<List<Researcher>> GetByNames(string name)
         {
-            Researcher researcher = _researcherDal.Get(n => n.Name.ToLowerInvariant().Contains(name.ToLowerInvariant()));
-            return researcher == null
-                ? new ErrorDataResult<Researcher>(ResearcherConstants.DataNotGet)
-                : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).ToList();
+            return researchers == null
+                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<Researcher> GetBySurname(string surname)
+        public IDataResult<List<Researcher>> GetBySurnames(string surname)
         {
-            Researcher researcher = _researcherDal.Get(n => n.SurName.ToLowerInvariant().Contains(surname.ToLowerInvariant()));
-            return researcher == null
-                ? new ErrorDataResult<Researcher>(ResearcherConstants.DataNotGet)
-                : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.SurName.ToLowerInvariant().Contains(surname.ToLowerInvariant())).ToList();
+            return researchers == null
+                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
         public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
@@ -98,7 +109,7 @@ namespace Business.Concrete
             && r.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())
             && r.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null
-            && r.Specialty.ToLowerInvariant().Equals(entity.Specialty.ToLowerInvariant())).Any();
+            && r.Specialty.ToLowerInvariant().Equals(entity.Specialty.ToLowerInvariant())).Any(); // true usage todo
             return result
                 ? new ErrorResult(ResearcherConstants.NameOrSurnameExists)
                 : new SuccessResult(ResearcherConstants.DataGet);

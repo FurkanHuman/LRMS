@@ -38,6 +38,17 @@ namespace Business.Concrete
             return new SuccessResult(DirectorConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Director director = _directorDal.Get(g => g.Id == guid && !g.IsDeleted);
+            if (director == null)
+                return new ErrorResult(GraphicDesignConstants.NotMatch);
+
+            director.IsDeleted = true;
+            _directorDal.Update(director);
+            return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(Director entity)
         {
             _directorDal.Update(entity);
@@ -49,28 +60,28 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }
 
-        public IDataResult<Director> GetById(Guid id)
+        public IDataResult<Director> GetById(Guid guid)
         {
-            Director director = _directorDal.Get(i => i.Id == id && !i.IsDeleted);
+            Director director = _directorDal.Get(i => i.Id == guid && !i.IsDeleted);
             return director == null ?
                 new ErrorDataResult<Director>(DirectorConstants.DataNotGet) :
                 new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
         }
 
-        public IDataResult<Director> GetByName(string name)
+        public IDataResult<List<Director>> GetByNames(string name)
         {
-            Director director = _directorDal.Get(i => i.Name.Equals(name.ToLowerInvariant().Contains(name.ToLowerInvariant())) && !i.IsDeleted);
-            return director == null ?
-                new ErrorDataResult<Director>(DirectorConstants.DataNotGet) :
-                new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
+            List<Director> directors = _directorDal.GetAll(i => i.Name.Equals(name.ToLowerInvariant().Contains(name.ToLowerInvariant())) && !i.IsDeleted).ToList();
+            return directors == null ?
+                new ErrorDataResult<List<Director>>(DirectorConstants.DataNotGet) :
+                new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
-        public IDataResult<Director> GetBySurname(string surname)
+        public IDataResult<List<Director>> GetBySurnames(string surname)
         {
-            Director director = _directorDal.Get(i => i.SurName.Equals(surname.ToLowerInvariant().Contains(surname.ToLowerInvariant())) && !i.IsDeleted);
-            return director == null ?
-                new ErrorDataResult<Director>(DirectorConstants.DataNotGet) :
-                new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
+            List<Director> directors = _directorDal.GetAll(i => i.SurName.Equals(surname.ToLowerInvariant().Contains(surname.ToLowerInvariant())) && !i.IsDeleted).ToList();
+            return directors == null ?
+                new ErrorDataResult<List<Director>>(DirectorConstants.DataNotGet) :
+                new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
         public IDataResult<List<Director>> GetList()

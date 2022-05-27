@@ -7,13 +7,14 @@ namespace Business.Abstract.Base
 {
     public interface IFirstPersonBaseService<T> where T : FirstPagePersonBase, IEntity, new()
     {
-        IDataResult<T> GetById(Guid id);
-        IDataResult<T> GetByName(string name);
-        IDataResult<T> GetBySurname(string surname);
+        IDataResult<T> GetById(Guid guid);
+        IDataResult<List<T>> GetByNames(string name);
+        IDataResult<List<T>> GetBySurnames(string surname);
         IDataResult<List<T>> GetList();
         IDataResult<List<T>> GetByFilterList(Expression<Func<T, bool>>? filter = null);
         IResult Add(T entity);
         IResult Delete(T entity);
+        IResult ShadowDelete(Guid guid);
         IResult Update(T entity);
     }
 }

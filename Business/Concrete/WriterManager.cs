@@ -37,6 +37,17 @@ namespace Business.Concrete
             return new SuccessResult(WriterConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Writer writer = _writerDal.Get(w => w.Id == guid && !w.IsDeleted);
+            if (writer == null)
+                return new ErrorResult(WriterConstants.NotMatch);
+
+            writer.IsDeleted = true;
+            _writerDal.Update(writer);
+            return new SuccessResult(WriterConstants.ShadowDeleteSuccess);
+        }
+
         public IResult Update(Writer entity)
         {
             _writerDal.Update(entity);
@@ -48,25 +59,25 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
 
-        public IDataResult<Writer> GetById(Guid id)
+        public IDataResult<Writer> GetById(Guid guid)
         {
-            return new SuccessDataResult<Writer>(_writerDal.Get(i => i.Id == id && !i.IsDeleted), WriterConstants.DataGet);
+            return new SuccessDataResult<Writer>(_writerDal.Get(i => i.Id == guid && !i.IsDeleted), WriterConstants.DataGet);
         }
 
-        public IDataResult<Writer> GetByName(string name)
+        public IDataResult<List<Writer>> GetByNames(string name)
         {
-            Writer Writer = _writerDal.Get(n => n.Name.ToLowerInvariant().Contains(name.ToLowerInvariant()) && !n.IsDeleted);
-            return Writer == null
-                ? new ErrorDataResult<Writer>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<Writer>(Writer, WriterConstants.DataGet);
+            List<Writer> writers = _writerDal.GetAll(n => n.Name.ToLowerInvariant().Contains(name.ToLowerInvariant()) && !n.IsDeleted).ToList();
+            return writers == null
+                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<Writer> GetBySurname(string surname)
+        public IDataResult<List<Writer>> GetBySurnames(string surname)
         {
-            Writer Writer = _writerDal.Get(n => n.SurName.ToLowerInvariant().Contains(surname.ToLowerInvariant()) && !n.IsDeleted);
-            return Writer == null
-                ? new ErrorDataResult<Writer>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<Writer>(Writer, WriterConstants.DataGet);
+            List<Writer> writers = _writerDal.GetAll(n => n.Name.ToLowerInvariant().Contains(surname.ToLowerInvariant()) && !n.IsDeleted).ToList();
+            return writers == null
+                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
         public IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment)
@@ -85,7 +96,7 @@ namespace Business.Concrete
             bool result = _writerDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())
             && w.NamePreAttachment.Equals(null)
-            && entity.NamePreAttachment != null).Any();
+            && entity.NamePreAttachment != null).Any(); // usage true todo
             return result
                 ? new ErrorResult(WriterConstants.WriterNameOrSurnameExist)
                 : new SuccessResult(WriterConstants.DataGet);

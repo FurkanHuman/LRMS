@@ -20,7 +20,6 @@ namespace Business.Concrete
             _interpretersDal = interpretersDal;
         }
 
-
         [ValidationAspect(typeof(InterpretersValidator), Priority = 1)]
         public IResult Add(Interpreters entity)
         {
@@ -39,31 +38,42 @@ namespace Business.Concrete
             return new SuccessResult(InterpretersConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid guid)
+        {
+            Interpreters interpreters = _interpretersDal.Get(i => i.Id == guid && !i.IsDeleted);
+            if (interpreters == null)
+                return new ErrorResult(InterpretersConstants.NotMatch);
+
+            interpreters.IsDeleted = true;
+            _interpretersDal.Update(interpreters);
+            return new SuccessResult(InterpretersConstants.DataGet);
+        }
+
         public IResult Update(Interpreters entity)
         {
             _interpretersDal.Update(entity);
             return new SuccessResult(InterpretersConstants.UpdateSuccess);
         }
 
-        public IDataResult<Interpreters> GetById(Guid id)
+        public IDataResult<Interpreters> GetById(Guid guid)
         {
-            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id && !i.IsDeleted), InterpretersConstants.DataGet);
+            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == guid && !i.IsDeleted), InterpretersConstants.DataGet);
         }
 
-        public IDataResult<Interpreters> GetByName(string name)
+        public IDataResult<List<Interpreters>> GetByNames(string name)
         {
-            Interpreters Interpreters = _interpretersDal.Get(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted);
-            return Interpreters == null
-                ? new ErrorDataResult<Interpreters>(InterpretersConstants.DataNotGet)
-                : new SuccessDataResult<Interpreters>(Interpreters, InterpretersConstants.DataGet);
+            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            return interpreters == null
+                ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
+                : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<Interpreters> GetBySurname(string surname)
+        public IDataResult<List<Interpreters>> GetBySurnames(string surname)
         {
-            Interpreters Interpreters = _interpretersDal.Get(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted);
-            return Interpreters == null
-                ? new ErrorDataResult<Interpreters>(InterpretersConstants.DataNotGet)
-                : new SuccessDataResult<Interpreters>(Interpreters, InterpretersConstants.DataGet);
+            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            return interpreters == null
+                ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
+                : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
         public IDataResult<List<Interpreters>> GetByWhichToLanguageList(string LangName)
