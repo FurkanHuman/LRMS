@@ -15,6 +15,9 @@ namespace Entities.Concrete.Infos
         public string Institute { get; set; }
 
         [Required]
+        public Address Address { get; set; }
+
+        [Required]
         public Branch Branch { get; set; }
 
         public bool IsDeleted { get; set; }
