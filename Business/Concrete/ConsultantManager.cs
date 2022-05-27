@@ -63,9 +63,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<Consultant> GetById(Guid id)
+        public IDataResult<Consultant> GetById(Guid guid)
         {
-            Consultant consultant = _consultantDal.Get(c => c.Id == id && !c.IsDeleted);
+            Consultant consultant = _consultantDal.Get(c => c.Id == guid && !c.IsDeleted);
             if (consultant == null)
                 return new ErrorDataResult<Consultant>(ConsultantConstants.NotMatch);
             return new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
