@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
     public class TechnicalNumber : IEntity
     {
         [Key, JsonIgnore]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         public long Barcode { get; set; }
 
