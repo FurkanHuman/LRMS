@@ -10,6 +10,9 @@ namespace Entities.Concrete.Infos
         public Guid Id { get; set; }
 
         [Required]
+        public string AddressName { get; set; }
+
+        [Required]
         public Country Country { get; set; }
 
         [Required]
