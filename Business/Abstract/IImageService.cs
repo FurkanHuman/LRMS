@@ -1,16 +1,17 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
 
 namespace Business.Abstract
 {
-    public interface IImageService
+    public interface IImageService : IBaseEntityService<Image>
+
     {
         IDataResult<Image> GetById(Guid id);
-        IDataResult<List<Image>> GetList();
         IResult Add(IFormFile file, Image image);
-        IResult Delete(Image image);
-        IResult EfDelete(Image efImage, bool isdel);
+        IResult Delete(Guid id);
+        IResult ShadowDelete(Guid id);
         IResult Update(IFormFile file, Image image);
     }
 }

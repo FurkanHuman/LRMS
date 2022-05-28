@@ -7,6 +7,6 @@ namespace Business.Abstract
 {
     public interface IConsultantService : IFirstPersonBaseService<Consultant>
     {
-        IDataResult<List<Thesis>> GetByThesisInConsultant(Guid gId);
+        IDataResult<List<Thesis>> GetByThesisInConsultants(Guid id);
     }
 }

@@ -1,15 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IBranchService
+    public interface IBranchService : IBaseEntityService<Branch>
     {
-        IResult Add(string branchName);
-        IResult Delete(int bId);
-        IResult ShadowDelete(int bId);
-        IResult Update(int oldBId, string newBranchName);
-        IDataResult<Branch> Get(int bId);
-        IDataResult<List<Branch>> GetAll();
+        IResult Delete(int id);
+        IResult ShadowDelete(int id);
+        IDataResult<Branch> GetById(int id);
     }
 }

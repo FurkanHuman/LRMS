@@ -1,15 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ICountryService
+    public interface ICountryService : IBaseEntityService<Country>
     {
-        IResult Add(Country country);
-        IResult Delete(int conutryId);
-        IResult ShadowDelete(int conutryId);
-        IResult Update(Country country);
-        IDataResult<Country> GetByCountry(int countryId);
-        IDataResult<List<Country>> GetAll();
+        IResult Delete(int id);
+        IResult ShadowDelete(int id);
+        IDataResult<Country> GetById(int id);
     }
 }

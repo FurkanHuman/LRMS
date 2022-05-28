@@ -1,17 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
-using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
-    public interface ICityService
+    public interface ICityService : IBaseEntityService<City>
     {
-        IResult Add(string cityName);
-        IResult Delete(int cityId);
-        IResult ShadowDelete(int cityId);
-        IResult Update(int cityId, string cityName);
-        IDataResult<City> Get(int cityId);
-        IDataResult<List<City>> GetByFilterLists(Expression<Func<City, bool>>? filter = null);
-        IDataResult<List<City>> GetAll();
+        IResult Delete(int id);
+        IResult ShadowDelete(int id);
+        IDataResult<City> GetById(int id);
     }
 }

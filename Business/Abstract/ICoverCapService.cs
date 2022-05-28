@@ -1,15 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ICoverCapService
+    public interface ICoverCapService : IBaseEntityService<CoverCap>
     {
+        IResult Delete(int id);
+        IResult ShadowDelete(int id);
         IDataResult<CoverCap> GetById(int id);
-        IDataResult<CoverCap> GetByName(string name);
-        IDataResult<List<CoverCap>> GetList();
-        IResult Add(CoverCap coverCap);
-        IResult Delete(CoverCap coverCap);
-        IResult Update(CoverCap coverCap);
     }
 }

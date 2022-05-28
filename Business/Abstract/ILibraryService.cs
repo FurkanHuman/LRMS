@@ -1,15 +1,13 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ILibraryService
+    public interface ILibraryService : IBaseEntityService<Library>
     {
-        IResult Add(Library library);
-        IResult Delete(Library library);
-        IResult Update(Library library);
+        IResult Delete(int id);
+        IResult ShadowDelete(int id);
         IDataResult<Library> GetById(int id);
-        IDataResult<List<Library>> GetByName(string name);
-        IDataResult<List<Library>> GetAll();
     }
 }

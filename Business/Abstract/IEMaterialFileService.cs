@@ -1,18 +1,16 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
-using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
-    public interface IEMaterialFileService
+    public interface IEMaterialFileService : IBaseEntityService<EMaterialFile>
     {
         IResult Add(IFormFile file, EMaterialFile eMaterialFile);
-        IResult Delete(Guid eMFgId);
-        IResult HideFile(Guid eMFgId, bool state = true);
+        IResult Delete(Guid id);
+        IResult ShadowDelete(Guid id);
         IResult Update(IFormFile file, EMaterialFile eMaterialFile);
-        IDataResult<EMaterialFile> GetByGuid(Guid guid);
-        IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null);
-        IDataResult<List<EMaterialFile>> GetAll();
+        IDataResult<EMaterialFile> GetById(Guid id);
     }
 }

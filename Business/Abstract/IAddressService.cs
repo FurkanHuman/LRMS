@@ -1,20 +1,18 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Business.Abstract.Base;
+using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IAddressService
+    public interface IAddressService : IBaseEntityService<Address>
     {
-        IResult Add(Address address);
-        IResult Delete(Guid addressGId);
-        IResult ShadowDelete(Guid addressGId);
-        IResult Update(Address address);
-        IDataResult<Address> GetById(Guid guid);
+        IResult Delete(Guid id);
+        IResult ShadowDelete(Guid id);
+        IDataResult<Address> GetById(Guid id);
         IDataResult<List<Address>> GetByPostalCode(string postalCode);
         IDataResult<List<Address>> GetByCityId(int cityId);
         IDataResult<List<Address>> GetByCountryId(int countryId);
         IDataResult<List<Address>> GetByGeoLocation(string geoLocation);
         IDataResult<List<Address>> GetBySearchString(string searchStr);
-        IDataResult<List<Address>> GetAll();
     }
 }
