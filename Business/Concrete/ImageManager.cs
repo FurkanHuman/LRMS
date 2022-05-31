@@ -9,27 +9,28 @@ using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
     public class ImageManager : IImageService
     {
-        private readonly IImageDal _image;
-        private readonly IFileHelper fileHelper;
+        private readonly IImageDal _imageDal;
+        private readonly IFileHelper _fileHelper;
 
         public ImageManager(IImageDal image, IFileHelper fileHelper)
         {
-            _image = image;
-            this.fileHelper = fileHelper;
-            this.fileHelper.FullPath = Environment.CurrentDirectory + @"\wwwroot\Images\";
+            _imageDal = image;
+            _fileHelper = fileHelper;
+            _fileHelper.FullPath = Environment.CurrentDirectory + @"\wwwroot\Images\";
         }
 
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IResult Add(IFormFile file, Image image)
         {
-            IDataResult<string> fileResult = this.fileHelper.AddAsync(file);
+            IDataResult<string> fileResult = _fileHelper.AddAsync(file);
 
-            IResult result = BusinessRules.Run(ImageCheck(file), ImageCheck(image), fileResult);
+            IResult result = BusinessRules.Run(ImageCheck(file), fileResult);
             if (result != null)
                 return result;
 
@@ -37,23 +38,32 @@ namespace Business.Concrete
             image.Date = DateTime.Now;
             image.IsDeleted = false;
 
-            _image.Add(image);
+            _imageDal.Add(image);
             return new SuccessResult(ImageConstants.AddSuccess);
         }
 
-        public IResult EfDelete(Image efImage, bool isdel)
+        public IResult ShadowDelete(Guid id)
         {
-            Image image = GetById(efImage.Id).Data;
-            if (image.IsDeleted == isdel)
-                return new ErrorResult(ImageConstants.DataStatusUnchanged);
-            _image.Update(image);
+            Image image = _imageDal.Get(i => i.Id == id && !i.IsDeleted);
+            
+            if (image == null)
+                return new ErrorResult(ImageConstants.NotMatch);
+
+            image.IsDeleted = false;
+            _imageDal.Update(image);
             return new SuccessResult(ImageConstants.DataStatusChanged);
         }
 
-        public IResult Delete(Image image)
+        public IResult Delete(Guid id)
         {
-            this.fileHelper.DeleteAsync(GetById(image.Id).Data.ImagePath);
-            _image.Delete(_image.Get(z => z.Id == image.Id));
+            Image image = _imageDal.Get(i => i.Id == id);
+
+            if (image == null)
+                return new ErrorResult(ImageConstants.NotMatch);
+
+            _fileHelper.DeleteAsync(image.ImagePath);
+            _imageDal.Delete(image);
+
             return new SuccessResult(ImageConstants.FileDeleted);
         }
 
@@ -61,32 +71,34 @@ namespace Business.Concrete
         public IResult Update(IFormFile file, Image image)
         {
             string oldPath = GetById(image.Id).Data.ImagePath;
-            image.ImagePath = this.fileHelper.UpdateAsync(oldPath, file).Data;
+            image.ImagePath = _fileHelper.UpdateAsync(oldPath, file).Data;            
             image.Date = DateTime.Now;
             image.IsDeleted = false;
-            _image.Update(image);
+            _imageDal.Update(image);
             return new SuccessResult(ImageConstants.UpdateSuccess);
         }
 
         public IDataResult<Image> GetById(Guid id)
         {
-            Image? image = _image.Get(Z => Z.Id == id && !Z.IsDeleted);
+            Image? image = _imageDal.Get(Z => Z.Id == id);
             return image == null
                 ? new ErrorDataResult<Image>(ImageConstants.IsDeleted)
                 : new SuccessDataResult<Image>(image, ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetList()
+        public IDataResult<List<Image>> GetByFilterLists(Expression<Func<Image, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Image>>((List<Image>)_image.GetAll(g => !g.IsDeleted), ImageConstants.DataGet);
+            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet); 
         }
 
-        private static IResult ImageCheck(Image image)
+        public IDataResult<List<Image>> GetAll()
         {
-            // Come on Logic error. Brain Melted
-            if (image.IsDeleted)
-                return new ErrorResult(ImageConstants.BuildedTime);
-            return new SuccessResult(ImageConstants.BuildedTime);
+            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => !g.IsDeleted).ToList(), ImageConstants.DataGet);
+        }
+
+        public IDataResult<List<Image>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => g.IsDeleted).ToList(), ImageConstants.DataGet);
         }
 
         private static IResult ImageCheck(IFormFile file)

@@ -35,49 +35,29 @@ namespace Business.Concrete
                 return result;
 
             eMaterialFile.FileSizeMB = ((file.Length / 1024) / 1024);
-
+            eMaterialFile.IsSecret = false;
             _eMaterialFileDal.Add(eMaterialFile);
 
             return new SuccessResult(EMaterialFileConstants.AddSuccess);
         }
 
-        public IResult Delete(Guid eMFgId)
+        public IResult Delete(Guid id)
         {
-            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(eMF => eMF.Id.Equals(eMFgId) && !eMF.IsSecret);
+            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(eMF => eMF.Id == id);
 
             return eMaterialFile == null
                 ? new ErrorResult(EMaterialFileConstants.DeleteFailed)
                 : new SuccessResult(EMaterialFileConstants.DeleteSuccess);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAll()
+        public IResult ShadowDelete(Guid id)
         {
-            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsSecret).ToList(), EMaterialFileConstants.DataGet);
-        }
+            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id == id && !e.IsSecret);
 
-        public IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null)
-        {
+            if (eMaterialFile == null)
+                return new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.NotMatch);
 
-            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(filter).ToList(), EMaterialFileConstants.DataGet);
-        }
-
-        public IDataResult<EMaterialFile> GetByGuid(Guid guid)
-        {
-            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id.Equals(guid) && !e.IsSecret);
-
-            return eMaterialFile == null
-                ? new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.DataNotGet)
-                : new SuccessDataResult<EMaterialFile>(eMaterialFile, EMaterialFileConstants.DataGet);
-        }
-
-        public IResult HideFile(Guid eMFgId, bool state = true)
-        {
-            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id.Equals(eMFgId) && !e.IsSecret);
-
-            if (eMaterialFile == null || eMaterialFile.IsSecret)
-                return new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.DataNotGet);
-
-            eMaterialFile.IsSecret = state;
+            eMaterialFile.IsSecret = true;
 
             _eMaterialFileDal.Update(eMaterialFile);
 
@@ -107,6 +87,39 @@ namespace Business.Concrete
 
         }
 
+        public IDataResult<EMaterialFile> GetById(Guid id)
+        {
+            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id == id);
+
+            return eMaterialFile == null
+                ? new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.DataNotGet)
+                : new SuccessDataResult<EMaterialFile>(eMaterialFile, EMaterialFileConstants.DataGet);
+        }
+
+        public IDataResult<List<EMaterialFile>> GetByNames(string name)
+        {
+            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !e.IsSecret).ToList();
+
+            return eMaterialFiles == null
+                ? new ErrorDataResult<List<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
+                : new SuccessDataResult<List<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
+        }
+
+        public IDataResult<List<EMaterialFile>> GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(filter).ToList(), EMaterialFileConstants.DataGet);
+        }
+
+        public IDataResult<List<EMaterialFile>> GetAll()
+        {
+            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsSecret).ToList(), EMaterialFileConstants.DataGet);
+        }
+
+        public IDataResult<List<EMaterialFile>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(e => e.IsSecret).ToList(), EMaterialFileConstants.DataGet);
+        }
+
         private static IResult FileCheck(IFormFile file)
         {
             /* Fix it. Todo
@@ -123,11 +136,10 @@ namespace Business.Concrete
 
         private static IResult EMaterialFileCheck(EMaterialFile eMaterialFile)
         {
-            // Come on Logic error. Brain Melted...
+            // fix it todo
             if (eMaterialFile.IsSecret)
                 return new ErrorResult(EMaterialFileConstants.BuildedTime);
             return new SuccessResult(EMaterialFileConstants.BuildedTime);
         }
-
     }
 }
