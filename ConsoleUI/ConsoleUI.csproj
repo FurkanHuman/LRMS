@@ -10,7 +10,6 @@
   <ProjectExtensions><VisualStudio><UserProperties app_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
