@@ -27,19 +27,24 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
+            entity.IsDeleted = false;
             _graphicDesignDal.Add(entity);
             return new SuccessResult(GraphicDesignConstants.AddSuccess);
         }
 
-        public IResult Delete(GraphicDesign entity)
+        public IResult Delete(Guid id)
         {
-            _graphicDesignDal.Delete(entity);
+            GraphicDesign graphicDesign = _graphicDesignDal.Get(gd => gd.Id == id);
+            if (graphicDesign == null)
+                return new ErrorResult(GraphicDesignConstants.NotMatch);
+
+            _graphicDesignDal.Delete(graphicDesign);
             return new SuccessResult(GraphicDesignConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            GraphicDesign graphicDesign = _graphicDesignDal.Get(g => g.Id == guid && !g.IsDeleted);
+            GraphicDesign graphicDesign = _graphicDesignDal.Get(g => g.Id == id);
             if (graphicDesign == null)
                 return new ErrorResult(GraphicDesignConstants.NotMatch);
 
@@ -48,13 +53,14 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
         }
 
+        [ValidationAspect(typeof(GraphicDesignValidator), Priority = 1)]
         public IResult Update(GraphicDesign entity)
         {
             _graphicDesignDal.Update(entity);
             return new SuccessResult(GraphicDesignConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<GraphicDesign>> GetByFilterList(Expression<Func<GraphicDesign, bool>>? filter = null)
+        public IDataResult<List<GraphicDesign>> GetByFilterLists(Expression<Func<GraphicDesign, bool>>? filter = null)
         {
             return new SuccessDataResult<List<GraphicDesign>>(_graphicDesignDal.GetAll(filter).ToList(), GraphicDesignConstants.DataGet);
         }
@@ -66,7 +72,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDesign>> GetByNames(string name)
         {
-            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
 
             return graphicDesigns == null
                 ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
@@ -75,15 +81,19 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDesign>> GetBySurnames(string surname)
         {
-            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return graphicDesigns == null
                 ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDesign>>(graphicDesigns, GraphicDesignConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesign>> GetList()
+        public IDataResult<List<GraphicDesign>> GetAll()
         {
-            return new SuccessDataResult<List<GraphicDesign>>(_graphicDesignDal.GetAll().ToList(), GraphicDesignConstants.DataGet);
+            return new SuccessDataResult<List<GraphicDesign>>(_graphicDesignDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDesignConstants.DataGet);
+        }
+        public IDataResult<List<GraphicDesign>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<GraphicDesign>>(_graphicDesignDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDesignConstants.DataGet);
         }
 
         private IResult GraphicDesignNameOrSurnameExist(GraphicDesign entity)

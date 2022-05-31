@@ -26,20 +26,25 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(ResearcherNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+
             entity.IsDeleted = false;
             _researcherDal.Delete(entity);
             return new SuccessResult(ResearcherConstants.AddSuccess);
         }
 
-        public IResult Delete(Researcher entity)
+        public IResult Delete(Guid id)
         {
-            _researcherDal.Delete(entity);
+            Researcher researcher = _researcherDal.Get(r => r.Id == id);
+            if (researcher == null)
+                return new ErrorResult(ResearcherConstants.DataNotGet);
+
+            _researcherDal.Delete(researcher);
             return new SuccessResult(ResearcherConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Researcher researcher = _researcherDal.Get(r => r.Id == guid && !r.IsDeleted);
+            Researcher researcher = _researcherDal.Get(r => r.Id == id && !r.IsDeleted);
             if (researcher == null)
                 return new ErrorResult(ResearcherConstants.NotMatch);
 
@@ -48,20 +53,21 @@ namespace Business.Concrete
             return new SuccessResult(ResearcherConstants.ShadowDeleteSuccess);
         }
 
+        [ValidationAspect(typeof(ResearcherValidator), Priority = 1)]
         public IResult Update(Researcher entity)
         {
             _researcherDal.Update(entity);
             return new SuccessResult(ResearcherConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Researcher>> GetByFilterList(Expression<Func<Researcher, bool>>? filter = null)
+        public IDataResult<List<Researcher>> GetByFilterLists(Expression<Func<Researcher, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(filter).ToList(), ResearcherConstants.DataGet);
         }
 
-        public IDataResult<Researcher> GetById(Guid guid)
+        public IDataResult<Researcher> GetById(Guid id)
         {
-            return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == guid && !i.IsDeleted), ResearcherConstants.DataGet);
+            return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == id && !i.IsDeleted), ResearcherConstants.DataGet);
         }
 
         public IDataResult<List<Researcher>> GetByNames(string name)
@@ -82,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.ToLowerInvariant().Contains(namePreAttachment.ToLowerInvariant()) && !n.IsDeleted).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return researchers == null
                    ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -96,20 +102,24 @@ namespace Business.Concrete
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetList()
+        public IDataResult<List<Researcher>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll().ToList(), ResearcherConstants.DataGet);
+            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted).ToList(), ResearcherConstants.DataGet);
+        }
 
+        public IDataResult<List<Researcher>> GetAll()
+        {
+            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r=>!r.IsDeleted).ToList(), ResearcherConstants.DataGet);
         }
 
         private IResult ResearcherNameOrSurnameExist(Researcher entity)
         {
             bool result = _researcherDal.GetAll(r =>
-               r.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && r.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())
+               r.Name.Equals(entity.Name,StringComparison.CurrentCultureIgnoreCase)
+            && r.SurName.Equals(entity.SurName,StringComparison.CurrentCultureIgnoreCase)
             && r.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null
-            && r.Specialty.ToLowerInvariant().Equals(entity.Specialty.ToLowerInvariant())).Any(); // true usage todo
+            && r.Specialty.Equals(entity.Specialty,StringComparison.CurrentCultureIgnoreCase)).Any();
             return result
                 ? new ErrorResult(ResearcherConstants.NameOrSurnameExists)
                 : new SuccessResult(ResearcherConstants.DataGet);

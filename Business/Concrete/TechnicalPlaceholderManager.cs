@@ -6,6 +6,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -27,9 +28,23 @@ namespace Business.Concrete
             return new SuccessResult(TechnicalPlaceholderConstants.AddSuccess);
         }
 
-        public IResult Delete(TechnicalPlaceholder technicalPlaceholder)
+        public IResult Delete(Guid id)
         {
+            TechnicalPlaceholder technicalPlaceholder=_placeholderDal.Get(tph=>tph.Id==id);
+            if (technicalPlaceholder != null)
+                return new ErrorResult(TechnicalNumberConstants.DataNoGet);
+
             _placeholderDal.Delete(technicalPlaceholder);
+            return new SuccessResult(TechnicalPlaceholderConstants.DeleteSuccess);
+        }
+        
+        public IResult ShadowDelete(Guid id)
+        {
+            TechnicalPlaceholder technicalPlaceholder = _placeholderDal.Get(tph => tph.Id == id);
+            if (technicalPlaceholder != null)
+                return new ErrorResult(TechnicalNumberConstants.DataNoGet);
+
+            _placeholderDal.Update(technicalPlaceholder);
             return new SuccessResult(TechnicalPlaceholderConstants.DeleteSuccess);
         }
 
@@ -47,17 +62,32 @@ namespace Business.Concrete
                 : new SuccessDataResult<TechnicalPlaceholder>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> Getlist()
-        {
-            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll().ToList());
-        }
-
         public IDataResult<List<TechnicalPlaceholder>> StockCode(string stockCode)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.ToLowerInvariant().Equals(stockCode.ToLowerInvariant()) && !T.IsDeleted).ToList();
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode,StringComparison.CurrentCultureIgnoreCase) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
                 ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+        }
+
+        public IDataResult<List<TechnicalPlaceholder>> GetByNames(string name)
+        {
+            return new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.Disabled);
+        }
+
+        public IDataResult<List<TechnicalPlaceholder>> GetByFilterLists(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(filter).ToList());
+        }
+
+        public IDataResult<List<TechnicalPlaceholder>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => ph.IsDeleted).ToList());
+        }
+
+        public IDataResult<List<TechnicalPlaceholder>> GetAll()
+        {
+            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => !ph.IsDeleted).ToList());
         }
 
         public IDataResult<List<TechnicalPlaceholder>> StockNumber(ulong stockNumber)

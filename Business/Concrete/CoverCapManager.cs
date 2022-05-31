@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -26,16 +27,33 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
+            coverCap.IsDeleted = false;
             _coverCapDal.Add(coverCap);
             return new SuccessResult(CoverCapConstants.AddSuccess);
         }
 
-        public IResult Delete(CoverCap coverCap)
+        public IResult Delete(int id)
         {
+            CoverCap coverCap = _coverCapDal.Get(ccp => ccp.Id == id);
+            if (coverCap == null)
+                return new ErrorResult(CoverCapConstants.NotMatch);
+
             _coverCapDal.Delete(coverCap);
             return new SuccessResult(CoverCapConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(int id)
+        {
+            CoverCap coverCap = _coverCapDal.Get(ccp => ccp.Id == id && !ccp.IsDeleted);
+            if (coverCap == null)
+                return new ErrorResult(CoverCapConstants.NotMatch);
+            coverCap.IsDeleted = true;
+
+            _coverCapDal.Update(coverCap);
+            return new SuccessResult(CoverCapConstants.DeleteSuccess);
+        }
+
+        [ValidationAspect(typeof(CoverCapValidator), Priority = 1)]
         public IResult Update(CoverCap coverCap)
         {
             _coverCapDal.Update(coverCap);
@@ -50,17 +68,27 @@ namespace Business.Concrete
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
         }
 
-        public IDataResult<CoverCap> GetByName(string name)
+        public IDataResult<List<CoverCap>> GetByNames(string name)
         {
-            CoverCap? coverCap = _coverCapDal.Get(u => u.BookSkinType.ToUpperInvariant().Contains(name.ToUpperInvariant()));
-            return coverCap == null
-                ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
-                : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
+             List<CoverCap>  coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            return coverCaps == null
+                ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
+                : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetList()
+        public IDataResult<List<CoverCap>> GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<CoverCap>>((List<CoverCap>)_coverCapDal.GetAll());
+            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(filter).ToList());
+        }
+
+        public IDataResult<List<CoverCap>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(c => c.IsDeleted).ToList());
+        }
+
+        public IDataResult<List<CoverCap>> GetAll()
+        {
+            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(c => !c.IsDeleted).ToList());
         }
 
         private IResult CoverCapChecker(CoverCap coverCap)

@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -26,7 +27,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Add(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
+            IResult result = BusinessRules.Run(_cityService.GetById(address.City.Id), _countryService.GetById(address.Country.Id));
             if (result != null)
                 return result;
 
@@ -35,9 +36,9 @@ namespace Business.Concrete
             return new SuccessResult(AddressConstants.AddSuccess);
         }
 
-        public IResult Delete(Guid addressGId)
+        public IResult Delete(Guid id)
         {
-            Address address = _addressDal.Get(a => a.Id == addressGId && !a.IsDeleted);
+            Address address = _addressDal.Get(a => a.Id == id);
             if (address == null)
                 return new ErrorResult(AddressConstants.NotMatch);
 
@@ -45,9 +46,9 @@ namespace Business.Concrete
             return new SuccessResult(AddressConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid addressGId)
+        public IResult ShadowDelete(Guid id)
         {
-            Address address = _addressDal.Get(a => a.Id == addressGId && !a.IsDeleted);
+            Address address = _addressDal.Get(a => a.Id == id && !a.IsDeleted);
             if (address == null)
                 return new ErrorResult(AddressConstants.NotMatch);
 
@@ -59,23 +60,17 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Update(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.Get(address.City.Id), _countryService.GetByCountry(address.Country.Id));
+            IResult result = BusinessRules.Run(_cityService.GetById(address.City.Id), _countryService.GetById(address.Country.Id));
             if (result != null)
                 return result;
 
-            address.IsDeleted = false;
             _addressDal.Update(address);
             return new SuccessResult(AddressConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Address>> GetAll()
+        public IDataResult<Address> GetById(Guid id)
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll().ToList(), AddressConstants.DataGet);
-        }
-
-        public IDataResult<Address> GetById(Guid guid)
-        {
-            Address address = _addressDal.Get(a => a.Id == guid && !a.IsDeleted);
+            Address address = _addressDal.Get(a => a.Id == id);
 
             return address == null
                 ? new ErrorDataResult<Address>(AddressConstants.NotMatch)
@@ -116,10 +111,33 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetBySearchString(string searchStr)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.AddressLine1 + a.AddressLine2 == searchStr && !a.IsDeleted).ToList();
+            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr,StringComparison.CurrentCultureIgnoreCase) && !a.IsDeleted).ToList();
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+        }
+
+        public IDataResult<List<Address>> GetByNames(string name)
+        {
+            List<Address> addresses = _addressDal.GetAll(a=>a.AddressName.Contains(name,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            return addresses == null
+                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+        }
+
+        public IDataResult<List<Address>> GetByFilterLists(Expression<Func<Address, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(filter).ToList(), AddressConstants.DataGet);
+        }
+
+        public IDataResult<List<Address>> GetAll()
+        {
+            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a=>!a.IsDeleted).ToList(), AddressConstants.DataGet);
+        }
+
+        public IDataResult<List<Address>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a=>a.IsDeleted).ToList(), AddressConstants.DataGet);
         }
     }
 }

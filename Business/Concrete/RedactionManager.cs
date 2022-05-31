@@ -31,43 +31,47 @@ namespace Business.Concrete
             return new SuccessResult(RedactionConstants.AddSuccess);
         }
 
-        public IResult Delete(Redaction entity)
+        public IResult Delete(Guid id)
         {
-            _redactionDal.Delete(entity);
+            Redaction redaction = _redactionDal.Get(r=>r.Id==id);
+            if (redaction == null)
+                return new SuccessResult(RedactionConstants.DataNotGet);
+
+            _redactionDal.Delete(redaction);
             return new SuccessResult(RedactionConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Redaction redaction = _redactionDal.Get(r => r.Id == guid && !r.IsDeleted);
+            Redaction redaction = _redactionDal.Get(r => r.Id == id && !r.IsDeleted);
             if (redaction == null)
                 return new ErrorResult(RedactionConstants.NotMatch);
 
             redaction.IsDeleted = true;
             _redactionDal.Update(redaction);
             return new SuccessResult(RedactionConstants.ShadowDeleteSuccess);
-
         }
 
+        [ValidationAspect(typeof(RedactionValidator), Priority = 1)]
         public IResult Update(Redaction entity)
         {
             _redactionDal.Update(entity);
             return new SuccessResult(RedactionConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Redaction>> GetByFilterList(Expression<Func<Redaction, bool>>? filter = null)
+        public IDataResult<List<Redaction>> GetByFilterLists(Expression<Func<Redaction, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(filter).ToList(), RedactionConstants.DataGet);
         }
 
-        public IDataResult<Redaction> GetById(Guid guid)
+        public IDataResult<Redaction> GetById(Guid id)
         {
-            return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == guid && !i.IsDeleted));
+            return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == id));
         }
 
         public IDataResult<List<Redaction>> GetByNames(string name)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.ToLower().Contains(name.ToLower()) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
@@ -75,15 +79,20 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetBySurnames(string surname)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.ToLower().Contains(surname.ToLower()) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetList()
+        public IDataResult<List<Redaction>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll().ToList(), RedactionConstants.DataGet);
+            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r => r.IsDeleted).ToList(), RedactionConstants.DataGet);
+        }
+
+        public IDataResult<List<Redaction>> GetAll()
+        {
+            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r=>!r.IsDeleted).ToList(), RedactionConstants.DataGet);
         }
 
         private IResult RedactionNameOrSurnameExist(Redaction entity)

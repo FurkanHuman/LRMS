@@ -10,7 +10,7 @@ using Entities.Concrete.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
-{   // true usage write all manager todo
+{
     public class OtherPeopleManager : IOtherPeopleService
     {
         private readonly IOtherPeopleDal _otherPeopleDal;
@@ -32,19 +32,19 @@ namespace Business.Concrete
             return new SuccessResult(OtherPeopleConstants.AddSuccess);
         }
 
-        public IResult Delete(OtherPeople entity)
+        public IResult Delete(Guid id)
         {
-            bool opQ = _otherPeopleDal.GetAll(op => op == entity).Any();
-            if (!opQ)
+            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == id);
+            if (otherPeople == null)
                 return new ErrorResult(OtherPeopleConstants.NotMatch);
 
-            _otherPeopleDal.Delete(entity);
+            _otherPeopleDal.Delete(otherPeople);
             return new SuccessResult(OtherPeopleConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == guid && !op.IsDeleted);
+            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == id && !op.IsDeleted);
             if (otherPeople == null)
                 return new ErrorResult(OtherPeopleConstants.NotMatch);
 
@@ -64,14 +64,14 @@ namespace Business.Concrete
             return new SuccessResult(OtherPeopleConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<OtherPeople>> GetByFilterList(Expression<Func<OtherPeople, bool>>? filter = null)
+        public IDataResult<List<OtherPeople>> GetByFilterLists(Expression<Func<OtherPeople, bool>>? filter = null)
         {
             return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(filter).ToList(), OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<OtherPeople> GetById(Guid guid)
+        public IDataResult<OtherPeople> GetById(Guid id)
         {
-            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == guid && !op.IsDeleted);
+            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == id && !op.IsDeleted);
             if (otherPeople == null)
                 return new ErrorDataResult<OtherPeople>(OtherPeopleConstants.DataNotGet);
             return new SuccessDataResult<OtherPeople>(OtherPeopleConstants.DataGet);
@@ -121,7 +121,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetList()
+        public IDataResult<List<OtherPeople>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(op => op.IsDeleted).ToList(), OtherPeopleConstants.DataGet);
+        }
+
+        public IDataResult<List<OtherPeople>> GetAll()
         {
             return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(op => !op.IsDeleted).ToList(), OtherPeopleConstants.DataGet);
         }

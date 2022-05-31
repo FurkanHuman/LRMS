@@ -27,19 +27,25 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(GraphicDirectorNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+
+            entity.IsDeleted = false;
             _graphicDirectorDal.Add(entity);
             return new SuccessResult(GraphicDirectorConstants.AddSuccess);
         }
 
-        public IResult Delete(GraphicDirector entity)
+        public IResult Delete(Guid id)
         {
-            _graphicDirectorDal.Delete(entity);
+            GraphicDirector graphicDirector = _graphicDirectorDal.Get(g => g.Id == id);
+            if (graphicDirector == null)
+                return new ErrorResult(GraphicDirectorConstants.NotMatch);
+
+            _graphicDirectorDal.Delete(graphicDirector);
             return new SuccessResult(GraphicDirectorConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            GraphicDirector graphicDirector = _graphicDirectorDal.Get(g => g.Id == guid && !g.IsDeleted);
+            GraphicDirector graphicDirector = _graphicDirectorDal.Get(g => g.Id == id && !g.IsDeleted);
             if (graphicDirector == null)
                 return new ErrorResult(GraphicDirectorConstants.NotMatch);
 
@@ -58,14 +64,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<GraphicDirector> GetById(Guid guid)
+        public IDataResult<GraphicDirector> GetById(Guid id)
         {
-            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == guid && !i.IsDeleted), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id), GraphicDirectorConstants.DataGet);
         }
 
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
@@ -73,15 +79,25 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDirector>> GetBySurnames(string surname)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetList()
+        public IDataResult<List<GraphicDirector>> GetByFilterLists(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll().ToList(), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
+        }
+
+        public IDataResult<List<GraphicDirector>> GetAll()
+        {
+            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
+        }
+
+        public IDataResult<List<GraphicDirector>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
         }
 
         private IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)

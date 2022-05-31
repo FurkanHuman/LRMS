@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -30,21 +31,31 @@ namespace Business.Concrete
             return new SuccessResult(LanguageConstants.AddSuccess);
         }
 
-        public IResult Delete(Language language)
+        public IResult Delete(int id)
         {
+            Language language = _languageDal.Get(l => l.Id == id);
+            if (language == null)
+                return new SuccessResult(LanguageConstants.DataNotGet);
+
             _languageDal.Delete(language);
             return new SuccessResult(LanguageConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(int id)
+        {
+            Language language = _languageDal.Get(l => l.Id == id && !l.IsDeleted);
+            if (language == null)
+                return new SuccessResult(LanguageConstants.DataNotGet);
+
+            _languageDal.Delete(language);
+            return new SuccessResult(LanguageConstants.DeleteSuccess);
+        }
+
+        [ValidationAspect(typeof(LanguageValidator), Priority = 1)]
         public IResult Update(Language language)
         {
             _languageDal.Update(language);
             return new SuccessResult(LanguageConstants.UpdateSuccess);
-        }
-
-        public IDataResult<List<Language>> Getlist()
-        {
-            return new SuccessDataResult<List<Language>>(_languageDal.GetAll().ToList<Language>(), LanguageConstants.DataGet);
         }
 
         public IDataResult<Language> GetById(int id)
@@ -56,12 +67,27 @@ namespace Business.Concrete
                 : new SuccessDataResult<Language>(language, LanguageConstants.DataGet);
         }
 
-        public IDataResult<Language> GetByLanguageName(string languageName)
+        public IDataResult<List<Language>> GetByNames(string name)
         {
-            Language language = _languageDal.Get(l => l.LanguageName.ToLowerInvariant().Equals(languageName.ToLowerInvariant()) && !l.IsDeleted);
-            return language == null
-                ? new ErrorDataResult<Language>(LanguageConstants.DataNotGet)
-                : new SuccessDataResult<Language>(language, LanguageConstants.DataGet);
+            List<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
+            return languages == null
+                ? new ErrorDataResult<List<Language>>(LanguageConstants.DataNotGet)
+                : new SuccessDataResult<List<Language>>(languages, LanguageConstants.DataGet);
+        }
+
+        public IDataResult<List<Language>> GetByFilterLists(Expression<Func<Language, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Language>>(_languageDal.GetAll(filter).ToList<Language>(), LanguageConstants.DataGet);
+        }
+
+        public IDataResult<List<Language>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Language>>(_languageDal.GetAll(l => l.IsDeleted).ToList<Language>(), LanguageConstants.DataGet);
+        }
+
+        public IDataResult<List<Language>> GetAll()
+        {
+            return new SuccessDataResult<List<Language>>(_languageDal.GetAll(l => !l.IsDeleted).ToList<Language>(), LanguageConstants.DataGet);
         }
 
         private IResult CheckLanguageByExists(Language language)

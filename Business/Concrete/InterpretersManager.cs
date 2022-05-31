@@ -32,15 +32,19 @@ namespace Business.Concrete
             return new SuccessResult(InterpretersConstants.AddSuccess);
         }
 
-        public IResult Delete(Interpreters entity)
+        public IResult Delete(Guid id)
         {
-            _interpretersDal.Delete(entity);
+            Interpreters interpreters = _interpretersDal.Get(p => p.Id == id);
+            if (interpreters == null)
+                return new SuccessResult(InterpretersConstants.DataNotGet);
+
+            _interpretersDal.Delete(interpreters);
             return new SuccessResult(InterpretersConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Interpreters interpreters = _interpretersDal.Get(i => i.Id == guid && !i.IsDeleted);
+            Interpreters interpreters = _interpretersDal.Get(i => i.Id == id && !i.IsDeleted);
             if (interpreters == null)
                 return new ErrorResult(InterpretersConstants.NotMatch);
 
@@ -49,15 +53,16 @@ namespace Business.Concrete
             return new SuccessResult(InterpretersConstants.DataGet);
         }
 
+        [ValidationAspect(typeof(InterpretersValidator), Priority = 1)]
         public IResult Update(Interpreters entity)
         {
             _interpretersDal.Update(entity);
             return new SuccessResult(InterpretersConstants.UpdateSuccess);
         }
 
-        public IDataResult<Interpreters> GetById(Guid guid)
+        public IDataResult<Interpreters> GetById(Guid id)
         {
-            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == guid && !i.IsDeleted), InterpretersConstants.DataGet);
+            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id), InterpretersConstants.DataGet);
         }
 
         public IDataResult<List<Interpreters>> GetByNames(string name)
@@ -76,22 +81,27 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetByWhichToLanguageList(string LangName)
+        public IDataResult<List<Interpreters>> GetByWhichToLanguageList(string langName)
         {
-            List<Interpreters> interpreterss = _interpretersDal.GetAll(l => l.WhichToLanguage.ToLower().Contains(LangName.ToLower()) && !l.IsDeleted).ToList();
+            List<Interpreters> interpreterss = _interpretersDal.GetAll(l => l.WhichToLanguage.Contains(langName,StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
             return interpreterss == null
             ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
             : new SuccessDataResult<List<Interpreters>>(interpreterss, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetList()
-        {
-            return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll().ToList(), InterpretersConstants.DataGet);
-        }
-
-        public IDataResult<List<Interpreters>> GetByFilterList(Expression<Func<Interpreters, bool>>? filter = null)
+        public IDataResult<List<Interpreters>> GetByFilterLists(Expression<Func<Interpreters, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(filter).ToList(), InterpretersConstants.DataGet);
+        }
+
+        public IDataResult<List<Interpreters>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(i=>i.IsDeleted).ToList(), InterpretersConstants.DataGet);
+        }
+
+        public IDataResult<List<Interpreters>> GetAll()
+        {
+            return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(i => i.IsDeleted).ToList(), InterpretersConstants.DataGet);
         }
 
         private IResult InterpretersNameOrSurnameExist(Interpreters entity)

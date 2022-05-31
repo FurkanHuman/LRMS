@@ -21,71 +21,81 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CityValidator), Priority = 1)]
-        public IResult Add(string cityName)
+        public IResult Add(City city)
         {
-            IResult result = BusinessRules.Run(CheckCityByExists(cityName));
+            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName));
             if (result != null)
                 return result;
-            City city = new() { CityName = cityName, IsDeleted = false };
 
+            city.IsDeleted = false;
             _cityDal.Add(city);
-
             return new SuccessResult(CityConstants.AddSuccess);
         }
 
-        public IResult Delete(int cityId)
+        public IResult Delete(int id)
         {
-            IResult result = BusinessRules.Run(CheckCityIdByExists(cityId));
-            if (result != null)
-                return result;
+            City city = _cityDal.Get(c => c.Id == id);
 
-            City city = new() { Id = cityId };
+            if (city == null)
+                return new ErrorResult(CityConstants.NotMatch);
 
             _cityDal.Delete(city);
             return new SuccessResult(CityConstants.DeleteSuccess);
         }
 
-        public IDataResult<City> Get(int cityId)
+        public IResult ShadowDelete(int id)
         {
-            City city = _cityDal.Get(c => c.Id == cityId && c.IsDeleted.Equals(false) && c.IsDeleted.Equals(null));
-            return city == null
-                ? new SuccessDataResult<City>(city, CityConstants.DataGet)
-                : new ErrorDataResult<City>(CityConstants.CityNotFound);
-        }
+            City city = _cityDal.Get(c => c.Id == id && !c.IsDeleted);
 
-        public IDataResult<List<City>> GetAll()
-        {
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => c.IsDeleted.Equals(false) && c.IsDeleted.Equals(null)).ToList<City>(), CityConstants.DataGet);
-        }
-
-        public IDataResult<List<City>> GetByFilterLists(Expression<Func<City, bool>>? filter = null)
-        {   // Danger Methot
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList<City>(), CityConstants.DataGet);
-        }
-
-        public IResult ShadowDelete(int cityId)
-        {
-            IResult result = BusinessRules.Run(CheckCityIdByExists(cityId));
-            if (result != null)
-                return result;
-
-            City city = new() { Id = cityId, IsDeleted = true };
+            if (city == null)
+                return new ErrorResult(CityConstants.NotMatch);
 
             _cityDal.Update(city);
             return new SuccessResult(CityConstants.ShadowDeleteSuccess);
         }
 
         [ValidationAspect(typeof(CityValidator), Priority = 1)]
-        public IResult Update(int cityId, string cityName)
+        public IResult Update(City city)
         {
-            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(cityId, cityName));
+            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(city.Id, city.CityName));
             if (result != null)
                 return result;
-            City city = new() { CityName = cityName, IsDeleted = false };
 
             _cityDal.Update(city);
-
             return new SuccessResult(CityConstants.UpdateSuccess);
+        }
+
+        public IDataResult<City> GetById(int id)
+        {
+            City city = _cityDal.Get(c => c.Id == id);
+
+            return city == null
+                ? new SuccessDataResult<City>(city, CityConstants.DataGet)
+                : new ErrorDataResult<City>(CityConstants.CityNotFound);
+        }
+        
+        public IDataResult<List<City>> GetByFilterLists(Expression<Func<City, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList(), CityConstants.DataGet);
+        }
+
+        public IDataResult<List<City>> GetByNames(string name)
+        {
+            List<City> cities = _cityDal.GetAll(c=>c.CityName.Contains(name,StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+            return cities == null
+                ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)
+                : new SuccessDataResult<List<City>>(cities, CityConstants.DataGet);
+        }
+
+        public IDataResult<List<City>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => c.IsDeleted).ToList(), CityConstants.DataGet);
+        }
+
+        public IDataResult<List<City>> GetAll()
+        {
+            return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => !c.IsDeleted).ToList(), CityConstants.DataGet);
         }
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
@@ -103,14 +113,6 @@ namespace Business.Concrete
             return cityExist == null
                 ? new SuccessResult()
                 : new ErrorResult(CityConstants.CityExist);
-        }
-
-        private IResult CheckCityIdByExists(int cityId)
-        {
-            City cityExist = _cityDal.Get(c => c.Id == cityId);
-            return cityExist == null
-                ? new SuccessResult()
-                : new ErrorResult(CityConstants.CityNotFound);
         }
     }
 }

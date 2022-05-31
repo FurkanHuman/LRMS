@@ -32,15 +32,20 @@ namespace Business.Concrete
             return new SuccessResult(DirectorConstants.AddSuccess);
         }
 
-        public IResult Delete(Director entity)
+        public IResult Delete(Guid id)
         {
-            _directorDal.Delete(entity);
+            Director director = _directorDal.Get(g => g.Id == id);
+            if (director == null)
+                return new ErrorResult(GraphicDesignConstants.NotMatch);
+
+
+            _directorDal.Delete(director);
             return new SuccessResult(DirectorConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Director director = _directorDal.Get(g => g.Id == guid && !g.IsDeleted);
+            Director director = _directorDal.Get(g => g.Id == id && !g.IsDeleted);
             if (director == null)
                 return new ErrorResult(GraphicDesignConstants.NotMatch);
 
@@ -49,6 +54,7 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
         }
 
+        [ValidationAspect(typeof(DirectorValidator), Priority = 1)]
         public IResult Update(Director entity)
         {
             _directorDal.Update(entity);
@@ -60,9 +66,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }
 
-        public IDataResult<Director> GetById(Guid guid)
+        public IDataResult<Director> GetById(Guid id)
         {
-            Director director = _directorDal.Get(i => i.Id == guid && !i.IsDeleted);
+            Director director = _directorDal.Get(i => i.Id == id);
             return director == null ?
                 new ErrorDataResult<Director>(DirectorConstants.DataNotGet) :
                 new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
@@ -84,7 +90,17 @@ namespace Business.Concrete
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetList()
+        public IDataResult<List<Director>> GetByFilterLists(Expression<Func<Director, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
+        }
+
+        public IDataResult<List<Director>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Director>>(_directorDal.GetAll(n => n.IsDeleted).ToList(), DirectorConstants.DataGet);
+        }
+
+        public IDataResult<List<Director>> GetAll()
         {
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(n => !n.IsDeleted).ToList(), DirectorConstants.DataGet);
         }

@@ -28,33 +28,44 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(ConsultantExist(entity));
             if (result != null)
                 return result;
-
+            entity.IsDeleted = false;
             _consultantDal.Add(entity);
             return new SuccessResult(ConsultantConstants.AddSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Consultant consultant = _consultantDal.Get(c => c.Id == guid && !c.IsDeleted);
+            Consultant consultant = _consultantDal.Get(c => c.Id == id && !c.IsDeleted);
             if (consultant == null)
                 return new ErrorResult(ConsultantConstants.NotMatch);
-            consultant.IsDeleted = true;
 
+            consultant.IsDeleted = true;
             _consultantDal.Update(consultant);
             return new SuccessResult(ConsultantConstants.ShadowDeleteSuccess);
         }
 
-        public IResult Delete(Consultant entity)
+        public IResult Delete(Guid id)
         {
-            Consultant consultant = _consultantDal.Get(c => c == entity);
+            Consultant consultant = _consultantDal.Get(c => c.Id == id);
             if (consultant == null)
                 return new ErrorResult(ConsultantConstants.DataNotGet);
 
-            _consultantDal.Delete(entity);
+            _consultantDal.Delete(consultant);
             return new SuccessResult(ConsultantConstants.DeleteSuccess);
         }
 
-        public IDataResult<List<Consultant>> GetByFilterList(Expression<Func<Consultant, bool>>? filter = null)
+        [ValidationAspect(typeof(Consultant), Priority = 1)]
+        public IResult Update(Consultant entity)
+        {
+            IResult result = BusinessRules.Run(ConsultantExist(entity));
+            if (result != null)
+                return result;
+
+            _consultantDal.Update(entity);
+            return new SuccessResult(ConsultantConstants.UpdateSuccess);
+        }
+
+        public IDataResult<List<Consultant>> GetByFilterLists(Expression<Func<Consultant, bool>>? filter = null)
         {
             List<Consultant> consultants = _consultantDal.GetAll(filter).ToList();
 
@@ -63,9 +74,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<Consultant> GetById(Guid guid)
+        public IDataResult<Consultant> GetById(Guid id)
         {
-            Consultant consultant = _consultantDal.Get(c => c.Id == guid && !c.IsDeleted);
+            Consultant consultant = _consultantDal.Get(c => c.Id == id);
             if (consultant == null)
                 return new ErrorDataResult<Consultant>(ConsultantConstants.NotMatch);
             return new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
@@ -89,29 +100,23 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetByThesisInConsultant(Guid gId)
+        public IDataResult<List<Thesis>> GetByThesisInConsultants(Guid id)
         {
-            List<Thesis> theses = _thesisDal.GetAll(t => t.Consultant.Id == gId && !t.IsSecret).ToList();
+            List<Thesis> theses = _thesisDal.GetAll(t => t.Consultant.Id == id && !t.IsSecret).ToList();
             if (theses == null)
                 return new ErrorDataResult<List<Thesis>>(ConsultantConstants.NotMatch);
             return new SuccessDataResult<List<Thesis>>(theses, ConsultantConstants.DataGet);
 
         }
 
-        public IDataResult<List<Consultant>> GetList()
+        public IDataResult<List<Consultant>> GetAllBySecrets()
         {
             return new SuccessDataResult<List<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted).ToList(), ConsultantConstants.DataGet);
         }
 
-        [ValidationAspect(typeof(Consultant), Priority = 1)]
-        public IResult Update(Consultant entity)
+        public IDataResult<List<Consultant>> GetAll()
         {
-            IResult result = BusinessRules.Run(ConsultantExist(entity));
-            if (result != null)
-                return result;
-
-            _consultantDal.Update(entity);
-            return new SuccessResult(ConsultantConstants.UpdateSuccess);
+            return new SuccessDataResult<List<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted).ToList(), ConsultantConstants.DataGet);
         }
 
         private IResult ConsultantExist(Consultant entity)

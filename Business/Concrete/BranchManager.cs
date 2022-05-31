@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -20,44 +21,64 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BranchValidator), Priority = 1)]
-        public IResult Add(string branchName)
+        public IResult Add(Branch branch)
         {
-            IResult result = BusinessRules.Run(BranchNameControl(branchName));
+            IResult result = BusinessRules.Run(BranchNameControl(branch.Name));
             if (result != null)
                 return result;
 
-            Branch branch = new() { Name = branchName };
-
+            branch.IsDeleted = false;
             _branchDal.Add(branch);
 
             return new SuccessResult(BranchConstants.AddSuccess);
         }
 
-        public IResult Delete(int bId)
+        public IResult Delete(int id)
         {
-            Branch branch = _branchDal.Get(i => i.Id == bId && !i.IsDeleted);
+            Branch branch = _branchDal.Get(i => i.Id == id && !i.IsDeleted);
             if (branch == null)
                 return new ErrorResult(BranchConstants.DataNotGet);
             _branchDal.Delete(branch);
             return new SuccessResult(BranchConstants.DeleteSuccess);
         }
 
-        public IDataResult<Branch> Get(int bId)
+        public IResult ShadowDelete(int id)
         {
-            Branch branch = _branchDal.Get(i => i.Id == bId && !i.IsDeleted);
+            Branch branch = _branchDal.Get(i => i.Id == id && !i.IsDeleted);
+            if (branch == null)
+                return new ErrorResult(BranchConstants.DataNotGet);
+
+            branch.IsDeleted = true;
+            _branchDal.Update(branch);
+            return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
+        }
+        
+        [ValidationAspect(typeof(ImageValidator), Priority = 1)]
+        public IResult Update(Branch branch)
+        {
+            _branchDal.Update(branch);
+            return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
+        }
+
+        public IDataResult<Branch> GetById(int id)
+        {
+            Branch branch = _branchDal.Get(i => i.Id == id);
             return branch != null
                 ? new SuccessDataResult<Branch>(branch, BranchConstants.DataGet)
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
         }
 
-        public IResult ShadowDelete(int bId)
+        public IDataResult<List<Branch>> GetByNames(string name)
         {
-            Branch branch = _branchDal.Get(i => i.Id == bId && !i.IsDeleted);
-            if (branch == null)
-                return new ErrorResult(BranchConstants.DataNotGet);
-            branch.IsDeleted = true;
-            _branchDal.Update(branch);
-            return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
+            List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !b.IsDeleted).ToList();
+            return branchs != null
+                ? new SuccessDataResult<List<Branch>>(branchs, BranchConstants.DataGet)
+                : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
+        }
+
+        public IDataResult<List<Branch>> GetByFilterLists(Expression<Func<Branch, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(filter).ToList(), BranchConstants.DataGet);
         }
 
         public IDataResult<List<Branch>> GetAll()
@@ -65,24 +86,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => !b.IsDeleted).ToList(), BranchConstants.DataGet);
         }
 
-        [ValidationAspect(typeof(ImageValidator), Priority = 1)]
-        public IResult Update(int oldBId, string newBranchName)
+        public IDataResult<List<Branch>> GetAllBySecrets()
         {
-            Branch branch = _branchDal.Get(i => i.Id == oldBId && !i.IsDeleted);
-            if (branch == null)
-                return new ErrorResult(BranchConstants.DataNotGet);
-            branch.Name = newBranchName;
-            _branchDal.Update(branch);
-            return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
+            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => b.IsDeleted).ToList(), BranchConstants.DataGet);
         }
 
         private IResult BranchNameControl(string branchName)
         {
-            Branch? branch = _branchDal.Get(b => b.Name.ToLowerInvariant().Contains(branchName.ToLowerInvariant()));
+            Branch branch = _branchDal.Get(b => b.Name.Contains(branchName,StringComparison.CurrentCultureIgnoreCase));
             return branch == null
                 ? new SuccessResult()
                 : new ErrorResult(BranchConstants.BranchExist);
         }
-
     }
 }
