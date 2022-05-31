@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IInterpretersService : IFirstPersonBaseService<Interpreters>
     {
-        IDataResult<List<Interpreters>> GetByWhichToLanguageList(string LangName);
+        IDataResult<List<Interpreters>> GetByWhichToLanguageList(string langName);
     }
 }
