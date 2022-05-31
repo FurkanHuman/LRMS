@@ -9,7 +9,6 @@ namespace Business.Abstract
         IResult Delete(Guid id);
         IResult ShadowDelete(Guid id);
         IDataResult<Communication> GetById(Guid id);
-        IDataResult<Communication> GetByAddressId(Guid addressgId);
         IDataResult<Communication> GetByPhoneNumber(string phoneNumber);
         IDataResult<Communication>? GetbyFaxNumber(string faxNumber);
         IDataResult<Communication> GetByEmail(string eMail);

@@ -14,18 +14,16 @@ namespace Business.Concrete
     public class CommunicationManager : ICommunicationService
     {
         private readonly ICommunicationDal _communicationDal;
-        private readonly IAddressService _addressService;
 
-        public CommunicationManager(ICommunicationDal communicationDal, IAddressService addressService)
+        public CommunicationManager(ICommunicationDal communicationDal)
         {
             _communicationDal = communicationDal;
-            _addressService = addressService;
         }
 
         [ValidationAspect(typeof(CommunicationValidator), Priority = 1)]
         public IResult Add(Communication communication)
         {
-            IResult result = BusinessRules.Run(CommunicationChecker(communication), _addressService.GetById(communication.Address.Id));
+            IResult result = BusinessRules.Run(CommunicationChecker(communication));
             if (result != null)
                 return result;
 
@@ -34,9 +32,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IResult Delete(Guid gId)
+        public IResult Delete(Guid id)
         {
-            Communication communication = _communicationDal.Get(c => c.Id == gId && !c.IsDeleted);
+            Communication communication = _communicationDal.Get(c => c.Id == id);
             if (communication == null)
                 return new ErrorResult(CommunicationConstants.NotMatch);
 
@@ -44,14 +42,13 @@ namespace Business.Concrete
             return new SuccessResult(CommunicationConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid gId)
+        public IResult ShadowDelete(Guid id)
         {
-            Communication communication = _communicationDal.Get(c => c.Id == gId && !c.IsDeleted);
+            Communication communication = _communicationDal.Get(c => c.Id == id && !c.IsDeleted);
             if (communication == null)
                 return new ErrorResult(CommunicationConstants.NotMatch);
 
             communication.IsDeleted = true;
-
             _communicationDal.Update(communication);
             return new SuccessResult(CommunicationConstants.ShadowDeleteSuccess);
         }
@@ -59,7 +56,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CommunicationValidator), Priority = 1)]
         public IResult Update(Communication communication)
         {
-            IResult result = BusinessRules.Run(CommunicationChecker(communication), _addressService.GetById(communication.Address.Id));
+            IResult result = BusinessRules.Run(CommunicationChecker(communication));
             if (result != null)
                 return result;
 
@@ -67,38 +64,23 @@ namespace Business.Concrete
             return new SuccessResult(CommunicationConstants.UpdateSuccess);
         }
 
-        public IDataResult<Communication> Get(Guid gId)
+        public IDataResult<Communication> GetById(Guid id)
         {
-            Communication communication = _communicationDal.Get(c => c.Id == gId && !c.IsDeleted);
+            Communication communication = _communicationDal.Get(c => c.Id == id && !c.IsDeleted);
 
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
-
-        public IDataResult<List<Communication>> GetAll()
-        {
-            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => !c.IsDeleted).ToList(), CommunicationConstants.DataGet);
-        }
-
-        public IDataResult<List<Communication>> GetAllByFilterLists(Expression<Func<Communication, bool>>? filter = null)
+                
+        public IDataResult<List<Communication>> GetByFilterLists(Expression<Func<Communication, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
         }
 
-        public IDataResult<Communication> GetByAddressGId(Guid addressgId)
+        public IDataResult<List<Communication>> GetByNames(string name)
         {
-            Communication communication = _communicationDal.Get(c => c.Address.Id == addressgId && !c.IsDeleted);
-
-            return communication == null
-                ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
-                : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
-        }
-
-        public IDataResult<List<Communication>> GetByCName(string CName)
-        {
-
-            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.ToLowerInvariant() == CName.ToLowerInvariant() && !c.IsDeleted).ToList();
+            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
 
             return communications == null
                 ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)
@@ -139,6 +121,16 @@ namespace Business.Concrete
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
+        }
+
+        public IDataResult<List<Communication>> GetAll()
+        {
+            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => !c.IsDeleted).ToList(), CommunicationConstants.DataGet);
+        }
+
+        public IDataResult<List<Communication>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => c.IsDeleted).ToList(), CommunicationConstants.DataGet);
         }
 
         private IResult CommunicationChecker(Communication communication)
