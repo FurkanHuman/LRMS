@@ -26,23 +26,28 @@ namespace Business.Concrete
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Add(University university)
         {
-            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.Get(university.Branch.Id), UniversityChecker(university));
+            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.GetById(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
+            university.IsDeleted = false;
             _universityDal.Add(university);
             return new SuccessResult(UniversityConstants.UpdateSuccess);
         }
 
-        public IResult Delete(University university)
+        public IResult Delete(Guid id)
         {
+            University university = _universityDal.Get(u => u.Id == id);
+            if (university == null)
+                return new ErrorResult(UniversityConstants.NotMatch);
+
             _universityDal.Delete(university);
             return new SuccessResult(UniversityConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            University university = _universityDal.Get(u => u.Id == guid && !u.IsDeleted);
+            University university = _universityDal.Get(u => u.Id == id && !u.IsDeleted);
             if (university == null)
                 return new ErrorResult(UniversityConstants.NotMatch);
 
@@ -54,7 +59,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Update(University university)
         {
-            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.Get(university.Branch.Id), UniversityChecker(university));
+            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.GetById(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
@@ -62,27 +67,30 @@ namespace Business.Concrete
             return new SuccessResult(UniversityConstants.UpdateSuccess);
         }
 
-        public IDataResult<University> GetById(Guid guid)
+        public IDataResult<University> GetById(Guid id)
         {
-            University university = _universityDal.Get(u => u.Id == guid && !u.IsDeleted);
+            University university = _universityDal.Get(u => u.Id == id && !u.IsDeleted);
 
             return university == null
                 ? new ErrorDataResult<University>(UniversityConstants.DataNotGet)
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
         }
 
-        public IDataResult<University> GetByAddressId(Guid guid)
+        public IDataResult<University> GetByAddressId(Guid id)
         {
-            University university = _universityDal.Get(u => u.Address.Id == guid && !u.IsDeleted);
+            IDataResult<Address> address = _addressService.GetById(id);
+            if (!address.Success)
+                return new ErrorDataResult<University>(address.Message);
 
+            University university = _universityDal.Get(u => u.Address == address && !u.IsDeleted);
             return university == null
                 ? new ErrorDataResult<University>(UniversityConstants.DataNotGet)
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByUniversityNames(string universityName)
+        public IDataResult<List<University>> GetByNames(string name)
         {
-            List<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(universityName, StringComparison.CurrentCultureIgnoreCase) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -109,7 +117,11 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByBranchId(int branchId)
         {
-            List<University> universities = _universityDal.GetAll(u => u.Branch.Id == branchId && !u.IsDeleted).ToList();
+            IDataResult<Branch> branch = _branchService.GetById(branchId);
+            if (!branch.Success)
+                return new ErrorDataResult<List<University>>(branch.Message);
+
+            List<University> universities = _universityDal.GetAll(u => u.Branch == branch && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -128,7 +140,6 @@ namespace Business.Concrete
         public IDataResult<List<University>> GetByCityId(int cityId)
         {
             List<University> universities = _universityDal.GetAll(u => u.Address.City.Id == cityId && !u.IsDeleted).ToList();
-
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
@@ -152,11 +163,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetAllByFilter(Expression<Func<University, bool>>? filter = null)
+        public IDataResult<List<University>> GetByFilterLists(Expression<Func<University, bool>>? filter = null)
         {
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(filter).ToList(), UniversityConstants.DataGet);
         }
 
+        public IDataResult<List<University>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<University>>(_universityDal.GetAll(u => u.IsDeleted).ToList(), UniversityConstants.DataGet);
+        }
         public IDataResult<List<University>> GetAll()
         {
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(u => !u.IsDeleted).ToList(), UniversityConstants.DataGet);

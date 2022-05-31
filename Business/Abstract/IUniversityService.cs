@@ -10,7 +10,6 @@ namespace Business.Abstract
         IResult ShadowDelete(Guid id);
         IDataResult<University> GetById(Guid id);
         IDataResult<University> GetByAddressId(Guid id);
-        IDataResult<List<University>> GetByUniversityNames(string universityName);
         IDataResult<List<University>> GetByInstituteNames(string instituteName);
         IDataResult<List<University>> GetByBranchNames(string branchName);
         IDataResult<List<University>> GetByBranchId(int branchId);
