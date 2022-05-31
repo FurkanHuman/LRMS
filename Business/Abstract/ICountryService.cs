@@ -9,5 +9,6 @@ namespace Business.Abstract
         IResult Delete(int id);
         IResult ShadowDelete(int id);
         IDataResult<Country> GetById(int id);
+        IDataResult<List<Country>> GetByCountryCodes(string countryCode);
     }
 }

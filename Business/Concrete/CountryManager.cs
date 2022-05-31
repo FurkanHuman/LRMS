@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -27,14 +28,13 @@ namespace Business.Concrete
                 return result;
 
             country.IsDeleted = false;
-
             _countryDal.Add(country);
             return new SuccessResult(CountryConstants.AddSuccess);
         }
 
-        public IResult Delete(int conutryId)
+        public IResult Delete(int id)
         {
-            Country country = _countryDal.Get(c => c.Id.Equals(conutryId) && !c.IsDeleted);
+            Country country = _countryDal.Get(c => c.Id == id);
             if (country == null)
                 return new ErrorResult(CountryConstants.NotMatch);
 
@@ -42,9 +42,9 @@ namespace Business.Concrete
             return new SuccessResult(CountryConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(int conutryId)
+        public IResult ShadowDelete(int id)
         {
-            Country country = _countryDal.Get(c => c.Id.Equals(conutryId) && !c.IsDeleted);
+            Country country = _countryDal.Get(c => c.Id.Equals(id) && !c.IsDeleted);
             if (country == null)
                 return new ErrorResult(CountryConstants.NotMatch);
 
@@ -65,23 +65,50 @@ namespace Business.Concrete
             return new SuccessResult(CountryConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Country>> GetAll()
+        public IDataResult<Country> GetById(int id)
         {
-            return new SuccessDataResult<List<Country>>(_countryDal.GetAll().ToList(), CountryConstants.DataGet);
-        }
-
-        public IDataResult<Country> GetByCountry(int countryId)
-        {
-            Country country = _countryDal.Get(c => c.Id == countryId && !c.IsDeleted);
+            Country country = _countryDal.Get(c => c.Id == id);
             return country == null
                 ? new ErrorDataResult<Country>(CountryConstants.DataNotGet)
                 : new SuccessDataResult<Country>(country, CountryConstants.DataGet);
         }
 
+        public IDataResult<List<Country>> GetByNames(string name)
+        {
+            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+            return countries == null
+                ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
+                : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
+        }
+
+        public IDataResult<List<Country>> GetByCountryCodes(string countryCode)
+        {
+            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            return countries == null
+                ? new ErrorDataResult<List<Country>>(CountryConstants.CountryNotFound)
+                : new SuccessDataResult<List<Country>>(countries, CountryConstants.DataGet);
+        }
+
+        public IDataResult<List<Country>> GetByFilterLists(Expression<Func<Country, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(filter).ToList(), CountryConstants.DataGet);
+        }
+
+        public IDataResult<List<Country>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(C => C.IsDeleted).ToList(), CountryConstants.DataGet);
+        }
+
+        public IDataResult<List<Country>> GetAll()
+        {
+            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(C => !C.IsDeleted).ToList(), CountryConstants.DataGet);
+        }
+
         private IResult CountryControl(Country country)
         {
-            int? countryNameId = _countryDal.Get(c => c.CountryName.ToLowerInvariant().Contains(country.CountryName.ToLowerInvariant()) && !c.IsDeleted).Id;
-            int? countryCodeId = _countryDal.Get(c => c.CountryCode.ToLowerInvariant().Contains(country.CountryCode.ToLowerInvariant()) && !c.IsDeleted).Id;
+            int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).Id;
+            int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).Id;
 
             if (countryCodeId != countryNameId)
                 return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
