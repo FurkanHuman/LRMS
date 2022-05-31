@@ -7,12 +7,12 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
     public class DimensionManager : IDimensionService
     {
-
         private readonly IDimensionDal _dimensionDal;
 
         public DimensionManager(IDimensionDal dimensionDal)
@@ -31,12 +31,28 @@ namespace Business.Concrete
             return new SuccessResult(DimensionConstants.AddSuccess);
         }
 
-        public IResult Delete(Dimension dimension)
+        public IResult Delete(Guid id)
         {
+            Dimension dimension = _dimensionDal.Get(d => d.Id == id);
+            if (dimension == null)
+                return new ErrorResult(DimensionConstants.NotMatch);
+
             _dimensionDal.Delete(dimension);
             return new SuccessResult(DimensionConstants.DeleteSuccess);
         }
 
+        public IResult ShadowDelete(Guid id)
+        {
+            Dimension dimension = _dimensionDal.Get(d => d.Id == id&&!d.IsDeleted);
+            if (dimension == null)
+                return new ErrorResult(DimensionConstants.NotMatch);
+
+            dimension.IsDeleted = true;
+            _dimensionDal.Update(dimension);
+            return new SuccessResult(DimensionConstants.DeleteSuccess);
+        }
+
+        [ValidationAspect(typeof(DimensionValidator), Priority = 1)]
         public IResult Update(Dimension dimension)
         {
             IResult result = BusinessRules.Run(DimensionExist(dimension));
@@ -47,7 +63,7 @@ namespace Business.Concrete
             return new SuccessResult(DimensionConstants.UpdateSuccess);
         }
 
-        public IDataResult<Dimension> Get(Dimension dimension)
+        public IDataResult<Dimension> GetByDimension(Dimension dimension)
         {
             Dimension dimensionGet = _dimensionDal.Get(d =>
             d.Width.Equals(dimension) &&
@@ -64,9 +80,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList(), DimensionConstants.DataGet);
         }
 
-        public IDataResult<Dimension> GetById(int id)
+        public IDataResult<Dimension> GetById(Guid id)
         {
-            Dimension dimensionGet = _dimensionDal.Get(d => d.Id.Equals(id));
+            Dimension dimensionGet = _dimensionDal.Get(d => d.Id == id);
             return dimensionGet == null
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
@@ -97,6 +113,25 @@ namespace Business.Concrete
             return dimensionZmm == null
                 ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<List<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
+        }
+
+        public IDataResult<List<Dimension>> GetByNames(string name)
+        {
+            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+            return dimensions == null
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+        }
+
+        public IDataResult<List<Dimension>> GetByFilterLists(Expression<Func<Dimension, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(filter).ToList(), DimensionConstants.DataGet);
+        }
+
+        public IDataResult<List<Dimension>> GetAllBySecrets()
+        {
+            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(d => d.IsDeleted).ToList(), DimensionConstants.DataGet);
         }
 
         private IResult DimensionExist(Dimension dimension)
