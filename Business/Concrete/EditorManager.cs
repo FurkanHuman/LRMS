@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetByNames(string name)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
@@ -78,7 +78,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetBySurnames(string surname)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);

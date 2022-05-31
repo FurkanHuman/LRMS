@@ -83,7 +83,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Interpreters>> GetByWhichToLanguageList(string langName)
         {
-            List<Interpreters> interpreterss = _interpretersDal.GetAll(l => l.WhichToLanguage.Contains(langName,StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
+            List<Interpreters> interpreterss = _interpretersDal.GetAll(l => l.WhichToLanguage.Contains(langName, StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
             return interpreterss == null
             ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
             : new SuccessDataResult<List<Interpreters>>(interpreterss, InterpretersConstants.DataGet);
@@ -96,7 +96,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Interpreters>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(i=>i.IsDeleted).ToList(), InterpretersConstants.DataGet);
+            return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(i => i.IsDeleted).ToList(), InterpretersConstants.DataGet);
         }
 
         public IDataResult<List<Interpreters>> GetAll()

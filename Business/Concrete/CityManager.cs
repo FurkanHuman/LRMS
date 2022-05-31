@@ -73,7 +73,7 @@ namespace Business.Concrete
                 ? new SuccessDataResult<City>(city, CityConstants.DataGet)
                 : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }
-        
+
         public IDataResult<List<City>> GetByFilterLists(Expression<Func<City, bool>>? filter = null)
         {
             return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList(), CityConstants.DataGet);
@@ -81,7 +81,7 @@ namespace Business.Concrete
 
         public IDataResult<List<City>> GetByNames(string name)
         {
-            List<City> cities = _cityDal.GetAll(c=>c.CityName.Contains(name,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
             return cities == null
                 ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)

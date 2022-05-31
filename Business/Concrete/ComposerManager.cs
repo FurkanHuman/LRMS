@@ -66,15 +66,15 @@ namespace Business.Concrete
 
         public IDataResult<Composer> GetById(Guid id)
         {
-            Composer composer= _composerDal.Get(c => c.Id == id);
+            Composer composer = _composerDal.Get(c => c.Id == id);
             return composer == null
                 ? new ErrorDataResult<Composer>(ComposerConstants.NotMatch)
-                : new SuccessDataResult<Composer>(composer,ComposerConstants.DataGet);
+                : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
         }
 
         public IDataResult<List<Composer>> GetByNames(string name)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
             return composers == null
                 ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
                 : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
@@ -82,7 +82,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Composer>> GetBySurnames(string surname)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
             return composers == null
                ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);

@@ -1,5 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
+﻿using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
 using System.Linq.Expressions;

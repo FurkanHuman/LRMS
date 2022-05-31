@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public IResult Delete(Guid id)
         {
-            Redaction redaction = _redactionDal.Get(r=>r.Id==id);
+            Redaction redaction = _redactionDal.Get(r => r.Id == id);
             if (redaction == null)
                 return new SuccessResult(RedactionConstants.DataNotGet);
 
@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetByNames(string name)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetBySurnames(string surname)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
@@ -92,7 +92,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetAll()
         {
-            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r=>!r.IsDeleted).ToList(), RedactionConstants.DataGet);
+            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r => !r.IsDeleted).ToList(), RedactionConstants.DataGet);
         }
 
         private IResult RedactionNameOrSurnameExist(Redaction entity)

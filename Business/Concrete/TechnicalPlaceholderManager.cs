@@ -30,14 +30,14 @@ namespace Business.Concrete
 
         public IResult Delete(Guid id)
         {
-            TechnicalPlaceholder technicalPlaceholder=_placeholderDal.Get(tph=>tph.Id==id);
+            TechnicalPlaceholder technicalPlaceholder = _placeholderDal.Get(tph => tph.Id == id);
             if (technicalPlaceholder != null)
                 return new ErrorResult(TechnicalNumberConstants.DataNoGet);
 
             _placeholderDal.Delete(technicalPlaceholder);
             return new SuccessResult(TechnicalPlaceholderConstants.DeleteSuccess);
         }
-        
+
         public IResult ShadowDelete(Guid id)
         {
             TechnicalPlaceholder technicalPlaceholder = _placeholderDal.Get(tph => tph.Id == id);
@@ -64,7 +64,7 @@ namespace Business.Concrete
 
         public IDataResult<List<TechnicalPlaceholder>> StockCode(string stockCode)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode,StringComparison.CurrentCultureIgnoreCase) && !T.IsDeleted).ToList();
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode, StringComparison.CurrentCultureIgnoreCase) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
                 ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);

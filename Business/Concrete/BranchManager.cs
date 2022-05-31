@@ -52,7 +52,7 @@ namespace Business.Concrete
             _branchDal.Update(branch);
             return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
         }
-        
+
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IResult Update(Branch branch)
         {
@@ -93,7 +93,7 @@ namespace Business.Concrete
 
         private IResult BranchNameControl(string branchName)
         {
-            Branch branch = _branchDal.Get(b => b.Name.Contains(branchName,StringComparison.CurrentCultureIgnoreCase));
+            Branch branch = _branchDal.Get(b => b.Name.Contains(branchName, StringComparison.CurrentCultureIgnoreCase));
             return branch == null
                 ? new SuccessResult()
                 : new ErrorResult(BranchConstants.BranchExist);

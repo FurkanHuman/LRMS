@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDirector>> GetBySurnames(string surname)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);

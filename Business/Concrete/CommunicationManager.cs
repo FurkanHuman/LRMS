@@ -72,7 +72,7 @@ namespace Business.Concrete
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
-                
+
         public IDataResult<List<Communication>> GetByFilterLists(Expression<Func<Communication, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
@@ -80,7 +80,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Communication>> GetByNames(string name)
         {
-            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name,StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
 
             return communications == null
                 ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)

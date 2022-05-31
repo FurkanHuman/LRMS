@@ -111,7 +111,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetBySearchString(string searchStr)
         {
-            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr,StringComparison.CurrentCultureIgnoreCase) && !a.IsDeleted).ToList();
+            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr, StringComparison.CurrentCultureIgnoreCase) && !a.IsDeleted).ToList();
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
@@ -119,7 +119,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetByNames(string name)
         {
-            List<Address> addresses = _addressDal.GetAll(a=>a.AddressName.Contains(name,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
@@ -132,12 +132,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetAll()
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a=>!a.IsDeleted).ToList(), AddressConstants.DataGet);
+            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => !a.IsDeleted).ToList(), AddressConstants.DataGet);
         }
 
         public IDataResult<List<Address>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a=>a.IsDeleted).ToList(), AddressConstants.DataGet);
+            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => a.IsDeleted).ToList(), AddressConstants.DataGet);
         }
     }
 }

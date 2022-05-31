@@ -103,7 +103,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Writer>> GetAll()
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w=>!w.IsDeleted).ToList(), WriterConstants.DataGet);
+            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => !w.IsDeleted).ToList(), WriterConstants.DataGet);
         }
 
         private IResult WriterNameOrSurnameExist(Writer entity)

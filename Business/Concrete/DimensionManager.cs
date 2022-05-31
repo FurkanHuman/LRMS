@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IResult ShadowDelete(Guid id)
         {
-            Dimension dimension = _dimensionDal.Get(d => d.Id == id&&!d.IsDeleted);
+            Dimension dimension = _dimensionDal.Get(d => d.Id == id && !d.IsDeleted);
             if (dimension == null)
                 return new ErrorResult(DimensionConstants.NotMatch);
 

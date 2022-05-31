@@ -88,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return researchers == null
                    ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -109,17 +109,17 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetAll()
         {
-            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r=>!r.IsDeleted).ToList(), ResearcherConstants.DataGet);
+            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted).ToList(), ResearcherConstants.DataGet);
         }
 
         private IResult ResearcherNameOrSurnameExist(Researcher entity)
         {
             bool result = _researcherDal.GetAll(r =>
-               r.Name.Equals(entity.Name,StringComparison.CurrentCultureIgnoreCase)
-            && r.SurName.Equals(entity.SurName,StringComparison.CurrentCultureIgnoreCase)
+               r.Name.Equals(entity.Name, StringComparison.CurrentCultureIgnoreCase)
+            && r.SurName.Equals(entity.SurName, StringComparison.CurrentCultureIgnoreCase)
             && r.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null
-            && r.Specialty.Equals(entity.Specialty,StringComparison.CurrentCultureIgnoreCase)).Any();
+            && r.Specialty.Equals(entity.Specialty, StringComparison.CurrentCultureIgnoreCase)).Any();
             return result
                 ? new ErrorResult(ResearcherConstants.NameOrSurnameExists)
                 : new SuccessResult(ResearcherConstants.DataGet);

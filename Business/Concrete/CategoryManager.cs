@@ -36,7 +36,7 @@ namespace Business.Concrete
             Category category = _categoryDal.Get(c => c.Id == id && !c.IsDeleted);
             if (category == null)
                 return new ErrorResult(CategoryConstants.NotMatch);
-            
+
             category.IsDeleted = true;
             _categoryDal.Update(category);
             return new SuccessResult(CategoryConstants.DeleteSuccess);
@@ -84,12 +84,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Category>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c=>c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
         }
 
         public IDataResult<List<Category>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c=>!c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
         private IResult CategoryNameChecker(Category category)

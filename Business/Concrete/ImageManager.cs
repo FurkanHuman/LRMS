@@ -45,7 +45,7 @@ namespace Business.Concrete
         public IResult ShadowDelete(Guid id)
         {
             Image image = _imageDal.Get(i => i.Id == id && !i.IsDeleted);
-            
+
             if (image == null)
                 return new ErrorResult(ImageConstants.NotMatch);
 
@@ -71,7 +71,7 @@ namespace Business.Concrete
         public IResult Update(IFormFile file, Image image)
         {
             string oldPath = GetById(image.Id).Data.ImagePath;
-            image.ImagePath = _fileHelper.UpdateAsync(oldPath, file).Data;            
+            image.ImagePath = _fileHelper.UpdateAsync(oldPath, file).Data;
             image.Date = DateTime.Now;
             image.IsDeleted = false;
             _imageDal.Update(image);
@@ -88,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Image>> GetByFilterLists(Expression<Func<Image, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet); 
+            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet);
         }
 
         public IDataResult<List<Image>> GetAll()
