@@ -13,9 +13,6 @@ namespace Entities.Concrete.Infos
         public string CommunicationName { get; set; }
 
         [Required]
-        public Address Address { get; set; }
-
-        [Required]
         public string PhoneNumber { get; set; }
 
         public string? FaxNumber { get; set; }
