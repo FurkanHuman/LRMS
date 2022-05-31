@@ -12,7 +12,7 @@ namespace Entities.Concrete.Infos
         [Required]
         public string LibraryName { get; set; }
 
-        public string LibraryType { get; set; }
+        public byte LibraryType { get; set; }
 
         [Required]
         public Address Address { get; set; }
