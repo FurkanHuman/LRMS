@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
-    public class EditorManager : IEditorService // Todo ReWrite
+    public class EditorManager : IEditorService
     {
         private readonly IEditorDal _editorDal;
 
@@ -32,15 +32,19 @@ namespace Business.Concrete
             return new SuccessResult(EditorConstants.AddSuccess);
         }
 
-        public IResult Delete(Editor entity)
+        public IResult Delete(Guid id)
         {
-            _editorDal.Delete(entity);
+            Editor editor = _editorDal.Get(e => e.Id == id);
+            if (editor == null)
+                return new ErrorResult(EditionConstants.NotMatch);
+
+            _editorDal.Delete(editor);
             return new SuccessResult(EditorConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(Guid guid)
+        public IResult ShadowDelete(Guid id)
         {
-            Editor editor = _editorDal.Get(g => g.Id == guid && !g.IsDeleted);
+            Editor editor = _editorDal.Get(g => g.Id == id && !g.IsDeleted);
             if (editor == null)
                 return new ErrorResult(EditorConstants.NotMatch);
 
@@ -49,15 +53,16 @@ namespace Business.Concrete
             return new SuccessResult(EditorConstants.ShadowDeleteSuccess);
         }
 
+        [ValidationAspect(typeof(EditorValidator), Priority = 1)]
         public IResult Update(Editor entity)
         {
             _editorDal.Update(entity);
             return new SuccessResult(EditorConstants.UpdateSuccess);
         }
 
-        public IDataResult<Editor> GetById(Guid guid)
+        public IDataResult<Editor> GetById(Guid id)
         {
-            Editor editor = _editorDal.Get(i => i.Id == guid && !i.IsDeleted);
+            Editor editor = _editorDal.Get(i => i.Id == id);
             return editor == null ?
                 new ErrorDataResult<Editor>(EditorConstants.DataNotGet) :
                 new SuccessDataResult<Editor>(EditorConstants.DataGet);
@@ -65,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetByNames(string name)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
@@ -73,20 +78,25 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetBySurnames(string surname)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname,StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetList()
+        public IDataResult<List<Editor>> GetByFilterLists(Expression<Func<Editor, bool>>? filter = null)
+        {
+            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(filter).ToList(), EditionConstants.DataGet);
+        }
+
+        public IDataResult<List<Editor>> GetAll()
         {
             return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => !n.IsDeleted).ToList(), EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetByFilterList(Expression<Func<Editor, bool>>? filter = null)
+        public IDataResult<List<Editor>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(filter).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => n.IsDeleted).ToList(), EditionConstants.DataGet);
         }
 
         private IResult EditorNameOrSurnameExist(Editor entity)
