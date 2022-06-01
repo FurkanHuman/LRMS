@@ -26,7 +26,6 @@ namespace Business.Abstract
         IDataResult<Library> GetByCommunicationFaxNumber(string commFaxNumber);
         IDataResult<Library> GetByCommunicationEmail(string commEmail);
         IDataResult<Library> GetByCommunicationWebSite(string commWebSite);
-        IDataResult<Enum> GetAllEnumLibraryTypes();
-
+        IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryTypes();
     }
 }

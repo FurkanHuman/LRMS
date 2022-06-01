@@ -339,9 +339,10 @@ namespace Business.Concrete
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
         }
 
-        public IDataResult<Enum> GetAllEnumLibraryTypes()
+        public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryTypes()
         {
-            return new ErrorDataResult<Enum>(LibraryConstants.Disabled);
+            Dictionary<byte, string> LibTypes = Enum.GetValues(typeof(LibraryConstants.LibraryTypes)).Cast<LibraryConstants.LibraryTypes>().ToDictionary(l => (byte)l, l => l.ToString());
+            return new SuccessDataResult<Dictionary<byte, string>>(LibTypes, LibraryConstants.Disabled);
         }
 
         public IDataResult<List<Library>> GetAllBySecrets()
@@ -356,7 +357,7 @@ namespace Business.Concrete
 
         private IResult LibraryExistControl(Library library)
         {
-            // fix it Todo
+            // fixme
             bool resul = _libraryDal.GetAll(l =>
             l.LibraryName.ToLowerInvariant().Contains(library.LibraryName, StringComparison.CurrentCultureIgnoreCase)
             && l.LibraryType == library.LibraryType
