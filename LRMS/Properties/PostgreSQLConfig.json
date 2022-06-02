@@ -8,5 +8,5 @@
     "IntegratedSecurity": true,
     "Pooling": true
   },
-  "PostgreConnectionString": "Host=localhost;Database=LRMS_DataBase;Username=postgres;Password=12345"
+  "PostgreConnectionString": "Host=localhost,Database=LRMS_DataBase;Username=postgres;Password=12345"
 }

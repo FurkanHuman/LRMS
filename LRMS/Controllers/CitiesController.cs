@@ -18,7 +18,7 @@ namespace LRMS.Controllers
         [HttpPost("Add")]
         public IActionResult Add(City city)
         {
-            var result = _cityService.Add(city);
+         var result = _cityService.Add(city);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -27,7 +27,7 @@ namespace LRMS.Controllers
         [HttpPost("Delete")]
         public IActionResult Delete(int id)
         {
-            var result = _cityService.Delete(id);  
+            var result = _cityService.Delete(id);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
