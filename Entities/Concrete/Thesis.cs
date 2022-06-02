@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Thesis : MaterialBase, IEntity
+    public class Thesis : MaterialBase,IEntity
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Required]
         public University University { get; set; }
 

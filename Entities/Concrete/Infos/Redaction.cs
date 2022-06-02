@@ -3,7 +3,7 @@ using Entities.Concrete.Base;
 
 namespace Entities.Concrete.Infos
 {
-    public class Redaction : FirstPagePersonBase, IEntity
+    public class Redaction : FirstPagePersonBase,IEntity
     {
 
     }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete.Infos
 {
-    public class OtherPeople : FirstPagePersonBase, IEntity
+    public class OtherPeople : FirstPagePersonBase,IEntity
     {
         [Required]
         public string Title { get; set; }

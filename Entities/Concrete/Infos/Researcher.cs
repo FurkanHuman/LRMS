@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete.Infos
 {
-    public class Researcher : FirstPagePersonBase, IEntity
+    public class Researcher : FirstPagePersonBase,IEntity
     {
         public string? NamePreAttachment { get; set; }
 

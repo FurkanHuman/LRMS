@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Image : IEntity
     {
-        [Key, ]
+        [Key]
         public Guid Id { get; set; }
 
         public string ImagePath { get; set; }

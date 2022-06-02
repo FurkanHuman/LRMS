@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class AudioRecord : MaterialBase, IEntity
+    public class AudioRecord : MaterialBase,IEntity
     {
-        [Required]
+        [Key]
+        public Guid Id { get; set; }
+
         public DateTime RecordDate { get; set; }
     }
 }

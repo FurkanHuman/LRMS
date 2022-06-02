@@ -7,7 +7,7 @@ namespace Entities.Concrete.Infos
 {
     public class Publisher : IEntity
     {
-        [Key, ]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]

@@ -6,9 +6,6 @@ namespace Entities.Concrete.Base
 {
     public class MaterialBase
     {
-        [Key, ]
-        public Guid Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Kit : MaterialBase, IEntity
+    public class Kit : MaterialBase,IEntity
     {
-        [Required]
+        [Key]
+        public Guid Id { get; set; }
+
         public List<MaterialBase> Entities { get; set; }
     }
 }

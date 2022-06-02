@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Dimension : IEntity
     {
-        [Key, ]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]

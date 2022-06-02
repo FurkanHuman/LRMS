@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class CartographicMaterial : MaterialBase, IEntity
+    public class CartographicMaterial : MaterialBase,IEntity
     {
-        [Required]
+        [Key]
+        public Guid Id { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

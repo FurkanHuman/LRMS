@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Painting : MaterialBase, IEntity
+    public class Painting : MaterialBase,IEntity
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Required]
         public string Owner { get; set; }
 

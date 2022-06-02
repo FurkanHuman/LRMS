@@ -5,9 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Depiction : MaterialBase, IEntity
+    public class Depiction : MaterialBase,IEntity
     {
-        [Required]
+        [Key]
+        public Guid Id { get; set; }
+
         public Image Image { get; set; }
     }
 }

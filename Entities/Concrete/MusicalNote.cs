@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class MusicalNote : MaterialBase, IEntity
+    public class MusicalNote : MaterialBase,IEntity
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Required]
         public Composer Composer { get; set; }
 
