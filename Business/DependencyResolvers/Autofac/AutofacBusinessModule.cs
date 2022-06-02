@@ -2,9 +2,7 @@
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
-using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
-using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 
@@ -14,20 +12,35 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<CityManager>().As<ICityService>().SingleInstance();
+            builder.RegisterType<EfCityDal>().As<ICityDal>().SingleInstance();
+
+
             builder.RegisterType<WriterManager>().As<IWriterService>();
             builder.RegisterType<EfWriterDal>().As<IWriterDal>();
 
+
+
+
+
             // Todo daha sonra yapılacak  builder.RegisterType<AuthManager>().As<IAuthService>(); Not.
-            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            // builder.RegisterType<JwtHelper>().As<ITokenHelper>()"
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
-                {
-                    Selector = new AspectInterceptorSelector()
-                }).SingleInstance();
-
+            /*
+             * 
+             *  Bunu en son aç, istemeyen autofac modülerini çalıştıruyor.
+             *
+             *  Last to open it, running autofac modules that don't want it.
+             *
+             * "var assembly = System.Reflection.Assembly.GetExecutingAssembly();"
+             *  
+             * builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+             *    .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+             *  {"
+             *     Selector = new AspectInterceptorSelector()
+             *   }).SingleInstance();"
+             * "
+             */
         }
     }
 }
