@@ -8,7 +8,13 @@ namespace Business.Constants
         // todo re turn Code.research a lib type
         public enum LibraryTypes
         {
-            Other
+            Other,
+            Academic,
+            Public,
+            School,
+            University,
+            Special,
+            Secret
         }
 
         public const string LibraryExist = "this library is exist.";
