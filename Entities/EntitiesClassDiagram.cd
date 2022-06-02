@@ -13,7 +13,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AIAAABABAhAAAAAACAAAAAAACAAAAAIBAAAAQYAAAAA=</HashCode>
+      <HashCode>AEAAABABAhAAAAAAAAQAgAEACAAAAAIBAAAAAYIAAAA=</HashCode>
       <FileName>Concrete\Base\BasePaper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -27,14 +27,14 @@
   <Class Name="Entities.Concrete.Base.MaterialBase" Collapsed="true">
     <Position X="44.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAEAAAAAAAAQAAAgAUAAAAAAABAAAgAA=</HashCode>
+      <HashCode>AAACAAAQAAAgAEAAAAAAAAQAgAgAUAAAAAAABAAAAAA=</HashCode>
       <FileName>Concrete\Base\MaterialBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entities.Concrete.Infos.Address" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAACAAAAAAAIIAAAAAAAAAIAAAAAAAAAAQAQAAA=</HashCode>
+      <HashCode>AAACAAACAAAAAAAIIAAIAAAAAAIAAAAAAAAAAQAQAAA=</HashCode>
       <FileName>Concrete\Infos\Address.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -42,7 +42,7 @@
   <Class Name="Entities.Concrete.Infos.Branch" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="28" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Branch.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -98,7 +98,7 @@
   <Class Name="Entities.Concrete.Infos.Dimension" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="41.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAABAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAABAAAAAAAAAAAAERAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Dimension.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -113,16 +113,8 @@
   </Class>
   <Class Name="Entities.Concrete.Infos.Edition" Collapsed="true">
     <Position X="44" Y="8.25" Width="1.5" />
-    <InheritanceLine Type="Entities.Concrete.Infos.Publisher" ManuallyRouted="true" FixedToPoint="true">
-      <Path>
-        <Point X="63.75" Y="8.25" />
-        <Point X="63.75" Y="7.607" />
-        <Point X="44.812" Y="7.607" />
-        <Point X="44.812" Y="8.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAACAAAAAAAAAAAAAACAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Edition.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -138,7 +130,7 @@
   <Class Name="Entities.Concrete.Infos.EMaterialFile" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="46.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAFAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAFAAAA=</HashCode>
       <FileName>Concrete\Infos\EMaterialFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.176" />
@@ -186,7 +178,7 @@
   <Class Name="Entities.Concrete.Infos.Library" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="53.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAABQAAAAAAAACAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAABQAAAAAAAACAAAAAACAAAAAAIAAAA=</HashCode>
       <FileName>Concrete\Infos\Library.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -194,7 +186,7 @@
   <Class Name="Entities.Concrete.Infos.Publisher" Collapsed="true">
     <Position X="63" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQIAgAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAACAAAAAQIAgAA=</HashCode>
       <FileName>Concrete\Infos\Publisher.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -234,7 +226,7 @@
   <Class Name="Entities.Concrete.Infos.University" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="60.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAAAAACAAAAAAAAgAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAAAAAAAAACAAAAAAAAgCAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\University.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -258,7 +250,7 @@
   <Class Name="Entities.Concrete.AudioRecord" Collapsed="true">
     <Position X="49.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Concrete\AudioRecord.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -282,7 +274,7 @@
   <Class Name="Entities.Concrete.CartographicMaterial" Collapsed="true">
     <Position X="44.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Concrete\CartographicMaterial.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -330,7 +322,7 @@
   <Class Name="Entities.Concrete.Kit" Collapsed="true">
     <Position X="38" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Concrete\Kit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -402,7 +394,7 @@
   <Class Name="Entities.Concrete.TradePublication" Collapsed="true">
     <Position X="56" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAgAAAAAIAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAEAAAAAAAAAAAAAAAAAAIAAAAAACAAAAA=</HashCode>
       <FileName>Concrete\TradePublication.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -410,7 +402,7 @@
   <Class Name="Entities.Concrete.Infos.Communication" Collapsed="true">
     <Position X="32.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAiAAAAACAAAAAAAIAAQAAAAAAAIAACAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAiAAAAACAAAAAAAIAAQAAAAAAAIAAAAAAAAQAAAAA=</HashCode>
       <FileName>Concrete\Infos\Communication.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
