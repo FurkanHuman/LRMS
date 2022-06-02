@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Communication : IEntity
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public Guid Id { get; set; }
 
         [Required]

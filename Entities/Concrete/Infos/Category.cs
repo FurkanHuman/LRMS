@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Category : IEntity
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public int Id { get; set; }
 
         public string CategoryName { get; set; }

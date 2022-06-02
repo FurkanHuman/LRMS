@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Branch : IEntity
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public int Id { get; set; }
 
         public string Name { get; set; }

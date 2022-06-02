@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class TechnicalPlaceholder : IEntity
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public Guid Id { get; set; }
 
         public Library Library { get; set; }

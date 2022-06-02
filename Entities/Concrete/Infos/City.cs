@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class City : IEntity
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public int Id { get; set; }
 
         public string CityName { get; set; }

@@ -5,7 +5,7 @@ namespace Entities.Concrete.Base
 {
     public class FirstPagePersonBase
     {
-        [Key, JsonIgnore]
+        [Key, ]
         public Guid Id { get; set; }
 
         public string Name { get; set; }
