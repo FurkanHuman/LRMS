@@ -1,13 +1,9 @@
 ﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IBranchService : IBaseEntityService<Branch>
+    public interface IBranchService : IBaseEntityService<Branch, int>
     {
-        IResult Delete(int id);
-        IResult ShadowDelete(int id);
-        IDataResult<Branch> GetById(int id);
     }
 }

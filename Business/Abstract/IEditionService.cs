@@ -4,11 +4,8 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IEditionService : IBaseEntityService<Edition>
+    public interface IEditionService : IBaseEntityService<Edition, Guid>
     {
-        IResult Delete(Guid id);
-        IResult ShadowDelete(Guid id);
-        IDataResult<Edition> GetById(Guid id);
         IDataResult<List<Edition>> GetByEditionNumbers(int eNumber);
         IDataResult<Edition> GetByAdderssId(Guid addressId);
         IDataResult<List<Edition>> GetByEditionInCountryId(int countryId);

@@ -4,11 +4,8 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IUniversityService : IBaseEntityService<University>
+    public interface IUniversityService : IBaseEntityService<University, Guid>
     {
-        IResult Delete(Guid id);
-        IResult ShadowDelete(Guid id);
-        IDataResult<University> GetById(Guid id);
         IDataResult<University> GetByAddressId(Guid id);
         IDataResult<List<University>> GetByInstituteNames(string instituteName);
         IDataResult<List<University>> GetByBranchNames(string branchName);

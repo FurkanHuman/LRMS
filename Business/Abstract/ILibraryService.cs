@@ -4,11 +4,8 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ILibraryService : IBaseEntityService<Library>
+    public interface ILibraryService : IBaseEntityService<Library, Guid>
     {
-        IResult Delete(Guid id);
-        IResult ShadowDelete(Guid id);
-        IDataResult<Library> GetById(Guid id);
         IDataResult<List<Library>> GetLibraryTypes(byte libType);
         IDataResult<Library> GetByAdderssId(Guid addressId);
         IDataResult<List<Library>> GetByLibraryInCountryId(int countryId);

@@ -4,11 +4,8 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface IPublisherService : IBaseEntityService<Publisher>
+    public interface IPublisherService : IBaseEntityService<Publisher, Guid>
     {
-        IResult Delete(Guid id);
-        IResult ShadowDelete(Guid id);
-        IDataResult<Publisher> GetById(Guid id);
         IDataResult<Publisher> GetByAdderssId(Guid addressId);
         IDataResult<List<Publisher>> GetByPublisherInCountryId(int countryId);
         IDataResult<List<Publisher>> GetByAddressName(string addressName);

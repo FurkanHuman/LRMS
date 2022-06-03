@@ -4,9 +4,8 @@ using Entities.Concrete.Base;
 
 namespace Business.Abstract.Base
 {
-    public interface IMaterialBaseService<T> : IBaseEntityService<T> where T : MaterialBase, IEntity, new()
+    public interface IMaterialBaseService<T> : IBaseEntityService<T, Guid> where T : MaterialBase, IEntity, new()
     {
-        IDataResult<T> GetById(Guid id);
         IDataResult<T> GetByName(string name);
         IDataResult<T> GetByDescriptionFinder(string finderString);
         IDataResult<T> GetByCategory(int categoryId);

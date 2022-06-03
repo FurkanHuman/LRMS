@@ -4,11 +4,8 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ICommunicationService : IBaseEntityService<Communication>
+    public interface ICommunicationService : IBaseEntityService<Communication, Guid>
     {
-        IResult Delete(Guid id);
-        IResult ShadowDelete(Guid id);
-        IDataResult<Communication> GetById(Guid id);
         IDataResult<Communication> GetByPhoneNumber(string phoneNumber);
         IDataResult<Communication>? GetbyFaxNumber(string faxNumber);
         IDataResult<Communication> GetByEmail(string eMail);
