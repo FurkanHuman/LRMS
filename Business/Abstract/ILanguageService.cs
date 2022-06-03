@@ -3,7 +3,7 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ILanguageService : IBaseEntityService<Language, Guid>
+    public interface ILanguageService : IBaseEntityService<Language, int>
     {
     }
 }
