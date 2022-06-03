@@ -5,8 +5,8 @@ using System.Text.Json.Serialization;
 namespace Entities.Concrete.Infos
 {
     public class CoverCap : IEntity
-    {   // kitap kapağı tipikartonderi vs vs
-        [Key]
+    {   // kitap kapağı tipi, karton, deri,  vs vs
+        [Key, ]
         public int Id { get; set; }
 
         public string BookSkinType { get; set; }

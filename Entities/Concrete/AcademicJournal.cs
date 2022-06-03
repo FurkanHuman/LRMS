@@ -5,11 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class AcademicJournal : MaterialBase,IEntity
+    public class AcademicJournal : MaterialBase, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         public List<Researcher> Researchers { get; set; }
 

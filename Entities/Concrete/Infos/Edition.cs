@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Edition : IEntity
     {
-        [Key]
+        [Key, ]
         public Guid Id { get; set; }
 
         public string Name { get; set; }

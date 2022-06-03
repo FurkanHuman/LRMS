@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Microform : MaterialBase,IEntity
+    public class Microform : MaterialBase, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
+        [Required]
         public string Scale { get; set; }
     }
 }

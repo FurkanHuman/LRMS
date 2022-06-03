@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete
 {
-    public class Magazine : BasePaper,IEntity
+    public class Magazine : BasePaper, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
+        [Required]
         public string Subject { get; set; }
     }
 }

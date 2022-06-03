@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class University : IEntity
     {
-        [Key]
+        [Key, ]
         public Guid Id { get; set; }
 
         [Required]

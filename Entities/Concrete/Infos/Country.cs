@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Country : IEntity
     {
-        [Key]
+        [Key, ]
         public int Id { get; set; }
 
         [Required]

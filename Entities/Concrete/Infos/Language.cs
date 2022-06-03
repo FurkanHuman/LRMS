@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class Language : IEntity
     {
-        [Key]
+        [Key, ]
         public int Id { get; set; }
 
         public string LanguageName { get; set; }

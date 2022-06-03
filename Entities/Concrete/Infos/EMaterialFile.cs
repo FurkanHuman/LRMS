@@ -6,7 +6,7 @@ namespace Entities.Concrete.Infos
 {
     public class EMaterialFile : IEntity
     {
-        [Key]
+        [Key, ]
         public Guid Id { get; set; }
 
         public string FileName { get; set; }
