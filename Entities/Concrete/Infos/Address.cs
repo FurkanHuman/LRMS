@@ -1,12 +1,11 @@
 ﻿using Core.Entities.Abstract;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Infos
 {
     public class Address : IEntity
     {
-        [Key, ]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]

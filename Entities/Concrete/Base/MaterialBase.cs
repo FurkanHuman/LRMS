@@ -1,12 +1,11 @@
 ﻿using Entities.Concrete.Infos;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace Entities.Concrete.Base
 {
     public class MaterialBase
     {
-        [Key, ]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
