@@ -8,13 +8,13 @@ namespace Entities.Concrete
     public class AcademicJournal : MaterialBase, IEntity
     {
         [Required]
-        public List<Researcher> Researchers { get; set; }
+        public Guid ResearcherId { get; set; }
 
         [Required]
-        public List<Editor> Editors { get; set; }
+        public Guid EditorId { get; set; }
 
         [Required]
-        public Publisher Publisher { get; set; }
+        public Guid PublisherId { get; set; }
 
         [Required]
         public ushort DateOfYear { get; set; }
@@ -32,5 +32,11 @@ namespace Entities.Concrete
         public ushort EndPageNumber { get; set; }
 
         public bool IsSecret { get; set; }
+
+        public IList<Researcher> Researchers { get; set; }
+
+        public IList<Editor> Editors { get; set; }
+
+        public IList<Publisher> Publishers { get; set; }
     }
 }
