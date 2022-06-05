@@ -7,6 +7,6 @@ namespace Entities.Concrete
     public class BookSeries : BasePaper, IEntity
     {
         [Required]
-        public List<Book> Books { get; set; }
+        public Guid BookIds { get; set; }
     }
 }
