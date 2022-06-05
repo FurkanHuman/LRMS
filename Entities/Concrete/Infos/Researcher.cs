@@ -12,5 +12,7 @@ namespace Entities.Concrete.Infos
         public string Specialty { get; set; }
 
         public University? University { get; set; }
+
+        public List<AcademicJournal> AcademicJournals { get; set; }
     }
 }
