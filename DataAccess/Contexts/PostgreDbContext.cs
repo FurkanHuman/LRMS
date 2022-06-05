@@ -1,4 +1,5 @@
-﻿using Entities.Concrete.Infos;
+﻿using Entities.Concrete;
+using Entities.Concrete.Infos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -12,13 +13,8 @@ namespace DataAccess.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("Host=localhost;Database=LRMS_DataBase;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
-            optionsBuilder.UseNpgsql(JsonReader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention();
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // fixme help me.
+            optionsBuilder.UseNpgsql("Host=localhost;Database=deneme4;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
+            //optionsBuilder.UseNpgsql(JsonReader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention();
         }
 
         // Infos
@@ -54,8 +50,9 @@ namespace DataAccess.Contexts
 
         // Concrete
 
-        /*
+
         public DbSet<AcademicJournal> AcademicJournals { get; set; }
+        /*
         public DbSet<AudioRecord> AudioRecords { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookSeries> BookSeries { get; set; }
