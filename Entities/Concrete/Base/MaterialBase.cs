@@ -17,18 +17,26 @@ namespace Entities.Concrete.Base
         public string Description { get; set; }
 
         [Required]
-        public List<Category> Categories { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
-        public List<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
+        public Guid TechnicalPlaceholdersId { get; set; }
 
         [Required]
-        public Dimension Dimension { get; set; }
+        public Guid DimensionsId { get; set; }
 
-        public List<EMaterialFile>? EMaterialFiles { get; set; }
+        public Guid? EMaterialFilesId { get; set; }
 
         public byte State { get; set; }
 
         public byte SecretLevel { get; set; }
+
+        public IList<Category> Categories { get; set; }
+
+        public IList<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
+
+        public IList<Dimension> Dimensions { get; set; }
+
+        public IList<EMaterialFile>? EMaterialFiles { get; set; }
     }
 }

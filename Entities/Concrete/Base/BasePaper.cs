@@ -6,23 +6,30 @@ namespace Entities.Concrete.Base
     public class BasePaper : MaterialBase
     {
         [Required]
-        public Image CoverImage { get; set; }
+        public byte CoverCapId { get; set; }
 
         [Required]
-        public CoverCap CoverCap { get; set; }
+        public Guid CoverImageId { get; set; }
 
         [Required]
-        public List<FirstPagePersonBase> FirstPagePeople { get; set; }
+        public Guid FirstPagePeopleId { get; set; }
 
         [Required]
-        public List<TechnicalNumber> TechnicalNumbers { get; set; }
+        public Guid TechnicalNumberId { get; set; }
 
         [Required]
-        public List<Edition> Editions { get; set; }
-        
-        [Required]
-        public List<Publisher> Publishers { get; set; }
+        public Guid EditionId { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IList<CoverCap> CoverCaps { get; set; }
+        
+        public IList<Image> CoverImages { get; set; }
+
+        public IList<FirstPagePersonBase> FirstPagePeople { get; set; }
+
+        public IList<TechnicalNumber> TechnicalNumbers { get; set; }
+
+        public IList<Edition> Editions { get; set; }
     }
 }
