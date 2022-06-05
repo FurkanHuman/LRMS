@@ -27,7 +27,7 @@ namespace Entities.Concrete.Base
 
         public List<EMaterialFile>? EMaterialFiles { get; set; }
 
-        public string State { get; set; }
+        public byte State { get; set; }
 
         public byte SecretLevel { get; set; }
     }
