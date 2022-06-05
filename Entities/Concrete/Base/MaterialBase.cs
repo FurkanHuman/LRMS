@@ -23,7 +23,7 @@ namespace Entities.Concrete.Base
         public Guid TechnicalPlaceholdersId { get; set; }
 
         [Required]
-        public Guid DimensionsId { get; set; }
+        public Guid? DimensionsId { get; set; }
 
         public Guid? EMaterialFilesId { get; set; }
 
@@ -35,7 +35,7 @@ namespace Entities.Concrete.Base
 
         public IList<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
 
-        public IList<Dimension> Dimensions { get; set; }
+        public IList<Dimension>? Dimensions { get; set; }
 
         public IList<EMaterialFile>? EMaterialFiles { get; set; }
     }
