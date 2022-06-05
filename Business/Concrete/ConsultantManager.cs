@@ -14,12 +14,10 @@ namespace Business.Concrete
     public class ConsultantManager : IConsultantService
     {
         private readonly IConsultantDal _consultantDal;
-        private readonly IThesisDal _thesisDal;
 
-        public ConsultantManager(IConsultantDal consultantDal, IThesisDal thesisDal)
+        public ConsultantManager(IConsultantDal consultantDal)
         {
             _consultantDal = consultantDal;
-            _thesisDal = thesisDal;
         }
 
         [ValidationAspect(typeof(Consultant), Priority = 1)]
@@ -102,10 +100,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Thesis>> GetByThesisInConsultants(Guid id)
         {
-            List<Thesis> theses = _thesisDal.GetAll(t => t.Consultant.Id == id && !t.IsSecret).ToList();
-            if (theses == null)
-                return new ErrorDataResult<List<Thesis>>(ConsultantConstants.NotMatch);
-            return new SuccessDataResult<List<Thesis>>(theses, ConsultantConstants.DataGet);
+
+            return new ErrorDataResult<List<Thesis>>(ConsultantConstants.Maintenance);
+            //List<Thesis> theses = _thesisDal.GetAll(t => t.FirstPagePersonBases.Consultant.Id == id && !t.IsSecret).ToList();
+            //if (theses == null)
+            //    return new ErrorDataResult<List<Thesis>>(ConsultantConstants.NotMatch);
+            //return new SuccessDataResult<List<Thesis>>(theses, ConsultantConstants.DataGet);
 
         }
 
