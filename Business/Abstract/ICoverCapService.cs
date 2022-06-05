@@ -3,7 +3,7 @@ using Entities.Concrete.Infos;
 
 namespace Business.Abstract
 {
-    public interface ICoverCapService : IBaseEntityService<CoverCap, int>
+    public interface ICoverCapService : IBaseEntityService<CoverCap, byte>
     {
     }
 }

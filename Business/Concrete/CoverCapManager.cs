@@ -32,7 +32,7 @@ namespace Business.Concrete
             return new SuccessResult(CoverCapConstants.AddSuccess);
         }
 
-        public IResult Delete(int id)
+        public IResult Delete(byte id)
         {
             CoverCap coverCap = _coverCapDal.Get(ccp => ccp.Id == id);
             if (coverCap == null)
@@ -42,7 +42,7 @@ namespace Business.Concrete
             return new SuccessResult(CoverCapConstants.DeleteSuccess);
         }
 
-        public IResult ShadowDelete(int id)
+        public IResult ShadowDelete(byte id)
         {
             CoverCap coverCap = _coverCapDal.Get(ccp => ccp.Id == id && !ccp.IsDeleted);
             if (coverCap == null)
@@ -60,7 +60,7 @@ namespace Business.Concrete
             return new SuccessResult(CoverCapConstants.UpdateSuccess);
         }
 
-        public IDataResult<CoverCap> GetById(int id)
+        public IDataResult<CoverCap> GetById(byte id)
         {
             CoverCap? coverCap = _coverCapDal.Get(u => u.Id == id);
             return coverCap == null
