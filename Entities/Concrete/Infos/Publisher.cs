@@ -21,5 +21,7 @@ namespace Entities.Concrete.Infos
         public DateTime DateOfPublication { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IList<AcademicJournal> AcademicJournals { get; set; }
     }
 }

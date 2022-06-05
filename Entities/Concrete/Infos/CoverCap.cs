@@ -11,5 +11,9 @@ namespace Entities.Concrete.Infos
         public string BookSkinType { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IList<Book> Books { get; set; }
+        public IList<BookSeries> BookSeries { get; set; }
+
     }
 }
