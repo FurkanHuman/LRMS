@@ -17,6 +17,9 @@ namespace Entities.Concrete
         public Guid PublisherId { get; set; }
 
         [Required]
+        public Guid ReferenceId { get; set; }
+
+        [Required]
         public ushort DateOfYear { get; set; }
 
         [Required]
@@ -38,5 +41,7 @@ namespace Entities.Concrete
         public IList<Editor> Editors { get; set; }
 
         public IList<Publisher> Publishers { get; set; }
+
+        public IList<Reference> References { get; set; }
     }
 }
