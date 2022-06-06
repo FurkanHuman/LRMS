@@ -13,7 +13,7 @@ namespace DataAccess.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=deneme6;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
+            optionsBuilder.UseNpgsql("Host=localhost;Database=deneme7;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
             //optionsBuilder.UseNpgsql(JsonReader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention();
         }
 
@@ -42,6 +42,7 @@ namespace DataAccess.Contexts
         public DbSet<OtherPeople> OtherPeoples { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Redaction> Redactions { get; set; }
+        public DbSet<Reference> References { get; set; }
         public DbSet<Researcher> Researchers { get; set; }
         public DbSet<TechnicalNumber> TechnicalNumbers { get; set; }
         public DbSet<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
