@@ -23,7 +23,7 @@ namespace Entities.Concrete.Base
         public bool IsDeleted { get; set; }
 
         public IList<CoverCap> CoverCaps { get; set; }
-        
+
         public IList<Image> CoverImages { get; set; }
 
         public IList<FirstPagePersonBase> FirstPagePeople { get; set; }

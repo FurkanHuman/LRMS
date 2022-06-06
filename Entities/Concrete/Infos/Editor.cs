@@ -5,6 +5,6 @@ namespace Entities.Concrete.Infos
 {
     public class Editor : FirstPagePersonBase, IEntity
     {
-        public IList<AcademicJournal>  AcademicJournals { get; set; }
+        public IList<AcademicJournal> AcademicJournals { get; set; }
     }
 }
