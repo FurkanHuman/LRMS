@@ -40,11 +40,13 @@
 
 ### Dataccess
 
-    The DataAccess tier is the databases access tier. The database consists of classes, interfaces, contexts, layers for configuration and access.
+    The DataAccess tier is the databases access tier.
+    The database consists of classes, interfaces, contexts, layers for configuration and access.
 
 ### Core
 
-    The core layer is the most important layer. is the kernel layer used to aggregate kernel codes, plugins, tools, more.
+    The core layer is the most important layer.
+    is the kernel layer used to aggregate kernel codes, plugins, tools, more.
 
 ### Business (Logic)
 
@@ -56,12 +58,14 @@
 
 ### Watcher
     
-    The watcher layer is the core layer that monitors each connected layer and monitors the statistics data accordingly.
+    The watcher layer is the core layer that monitors
+    each connected layer and monitors the statistics data accordingly.
     what it does is all about watching.
 
 ### Actionist
 
-    Actionist is a very important layer that takes action by processing the data it receives from the watcher.
+    Actionist is a very important layer that takes action by
+    processing the data it receives from the watcher.
 
 ### Platform Resource Manager (PRM)
 
