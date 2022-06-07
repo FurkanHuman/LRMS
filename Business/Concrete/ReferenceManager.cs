@@ -28,7 +28,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(CheckRefence(entity));
             if (result != null)
                 return result;
-            
+
             IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(entity.TechnicalNumber.Id);
             if (!techNumber.Success)
                 return techNumber;
@@ -113,7 +113,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Reference>> GetByReferenceDate(DateOnly date)
         {
-            List<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate==date && !r.IsDeleted).ToList();
+            List<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate == date && !r.IsDeleted).ToList();
             return references == null
                  ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
@@ -126,7 +126,7 @@ namespace Business.Concrete
                  ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
         }
-        
+
         private IResult CheckRefence(Reference entity)
         {
             bool refControl = _referenceDal.GetAll(r =>

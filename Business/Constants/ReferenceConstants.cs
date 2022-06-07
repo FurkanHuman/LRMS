@@ -4,7 +4,7 @@ namespace Business.Constants
 {
     public class ReferenceConstants : BaseConstants
     {
-        protected ReferenceConstants() {}
+        protected ReferenceConstants() { }
 
         public const string OwnerNull = "The Reference owner must contain at least 3 characters and cannot be blank";
         public const string StartPageNumber = "the start page cannot be blank";
