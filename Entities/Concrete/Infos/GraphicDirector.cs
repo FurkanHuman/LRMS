@@ -5,5 +5,7 @@ namespace Entities.Concrete.Infos
 {
     public class GraphicDirector : FirstPagePersonBase, IEntity
     {
+        public IList<Book> Books { get; set; }
+        public IList<BookSeries> BookSeries { get; set; }
     }
 }

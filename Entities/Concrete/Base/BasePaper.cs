@@ -12,7 +12,22 @@ namespace Entities.Concrete.Base
         public Guid CoverImageId { get; set; }
 
         [Required]
-        public Guid FirstPagePeopleId { get; set; }
+        public Guid WriterId { get; set; }
+
+        [Required]
+        public Guid EditorId { get; set; }
+
+        public Guid? DirectorId { get; set; }
+
+        public Guid? GraphicDesignId { get; set; }
+
+        public Guid? GraphicDirectorId { get; set; }
+
+        public Guid? InterpretersId { get; set; }
+
+        public Guid? RedactionId { get; set; }
+
+        public Guid? OtherPeopleId { get; set; }
 
         [Required]
         public Guid TechnicalNumberId { get; set; }
@@ -26,7 +41,21 @@ namespace Entities.Concrete.Base
 
         public IList<Image> CoverImages { get; set; }
 
-        public IList<FirstPagePersonBase> FirstPagePeople { get; set; }
+        public IList<Writer> Writers { get; set; }
+
+        public IList<Editor> Editors { get; set; }
+
+        public IList<Director>? Directors { get; set; }
+
+        public IList<GraphicDesign>? GraphicDesigns { get; set; }
+
+        public IList<GraphicDirector>? GraphicDirectors { get; set; }
+
+        public IList<Interpreters>? Interpreters { get; set; }
+
+        public IList<Redaction>? Redactions { get; set; }
+
+        public IList<OtherPeople>? OtherPeoples { get; set; }
 
         public IList<TechnicalNumber> TechnicalNumbers { get; set; }
 
