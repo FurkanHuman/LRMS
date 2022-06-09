@@ -90,7 +90,7 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByNames(string name)
         {
-            List<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(name ) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(name) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -99,7 +99,7 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByInstituteNames(string instituteName)
         {
-            List<University> universities = _universityDal.GetAll(u => u.Institute.Contains(instituteName ) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.Institute.Contains(instituteName) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -108,7 +108,7 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByBranchNames(string branchName)
         {
-            List<University> universities = _universityDal.GetAll(u => u.Branch.Name.Contains(branchName ) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.Branch.Name.Contains(branchName) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -130,7 +130,7 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByCityNames(string cityName)
         {
-            List<University> universities = _universityDal.GetAll(u => u.Address.City.CityName.Contains(cityName ) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.Address.City.CityName.Contains(cityName) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -147,7 +147,7 @@ namespace Business.Concrete
 
         public IDataResult<List<University>> GetByCountryNames(string countryName)
         {
-            List<University> universities = _universityDal.GetAll(u => u.Address.Country.CountryName.Contains(countryName ) && !u.IsDeleted).ToList();
+            List<University> universities = _universityDal.GetAll(u => u.Address.Country.CountryName.Contains(countryName) && !u.IsDeleted).ToList();
 
             return universities == null
                 ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
@@ -180,8 +180,8 @@ namespace Business.Concrete
         private IResult UniversityChecker(University university)
         {
             bool findUni = _universityDal.GetAll(u =>
-               u.UniversityName.Contains(university.UniversityName )
-           && u.Institute.Contains(university.Institute )
+               u.UniversityName.Contains(university.UniversityName)
+           && u.Institute.Contains(university.Institute)
            && u.Address.Id == university.Address.Id
            && u.Branch.Id == university.Branch.Id
            && !u.IsDeleted).Any();

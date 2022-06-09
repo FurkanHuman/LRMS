@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CoverCap>> GetByNames(string name)
         {
-            List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name )).ToList();
+            List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name)).ToList();
             return coverCaps == null
                 ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);

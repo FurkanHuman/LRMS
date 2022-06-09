@@ -82,7 +82,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Consultant>> GetByNames(string name)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name)&& !c.IsDeleted).ToList();
+            List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
 
             if (consultants == null)
                 return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);

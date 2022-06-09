@@ -16,13 +16,13 @@ namespace Business.Concrete
     {
         private readonly IPublisherDal _publisherDal;
         private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then
-        
+
         private readonly IAddressService _addressService;
         private readonly ICountryService _countryService;
         private readonly ICityService _cityService;
         private readonly ICommunicationService _communicationService;
-        
-        
+
+
         public PublisherManager(IPublisherDal publisherDal, IAddressService addressService, ICountryService countryService, ICityService cityService, ICommunicationService communicationService)
         {
             _publisherDal = publisherDal;
@@ -86,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByNames(string name)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name )).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name)).ToList();
             return publishers == null
                  ? new ErrorDataResult<List<Publisher>>(PublisherConstants.NotMatch)
                  : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
@@ -190,7 +190,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByPublisherInPostalCode(string postalCode)
         {   // run??
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode)  && !p.IsDeleted).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode) && !p.IsDeleted).ToList();
 
             return publishers == null
                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
@@ -199,7 +199,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByPublisherInGeoLocation(string geoLoc)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc)  && !p.IsDeleted).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc) && !p.IsDeleted).ToList();
 
             return publishers == null
                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
@@ -324,7 +324,7 @@ namespace Business.Concrete
         {
             // fix it Todo
             bool result = _publisherDal.GetAll(p =>
-               p.Name.Contains(publisher.Name) 
+               p.Name.Contains(publisher.Name)
             && p.DateOfPublication.Equals(publisher.DateOfPublication)).Any();
 
             return result

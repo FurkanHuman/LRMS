@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Writer>> GetByNames(string name)
         {
-            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(name  ) && !n.IsDeleted).ToList();
+            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
             return writers == null
                 ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Writer>> GetBySurnames(string surname)
         {
-            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname  ) && !n.IsDeleted).ToList();
+            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname) && !n.IsDeleted).ToList();
             return writers == null
                 ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
@@ -87,7 +87,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment. Contains(namePreAttachment.ToLowerInvariant())
+            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment.ToLowerInvariant())
             && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
 
@@ -109,7 +109,7 @@ namespace Business.Concrete
         private IResult WriterNameOrSurnameExist(Writer entity)
         {
             bool result = _writerDal.GetAll(w => w.Name.Equals(entity.Name)
-            && w.SurName.Equals(entity.SurName  )
+            && w.SurName.Equals(entity.SurName)
             && w.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null).Any();
             return result

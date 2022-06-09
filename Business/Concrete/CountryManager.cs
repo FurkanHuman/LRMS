@@ -75,7 +75,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Country>> GetByNames(string name)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name )).ToList();
+            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name)).ToList();
 
             return countries == null
                 ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
@@ -84,7 +84,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Country>> GetByCountryCodes(string countryCode)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode )).ToList();
+            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode)).ToList();
             return countries == null
                 ? new ErrorDataResult<List<Country>>(CountryConstants.CountryNotFound)
                 : new SuccessDataResult<List<Country>>(countries, CountryConstants.DataGet);

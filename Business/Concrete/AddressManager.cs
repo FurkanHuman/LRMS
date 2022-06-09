@@ -111,7 +111,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetBySearchString(string searchStr)
         {
-            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr ) && !a.IsDeleted).ToList();
+            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr) && !a.IsDeleted).ToList();
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
@@ -119,7 +119,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Address>> GetByNames(string name)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name )).ToList();
+            List<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name)).ToList();
             return addresses == null
                 ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);

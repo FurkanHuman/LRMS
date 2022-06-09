@@ -134,10 +134,10 @@ namespace Business.Concrete
         private IResult OtherPeopleExits(OtherPeople otherPeople)
         {
             bool res = _otherPeopleDal.GetAll(op =>
-            op.Name.Contains(otherPeople.Name )
-            && op.SurName.Contains(otherPeople.SurName )
-            && op.Title.Contains(otherPeople.Title )
-            && op.NamePreAttachment.Contains(otherPeople.NamePreAttachment )
+            op.Name.Contains(otherPeople.Name)
+            && op.SurName.Contains(otherPeople.SurName)
+            && op.Title.Contains(otherPeople.Title)
+            && op.NamePreAttachment.Contains(otherPeople.NamePreAttachment)
             ).Any();
 
             if (res)
