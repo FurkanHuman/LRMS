@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CoverCap>> GetByNames(string name)
         {
-            List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name )).ToList();
             return coverCaps == null
                 ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
@@ -93,7 +93,7 @@ namespace Business.Concrete
 
         private IResult CoverCapChecker(CoverCap coverCap)
         {
-            bool r = _coverCapDal.GetAll(cc => cc.BookSkinType.ToLowerInvariant().Contains(coverCap.BookSkinType.ToLowerInvariant())).Any();
+            bool r = _coverCapDal.GetAll(cc => cc.BookSkinType.Contains(coverCap.BookSkinType)).Any();
             return r
                 ? new ErrorResult(CoverCapConstants.CoverCapNameExist)
                 : new SuccessResult();

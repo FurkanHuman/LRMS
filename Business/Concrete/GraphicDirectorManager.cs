@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name ) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDirector>> GetBySurnames(string surname)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname ) && !n.IsDeleted).ToList();
             return graphicDirectors == null
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
@@ -102,8 +102,8 @@ namespace Business.Concrete
 
         private IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)
         {
-            bool result = _graphicDirectorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-             && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _graphicDirectorDal.GetAll(w => w.Name. Equals(entity.Name)
+             && w.SurName. Equals(entity.SurName)).Any();
             return result
                 ? new ErrorResult(GraphicDirectorConstants.NameOrSurnameExists)
                 : new SuccessResult(GraphicDirectorConstants.DataGet);

@@ -80,7 +80,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Communication>> GetByNames(string name)
         {
-            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name ) && !c.IsDeleted).ToList();
 
             return communications == null
                 ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)

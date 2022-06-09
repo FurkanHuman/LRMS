@@ -67,7 +67,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Interpreters>> GetByNames(string name)
         {
-            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.Name.ToLower().Contains(name.ToLower()) && !n.IsDeleted).ToList();
+            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.Name. Contains(name ) && !n.IsDeleted).ToList();
             return interpreters == null
                 ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
@@ -75,7 +75,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Interpreters>> GetBySurnames(string surname)
         {
-            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.SurName.ToLower().Contains(surname.ToLower()) && !n.IsDeleted).ToList();
+            List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
             return interpreters == null
                 ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
@@ -106,8 +106,8 @@ namespace Business.Concrete
 
         private IResult InterpretersNameOrSurnameExist(Interpreters entity)
         {
-            bool result = _interpretersDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _interpretersDal.GetAll(w => w.Name.Equals(entity.Name)
+            && w.SurName.Equals(entity.SurName)).Any();
             return result
                 ? new ErrorResult(InterpretersConstants.NameOrSurnameExists)
                 : new SuccessResult(InterpretersConstants.DataGet);

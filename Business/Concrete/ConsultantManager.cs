@@ -82,7 +82,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Consultant>> GetByNames(string name)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.ToLowerInvariant() == name.ToLowerInvariant() && !c.IsDeleted).ToList();
+            List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name)&& !c.IsDeleted).ToList();
 
             if (consultants == null)
                 return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);
@@ -91,7 +91,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Consultant>> GetBySurnames(string surname)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.ToLowerInvariant() == surname.ToLowerInvariant() && !c.IsDeleted).ToList();
+            List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
 
             if (consultants == null)
                 return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);
@@ -121,9 +121,9 @@ namespace Business.Concrete
 
         private IResult ConsultantExist(Consultant entity)
         {
-            Consultant consultant = _consultantDal.Get(c => c.Name.ToLowerInvariant() == entity.Name.ToLowerInvariant()
-            && c.SurName.ToLowerInvariant() == entity.SurName.ToLowerInvariant()
-            && c.NamePreAttachment.ToLowerInvariant() == entity.NamePreAttachment.ToLowerInvariant());
+            Consultant consultant = _consultantDal.Get(c => c.Name == entity.Name
+            && c.SurName == entity.SurName
+            && c.NamePreAttachment == entity.NamePreAttachment);
 
             if (consultant == null)
                 return new SuccessResult();

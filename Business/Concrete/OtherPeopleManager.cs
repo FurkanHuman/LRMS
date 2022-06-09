@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OtherPeople>> GetByNamePreAttch(string preAttch)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch, StringComparison.CurrentCultureIgnoreCase)
+            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
             && !op.IsDeleted).ToList();
 
             if (otherPeoples == null)
@@ -90,7 +90,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OtherPeople>> GetByNames(string name)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)
+            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Name.Contains(name)
             && !op.IsDeleted).ToList();
 
             if (otherPeoples == null)
@@ -101,7 +101,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OtherPeople>> GetBySurnames(string surname)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !op.IsDeleted
+            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.SurName.Contains(surname) && !op.IsDeleted
             && !op.IsDeleted).ToList();
 
             if (otherPeoples == null)
@@ -112,7 +112,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OtherPeople>> GetByTitles(string title)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Title.Contains(title, StringComparison.CurrentCultureIgnoreCase)
+            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Title.Contains(title)
             && !op.IsDeleted).ToList();
 
             if (otherPeoples == null)
@@ -134,10 +134,10 @@ namespace Business.Concrete
         private IResult OtherPeopleExits(OtherPeople otherPeople)
         {
             bool res = _otherPeopleDal.GetAll(op =>
-            op.Name.Contains(otherPeople.Name, StringComparison.CurrentCultureIgnoreCase)
-            && op.SurName.Contains(otherPeople.SurName, StringComparison.CurrentCultureIgnoreCase)
-            && op.Title.Contains(otherPeople.Title, StringComparison.CurrentCultureIgnoreCase)
-            && op.NamePreAttachment.Contains(otherPeople.NamePreAttachment, StringComparison.CurrentCultureIgnoreCase)
+            op.Name.Contains(otherPeople.Name )
+            && op.SurName.Contains(otherPeople.SurName )
+            && op.Title.Contains(otherPeople.Title )
+            && op.NamePreAttachment.Contains(otherPeople.NamePreAttachment )
             ).Any();
 
             if (res)

@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Branch>> GetByNames(string name)
         {
-            List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !b.IsDeleted).ToList();
+            List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted).ToList();
             return branchs != null
                 ? new SuccessDataResult<List<Branch>>(branchs, BranchConstants.DataGet)
                 : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
@@ -93,7 +93,7 @@ namespace Business.Concrete
 
         private IResult BranchNameControl(string branchName)
         {
-            Branch branch = _branchDal.Get(b => b.Name.Contains(branchName, StringComparison.CurrentCultureIgnoreCase));
+            Branch branch = _branchDal.Get(b => b.Name.Contains(branchName));
             return branch == null
                 ? new SuccessResult()
                 : new ErrorResult(BranchConstants.BranchExist);

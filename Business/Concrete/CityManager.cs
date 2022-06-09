@@ -81,7 +81,7 @@ namespace Business.Concrete
 
         public IDataResult<List<City>> GetByNames(string name)
         {
-            List<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name)).ToList();
 
             return cities == null
                 ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)
@@ -100,7 +100,7 @@ namespace Business.Concrete
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
         {
-            bool cityExist = _cityDal.GetAll(c => c.CityName.ToLowerInvariant().Contains(cityName.ToLowerInvariant())
+            bool cityExist = _cityDal.GetAll(c => c.CityName.Contains(cityName)
             && c.Id.Equals(cityId)).Any();
             return !cityExist
                 ? new SuccessResult()
@@ -109,7 +109,7 @@ namespace Business.Concrete
 
         private IResult CheckCityByExists(string cityName)
         {
-            City cityExist = _cityDal.Get(c => c.CityName.ToLowerInvariant().Contains(cityName.ToLowerInvariant()));
+            City cityExist = _cityDal.Get(c => c.CityName.Contains(cityName));
             return cityExist == null
                 ? new SuccessResult()
                 : new ErrorResult(CityConstants.CityExist);

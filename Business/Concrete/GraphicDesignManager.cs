@@ -72,7 +72,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDesign>> GetByNames(string name)
         {
-            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name ) && !n.IsDeleted).ToList();
 
             return graphicDesigns == null
                 ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
@@ -81,7 +81,7 @@ namespace Business.Concrete
 
         public IDataResult<List<GraphicDesign>> GetBySurnames(string surname)
         {
-            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<GraphicDesign> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname ) && !n.IsDeleted).ToList();
             return graphicDesigns == null
                 ? new ErrorDataResult<List<GraphicDesign>>(GraphicDesignConstants.DataNotGet)
                 : new SuccessDataResult<List<GraphicDesign>>(graphicDesigns, GraphicDesignConstants.DataGet);
@@ -98,8 +98,8 @@ namespace Business.Concrete
 
         private IResult GraphicDesignNameOrSurnameExist(GraphicDesign entity)
         {
-            bool result = _graphicDesignDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _graphicDesignDal.GetAll(w => w.Name .Equals(entity.Name )
+            && w.SurName .Equals(entity.SurName )).Any();
             return result
                 ? new ErrorResult(GraphicDesignConstants.NameOrSurnameExists)
                 : new SuccessResult(GraphicDesignConstants.DataGet);

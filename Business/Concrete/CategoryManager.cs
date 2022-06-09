@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Category>> GetByNames(string name)
         {
-            List<Category> categorys = _categoryDal.GetAll(Z => Z.CategoryName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Category> categorys = _categoryDal.GetAll(Z => Z.CategoryName.Contains(name)).ToList();
 
             return categorys == null
                 ? new ErrorDataResult<List<Category>>(CategoryConstants.DataNotGet)

@@ -76,7 +76,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Director>> GetByNames(string name)
         {
-            List<Director> directors = _directorDal.GetAll(i => i.Name.Equals(name.ToLowerInvariant().Contains(name.ToLowerInvariant())) && !i.IsDeleted).ToList();
+            List<Director> directors = _directorDal.GetAll(i => i.Name.Equals(name.Contains(name)) && !i.IsDeleted).ToList();
             return directors == null ?
                 new ErrorDataResult<List<Director>>(DirectorConstants.DataNotGet) :
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
@@ -84,7 +84,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Director>> GetBySurnames(string surname)
         {
-            List<Director> directors = _directorDal.GetAll(i => i.SurName.Equals(surname.ToLowerInvariant().Contains(surname.ToLowerInvariant())) && !i.IsDeleted).ToList();
+            List<Director> directors = _directorDal.GetAll(i => i.SurName.Equals(surname.Contains(surname)) && !i.IsDeleted).ToList();
             return directors == null ?
                 new ErrorDataResult<List<Director>>(DirectorConstants.DataNotGet) :
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
@@ -107,8 +107,8 @@ namespace Business.Concrete
 
         private IResult DirectorNameOrSurnameExist(Director entity)
         {
-            bool result = _directorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _directorDal.GetAll(w => w.Name.Equals(entity.Name)
+            && w.SurName.Equals(entity.SurName)).Any();
             return result
                 ? new ErrorResult(DirectorConstants.NameOrSurnameExists)
                 : new SuccessResult(DirectorConstants.DataGet);

@@ -71,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetByNames(string name)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name ) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Redaction>> GetBySurnames(string surname)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !r.IsDeleted).ToList();
+            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname ) && !r.IsDeleted).ToList();
             return redactions == null
                 ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
@@ -97,8 +97,8 @@ namespace Business.Concrete
 
         private IResult RedactionNameOrSurnameExist(Redaction entity)
         {
-            bool result = _redactionDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _redactionDal.GetAll(w => w.Name. Equals(entity.Name)
+            && w.SurName. Equals(entity.SurName)).Any();
             return result
                 ? new ErrorResult(RedactionConstants.NameOrSurnameExists)
                 : new SuccessResult(RedactionConstants.DataGet);

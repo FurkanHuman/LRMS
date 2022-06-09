@@ -64,7 +64,7 @@ namespace Business.Concrete
 
         public IDataResult<List<TechnicalPlaceholder>> StockCode(string stockCode)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode, StringComparison.CurrentCultureIgnoreCase) && !T.IsDeleted).ToList();
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode ) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
                 ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
@@ -100,7 +100,7 @@ namespace Business.Concrete
 
         public IDataResult<List<TechnicalPlaceholder>> WhereIsMaterial(string whereMaterial)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.WhereIsMaterial.ToLowerInvariant().Contains(whereMaterial.ToLowerInvariant()) && !T.IsDeleted).ToList();
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.WhereIsMaterial.Contains(whereMaterial) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
                 ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);

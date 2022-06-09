@@ -72,7 +72,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetByNames(string name)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.Name .Contains(name )).ToList();
             return researchers == null
                 ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                 : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -80,7 +80,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetBySurnames(string surname)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.SurName.ToLowerInvariant().Contains(surname.ToLowerInvariant())).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.SurName .Contains(surname )).ToList();
             return researchers == null
                 ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                 : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -88,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment ) && !n.IsDeleted).ToList();
             return researchers == null
                    ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -96,7 +96,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Researcher>> GetSpecialtyList(string Specialty)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.Specialty.ToLowerInvariant().Contains(Specialty.ToLowerInvariant()) && !n.IsDeleted).ToList();
+            List<Researcher> researchers = _researcherDal.GetAll(n => n.Specialty .Contains(Specialty ) && !n.IsDeleted).ToList();
             return researchers == null
                    ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
@@ -115,11 +115,11 @@ namespace Business.Concrete
         private IResult ResearcherNameOrSurnameExist(Researcher entity)
         {
             bool result = _researcherDal.GetAll(r =>
-               r.Name.Equals(entity.Name, StringComparison.CurrentCultureIgnoreCase)
-            && r.SurName.Equals(entity.SurName, StringComparison.CurrentCultureIgnoreCase)
+               r.Name.Equals(entity.Name )
+            && r.SurName.Equals(entity.SurName )
             && r.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null
-            && r.Specialty.Equals(entity.Specialty, StringComparison.CurrentCultureIgnoreCase)).Any();
+            && r.Specialty.Equals(entity.Specialty )).Any();
             return result
                 ? new ErrorResult(ResearcherConstants.NameOrSurnameExists)
                 : new SuccessResult(ResearcherConstants.DataGet);

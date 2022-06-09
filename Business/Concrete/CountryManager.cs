@@ -75,7 +75,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Country>> GetByNames(string name)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name )).ToList();
 
             return countries == null
                 ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
@@ -84,7 +84,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Country>> GetByCountryCodes(string countryCode)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode )).ToList();
             return countries == null
                 ? new ErrorDataResult<List<Country>>(CountryConstants.CountryNotFound)
                 : new SuccessDataResult<List<Country>>(countries, CountryConstants.DataGet);
@@ -107,8 +107,8 @@ namespace Business.Concrete
 
         private IResult CountryControl(Country country)
         {
-            int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).Id;
-            int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).Id;
+            int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName) && !c.IsDeleted).Id;
+            int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode) && !c.IsDeleted).Id;
 
             if (countryCodeId != countryNameId)
                 return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);

@@ -98,7 +98,7 @@ namespace Business.Concrete
 
         public IDataResult<List<EMaterialFile>> GetByNames(string name)
         {
-            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !e.IsSecret).ToList();
+            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name) && !e.IsSecret).ToList();
 
             return eMaterialFiles == null
                 ? new ErrorDataResult<List<EMaterialFile>>(EMaterialFileConstants.DataNotGet)

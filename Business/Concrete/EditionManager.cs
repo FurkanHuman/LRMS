@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
-    public class EditionManager : IEditionService
+    public class EditionManager : IEditionService // todo rewrite
     {
         private readonly IEditionDal _editionDal;
         private readonly IAddressService _addressService;

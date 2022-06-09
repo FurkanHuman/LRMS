@@ -117,7 +117,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Dimension>> GetByNames(string name)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name)).ToList();
 
             return dimensions == null
                 ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)

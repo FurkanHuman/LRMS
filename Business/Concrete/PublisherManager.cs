@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ServiceCollection.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,11 +15,14 @@ namespace Business.Concrete
     public class PublisherManager : IPublisherService // todo Write
     {
         private readonly IPublisherDal _publisherDal;
+        private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then
+        
         private readonly IAddressService _addressService;
         private readonly ICountryService _countryService;
         private readonly ICityService _cityService;
         private readonly ICommunicationService _communicationService;
-
+        
+        
         public PublisherManager(IPublisherDal publisherDal, IAddressService addressService, ICountryService countryService, ICityService cityService, ICommunicationService communicationService)
         {
             _publisherDal = publisherDal;
@@ -26,6 +30,12 @@ namespace Business.Concrete
             _countryService = countryService;
             _cityService = cityService;
             _communicationService = communicationService;
+        }
+
+        public PublisherManager(IPublisherDal publisherDal, IEditionServiceCollection editionServiceCollection)
+        {
+            _publisherDal = publisherDal;
+            _editionServiceCollection = editionServiceCollection;
         }
 
         [ValidationAspect(typeof(PublisherValidator), Priority = 1)]
@@ -76,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByNames(string name)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name )).ToList();
             return publishers == null
                  ? new ErrorDataResult<List<Publisher>>(PublisherConstants.NotMatch)
                  : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
@@ -180,7 +190,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByPublisherInPostalCode(string postalCode)
         {   // run??
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode, StringComparison.CurrentCultureIgnoreCase) && !p.IsDeleted).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode)  && !p.IsDeleted).ToList();
 
             return publishers == null
                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
@@ -189,7 +199,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Publisher>> GetByPublisherInGeoLocation(string geoLoc)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc, StringComparison.CurrentCultureIgnoreCase) && !p.IsDeleted).ToList();
+            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc)  && !p.IsDeleted).ToList();
 
             return publishers == null
                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
@@ -314,7 +324,7 @@ namespace Business.Concrete
         {
             // fix it Todo
             bool result = _publisherDal.GetAll(p =>
-               p.Name.Contains(publisher.Name, StringComparison.CurrentCultureIgnoreCase)
+               p.Name.Contains(publisher.Name) 
             && p.DateOfPublication.Equals(publisher.DateOfPublication)).Any();
 
             return result

@@ -74,7 +74,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Composer>> GetByNames(string name)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name ) && !c.IsDeleted).ToList();
             return composers == null
                 ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
                 : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
@@ -82,7 +82,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Composer>> GetBySurnames(string surname)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname ) && !c.IsDeleted).ToList();
             return composers == null
                ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
@@ -90,7 +90,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Composer>> GetNamePreAttachmentLists(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment, StringComparison.CurrentCultureIgnoreCase)
+            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment )
             && !c.IsDeleted).ToList(), ComposerConstants.DataGet);
         }
 
@@ -106,7 +106,7 @@ namespace Business.Concrete
 
         private IResult ComposerNameOrSurnameExist(Composer entity)
         {
-            bool result = _composerDal.GetAll(c => c.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
+            bool result = _composerDal.GetAll(c => c.Name.Equals(entity.Name)
             && c.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())
             && c.NamePreAttachment.Equals(null)
             && entity.NamePreAttachment != null).Any();

@@ -69,7 +69,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Language>> GetByNames(string name)
         {
-            List<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
+            List<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name) && !l.IsDeleted).ToList();
             return languages == null
                 ? new ErrorDataResult<List<Language>>(LanguageConstants.DataNotGet)
                 : new SuccessDataResult<List<Language>>(languages, LanguageConstants.DataGet);
@@ -92,7 +92,7 @@ namespace Business.Concrete
 
         private IResult CheckLanguageByExists(Language language)
         {
-            Language languageExist = _languageDal.Get(l => l.LanguageName.ToLowerInvariant().Contains(language.LanguageName.ToLowerInvariant()));
+            Language languageExist = _languageDal.Get(l => l.LanguageName.Contains(language.LanguageName));
             return languageExist == null
                 ? new SuccessResult()
                 : new ErrorResult(LanguageConstants.LanguageExist);

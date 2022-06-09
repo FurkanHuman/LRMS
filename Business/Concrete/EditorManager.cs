@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetByNames(string name)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name ) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
@@ -78,7 +78,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Editor>> GetBySurnames(string surname)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname, StringComparison.CurrentCultureIgnoreCase) && !n.IsDeleted).ToList();
+            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname ) && !n.IsDeleted).ToList();
             return editors == null
                 ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
@@ -101,8 +101,8 @@ namespace Business.Concrete
 
         private IResult EditorNameOrSurnameExist(Editor entity)
         {
-            bool result = _editorDal.GetAll(w => w.Name.ToUpperInvariant().Equals(entity.Name.ToUpperInvariant())
-            && w.SurName.ToUpperInvariant().Equals(entity.SurName.ToUpperInvariant())).Any();
+            bool result = _editorDal.GetAll(w => w.Name .Equals(entity.Name )
+            && w.SurName .Equals(entity.SurName )).Any();
             return result
                 ? new ErrorResult(EditorConstants.NameOrSurnameExists)
                 : new SuccessResult(EditorConstants.DataGet);

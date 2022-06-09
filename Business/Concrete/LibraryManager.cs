@@ -359,7 +359,7 @@ namespace Business.Concrete
         {
             // fixme
             bool resul = _libraryDal.GetAll(l =>
-            l.LibraryName.ToLowerInvariant().Contains(library.LibraryName, StringComparison.CurrentCultureIgnoreCase)
+            l.LibraryName.Contains(library.LibraryName)
             && l.LibraryType == library.LibraryType
             && l.Address == library.Address
             && l.Communication == library.Communication
