@@ -7,19 +7,19 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CitiesController : ControllerBase
+    public class BranchesController : ControllerBase
     {
-        private ICityService _cityService;
+        private readonly IBranchService _branchService;
 
-        public CitiesController(ICityService cityService)
+        public BranchesController(IBranchService branchService)
         {
-            _cityService = cityService;
+            _branchService = branchService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(City city)
+        public IActionResult Add(Branch branch)
         {
-            var result = _cityService.Add(city);
+            var result = _branchService.Add(branch);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -28,7 +28,7 @@ namespace LRMS.Controllers
         [HttpPost("Delete")]
         public IActionResult Delete(int id)
         {
-            var result = _cityService.Delete(id);
+            var result = _branchService.Delete(id);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -37,16 +37,16 @@ namespace LRMS.Controllers
         [HttpPost("ShadowDelete")]
         public IActionResult ShadowDelete(int id)
         {
-            var result = _cityService.ShadowDelete(id);
+            var result = _branchService.ShadowDelete(id);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(City city)
+        public IActionResult Update(Branch branch)
         {
-            var result = _cityService.Update(city);
+            var result = _branchService.Update(branch);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -55,16 +55,16 @@ namespace LRMS.Controllers
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _cityService.GetByNames(name);
+            var result = _branchService.GetByNames(name);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<City, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<Branch, bool>>? filter = null)
         {
-            var result = _cityService.GetByFilterLists(filter);
+            var result = _branchService.GetByFilterLists(filter);
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -73,7 +73,7 @@ namespace LRMS.Controllers
         [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _cityService.GetAllBySecrets();
+            var result = _branchService.GetAllBySecrets();
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
@@ -82,10 +82,11 @@ namespace LRMS.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _cityService.GetAll();
+            var result = _branchService.GetAll();
             if (result.Success)
                 return Ok(result);
             return BadRequest(result);
         }
+
     }
 }
