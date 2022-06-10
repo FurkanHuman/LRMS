@@ -47,7 +47,7 @@ namespace Entities.Concrete.Base
 
         public IList<Director>? Directors { get; set; }
 
-        public IList<GraphicDesign>? GraphicDesigns { get; set; }
+        public IList<GraphicDesigner>? GraphicDesigns { get; set; }
 
         public IList<GraphicDirector>? GraphicDirectors { get; set; }
 
