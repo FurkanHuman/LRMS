@@ -21,5 +21,7 @@ namespace Entities.Concrete.Infos
         public Branch Branch { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IList<Dissertation> Dissertations { get; set; }
     }
 }

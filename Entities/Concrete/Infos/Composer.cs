@@ -6,5 +6,7 @@ namespace Entities.Concrete.Infos
     public class Composer : FirstPagePersonBase, IEntity
     {
         public string? NamePreAttachment { get; set; }
+
+        public IList<MusicalNote> MusicalNotes { get; set; }
     }
 }

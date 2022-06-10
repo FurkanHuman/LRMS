@@ -6,5 +6,7 @@ namespace Entities.Concrete.Infos
     public class Consultant : FirstPagePersonBase, IEntity
     {
         public string? NamePreAttachment { get; set; }
+
+        public IList<Thesis> Theses { get; set; }
     }
 }

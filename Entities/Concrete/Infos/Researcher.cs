@@ -13,6 +13,7 @@ namespace Entities.Concrete.Infos
 
         public University? University { get; set; }
 
-        public List<AcademicJournal> AcademicJournals { get; set; }
+        public IList<AcademicJournal> AcademicJournals { get; set; }
+        public IList<Dissertation> Dissertations { get; set; }
     }
 }
