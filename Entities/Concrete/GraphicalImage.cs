@@ -10,5 +10,7 @@ namespace Entities.Concrete
         public DateTime ImageCreatedDate { get; set; }
 
         public bool IsDestroyed { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

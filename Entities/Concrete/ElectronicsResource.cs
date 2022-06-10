@@ -6,5 +6,7 @@ namespace Entities.Concrete
     public class ElectronicsResource : MaterialBase, IEntity
     {
         public string ResourceUrl { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

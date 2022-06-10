@@ -43,5 +43,7 @@ namespace Entities.Concrete
         public IList<Publisher> Publishers { get; set; }
 
         public IList<Reference> References { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

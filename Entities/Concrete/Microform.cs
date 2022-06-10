@@ -8,5 +8,7 @@ namespace Entities.Concrete
     {
         [Required]
         public string Scale { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

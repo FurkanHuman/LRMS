@@ -15,5 +15,7 @@ namespace Entities.Concrete
         public IList<Reference> References { get; set; }
 
         public IList<BookSeries> BookSeries { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

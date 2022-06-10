@@ -9,5 +9,7 @@ namespace Entities.Concrete
     {
         [Required]
         public int SequenceNumber { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

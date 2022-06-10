@@ -9,5 +9,7 @@ namespace Entities.Concrete
     {
         [Required]
         public Image Image { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

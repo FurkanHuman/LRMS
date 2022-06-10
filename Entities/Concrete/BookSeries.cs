@@ -8,5 +8,7 @@ namespace Entities.Concrete
     {
         [Required]
         public Guid BookIds { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }
