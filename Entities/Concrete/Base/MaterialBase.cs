@@ -27,6 +27,8 @@ namespace Entities.Concrete.Base
 
         public Guid? EMaterialFilesId { get; set; }
 
+        public decimal Price { get; set; }
+
         public byte State { get; set; }
 
         public byte SecretLevel { get; set; }
