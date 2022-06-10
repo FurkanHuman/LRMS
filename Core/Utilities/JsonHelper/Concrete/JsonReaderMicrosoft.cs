@@ -17,9 +17,7 @@ namespace Core.Utilities.JsonHelper.Concrete
             configuration.AddJsonFile(jsonFile);
 
             IConfigurationRoot config = configuration.Build();
-
-            string connectionString = config[jsonKey];
-            return connectionString;
+            return config[jsonKey];
         }
         public string Reader(string jsonFile, string jsonKey)
         {
@@ -29,9 +27,7 @@ namespace Core.Utilities.JsonHelper.Concrete
             configuration.AddJsonFile(jsonFile);
 
             IConfigurationRoot config = configuration.Build();
-
-            string connectionString = config[jsonKey];
-            return connectionString;
+            return config[jsonKey];
         }
     }
 }
