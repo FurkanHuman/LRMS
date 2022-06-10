@@ -3,6 +3,7 @@ using System;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PostgreDbContext))]
-    partial class PostgreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220610131305_MigCreateV2")]
+    partial class MigCreateV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4259,23 +4262,23 @@ namespace DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("AcademicJournalsId")
+                    b.Property<Guid>("AcademicJournalsId")
                         .HasColumnType("uuid")
                         .HasColumnName("academic_journals_id");
 
-                    b.Property<Guid?>("AudioRecordsId")
+                    b.Property<Guid>("AudioRecordsId")
                         .HasColumnType("uuid")
                         .HasColumnName("audio_records_id");
 
-                    b.Property<Guid?>("BookSeriesId")
+                    b.Property<Guid>("BookSeriesId")
                         .HasColumnType("uuid")
                         .HasColumnName("book_series_id");
 
-                    b.Property<Guid?>("BooksId")
+                    b.Property<Guid>("BooksId")
                         .HasColumnType("uuid")
                         .HasColumnName("books_id");
 
-                    b.Property<Guid?>("CartographicMaterialsId")
+                    b.Property<Guid>("CartographicMaterialsId")
                         .HasColumnType("uuid")
                         .HasColumnName("cartographic_materials_id");
 
@@ -4283,7 +4286,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("category_id");
 
-                    b.Property<Guid?>("DepictionsId")
+                    b.Property<Guid>("DepictionsId")
                         .HasColumnType("uuid")
                         .HasColumnName("depictions_id");
 
@@ -4297,7 +4300,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("dimensions_id");
 
-                    b.Property<Guid?>("DissertationsId")
+                    b.Property<Guid>("DissertationsId")
                         .HasColumnType("uuid")
                         .HasColumnName("dissertations_id");
 
@@ -4305,27 +4308,27 @@ namespace DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("e_material_files_id");
 
-                    b.Property<Guid?>("ElectronicsResourcesId")
+                    b.Property<Guid>("ElectronicsResourcesId")
                         .HasColumnType("uuid")
                         .HasColumnName("electronics_resources_id");
 
-                    b.Property<Guid?>("EncyclopediasId")
+                    b.Property<Guid>("EncyclopediasId")
                         .HasColumnType("uuid")
                         .HasColumnName("encyclopedias_id");
 
-                    b.Property<Guid?>("GraphicalImagesId")
+                    b.Property<Guid>("GraphicalImagesId")
                         .HasColumnType("uuid")
                         .HasColumnName("graphical_images_id");
 
-                    b.Property<Guid?>("MagazinesId")
+                    b.Property<Guid>("MagazinesId")
                         .HasColumnType("uuid")
                         .HasColumnName("magazines_id");
 
-                    b.Property<Guid?>("MicroformsId")
+                    b.Property<Guid>("MicroformsId")
                         .HasColumnType("uuid")
                         .HasColumnName("microforms_id");
 
-                    b.Property<Guid?>("MusicalNotesId")
+                    b.Property<Guid>("MusicalNotesId")
                         .HasColumnType("uuid")
                         .HasColumnName("musical_notes_id");
 
@@ -4334,19 +4337,19 @@ namespace DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<Guid?>("NewsPapersId")
+                    b.Property<Guid>("NewsPapersId")
                         .HasColumnType("uuid")
                         .HasColumnName("news_papers_id");
 
-                    b.Property<Guid?>("Object3DsId")
+                    b.Property<Guid>("Object3DsId")
                         .HasColumnType("uuid")
                         .HasColumnName("object3ds_id");
 
-                    b.Property<Guid?>("PaintingsId")
+                    b.Property<Guid>("PaintingsId")
                         .HasColumnType("uuid")
                         .HasColumnName("paintings_id");
 
-                    b.Property<Guid?>("PostersId")
+                    b.Property<Guid>("PostersId")
                         .HasColumnType("uuid")
                         .HasColumnName("posters_id");
 
@@ -4366,7 +4369,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("technical_placeholders_id");
 
-                    b.Property<Guid?>("ThesesId")
+                    b.Property<Guid>("ThesesId")
                         .HasColumnType("uuid")
                         .HasColumnName("theses_id");
 

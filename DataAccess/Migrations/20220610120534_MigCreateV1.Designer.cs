@@ -3,6 +3,7 @@ using System;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(PostgreDbContext))]
-    partial class PostgreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220610120534_MigCreateV1")]
+    partial class MigCreateV1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,25 +99,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_academic_journal_e_material_file_e_material_files_id");
 
                     b.ToTable("academic_journal_e_material_file", (string)null);
-                });
-
-            modelBuilder.Entity("AcademicJournalKit", b =>
-                {
-                    b.Property<Guid>("AcademicJournalsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("academic_journals_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("AcademicJournalsId", "KitsId")
-                        .HasName("pk_academic_journal_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_academic_journal_kit_kits_id");
-
-                    b.ToTable("academic_journal_kit", (string)null);
                 });
 
             modelBuilder.Entity("AcademicJournalPublisher", b =>
@@ -248,25 +232,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_audio_record_e_material_file_e_material_files_id");
 
                     b.ToTable("audio_record_e_material_file", (string)null);
-                });
-
-            modelBuilder.Entity("AudioRecordKit", b =>
-                {
-                    b.Property<Guid>("AudioRecordsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("audio_records_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("AudioRecordsId", "KitsId")
-                        .HasName("pk_audio_record_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_audio_record_kit_kits_id");
-
-                    b.ToTable("audio_record_kit", (string)null);
                 });
 
             modelBuilder.Entity("AudioRecordTechnicalPlaceholder", b =>
@@ -495,25 +460,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_book_interpreters_interpreters_id");
 
                     b.ToTable("book_interpreters", (string)null);
-                });
-
-            modelBuilder.Entity("BookKit", b =>
-                {
-                    b.Property<Guid>("BooksId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("books_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("BooksId", "KitsId")
-                        .HasName("pk_book_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_book_kit_kits_id");
-
-                    b.ToTable("book_kit", (string)null);
                 });
 
             modelBuilder.Entity("BookOtherPeople", b =>
@@ -782,25 +728,6 @@ namespace DataAccess.Migrations
                     b.ToTable("book_series_interpreters", (string)null);
                 });
 
-            modelBuilder.Entity("BookSeriesKit", b =>
-                {
-                    b.Property<Guid>("BookSeriesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("book_series_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("BookSeriesId", "KitsId")
-                        .HasName("pk_book_series_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_book_series_kit_kits_id");
-
-                    b.ToTable("book_series_kit", (string)null);
-                });
-
             modelBuilder.Entity("BookSeriesOtherPeople", b =>
                 {
                     b.Property<Guid>("BookSeriesId")
@@ -1027,25 +954,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_cartographic_material_image_images_id");
 
                     b.ToTable("cartographic_material_image", (string)null);
-                });
-
-            modelBuilder.Entity("CartographicMaterialKit", b =>
-                {
-                    b.Property<Guid>("CartographicMaterialsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("cartographic_materials_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("CartographicMaterialsId", "KitsId")
-                        .HasName("pk_cartographic_material_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_cartographic_material_kit_kits_id");
-
-                    b.ToTable("cartographic_material_kit", (string)null);
                 });
 
             modelBuilder.Entity("CartographicMaterialTechnicalPlaceholder", b =>
@@ -1428,25 +1336,6 @@ namespace DataAccess.Migrations
                     b.ToTable("depiction_e_material_file", (string)null);
                 });
 
-            modelBuilder.Entity("DepictionKit", b =>
-                {
-                    b.Property<Guid>("DepictionsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("depictions_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("DepictionsId", "KitsId")
-                        .HasName("pk_depiction_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_depiction_kit_kits_id");
-
-                    b.ToTable("depiction_kit", (string)null);
-                });
-
             modelBuilder.Entity("DepictionTechnicalPlaceholder", b =>
                 {
                     b.Property<Guid>("DepictionsId")
@@ -1770,25 +1659,6 @@ namespace DataAccess.Migrations
                     b.ToTable("dissertation_e_material_file", (string)null);
                 });
 
-            modelBuilder.Entity("DissertationKit", b =>
-                {
-                    b.Property<Guid>("DissertationsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("dissertations_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("DissertationsId", "KitsId")
-                        .HasName("pk_dissertation_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_dissertation_kit_kits_id");
-
-                    b.ToTable("dissertation_kit", (string)null);
-                });
-
             modelBuilder.Entity("DissertationResearcher", b =>
                 {
                     b.Property<Guid>("DissertationsId")
@@ -1958,25 +1828,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_editor_news_paper_news_papers_id");
 
                     b.ToTable("editor_news_paper", (string)null);
-                });
-
-            modelBuilder.Entity("ElectronicsResourceKit", b =>
-                {
-                    b.Property<Guid>("ElectronicsResourcesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("electronics_resources_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("ElectronicsResourcesId", "KitsId")
-                        .HasName("pk_electronics_resource_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_electronics_resource_kit_kits_id");
-
-                    b.ToTable("electronics_resource_kit", (string)null);
                 });
 
             modelBuilder.Entity("ElectronicsResourceTechnicalPlaceholder", b =>
@@ -2281,25 +2132,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_encyclopedia_interpreters_interpreters_id");
 
                     b.ToTable("encyclopedia_interpreters", (string)null);
-                });
-
-            modelBuilder.Entity("EncyclopediaKit", b =>
-                {
-                    b.Property<Guid>("EncyclopediasId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("encyclopedias_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("EncyclopediasId", "KitsId")
-                        .HasName("pk_encyclopedia_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_encyclopedia_kit_kits_id");
-
-                    b.ToTable("encyclopedia_kit", (string)null);
                 });
 
             modelBuilder.Entity("EncyclopediaOtherPeople", b =>
@@ -3370,15 +3202,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<Guid?>("KitId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kit_id");
-
                     b.HasKey("Id")
                         .HasName("pk_categories");
-
-                    b.HasIndex("KitId")
-                        .HasDatabaseName("ix_categories_kit_id");
 
                     b.ToTable("categories", (string)null);
                 });
@@ -3575,10 +3400,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<Guid?>("KitId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kit_id");
-
                     b.Property<double>("Length")
                         .HasColumnType("double precision")
                         .HasColumnName("length");
@@ -3594,9 +3415,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_dimensions");
-
-                    b.HasIndex("KitId")
-                        .HasDatabaseName("ix_dimensions_kit_id");
 
                     b.ToTable("dimensions", (string)null);
                 });
@@ -3713,10 +3531,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_secret");
 
-                    b.Property<Guid?>("KitId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kit_id");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
@@ -3724,9 +3538,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_e_material_files");
-
-                    b.HasIndex("KitId")
-                        .HasDatabaseName("ix_e_material_files_kit_id");
 
                     b.ToTable("e_material_files", (string)null);
                 });
@@ -4145,10 +3956,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<Guid?>("KitId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kit_id");
-
                     b.Property<Guid>("LibraryId")
                         .HasColumnType("uuid")
                         .HasColumnName("library_id");
@@ -4169,9 +3976,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_technical_placeholders");
-
-                    b.HasIndex("KitId")
-                        .HasDatabaseName("ix_technical_placeholders_kit_id");
 
                     b.HasIndex("LibraryId")
                         .HasDatabaseName("ix_technical_placeholders_library_id");
@@ -4250,135 +4054,6 @@ namespace DataAccess.Migrations
                         .HasName("pk_writers");
 
                     b.ToTable("writers", (string)null);
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Kit", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<Guid?>("AcademicJournalsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("academic_journals_id");
-
-                    b.Property<Guid?>("AudioRecordsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("audio_records_id");
-
-                    b.Property<Guid?>("BookSeriesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("book_series_id");
-
-                    b.Property<Guid?>("BooksId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("books_id");
-
-                    b.Property<Guid?>("CartographicMaterialsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("cartographic_materials_id");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer")
-                        .HasColumnName("category_id");
-
-                    b.Property<Guid?>("DepictionsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("depictions_id");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
-
-                    b.Property<Guid?>("DimensionsId")
-                        .IsRequired()
-                        .HasColumnType("uuid")
-                        .HasColumnName("dimensions_id");
-
-                    b.Property<Guid?>("DissertationsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("dissertations_id");
-
-                    b.Property<Guid?>("EMaterialFilesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("e_material_files_id");
-
-                    b.Property<Guid?>("ElectronicsResourcesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("electronics_resources_id");
-
-                    b.Property<Guid?>("EncyclopediasId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("encyclopedias_id");
-
-                    b.Property<Guid?>("GraphicalImagesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("graphical_images_id");
-
-                    b.Property<Guid?>("MagazinesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("magazines_id");
-
-                    b.Property<Guid?>("MicroformsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("microforms_id");
-
-                    b.Property<Guid?>("MusicalNotesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("musical_notes_id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<Guid?>("NewsPapersId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("news_papers_id");
-
-                    b.Property<Guid?>("Object3DsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("object3ds_id");
-
-                    b.Property<Guid?>("PaintingsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("paintings_id");
-
-                    b.Property<Guid?>("PostersId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("posters_id");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric")
-                        .HasColumnName("price");
-
-                    b.Property<byte>("SecretLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("secret_level");
-
-                    b.Property<byte>("State")
-                        .HasColumnType("smallint")
-                        .HasColumnName("state");
-
-                    b.Property<Guid>("TechnicalPlaceholdersId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("technical_placeholders_id");
-
-                    b.Property<Guid?>("ThesesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("theses_id");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id")
-                        .HasName("pk_kits");
-
-                    b.ToTable("kits", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Concrete.Magazine", b =>
@@ -5081,25 +4756,6 @@ namespace DataAccess.Migrations
                     b.ToTable("theses", (string)null);
                 });
 
-            modelBuilder.Entity("GraphicalImageKit", b =>
-                {
-                    b.Property<Guid>("GraphicalImagesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("graphical_images_id");
-
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.HasKey("GraphicalImagesId", "KitsId")
-                        .HasName("pk_graphical_image_kit");
-
-                    b.HasIndex("KitsId")
-                        .HasDatabaseName("ix_graphical_image_kit_kits_id");
-
-                    b.ToTable("graphical_image_kit", (string)null);
-                });
-
             modelBuilder.Entity("GraphicalImageTechnicalPlaceholder", b =>
                 {
                     b.Property<Guid>("GraphicalImagesId")
@@ -5307,158 +4963,6 @@ namespace DataAccess.Migrations
                         .HasDatabaseName("ix_interpreters_news_paper_news_papers_id");
 
                     b.ToTable("interpreters_news_paper", (string)null);
-                });
-
-            modelBuilder.Entity("KitMagazine", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("MagazinesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("magazines_id");
-
-                    b.HasKey("KitsId", "MagazinesId")
-                        .HasName("pk_kit_magazine");
-
-                    b.HasIndex("MagazinesId")
-                        .HasDatabaseName("ix_kit_magazine_magazines_id");
-
-                    b.ToTable("kit_magazine", (string)null);
-                });
-
-            modelBuilder.Entity("KitMicroform", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("MicroformsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("microforms_id");
-
-                    b.HasKey("KitsId", "MicroformsId")
-                        .HasName("pk_kit_microform");
-
-                    b.HasIndex("MicroformsId")
-                        .HasDatabaseName("ix_kit_microform_microforms_id");
-
-                    b.ToTable("kit_microform", (string)null);
-                });
-
-            modelBuilder.Entity("KitMusicalNote", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("MusicalNotesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("musical_notes_id");
-
-                    b.HasKey("KitsId", "MusicalNotesId")
-                        .HasName("pk_kit_musical_note");
-
-                    b.HasIndex("MusicalNotesId")
-                        .HasDatabaseName("ix_kit_musical_note_musical_notes_id");
-
-                    b.ToTable("kit_musical_note", (string)null);
-                });
-
-            modelBuilder.Entity("KitNewsPaper", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("NewsPapersId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("news_papers_id");
-
-                    b.HasKey("KitsId", "NewsPapersId")
-                        .HasName("pk_kit_news_paper");
-
-                    b.HasIndex("NewsPapersId")
-                        .HasDatabaseName("ix_kit_news_paper_news_papers_id");
-
-                    b.ToTable("kit_news_paper", (string)null);
-                });
-
-            modelBuilder.Entity("KitObject3D", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("Object3DsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("object3ds_id");
-
-                    b.HasKey("KitsId", "Object3DsId")
-                        .HasName("pk_kit_object3d");
-
-                    b.HasIndex("Object3DsId")
-                        .HasDatabaseName("ix_kit_object3d_object3ds_id");
-
-                    b.ToTable("kit_object3d", (string)null);
-                });
-
-            modelBuilder.Entity("KitPainting", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("PaintingsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("paintings_id");
-
-                    b.HasKey("KitsId", "PaintingsId")
-                        .HasName("pk_kit_painting");
-
-                    b.HasIndex("PaintingsId")
-                        .HasDatabaseName("ix_kit_painting_paintings_id");
-
-                    b.ToTable("kit_painting", (string)null);
-                });
-
-            modelBuilder.Entity("KitPoster", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("PostersId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("posters_id");
-
-                    b.HasKey("KitsId", "PostersId")
-                        .HasName("pk_kit_poster");
-
-                    b.HasIndex("PostersId")
-                        .HasDatabaseName("ix_kit_poster_posters_id");
-
-                    b.ToTable("kit_poster", (string)null);
-                });
-
-            modelBuilder.Entity("KitThesis", b =>
-                {
-                    b.Property<Guid>("KitsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("kits_id");
-
-                    b.Property<Guid>("ThesesId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("theses_id");
-
-                    b.HasKey("KitsId", "ThesesId")
-                        .HasName("pk_kit_thesis");
-
-                    b.HasIndex("ThesesId")
-                        .HasDatabaseName("ix_kit_thesis_theses_id");
-
-                    b.ToTable("kit_thesis", (string)null);
                 });
 
             modelBuilder.Entity("MagazineOtherPeople", b =>
@@ -5833,23 +5337,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_academic_journal_e_material_file_e_material_files_e_materia");
                 });
 
-            modelBuilder.Entity("AcademicJournalKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.AcademicJournal", null)
-                        .WithMany()
-                        .HasForeignKey("AcademicJournalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_academic_journal_kit_academic_journals_academic_journals_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_academic_journal_kit_kits_kits_id");
-                });
-
             modelBuilder.Entity("AcademicJournalPublisher", b =>
                 {
                     b.HasOne("Entities.Concrete.AcademicJournal", null)
@@ -5967,23 +5454,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_audio_record_e_material_file_e_material_files_e_material_fi");
-                });
-
-            modelBuilder.Entity("AudioRecordKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.AudioRecord", null)
-                        .WithMany()
-                        .HasForeignKey("AudioRecordsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_audio_record_kit_audio_records_audio_records_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_audio_record_kit_kits_kits_id");
                 });
 
             modelBuilder.Entity("AudioRecordTechnicalPlaceholder", b =>
@@ -6188,23 +5658,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_book_interpreters_interpreters_interpreters_id");
-                });
-
-            modelBuilder.Entity("BookKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_kit_books_books_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_kit_kits_kits_id");
                 });
 
             modelBuilder.Entity("BookOtherPeople", b =>
@@ -6445,23 +5898,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_book_series_interpreters_interpreters_interpreters_id");
                 });
 
-            modelBuilder.Entity("BookSeriesKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.BookSeries", null)
-                        .WithMany()
-                        .HasForeignKey("BookSeriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_series_kit_book_series_book_series_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_series_kit_kits_kits_id");
-                });
-
             modelBuilder.Entity("BookSeriesOtherPeople", b =>
                 {
                     b.HasOne("Entities.Concrete.BookSeries", null)
@@ -6664,23 +6100,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_cartographic_material_image_images_images_id");
-                });
-
-            modelBuilder.Entity("CartographicMaterialKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.CartographicMaterial", null)
-                        .WithMany()
-                        .HasForeignKey("CartographicMaterialsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cartographic_material_kit_cartographic_materials_cartograph");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cartographic_material_kit_kits_kits_id");
                 });
 
             modelBuilder.Entity("CartographicMaterialTechnicalPlaceholder", b =>
@@ -7023,23 +6442,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_depiction_e_material_file_e_material_files_e_material_files");
                 });
 
-            modelBuilder.Entity("DepictionKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.Depiction", null)
-                        .WithMany()
-                        .HasForeignKey("DepictionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_depiction_kit_depictions_depictions_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_depiction_kit_kits_kits_id");
-                });
-
             modelBuilder.Entity("DepictionTechnicalPlaceholder", b =>
                 {
                     b.HasOne("Entities.Concrete.Depiction", null)
@@ -7329,23 +6731,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_dissertation_e_material_file_e_material_files_e_material_fi");
                 });
 
-            modelBuilder.Entity("DissertationKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.Dissertation", null)
-                        .WithMany()
-                        .HasForeignKey("DissertationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_dissertation_kit_dissertations_dissertations_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_dissertation_kit_kits_kits_id");
-                });
-
             modelBuilder.Entity("DissertationResearcher", b =>
                 {
                     b.HasOne("Entities.Concrete.Dissertation", null)
@@ -7497,23 +6882,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_editor_news_paper_news_papers_news_papers_id");
-                });
-
-            modelBuilder.Entity("ElectronicsResourceKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.ElectronicsResource", null)
-                        .WithMany()
-                        .HasForeignKey("ElectronicsResourcesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_electronics_resource_kit_electronics_resources_electronics_");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_electronics_resource_kit_kits_kits_id");
                 });
 
             modelBuilder.Entity("ElectronicsResourceTechnicalPlaceholder", b =>
@@ -7788,23 +7156,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_encyclopedia_interpreters_interpreters_interpreters_id");
                 });
 
-            modelBuilder.Entity("EncyclopediaKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.Encyclopedia", null)
-                        .WithMany()
-                        .HasForeignKey("EncyclopediasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_encyclopedia_kit_encyclopedias_encyclopedias_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_encyclopedia_kit_kits_kits_id");
-                });
-
             modelBuilder.Entity("EncyclopediaOtherPeople", b =>
                 {
                     b.HasOne("Entities.Concrete.Encyclopedia", null)
@@ -7952,22 +7303,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Entities.Concrete.Infos.Category", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("KitId")
-                        .HasConstraintName("fk_categories_kits_kit_id");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Infos.Dimension", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany("Dimensions")
-                        .HasForeignKey("KitId")
-                        .HasConstraintName("fk_dimensions_kits_kit_id");
-                });
-
             modelBuilder.Entity("Entities.Concrete.Infos.Edition", b =>
                 {
                     b.HasOne("Entities.Concrete.Infos.Publisher", "Publisher")
@@ -7978,14 +7313,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("fk_editions_publishers_publisher_id");
 
                     b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Infos.EMaterialFile", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany("EMaterialFiles")
-                        .HasForeignKey("KitId")
-                        .HasConstraintName("fk_e_material_files_kits_kit_id");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Infos.Library", b =>
@@ -8054,11 +7381,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.Infos.TechnicalPlaceholder", b =>
                 {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany("TechnicalPlaceholders")
-                        .HasForeignKey("KitId")
-                        .HasConstraintName("fk_technical_placeholders_kits_kit_id");
-
                     b.HasOne("Entities.Concrete.Infos.Library", "Library")
                         .WithMany()
                         .HasForeignKey("LibraryId")
@@ -8139,23 +7461,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("University");
-                });
-
-            modelBuilder.Entity("GraphicalImageKit", b =>
-                {
-                    b.HasOne("Entities.Concrete.GraphicalImage", null)
-                        .WithMany()
-                        .HasForeignKey("GraphicalImagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_graphical_image_kit_graphical_images_graphical_images_id");
-
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_graphical_image_kit_kits_kits_id");
                 });
 
             modelBuilder.Entity("GraphicalImageTechnicalPlaceholder", b =>
@@ -8343,142 +7648,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_interpreters_news_paper_news_papers_news_papers_id");
-                });
-
-            modelBuilder.Entity("KitMagazine", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_magazine_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Magazine", null)
-                        .WithMany()
-                        .HasForeignKey("MagazinesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_magazine_magazines_magazines_id");
-                });
-
-            modelBuilder.Entity("KitMicroform", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_microform_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Microform", null)
-                        .WithMany()
-                        .HasForeignKey("MicroformsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_microform_microforms_microforms_id");
-                });
-
-            modelBuilder.Entity("KitMusicalNote", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_musical_note_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.MusicalNote", null)
-                        .WithMany()
-                        .HasForeignKey("MusicalNotesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_musical_note_musical_notes_musical_notes_id");
-                });
-
-            modelBuilder.Entity("KitNewsPaper", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_news_paper_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.NewsPaper", null)
-                        .WithMany()
-                        .HasForeignKey("NewsPapersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_news_paper_news_papers_news_papers_id");
-                });
-
-            modelBuilder.Entity("KitObject3D", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_object3d_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Object3D", null)
-                        .WithMany()
-                        .HasForeignKey("Object3DsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_object3d_object3ds_object3ds_id");
-                });
-
-            modelBuilder.Entity("KitPainting", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_painting_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Painting", null)
-                        .WithMany()
-                        .HasForeignKey("PaintingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_painting_paintings_paintings_id");
-                });
-
-            modelBuilder.Entity("KitPoster", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_poster_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Poster", null)
-                        .WithMany()
-                        .HasForeignKey("PostersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_poster_posters_posters_id");
-                });
-
-            modelBuilder.Entity("KitThesis", b =>
-                {
-                    b.HasOne("Entities.Concrete.Kit", null)
-                        .WithMany()
-                        .HasForeignKey("KitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_thesis_kits_kits_id");
-
-                    b.HasOne("Entities.Concrete.Thesis", null)
-                        .WithMany()
-                        .HasForeignKey("ThesesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_kit_thesis_theses_theses_id");
                 });
 
             modelBuilder.Entity("MagazineOtherPeople", b =>
@@ -8761,17 +7930,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Concrete.Infos.Consultant", b =>
                 {
                     b.Navigation("Theses");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.Kit", b =>
-                {
-                    b.Navigation("Categories");
-
-                    b.Navigation("Dimensions");
-
-                    b.Navigation("EMaterialFiles");
-
-                    b.Navigation("TechnicalPlaceholders");
                 });
 #pragma warning restore 612, 618
         }
