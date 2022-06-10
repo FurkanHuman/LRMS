@@ -35,21 +35,21 @@ namespace Business.Concrete
         {
             Composer composer = _composerDal.Get(g => g.Id == id);
             if (composer == null)
-                return new ErrorResult(GraphicDesignConstants.NotMatch);
+                return new ErrorResult(ComposerConstants.NotMatch);
 
             _composerDal.Delete(composer);
-            return new SuccessResult(GraphicDesignConstants.DeleteSuccess);
+            return new SuccessResult(ComposerConstants.DeleteSuccess);
         }
 
         public IResult ShadowDelete(Guid id)
         {
             Composer composer = _composerDal.Get(g => g.Id == id && !g.IsDeleted);
             if (composer == null)
-                return new ErrorResult(GraphicDesignConstants.NotMatch);
+                return new ErrorResult(ComposerConstants.NotMatch);
 
             composer.IsDeleted = true;
             _composerDal.Update(composer);
-            return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
+            return new SuccessResult(ComposerConstants.ShadowDeleteSuccess);
         }
 
         [ValidationAspect(typeof(ComposerValidator), Priority = 1)]

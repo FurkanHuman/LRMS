@@ -36,7 +36,7 @@ namespace Business.Concrete
         {
             Director director = _directorDal.Get(g => g.Id == id);
             if (director == null)
-                return new ErrorResult(GraphicDesignConstants.NotMatch);
+                return new ErrorResult(DirectorConstants.NotMatch);
 
 
             _directorDal.Delete(director);
@@ -47,18 +47,18 @@ namespace Business.Concrete
         {
             Director director = _directorDal.Get(g => g.Id == id && !g.IsDeleted);
             if (director == null)
-                return new ErrorResult(GraphicDesignConstants.NotMatch);
+                return new ErrorResult(DirectorConstants.NotMatch);
 
             director.IsDeleted = true;
             _directorDal.Update(director);
-            return new SuccessResult(GraphicDesignConstants.ShadowDeleteSuccess);
+            return new SuccessResult(DirectorConstants.ShadowDeleteSuccess);
         }
 
         [ValidationAspect(typeof(DirectorValidator), Priority = 1)]
         public IResult Update(Director entity)
         {
             _directorDal.Update(entity);
-            return new SuccessResult(EditorConstants.UpdateSuccess);
+            return new SuccessResult(DirectorConstants.UpdateSuccess);
         }
 
         public IDataResult<List<Director>> GetByFilterList(Expression<Func<Director, bool>>? filter = null)
