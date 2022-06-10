@@ -13,8 +13,12 @@ namespace Entities.Concrete
         public int Number { get; set; }
 
         [Required]
+        public Guid ImageId { get; set; }
+
+        [Required]
         public DateTime Date { get; set; }
 
         public bool IsDestroyed { get; set; }
+        public IList<Kit> Kits { get; set; }
     }
 }

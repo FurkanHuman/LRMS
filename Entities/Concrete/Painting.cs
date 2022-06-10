@@ -11,8 +11,11 @@ namespace Entities.Concrete
         public string Owner { get; set; }
 
         [Required]
-        public Image Image { get; set; }
+        public Guid ImageId { get; set; }
 
         public bool IsDestroyed { get; set; }
+
+        public Image Image { get; set; }
+        public IList<Kit> Kits { get; set; }
     }
 }

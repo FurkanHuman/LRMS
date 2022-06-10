@@ -8,16 +8,16 @@ namespace Entities.Concrete
     public class Thesis : MaterialBase, IEntity
     {
         [Required]
-        public University University { get; set; }
+        public Guid UniversityId { get; set; }
 
         [Required]
         public byte ThesisDegree { get; set; }
 
         [Required]
-        public Researcher Researcher { get; set; }
+        public Guid ResearcherId { get; set; }
 
         [Required]
-        public Consultant Consultant { get; set; }
+        public Guid ConsultantId { get; set; }
 
         [Required]
         public City City { get; set; }
@@ -38,5 +38,9 @@ namespace Entities.Concrete
         public bool ApprovalStatus { get; set; }
 
         public bool IsSecret { get; set; }
+
+        public Consultant Consultant { get; set; }
+        public University University { get; set; }
+        public IList<Kit> Kits { get; set; }
     }
 }

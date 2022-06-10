@@ -7,6 +7,8 @@ namespace Entities.Concrete
     public class Magazine : BasePaper, IEntity
     {
         [Required]
-        public string Subject { get; set; }
+        public byte MagazineType { get; set; }
+
+        public IList<Kit> Kits { get; set; }
     }
 }

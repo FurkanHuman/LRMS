@@ -8,10 +8,10 @@ namespace Entities.Concrete
     public class Dissertation : MaterialBase, IEntity //  akedemik araştırma... tezin bir üstü
     {
         [Required]
-        public University University { get; set; }
+        public Guid UniversityId { get; set; }
 
         [Required]
-        public Researcher Researcher { get; set; }
+        public Guid ResearcherId { get; set; }
 
         [Required]
         public Language Language { get; set; }
@@ -32,5 +32,9 @@ namespace Entities.Concrete
         public bool ApprovalStatus { get; set; }
 
         public bool IsSecret { get; set; }
+
+        public IList<University> University { get; set; }
+        public IList<Researcher> Researcher { get; set; }
+        public IList<Kit> Kits { get; set; }
     }
 }
