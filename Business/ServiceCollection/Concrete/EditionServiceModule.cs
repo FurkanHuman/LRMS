@@ -2,11 +2,6 @@
 using Business.Abstract;
 using Business.Concrete;
 using Business.ServiceCollection.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.ServiceCollection.Concrete
 {
