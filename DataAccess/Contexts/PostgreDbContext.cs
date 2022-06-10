@@ -1,20 +1,19 @@
 ﻿using Entities.Concrete;
 using Entities.Concrete.Infos;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace DataAccess.Contexts
 {
     public class PostgreDbContext : DbContext
     {
-        // Todo Can Maping
-
         public PostgreDbContext() : base() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=deneme7;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
-            //optionsBuilder.UseNpgsql(JsonReader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention();
+            //IJsonReader jsonReader = new JsonReaderMicrosoft()
+            //optionsBuilder.UseNpgsql(jsonReader.Reader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention()
+
+            optionsBuilder.UseNpgsql("Host=localhost;Database=LRMS_DataBase;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
         }
 
         // Infos
@@ -33,7 +32,7 @@ namespace DataAccess.Contexts
         public DbSet<Edition> Editions { get; set; }
         public DbSet<Editor> Editors { get; set; }
         public DbSet<EMaterialFile> EMaterialFiles { get; set; }
-        public DbSet<GraphicDesign> GraphicDesign { get; set; }
+        public DbSet<GraphicDesigner> GraphicDesign { get; set; }
         public DbSet<GraphicDirector> GraphicDirectors { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Interpreters> Interpreters { get; set; }
@@ -51,12 +50,10 @@ namespace DataAccess.Contexts
 
         // Concrete
 
-
         public DbSet<AcademicJournal> AcademicJournals { get; set; }
         public DbSet<AudioRecord> AudioRecords { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookSeries> BookSeries { get; set; }
-        /*
         public DbSet<CartographicMaterial> CartographicMaterials { get; set; }
         public DbSet<Depiction> Depictions { get; set; }
         public DbSet<Dissertation> Dissertations { get; set; }
@@ -72,15 +69,5 @@ namespace DataAccess.Contexts
         public DbSet<Painting> Paintings { get; set; }
         public DbSet<Poster> Posters { get; set; }
         public DbSet<Thesis> Theses { get; set; }
-        public DbSet<TradePublication> TradePublications { get; set; }
-        */
-
-        private static string JsonReader(string jsonFile, string key)
-        {
-            IConfigurationBuilder configuration = new ConfigurationBuilder();
-            configuration.AddJsonFile(jsonFile);
-            IConfigurationRoot root = configuration.Build();
-            return root[key];
-        }
     }
 }
