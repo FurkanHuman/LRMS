@@ -22,6 +22,7 @@ namespace Entities.Concrete.Infos
         public IList<ElectronicsResource> ElectronicsResources { get; set; }
         public IList<Encyclopedia> Encyclopedias { get; set; }
         public IList<GraphicalImage> GraphicalImages { get; set; }
+        public IList<Kit> Kits { get; set; }
         public IList<Magazine> Magazines { get; set; }
         public IList<Microform> Microforms { get; set; }
         public IList<MusicalNote> MusicalNotes { get; set; }
