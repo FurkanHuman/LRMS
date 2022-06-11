@@ -9,7 +9,7 @@ namespace LRMS.Controllers
     [ApiController]
     public class CitiesController : ControllerBase
     {
-        private ICityService _cityService;
+        private readonly ICityService _cityService;
 
         public CitiesController(ICityService cityService)
         {
@@ -17,8 +17,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(City city)
+        public IActionResult Add(string cityName)
         {
+            City city = new() { CityName = cityName };
             var result = _cityService.Add(city);
             if (result.Success)
                 return Ok(result);
@@ -44,8 +45,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(City city)
+        public IActionResult Update(int id, string cityName)
         {
+            City city = new() { Id = id, CityName = cityName };
             var result = _cityService.Update(city);
             if (result.Success)
                 return Ok(result);

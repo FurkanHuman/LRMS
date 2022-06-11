@@ -17,8 +17,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(Branch branch)
+        public IActionResult Add(string branchName)
         {
+            Branch branch = new() { Name = branchName };
             var result = _branchService.Add(branch);
             if (result.Success)
                 return Ok(result);
@@ -44,8 +45,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Branch branch)
+        public IActionResult Update(int id, string branchName)
         {
+            Branch branch = new() { Id = id, Name = branchName };
             var result = _branchService.Update(branch);
             if (result.Success)
                 return Ok(result);
