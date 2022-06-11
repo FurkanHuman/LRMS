@@ -14,5 +14,7 @@ namespace Entities.Concrete.Infos
         public string CountryCode { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public IList<City> Cities { get; set; }
     }
 }
