@@ -3,7 +3,7 @@ using Business.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.Infos;
 
-namespace LRMS_Test
+namespace LRMS_Test.Tests
 {
     [TestClass]
     public class BranchTest
@@ -28,7 +28,6 @@ namespace LRMS_Test
             var testDelete = _branchService.Delete(id);
 
             Assert.IsTrue(testDelete.Success, "Delete Test Succsess");
-
         }
 
         [TestMethod]

@@ -3,7 +3,7 @@ using Business.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.Infos;
 
-namespace LRMS_Test
+namespace LRMS_Test.Tests
 {
     [TestClass]
     public class CityTest
