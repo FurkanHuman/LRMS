@@ -94,7 +94,7 @@ namespace Business.Concrete
 
         private IResult CategoryNameChecker(Category category)
         {
-            bool res = _categoryDal.GetAll(c => c.CategoryName.ToLowerInvariant().Contains(category.CategoryName.ToLowerInvariant())).Any();
+            bool res = _categoryDal.GetAll(c => c.CategoryName.Contains(category.CategoryName)).Any();
 
             return res
                 ? new ErrorResult(CategoryConstants.DataNotGet)
