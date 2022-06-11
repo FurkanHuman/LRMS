@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 namespace Business.Abstract.Base
 {
     public interface IBaseEntityService<T, I> where T : IEntity, new()
+                                              where I : struct
     {
         IResult Add(T entity);
         IResult Delete(I id);
