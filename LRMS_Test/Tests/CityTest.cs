@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace LRMS_Test.Tests
 {
-    [TestClass]
+    // [TestClass]
     public class CityTest
     {
         private readonly ICityService _cityService = new CityManager(new EfCityDal());
@@ -13,11 +13,11 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void AddTest()
         {
-            City city = new() { CityName = "Shit loop" };
+            City city = new() { CityName = "Afyon Karahisar", CountryId = 1 };
 
             var testAdd = _cityService.Add(city);
 
-            Assert.IsTrue(testAdd.Success, "Add Test Success");
+            Assert.IsTrue(!testAdd.Success, "Add Test Success");
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace LRMS_Test.Tests
 
             var testDelete = _cityService.Delete(id);
 
-            Assert.IsTrue(testDelete.Success, "Delete Test Succsess");
+            Assert.IsFalse(testDelete.Success, "Delete Test Succsess");
 
         }
 
@@ -38,23 +38,23 @@ namespace LRMS_Test.Tests
 
             var testShadowDelete = _cityService.ShadowDelete(id);
 
-            Assert.IsTrue(testShadowDelete.Success, "Shadow Delete Test Succsess");
+            Assert.IsFalse(!testShadowDelete.Success, "Shadow Delete Test Succsess");
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            City city = new() { CityName = "real net human", Id = 8 };
+            City city = new() { CityName = "real net human", Id = 8, CountryId = 1 };
 
             var testUpdate = _cityService.Update(city);
 
-            Assert.IsTrue(testUpdate.Success, "Update Test Success");
+            Assert.IsTrue(!testUpdate.Success, "Update Test Success");
         }
 
         [TestMethod]
         public void GetById()
         {
-            int id = 7;
+            int id = 3;
 
             var testGetById = _cityService.GetById(id);
 
@@ -64,7 +64,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetByName()
         {
-            var testGetByName = _cityService.GetByNames("por");
+            var testGetByName = _cityService.GetByNames("Ed");
 
             Assert.IsTrue(testGetByName.Success, " Get By Names Test Success");
         }

@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace LRMS_Test.Tests
 {
-    [TestClass]
+    // [TestClass]
     public class BranchTest
     {
         private readonly IBranchService _branchService = new BranchManager(new EfBranchDal());
@@ -13,41 +13,41 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void AddTest()
         {
-            Branch branch = new() { Name = "Shit loop" };
+            Branch branch = new() { Name = "Shit Monkey" };
 
             var testAdd = _branchService.Add(branch);
 
-            Assert.IsTrue(testAdd.Success, "Add Test Success");
+            Assert.IsTrue(!testAdd.Success, "Add Test Success");
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            int id = 3;
+            int id = 5;
 
             var testDelete = _branchService.Delete(id);
 
-            Assert.IsTrue(testDelete.Success, "Delete Test Succsess");
+            Assert.IsTrue(!testDelete.Success, "Delete Test Succsess");
         }
 
         [TestMethod]
         public void ShadowDeleteTest()
         {
-            int id = 9;
+            int id = 6;
 
             var testShadowDelete = _branchService.ShadowDelete(id);
 
-            Assert.IsTrue(testShadowDelete.Success, "Shadow Delete Test Succsess");
+            Assert.IsTrue(!testShadowDelete.Success, "Shadow Delete Test Succsess");
         }
 
         [TestMethod]
         public void UpdateTest()
         {
-            Branch branch = new() { Name = "real net human", Id = 8 };
+            Branch branch = new() { Name = "human dead test", Id = 7 };
 
             var testUpdate = _branchService.Update(branch);
 
-            Assert.IsTrue(testUpdate.Success, "Update Test Success");
+            Assert.IsTrue(!testUpdate.Success, "Update Test Success");
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetByName()
         {
-            var testGetByName = _branchService.GetByNames("por");
+            var testGetByName = _branchService.GetByNames("Müh");
 
             Assert.IsTrue(testGetByName.Success, " Get By Names Test Success");
         }
@@ -71,7 +71,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetByFilterLists()
         {
-            int id = 10;
+            int id = 3;
 
             var testGetByFilterLists = _branchService.GetByFilterLists(b => b.Id == id);
 
