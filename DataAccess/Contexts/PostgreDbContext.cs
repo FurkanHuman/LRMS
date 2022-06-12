@@ -12,8 +12,8 @@ namespace DataAccess.Contexts
         {
             //IJsonReader jsonReader = new JsonReaderMicrosoft()
             //optionsBuilder.UseNpgsql(jsonReader.Reader("PostgreSQLConfig.json", "PostgreConnectionString")).UseSnakeCaseNamingConvention()
-
-            optionsBuilder.UseNpgsql("Host=localhost;Database=LRMS_DataBase;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
+            //optionsBuilder.UseNpgsql("Host=localhost;Database=LRMS_DataBase;Username=postgres;Password=12345").UseSnakeCaseNamingConvention()
+            optionsBuilder.UseNpgsql("Host=localhost;Database=LRMS_Test_DataBase;Username=postgres;Password=12345").UseSnakeCaseNamingConvention();
         }
 
         // Infos
