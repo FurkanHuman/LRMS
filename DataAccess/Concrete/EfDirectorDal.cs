@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfDirectoryDal : EfEntityRepositoryBase<Director, PostgreDbContext>, IDirectorDal
+    public class EfDirectorDal : EfEntityRepositoryBase<Director, PostgreDbContext>, IDirectorDal
     {
     }
 }

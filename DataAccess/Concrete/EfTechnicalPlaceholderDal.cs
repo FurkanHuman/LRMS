@@ -5,7 +5,7 @@ using Entities.Concrete.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfTechnicalPlaceholder : EfEntityRepositoryBase<TechnicalPlaceholder, PostgreDbContext>, ITechnicalPlaceholderDal
+    public class EfTechnicalPlaceholderDal : EfEntityRepositoryBase<TechnicalPlaceholder, PostgreDbContext>, ITechnicalPlaceholderDal
     {
     }
 }
