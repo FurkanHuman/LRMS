@@ -15,7 +15,8 @@ namespace Business.Concrete
     public class PublisherManager : IPublisherService // todo Write
     {
         private readonly IPublisherDal _publisherDal;
-        private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then
+        private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
+        // https://www.linkedin.com/pulse/yaz%C4%B1l%C4%B1mc%C4%B1n%C4%B1n-gizli-kabusu-constructor-injection-cehennemi-kerem-varis/?originalSubdomain=tr - Kerem Varış
 
         private readonly IAddressService _addressService;
         private readonly ICountryService _countryService;
@@ -253,7 +254,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationFaxNumber(string commFaxNumber)
         {
-            IDataResult<Communication> comm = _communicationService.GetbyFaxNumber(commFaxNumber);
+            IDataResult<Communication> comm = _communicationService.GetByFaxNumber(commFaxNumber);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 

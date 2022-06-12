@@ -305,7 +305,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationFaxNumber(string commFaxNumber)
         {
-            IDataResult<Communication> comm = _communicationService.GetbyFaxNumber(commFaxNumber);
+            IDataResult<Communication> comm = _communicationService.GetByFaxNumber(commFaxNumber);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 

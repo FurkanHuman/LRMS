@@ -107,11 +107,11 @@ namespace Business.Concrete
 
         private IResult CountryControl(Country country)
         {
-            int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName) && !c.IsDeleted).Id;
-            int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode) && !c.IsDeleted).Id;
+            //    int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName) && !c.IsDeleted).Id;
+            //    int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode) && !c.IsDeleted).Id;
 
-            if (countryCodeId != countryNameId)
-                return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
+            //    if (countryCodeId != countryNameId)
+            //        return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
 
             return new SuccessResult();
         }

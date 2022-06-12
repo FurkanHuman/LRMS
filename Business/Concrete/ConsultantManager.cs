@@ -1,11 +1,11 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Concrete.Infos;
 using System.Linq.Expressions;
 
@@ -20,7 +20,7 @@ namespace Business.Concrete
             _consultantDal = consultantDal;
         }
 
-        [ValidationAspect(typeof(Consultant), Priority = 1)]
+        [ValidationAspect(typeof(ConsultantValidator), Priority = 1)]
         public IResult Add(Consultant entity)
         {
             IResult result = BusinessRules.Run(ConsultantExist(entity));
@@ -52,7 +52,7 @@ namespace Business.Concrete
             return new SuccessResult(ConsultantConstants.DeleteSuccess);
         }
 
-        [ValidationAspect(typeof(Consultant), Priority = 1)]
+        [ValidationAspect(typeof(ConsultantValidator), Priority = 1)]
         public IResult Update(Consultant entity)
         {
             IResult result = BusinessRules.Run(ConsultantExist(entity));
@@ -67,46 +67,44 @@ namespace Business.Concrete
         {
             List<Consultant> consultants = _consultantDal.GetAll(filter).ToList();
 
-            if (consultants == null)
-                return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);
-            return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+            return consultants == null
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
         public IDataResult<Consultant> GetById(Guid id)
         {
             Consultant consultant = _consultantDal.Get(c => c.Id == id);
-            if (consultant == null)
-                return new ErrorDataResult<Consultant>(ConsultantConstants.NotMatch);
-            return new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
+            return consultant == null
+                ? new ErrorDataResult<Consultant>(ConsultantConstants.NotMatch)
+                : new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
         }
 
         public IDataResult<List<Consultant>> GetByNames(string name)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
 
-            if (consultants == null)
-                return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);
-            return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+            return consultants == null
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
         public IDataResult<List<Consultant>> GetBySurnames(string surname)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
 
-            if (consultants == null)
-                return new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet);
-            return new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+            return consultants == null 
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet) 
+                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetByThesisInConsultants(Guid id)
+        public IDataResult<List<Consultant>> GetNamePreAttachmentLists(string namePreAttachment)
         {
+            List<Consultant> consultants = _consultantDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment) && !c.IsDeleted).ToList();
 
-            return new ErrorDataResult<List<Thesis>>(ConsultantConstants.Maintenance);
-            //List<Thesis> theses = _thesisDal.GetAll(t => t.FirstPagePersonBases.Consultant.Id == id && !t.IsSecret).ToList();
-            //if (theses == null)
-            //    return new ErrorDataResult<List<Thesis>>(ConsultantConstants.NotMatch);
-            //return new SuccessDataResult<List<Thesis>>(theses, ConsultantConstants.DataGet);
-
+            return consultants == null 
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet) 
+                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
         public IDataResult<List<Consultant>> GetAllBySecrets()

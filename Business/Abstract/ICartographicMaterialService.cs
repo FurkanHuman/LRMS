@@ -3,7 +3,7 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    internal interface ICartographicMaterialService : IMaterialBaseService<CartographicMaterial>
+    public interface ICartographicMaterialService : IMaterialBaseService<CartographicMaterial>
     {
     }
 }

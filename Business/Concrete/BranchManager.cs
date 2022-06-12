@@ -56,8 +56,13 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IResult Update(Branch branch)
         {
+            IResult result = BusinessRules.Run(BranchNameControl(branch.Name));
+            if (result != null)
+                return result;
+
+            branch.IsDeleted = false;
             _branchDal.Update(branch);
-            return new SuccessResult(BranchConstants.ShadowDeleteSuccess);
+            return new SuccessResult(BranchConstants.UpdateSuccess);
         }
 
         public IDataResult<Branch> GetById(int id)
