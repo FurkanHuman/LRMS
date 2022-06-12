@@ -17,78 +17,66 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(string branchName)
+        public IActionResult Add(Branch branch)
         {
-            Branch branch = new() { Name = branchName };
             var result = _branchService.Add(branch);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
         public IActionResult Delete(int id)
         {
             var result = _branchService.Delete(id);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
         public IActionResult ShadowDelete(int id)
         {
             var result = _branchService.ShadowDelete(id);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(int id, string branchName)
+        public IActionResult Update(Branch branch)
         {
-            Branch branch = new() { Id = id, Name = branchName };
             var result = _branchService.Update(branch);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("GetById")]
+        public IActionResult GetById(int id)
+        {
+            var result = _branchService.GetById(id);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
             var result = _branchService.GetByNames(name);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
         public IActionResult GetByFilterLists(Expression<Func<Branch, bool>>? filter = null)
         {
             var result = _branchService.GetByFilterLists(filter);
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
             var result = _branchService.GetAllBySecrets();
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var result = _branchService.GetAll();
-            if (result.Success)
-                return Ok(result);
-            return BadRequest(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
-
     }
 }

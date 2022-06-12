@@ -7,77 +7,75 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CitiesController : ControllerBase
+    public class CoverCapsController : ControllerBase
     {
-        private readonly ICityService _cityService;
+        private readonly ICoverCapService _coverCapService;
 
-        public CitiesController(ICityService cityService)
+        public CoverCapsController(ICoverCapService coverCapService)
         {
-            _cityService = cityService;
+            _coverCapService = coverCapService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(string cityName)
+        public IActionResult Add(CoverCap coverCap)
         {
-            City city = new() { CityName = cityName };
-            var result = _cityService.Add(city);
+            var result = _coverCapService.Add(coverCap);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(byte id)
         {
-            var result = _cityService.Delete(id);
+            var result = _coverCapService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(int id)
+        public IActionResult ShadowDelete(byte id)
         {
-            var result = _cityService.ShadowDelete(id);
+            var result = _coverCapService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(int id, string cityName)
+        public IActionResult Update(CoverCap coverCap)
         {
-            City city = new() { Id = id, CityName = cityName };
-            var result = _cityService.Update(city);
+            var result = _coverCapService.Update(coverCap);
             return result.Success ? Ok(result) : BadRequest(result);
         }
-
+        
         [HttpPost("GetById")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(byte id)
         {
-            var result = _cityService.GetById(id);
+            var result = _coverCapService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _cityService.GetByNames(name);
+            var result = _coverCapService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<City, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
         {
-            var result = _cityService.GetByFilterLists(filter);
+            var result = _coverCapService.GetByFilterLists(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
+        [HttpPost("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _cityService.GetAllBySecrets();
+            var result = _coverCapService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAll")]
+        [HttpPost("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _cityService.GetAll();
+            var result = _coverCapService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }
