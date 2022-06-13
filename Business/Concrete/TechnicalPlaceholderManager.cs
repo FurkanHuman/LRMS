@@ -62,7 +62,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<TechnicalPlaceholder>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> StockCode(string stockCode)
+        public IDataResult<List<TechnicalPlaceholder>> GetByStockCode(string stockCode)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockCode.Contains(stockCode) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -90,7 +90,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => !ph.IsDeleted).ToList());
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> StockNumber(ulong stockNumber)
+        public IDataResult<List<TechnicalPlaceholder>> GetByStockNumber(ulong stockNumber)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.StockNumber == stockNumber && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -98,7 +98,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> WhereIsMaterial(string whereMaterial)
+        public IDataResult<List<TechnicalPlaceholder>> GetByWhereIsMaterial(string whereMaterial)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(T => T.WhereIsMaterial.Contains(whereMaterial) && !T.IsDeleted).ToList();
             return technicalPlaceholder == null
