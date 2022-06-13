@@ -1,7 +1,7 @@
 ﻿namespace LRMS_Test.Tests
 {
     [TestClass]
-    public class ComposerTest
+    public class GraphicDirectorTest
     {
         [TestMethod]
         public void MyTestMethod()
