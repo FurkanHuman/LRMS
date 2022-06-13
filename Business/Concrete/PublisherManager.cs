@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
-    public class PublisherManager : IPublisherService // todo Write
+    public class PublisherManager : IPublisherService // todo reWrite
     {
         private readonly IPublisherDal _publisherDal;
         private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
@@ -93,7 +93,7 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<Publisher> GetByAdderssId(Guid addressId)
+        public IDataResult<Publisher> GetByAddressId(Guid addressId)
         {
             IDataResult<Address> address = _addressService.GetById(addressId);
             if (!address.Success)
