@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 namespace Business.Abstract
 {
     public interface IImageService
-
     {
         IResult Add(IFormFile file, Image image);
         IResult Delete(Guid id);
@@ -14,7 +13,7 @@ namespace Business.Abstract
         IResult Update(IFormFile file, Image image);
         IDataResult<Image> GetById(Guid id);
         IDataResult<List<Image>> GetByFilterLists(Expression<Func<Image, bool>>? filter = null);
-        IDataResult<List<Image>> GetAll();
         IDataResult<List<Image>> GetAllBySecrets();
+        IDataResult<List<Image>> GetAll();
     }
 }
