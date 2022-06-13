@@ -7,75 +7,75 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoverCapsController : ControllerBase
+    public class EMaterialFilesController : ControllerBase
     {
-        private readonly ICoverCapService _coverCapService;
+        private readonly IEMaterialFileService _eMaterialFileService;
 
-        public CoverCapsController(ICoverCapService coverCapService)
+        public EMaterialFilesController(IEMaterialFileService eMaterialFileService)
         {
-            _coverCapService = coverCapService;
+            _eMaterialFileService = eMaterialFileService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(CoverCap coverCap)
+        public IActionResult Add([FromForm] IFormFile file, EMaterialFile entity)
         {
-            var result = _coverCapService.Add(coverCap);
+            var result = _eMaterialFileService.Add(file, entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(byte id)
+        public IActionResult Delete(Guid id)
         {
-            var result = _coverCapService.Delete(id);
+            var result = _eMaterialFileService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(byte id)
+        public IActionResult ShadowDelete(Guid id)
         {
-            var result = _coverCapService.ShadowDelete(id);
+            var result = _eMaterialFileService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(CoverCap coverCap)
+        public IActionResult Update([FromForm] IFormFile file, EMaterialFile entity)
         {
-            var result = _coverCapService.Update(coverCap);
+            var result = _eMaterialFileService.Update(file, entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetById")]
-        public IActionResult GetById(byte id)
+        public IActionResult GetById(Guid id)
         {
-            var result = _coverCapService.GetById(id);
+            var result = _eMaterialFileService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _coverCapService.GetByNames(name);
+            var result = _eMaterialFileService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null)
         {
-            var result = _coverCapService.GetByFilterLists(filter);
+            var result = _eMaterialFileService.GetByFilterLists(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
+        [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _coverCapService.GetAllBySecrets();
+            var result = _eMaterialFileService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _coverCapService.GetAll();
+            var result = _eMaterialFileService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

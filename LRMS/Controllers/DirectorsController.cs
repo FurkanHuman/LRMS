@@ -1,81 +1,80 @@
 ﻿using Business.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoverCapsController : ControllerBase
+    public class DirectorsController : ControllerBase
     {
-        private readonly ICoverCapService _coverCapService;
+        private readonly IDirectorService _directorService;
 
-        public CoverCapsController(ICoverCapService coverCapService)
+        public DirectorsController(IDirectorService directorService)
         {
-            _coverCapService = coverCapService;
+            _directorService = directorService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(CoverCap coverCap)
+        public IActionResult Add(Director director)
         {
-            var result = _coverCapService.Add(coverCap);
+            var result = _directorService.Add(director);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(byte id)
+        public IActionResult Delete(Guid id)
         {
-            var result = _coverCapService.Delete(id);
+            var result = _directorService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(byte id)
+        public IActionResult ShadowDelete(Guid id)
         {
-            var result = _coverCapService.ShadowDelete(id);
+            var result = _directorService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(CoverCap coverCap)
+        public IActionResult Update(Director director)
         {
-            var result = _coverCapService.Update(coverCap);
+            var result = _directorService.Update(director);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetById")]
-        public IActionResult GetById(byte id)
+        public IActionResult GetById(Guid id)
         {
-            var result = _coverCapService.GetById(id);
+            var result = _directorService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _coverCapService.GetByNames(name);
+            var result = _directorService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
+        [HttpPost("GetBySurnames")]
+        public IActionResult GetBySurnames(string surname)
         {
-            var result = _coverCapService.GetByFilterLists(filter);
+            var result = _directorService.GetBySurnames(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
+        [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _coverCapService.GetAllBySecrets();
+            var result = _directorService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _coverCapService.GetAll();
+            var result = _directorService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

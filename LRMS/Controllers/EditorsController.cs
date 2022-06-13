@@ -7,75 +7,82 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoverCapsController : ControllerBase
+    public class EditorsController : ControllerBase
     {
-        private readonly ICoverCapService _coverCapService;
+        private readonly IEditorService _editorService;
 
-        public CoverCapsController(ICoverCapService coverCapService)
+        public EditorsController(IEditorService editorService)
         {
-            _coverCapService = coverCapService;
+            _editorService = editorService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(CoverCap coverCap)
+        public IActionResult Add(Editor entity)
         {
-            var result = _coverCapService.Add(coverCap);
+            var result = _editorService.Add(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(byte id)
+        public IActionResult Delete(Guid id)
         {
-            var result = _coverCapService.Delete(id);
+            var result = _editorService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(byte id)
+        public IActionResult ShadowDelete(Guid id)
         {
-            var result = _coverCapService.ShadowDelete(id);
+            var result = _editorService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(CoverCap coverCap)
+        public IActionResult Update(Editor entity)
         {
-            var result = _coverCapService.Update(coverCap);
+            var result = _editorService.Update(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetById")]
-        public IActionResult GetById(byte id)
+        public IActionResult GetById(Guid id)
         {
-            var result = _coverCapService.GetById(id);
+            var result = _editorService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _coverCapService.GetByNames(name);
+            var result = _editorService.GetByNames(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("GetBySurnames")]
+        public IActionResult GetBySurnames(string surname)
+        {
+            var result = _editorService.GetBySurnames(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<Editor, bool>>? filter = null)
         {
-            var result = _coverCapService.GetByFilterLists(filter);
+            var result = _editorService.GetByFilterLists(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
+        [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _coverCapService.GetAllBySecrets();
+            var result = _editorService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _coverCapService.GetAll();
+            var result = _editorService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

@@ -7,103 +7,96 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AddressesController : ControllerBase
+    public class OtherPeoplesController : ControllerBase
     {
-        private readonly IAddressService _addressService;
+        private readonly IOtherPeopleService _otherPeopleService;
 
-        public AddressesController(IAddressService addressService)
+        public OtherPeoplesController(IOtherPeopleService otherPeopleService)
         {
-            _addressService = addressService;
+            _otherPeopleService = otherPeopleService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(Address address)
+        public IActionResult Add(OtherPeople entity)
         {
-            var result = _addressService.Add(address);
+            var result = _otherPeopleService.Add(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
         public IActionResult Delete(Guid id)
         {
-            var result = _addressService.Delete(id);
+            var result = _otherPeopleService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
         public IActionResult ShadowDelete(Guid id)
         {
-            var result = _addressService.ShadowDelete(id);
+            var result = _otherPeopleService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Address address)
+        public IActionResult Update(OtherPeople entity)
         {
-            var result = _addressService.Update(address);
+            var result = _otherPeopleService.Update(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetById")]
         public IActionResult GetById(Guid id)
         {
-            var result = _addressService.GetById(id);
+            var result = _otherPeopleService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _addressService.GetByNames(name);
+            var result = _otherPeopleService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPostalCode")]
-        public IActionResult GetByPostalCodes(string postalCode)
+        [HttpPost("GetBySurnames")]
+        public IActionResult GetBySurnames(string surname)
         {
-            var result = _addressService.GetByPostalCode(postalCode);
+            var result = _otherPeopleService.GetBySurnames(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCityId")]
-        public IActionResult GetByCityId(int cityId)
+        [HttpPost("GetByTitles")]
+        public IActionResult GetByTitles(string title)
         {
-            var result = _addressService.GetByCityId(cityId);
+            var result = _otherPeopleService.GetByTitles(title);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByGeoLocation")]
-        public IActionResult GetByGeoLocation(string geoLocation)
+        [HttpPost("GetByNamePreAttach")]
+        public IActionResult GetByNamePreAttach(string namePreAttach)
         {
-            var result = _addressService.GetByGeoLocation(geoLocation);
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
-        [HttpPost("GetBySearchString")]
-        public IActionResult GetBySearchString(string searchString)
-        {
-            var result = _addressService.GetBySearchString(searchString);
+            var result = _otherPeopleService.GetByNamePreAttach(namePreAttach);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<Address, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<OtherPeople, bool>>? filter = null)
         {
-            var result = _addressService.GetByFilterLists(filter);
+            var result = _otherPeopleService.GetByFilterLists(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
+        [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _addressService.GetAllBySecrets();
+            var result = _otherPeopleService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _addressService.GetAll();
+            var result = _otherPeopleService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

@@ -7,82 +7,82 @@ namespace LRMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class GraphicDirectorsController : ControllerBase
     {
-        private readonly ICountryService _countryService;
+        private readonly IGraphicDirectorService _graphicDirectorService;
 
-        public CountriesController(ICountryService countryService)
+        public GraphicDirectorsController(IGraphicDirectorService graphicDirectorService)
         {
-            _countryService = countryService;
+            _graphicDirectorService = graphicDirectorService;
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(Country country)
+        public IActionResult Add(GraphicDirector entity)
         {
-            var result = _countryService.Add(country);
+            var result = _graphicDirectorService.Add(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
-            var result = _countryService.Delete(id);
+            var result = _graphicDirectorService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(int id)
+        public IActionResult ShadowDelete(Guid id)
         {
-            var result = _countryService.ShadowDelete(id);
+            var result = _graphicDirectorService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Country country)
+        public IActionResult Update(GraphicDirector entity)
         {
-            var result = _countryService.Update(country);
+            var result = _graphicDirectorService.Update(entity);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetById")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
-            var result = _countryService.GetById(id);
+            var result = _graphicDirectorService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByNames")]
         public IActionResult GetByNames(string name)
         {
-            var result = _countryService.GetByNames(name);
+            var result = _graphicDirectorService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCountryCodes")]
-        public IActionResult GetByCountryCodes(string countryCode)
+        [HttpPost("GetBySurnames")]
+        public IActionResult GetBySurnames(string surname)
         {
-            var result = _countryService.GetByCountryCodes(countryCode);
+            var result = _graphicDirectorService.GetBySurnames(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetByFilterLists")]
-        public IActionResult GetByFilterLists(Expression<Func<Country, bool>>? filter = null)
+        public IActionResult GetByFilterLists(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
-            var result = _countryService.GetByFilterLists(filter);
+            var result = _graphicDirectorService.GetByFilterLists(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
+        [HttpPost("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
-            var result = _countryService.GetAllBySecrets();
+            var result = _graphicDirectorService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAll")]
+        [HttpPost("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _countryService.GetAll();
+            var result = _graphicDirectorService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }
