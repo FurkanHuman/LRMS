@@ -13,7 +13,7 @@ namespace Entities.Concrete.Infos
         public bool IsDeleted { get; set; }
 
         public int CountryId { get; set; }
-        
+
         public Country Country { get; set; }
     }
 }

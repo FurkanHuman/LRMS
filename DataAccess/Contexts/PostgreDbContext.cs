@@ -32,7 +32,7 @@ namespace DataAccess.Contexts
         public DbSet<Edition> Editions { get; set; }
         public DbSet<Editor> Editors { get; set; }
         public DbSet<EMaterialFile> EMaterialFiles { get; set; }
-        public DbSet<GraphicDesigner> GraphicDesign { get; set; }
+        public DbSet<GraphicDesigner> GraphicDesigners { get; set; }
         public DbSet<GraphicDirector> GraphicDirectors { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Interpreters> Interpreters { get; set; }
