@@ -122,10 +122,10 @@ namespace Business.Concrete
 
         private static IResult FileCheck(IFormFile file)
         {
-            /* Fix it. Todo
-             * this here write Image Comparator and
-             * File virus checker.
-            */
+            // Fix it. Todo
+            // File compare
+            // File virus checker.
+
             if (file.Length > 0 || file.Length >= 2000000000)
                 return new ErrorResult(EMaterialFileConstants.InvalidFileSize);
 

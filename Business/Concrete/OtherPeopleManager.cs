@@ -77,7 +77,7 @@ namespace Business.Concrete
             return new SuccessDataResult<OtherPeople>(OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetByNamePreAttch(string preAttch)
+        public IDataResult<List<OtherPeople>> GetByNamePreAttach(string preAttch)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
             && !op.IsDeleted).ToList();

@@ -88,12 +88,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(filter).ToList(), LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetLibraryTypes(byte libType)
+        public IDataResult<List<Library>> GetByLibraryTypes(byte libType)
         {
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(l => l.LibraryType == libType && !l.IsDestroyed).ToList(), LibraryConstants.DataGet);
         }
 
-        public IDataResult<Library> GetByAdderssId(Guid addressId)
+        public IDataResult<Library> GetByAddressId(Guid addressId)
         {
             IDataResult<Address> address = _addressService.GetById(addressId);
             if (!address.Success)
@@ -119,7 +119,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByAddressName(string addressName)
+        public IDataResult<List<Library>> GetByAddressNames(string addressName)
         {
             IDataResult<List<Address>> addresses = _addressService.GetByNames(addressName);
             if (!addresses.Success)
@@ -157,7 +157,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCountryName(string countryName)
+        public IDataResult<List<Library>> GetByLibraryInCountryNames(string countryName)
         {
             IDataResult<List<Country>> countyries = _countryService.GetByNames(countryName);
             if (!countyries.Success)
@@ -206,7 +206,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCityName(string cityName)
+        public IDataResult<List<Library>> GetByLibraryInCityNames(string cityName)
         {
             IDataResult<List<City>> cities = _cityService.GetByNames(cityName);
             if (!cities.Success)
@@ -273,7 +273,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByCommunicationName(string commName)
+        public IDataResult<List<Library>> GetByCommunicationNames(string commName)
         {
             IDataResult<List<Communication>> comms = _communicationService.GetByNames(commName);
             if (!comms.Success)

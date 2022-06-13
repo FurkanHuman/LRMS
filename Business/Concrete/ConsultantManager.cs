@@ -93,8 +93,8 @@ namespace Business.Concrete
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
 
-            return consultants == null 
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet) 
+            return consultants == null
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
@@ -102,8 +102,8 @@ namespace Business.Concrete
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment) && !c.IsDeleted).ToList();
 
-            return consultants == null 
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet) 
+            return consultants == null
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
