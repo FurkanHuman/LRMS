@@ -10,7 +10,8 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="DTOs\" />
+    <Folder Include="DTOs\Get\" />
+    <Folder Include="DTOs\Set\" />
   </ItemGroup>
 
   <ItemGroup>
