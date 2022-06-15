@@ -245,7 +245,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetByFilterLists(Expression<Func<Edition, bool>>? filter = null)
+        public IDataResult<List<Edition>> GetAllByFilter(Expression<Func<Edition, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Edition>>(_editionDal.GetAll(filter).ToList(), EditionConstants.DataGet);
         }

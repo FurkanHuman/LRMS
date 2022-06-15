@@ -63,7 +63,7 @@ namespace Business.Concrete
             return new SuccessResult(ConsultantConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Consultant>> GetByFilterLists(Expression<Func<Consultant, bool>>? filter = null)
+        public IDataResult<List<Consultant>> GetAllByFilter(Expression<Func<Consultant, bool>>? filter = null)
         {
             List<Consultant> consultants = _consultantDal.GetAll(filter).ToList();
 

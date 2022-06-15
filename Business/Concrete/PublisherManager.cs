@@ -306,7 +306,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByFilterLists(Expression<Func<Publisher, bool>>? filter = null)
+        public IDataResult<List<Publisher>> GetAllByFilter(Expression<Func<Publisher, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(filter).ToList(), PublisherConstants.DataGet);
         }

@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetByFilterLists(Expression<Func<Communication, bool>>? filter = null)
+        public IDataResult<List<Communication>> GetAllByFilter(Expression<Func<Communication, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
         }

@@ -90,7 +90,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Country>>(countries, CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetByFilterLists(Expression<Func<Country, bool>>? filter = null)
+        public IDataResult<List<Country>> GetAllByFilter(Expression<Func<Country, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Country>>(_countryDal.GetAll(filter).ToList(), CountryConstants.DataGet);
         }

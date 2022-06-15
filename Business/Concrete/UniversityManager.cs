@@ -163,7 +163,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByFilterLists(Expression<Func<University, bool>>? filter = null)
+        public IDataResult<List<University>> GetAllByFilter(Expression<Func<University, bool>>? filter = null)
         {
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(filter).ToList(), UniversityConstants.DataGet);
         }

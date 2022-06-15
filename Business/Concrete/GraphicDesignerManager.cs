@@ -60,7 +60,7 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDesignerConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetByFilterLists(Expression<Func<GraphicDesigner, bool>>? filter = null)
+        public IDataResult<List<GraphicDesigner>> GetAllByFilter(Expression<Func<GraphicDesigner, bool>>? filter = null)
         {
             return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(filter).ToList(), GraphicDesignerConstants.DataGet);
         }

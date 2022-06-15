@@ -77,7 +77,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetByFilterLists(Expression<Func<Category, bool>>? filter = null)
+        public IDataResult<List<Category>> GetAllByFilter(Expression<Func<Category, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(filter), CategoryConstants.DataGet);
         }

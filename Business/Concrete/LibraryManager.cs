@@ -83,7 +83,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByFilterLists(Expression<Func<Library, bool>>? filter = null)
+        public IDataResult<List<Library>> GetAllByFilter(Expression<Func<Library, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(filter).ToList(), LibraryConstants.DataGet);
         }

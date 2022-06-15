@@ -65,10 +65,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByFilterLists")]
+        [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
-            var result = _graphicDirectorService.GetByFilterLists(filter);
+            var result = _graphicDirectorService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

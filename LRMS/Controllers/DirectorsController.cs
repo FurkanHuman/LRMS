@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace LRMS.Controllers
 {
@@ -61,6 +62,13 @@ namespace LRMS.Controllers
         public IActionResult GetBySurnames(string surname)
         {
             var result = _directorService.GetBySurnames(surname);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("GetAllByFilter")]
+        public IActionResult GetAllByFilter(Expression<Func<Director, bool>>? filter = null)
+        {
+            var result = _directorService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

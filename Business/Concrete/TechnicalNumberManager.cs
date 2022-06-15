@@ -91,7 +91,7 @@ namespace Business.Concrete
             return new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.Disabled);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetByFilterLists(Expression<Func<TechnicalNumber, bool>>? filter = null)
+        public IDataResult<List<TechnicalNumber>> GetAllByFilter(Expression<Func<TechnicalNumber, bool>>? filter = null)
         {
             return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(filter).ToList(), TechnicalNumberConstants.DataGet);
         }

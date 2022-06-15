@@ -125,7 +125,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByFilterLists(Expression<Func<Address, bool>>? filter = null)
+        public IDataResult<List<Address>> GetAllByFilter(Expression<Func<Address, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll(filter).ToList(), AddressConstants.DataGet);
         }

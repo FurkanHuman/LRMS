@@ -90,7 +90,7 @@ namespace Business.Concrete
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetByFilterLists(Expression<Func<Director, bool>>? filter = null)
+        public IDataResult<List<Director>> GetAllByFilter(Expression<Func<Director, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }

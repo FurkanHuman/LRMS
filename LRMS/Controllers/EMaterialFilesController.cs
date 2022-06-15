@@ -58,7 +58,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByFilterLists")]
+        [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null)
         {
             var result = _eMaterialFileService.GetByFilterLists(filter);

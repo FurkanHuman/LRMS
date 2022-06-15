@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByFilterLists")]
+        [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<Researcher, bool>>? filter = null)
         {
-            var result = _researcherService.GetByFilterLists(filter);
+            var result = _researcherService.GetAllByFilter(filter);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
