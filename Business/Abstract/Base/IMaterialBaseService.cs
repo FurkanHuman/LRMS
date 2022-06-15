@@ -6,15 +6,13 @@ namespace Business.Abstract.Base
 {
     public interface IMaterialBaseService<T> : IBaseEntityService<T, Guid> where T : MaterialBase, IEntity, new()
     {
-        IDataResult<T> GetByName(string name);
-        IDataResult<T> GetByDescriptionFinder(string finderString);
-        IDataResult<T> GetByCategory(int categoryId);
-        IDataResult<List<T>> GetByWhereIsItLocateds(Guid placeHolderId);
-        IDataResult<T> GetByDimension(Guid dimensionId);
-        IDataResult<List<T>> GetByEMFiles(Guid dimensionId);
-        IDataResult<T> GetState(int stateId);
-        IDataResult<T> GetSecretLevel();
-        IDataResult<List<T>> GetLists();
-        IResult Delete(T entity);
+        IDataResult<List<T>> GetByTitles(string title);
+        IDataResult<List<T>> GetByDescriptionFinder(string finderString);
+        IDataResult<List<T>> GetByCategories(int[] categoriesId);
+        IDataResult<List<T>> GetByWhereIsItLocatedList(Guid Id);
+        IDataResult<T?> GetByDimension(Guid dimensionId);
+        IDataResult<List<T?>?> GetByEMFiles(Guid dimensionId);
+        IDataResult<T?> GetState(Guid id);
+        IDataResult<T> GetSecretLevel(Guid id);
     }
 }
