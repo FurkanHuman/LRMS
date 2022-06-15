@@ -81,7 +81,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetByFilterLists(Expression<Func<Branch, bool>>? filter = null)
+        public IDataResult<List<Branch>> GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(filter).ToList(), BranchConstants.DataGet);
         }

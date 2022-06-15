@@ -177,10 +177,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByFilterLists")]
+        [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<Library, bool>>? filter = null)
         {
-            var result = _libraryService.GetByFilterLists(filter);
+            var result = _libraryService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

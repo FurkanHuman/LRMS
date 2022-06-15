@@ -85,7 +85,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetByFilterLists(Expression<Func<GraphicDirector, bool>>? filter = null)
+        public IDataResult<List<GraphicDirector>> GetAllByFilter(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
         }

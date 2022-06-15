@@ -64,7 +64,7 @@ namespace Business.Concrete
             return new SuccessResult(OtherPeopleConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<OtherPeople>> GetByFilterLists(Expression<Func<OtherPeople, bool>>? filter = null)
+        public IDataResult<List<OtherPeople>> GetAllByFilter(Expression<Func<OtherPeople, bool>>? filter = null)
         {
             return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(filter).ToList(), OtherPeopleConstants.DataGet);
         }

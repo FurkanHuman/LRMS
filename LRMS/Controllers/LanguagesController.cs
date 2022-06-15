@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace LRMS.Controllers
 {
@@ -54,6 +55,13 @@ namespace LRMS.Controllers
         public IActionResult GetByNames(string names)
         {
             var result = _languageService.GetByNames(names);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("GetAllByFilter")]
+        public IActionResult GetAllByFilter(Expression<Func<Language, bool>>? filter = null)
+        {
+            var result = _languageService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

@@ -60,7 +60,7 @@ namespace Business.Concrete
             return new SuccessResult(ResearcherConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Researcher>> GetByFilterLists(Expression<Func<Researcher, bool>>? filter = null)
+        public IDataResult<List<Researcher>> GetAllByFilter(Expression<Func<Researcher, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(filter).ToList(), ResearcherConstants.DataGet);
         }

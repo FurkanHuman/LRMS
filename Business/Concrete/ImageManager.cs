@@ -86,7 +86,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Image>(image, ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetByFilterLists(Expression<Func<Image, bool>>? filter = null)
+        public IDataResult<List<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet);
         }

@@ -84,7 +84,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(r => r.IsDeleted).ToList(), ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetByFilterLists(Expression<Func<Reference, bool>>? filter = null)
+        public IDataResult<List<Reference>> GetAllByFilter(Expression<Func<Reference, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(filter).ToList(), ReferenceConstants.DataGet);
         }

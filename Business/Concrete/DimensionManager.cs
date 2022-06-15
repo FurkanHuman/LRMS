@@ -158,7 +158,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByFilterLists(Expression<Func<Dimension, bool>>? filter = null)
+        public IDataResult<List<Dimension>> GetAllByFilter(Expression<Func<Dimension, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(filter).ToList(), DimensionConstants.DataGet);
         }

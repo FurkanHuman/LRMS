@@ -59,7 +59,7 @@ namespace Business.Concrete
             return new SuccessResult(ComposerConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Composer>> GetByFilterLists(Expression<Func<Composer, bool>>? filter = null)
+        public IDataResult<List<Composer>> GetAllByFilter(Expression<Func<Composer, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(filter).ToList(), ComposerConstants.DataGet);
         }

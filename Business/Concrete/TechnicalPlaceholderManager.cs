@@ -75,7 +75,7 @@ namespace Business.Concrete
             return new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.Disabled);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetByFilterLists(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllByFilter(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
         {
             return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(filter).ToList());
         }

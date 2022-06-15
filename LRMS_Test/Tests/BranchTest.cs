@@ -73,7 +73,7 @@ namespace LRMS_Test.Tests
         {
             int id = 3;
 
-            var testGetByFilterLists = _branchService.GetByFilterLists(b => b.Id == id);
+            var testGetByFilterLists = _branchService.GetAllByFilter(b => b.Id == id);
 
             Assert.IsTrue(testGetByFilterLists.Success, "Get By Filter Lists Test Success");
         }

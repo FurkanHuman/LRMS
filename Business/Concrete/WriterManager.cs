@@ -91,7 +91,7 @@ namespace Business.Concrete
             && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
 
-        public IDataResult<List<Writer>> GetByFilterLists(Expression<Func<Writer, bool>>? filter = null)
+        public IDataResult<List<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }

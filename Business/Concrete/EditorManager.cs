@@ -84,7 +84,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetByFilterLists(Expression<Func<Editor, bool>>? filter = null)
+        public IDataResult<List<Editor>> GetAllByFilter(Expression<Func<Editor, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(filter).ToList(), EditionConstants.DataGet);
         }

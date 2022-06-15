@@ -58,10 +58,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByFilterLists")]
+        [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
         {
-            var result = _coverCapService.GetByFilterLists(filter);
+            var result = _coverCapService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

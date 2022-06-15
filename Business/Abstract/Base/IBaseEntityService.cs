@@ -13,7 +13,7 @@ namespace Business.Abstract.Base
         IResult Update(T entity);
         IDataResult<T> GetById(I id);
         IDataResult<List<T>> GetByNames(string name);
-        IDataResult<List<T>> GetByFilterLists(Expression<Func<T, bool>>? filter = null);
+        IDataResult<List<T>> GetAllByFilter(Expression<Func<T, bool>>? filter = null);
         IDataResult<List<T>> GetAllBySecrets();
         IDataResult<List<T>> GetAll();
     }

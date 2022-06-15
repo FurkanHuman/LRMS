@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetByFilterLists(Expression<Func<CoverCap, bool>>? filter = null)
+        public IDataResult<List<CoverCap>> GetAllByFilter(Expression<Func<CoverCap, bool>>? filter = null)
         {
             return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(filter).ToList());
         }

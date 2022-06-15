@@ -105,7 +105,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null)
+        public IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null)
         {
             return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(filter).ToList(), EMaterialFileConstants.DataGet);
         }

@@ -89,7 +89,7 @@ namespace Business.Concrete
             : new SuccessDataResult<List<Interpreters>>(interpreterss, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetByFilterLists(Expression<Func<Interpreters, bool>>? filter = null)
+        public IDataResult<List<Interpreters>> GetAllByFilter(Expression<Func<Interpreters, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(filter).ToList(), InterpretersConstants.DataGet);
         }

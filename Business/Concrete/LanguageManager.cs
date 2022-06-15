@@ -75,7 +75,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Language>>(languages, LanguageConstants.DataGet);
         }
 
-        public IDataResult<List<Language>> GetByFilterLists(Expression<Func<Language, bool>>? filter = null)
+        public IDataResult<List<Language>> GetAllByFilter(Expression<Func<Language, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Language>>(_languageDal.GetAll(filter).ToList<Language>(), LanguageConstants.DataGet);
         }

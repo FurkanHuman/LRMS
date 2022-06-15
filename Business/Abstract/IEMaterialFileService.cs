@@ -13,8 +13,8 @@ namespace Business.Abstract
         IResult Update(IFormFile file, EMaterialFile eMaterialFile);
         IDataResult<EMaterialFile> GetById(Guid id);
         IDataResult<List<EMaterialFile>> GetByNames(string name);
-        IDataResult<List<EMaterialFile>> GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null);
-        IDataResult<List<EMaterialFile>> GetAll();
+        IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null);
         IDataResult<List<EMaterialFile>> GetAllBySecrets();
+        IDataResult<List<EMaterialFile>> GetAll();
     }
 }

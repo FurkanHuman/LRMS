@@ -59,7 +59,7 @@ namespace Business.Concrete
             return new SuccessResult(RedactionConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Redaction>> GetByFilterLists(Expression<Func<Redaction, bool>>? filter = null)
+        public IDataResult<List<Redaction>> GetAllByFilter(Expression<Func<Redaction, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(filter).ToList(), RedactionConstants.DataGet);
         }
