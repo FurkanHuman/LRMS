@@ -54,7 +54,7 @@ namespace LRMS.Controllers
         [HttpPost("GetAllByFilter")]
         public IActionResult GetByFilterLists(Expression<Func<Image, bool>>? filter = null)
         {
-            var result = _imageService.GetByFilterLists(filter);
+            var result = _imageService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
