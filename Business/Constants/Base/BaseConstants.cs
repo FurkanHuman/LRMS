@@ -9,6 +9,15 @@
             NotSecret
         }
 
+        protected enum StateLevels
+        {
+            Anormal,
+            Normal,
+            obsolete,
+            sensitive,
+            Lost
+        }
+
         public const string AlreadyExists = "Data already exists";
         public const string AddSuccess = "Adding succeeded.";
         public const string UpdateSuccess = "Update succeeded.";
