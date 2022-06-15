@@ -22,7 +22,7 @@ namespace Entities.Concrete.Infos
         public TechnicalNumber TechnicalNumber { get; set; }
 
         [Required]
-        public DateOnly ReferenceDate { get; set; }
+        public DateTime ReferenceDate { get; set; }
 
         public bool IsDeleted { get; set; }
 

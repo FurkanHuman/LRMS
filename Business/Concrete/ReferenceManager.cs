@@ -111,7 +111,7 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetByReferenceDate(DateOnly date)
+        public IDataResult<List<Reference>> GetByReferenceDate(DateTime date)
         {
             List<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate == date && !r.IsDeleted).ToList();
             return references == null

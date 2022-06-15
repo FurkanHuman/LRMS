@@ -11,7 +11,7 @@ namespace Entities.Concrete
         public Guid ImageId { get; set; }
 
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
 
         public IList<Image> Images { get; set; }
 

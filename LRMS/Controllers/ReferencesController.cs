@@ -66,7 +66,7 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetByReferenceDate")]
-        public IActionResult GetByReferenceDate(DateOnly referenceDate)
+        public IActionResult GetByReferenceDate(DateTime referenceDate)
         {
             var result = _referenceService.GetByReferenceDate(referenceDate);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
