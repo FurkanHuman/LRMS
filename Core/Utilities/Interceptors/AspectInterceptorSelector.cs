@@ -12,7 +12,7 @@ namespace Core.Utilities.Interceptors
             List<MethodInterceptionBaseAttribute>? classAttributes = type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
             IEnumerable<MethodInterceptionBaseAttribute>? methodAttributes = type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
             classAttributes.AddRange(methodAttributes);
-            classAttributes.Add(new ExceptionLogAspectAttribute(typeof(FileLogger)));
+            //  classAttributes.Add(new ExceptionLogAspectAttribute(typeof(FileLogger))); // found it TODO
             return classAttributes.OrderBy(O => O.Priority).ToArray();
         }
     }
