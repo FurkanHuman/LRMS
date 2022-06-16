@@ -26,7 +26,7 @@ namespace LRMS.Controllers
         [HttpPost("Delete")]
         public IActionResult Delete(Guid id)
         {
-            var result = _communicationService.ShadowDelete(id);
+            var result = _communicationService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -64,6 +64,7 @@ namespace LRMS.Controllers
             var result = _communicationService.GetByPhoneNumber(phoneNumber);
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
         [HttpPost("GetByFaxNumber")]
         public IActionResult GetByFaxNumber(string faxNumber)
         {

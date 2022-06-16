@@ -96,7 +96,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<Communication>? GetByFaxNumber(string faxNumber)
+        public IDataResult<Communication> GetByFaxNumber(string faxNumber)
         {
             Communication communication = _communicationDal.Get(c => c.FaxNumber == faxNumber && !c.IsDeleted);
 
