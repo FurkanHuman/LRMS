@@ -62,7 +62,10 @@ namespace Business.Concrete
 
         public IDataResult<Interpreters> GetById(Guid id)
         {
-            return new SuccessDataResult<Interpreters>(_interpretersDal.Get(i => i.Id == id), InterpretersConstants.DataGet);
+            Interpreters interpreters = _interpretersDal.Get(i => i.Id == id);
+            return interpreters == null
+                ? new ErrorDataResult<Interpreters>(InterpretersConstants.DataNotGet)
+                : new SuccessDataResult<Interpreters>(interpreters, InterpretersConstants.DataGet);
         }
 
         public IDataResult<List<Interpreters>> GetByNames(string name)

@@ -66,7 +66,10 @@ namespace Business.Concrete
 
         public IDataResult<Writer> GetById(Guid id)
         {
-            return new SuccessDataResult<Writer>(_writerDal.Get(i => i.Id == id), WriterConstants.DataGet);
+            Writer writer = _writerDal.Get(w => w.Id == id);
+            return writer == null
+                ? new ErrorDataResult<Writer>(WriterConstants.NotMatch)
+                : new SuccessDataResult<Writer>(writer, WriterConstants.DataGet);
         }
 
         public IDataResult<List<Writer>> GetByNames(string name)

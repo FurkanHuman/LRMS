@@ -67,7 +67,10 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDesigner> GetById(Guid id)
         {
-            return new SuccessDataResult<GraphicDesigner>(_graphicDesignDal.Get(i => i.Id == id && !i.IsDeleted), GraphicDesignerConstants.DataGet);
+            GraphicDesigner graphicDesigner = _graphicDesignDal.Get(g => g.Id == id);
+            return graphicDesigner == null
+                ? new ErrorDataResult<GraphicDesigner>(GraphicDesignerConstants.NotMatch)
+                : new SuccessDataResult<GraphicDesigner>(graphicDesigner, GraphicDesignerConstants.DataGet);
         }
 
         public IDataResult<List<GraphicDesigner>> GetByNames(string name)

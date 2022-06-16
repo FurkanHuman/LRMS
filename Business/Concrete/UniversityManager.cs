@@ -69,7 +69,7 @@ namespace Business.Concrete
 
         public IDataResult<University> GetById(Guid id)
         {
-            University university = _universityDal.Get(u => u.Id == id && !u.IsDeleted);
+            University university = _universityDal.Get(u => u.Id == id);
 
             return university == null
                 ? new ErrorDataResult<University>(UniversityConstants.DataNotGet)

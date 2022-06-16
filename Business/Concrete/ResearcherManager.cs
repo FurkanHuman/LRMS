@@ -67,7 +67,11 @@ namespace Business.Concrete
 
         public IDataResult<Researcher> GetById(Guid id)
         {
-            return new SuccessDataResult<Researcher>(_researcherDal.Get(i => i.Id == id && !i.IsDeleted), ResearcherConstants.DataGet);
+            Researcher researcher = _researcherDal.Get(i => i.Id == id && !i.IsDeleted);
+
+            return researcher == null
+                ? new ErrorDataResult<Researcher>(ResearcherConstants.NotMatch)
+                : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
         }
 
         public IDataResult<List<Researcher>> GetByNames(string name)

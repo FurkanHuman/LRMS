@@ -71,10 +71,10 @@ namespace Business.Concrete
 
         public IDataResult<OtherPeople> GetById(Guid id)
         {
-            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == id && !op.IsDeleted);
-            if (otherPeople == null)
-                return new ErrorDataResult<OtherPeople>(OtherPeopleConstants.DataNotGet);
-            return new SuccessDataResult<OtherPeople>(OtherPeopleConstants.DataGet);
+            OtherPeople otherPeople = _otherPeopleDal.Get(op => op.Id == id);
+            return otherPeople == null
+                ? new ErrorDataResult<OtherPeople>(OtherPeopleConstants.DataNotGet)
+                : new SuccessDataResult<OtherPeople>(otherPeople, OtherPeopleConstants.DataGet);
         }
 
         public IDataResult<List<OtherPeople>> GetByNamePreAttach(string preAttch)

@@ -69,7 +69,7 @@ namespace Business.Concrete
         {
             City city = _cityDal.Get(c => c.Id == id);
 
-            return city == null
+            return city != null
                 ? new SuccessDataResult<City>(city, CityConstants.DataGet)
                 : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }

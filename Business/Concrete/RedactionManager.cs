@@ -66,7 +66,10 @@ namespace Business.Concrete
 
         public IDataResult<Redaction> GetById(Guid id)
         {
-            return new SuccessDataResult<Redaction>(_redactionDal.Get(i => i.Id == id));
+            Redaction redaction = _redactionDal.Get(r => r.Id == id);
+            return redaction == null
+                ? new ErrorDataResult<Redaction>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<Redaction>(redaction, RedactionConstants.DataGet);
         }
 
         public IDataResult<List<Redaction>> GetByNames(string name)

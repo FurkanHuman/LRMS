@@ -1,10 +1,6 @@
 ﻿using Autofac;
-using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
-using Castle.DynamicProxy;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 
@@ -109,8 +105,8 @@ namespace Business.DependencyResolvers.Autofac
             // Bunu en son aç, istemeyen autofac modülerini çalıştıruyor. SORUNUN KAYNAĞI BULUNDU FAKAT FARKLI BİR SORUN ÇIKTI
 
             //  Last to open it, running autofac modules that don't want it.
-            
-            
+
+
             //var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             //builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

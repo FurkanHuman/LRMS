@@ -21,13 +21,14 @@ namespace Business.Concrete
         private readonly IEditorService _editorService;
         private readonly IResearcherService _researcherService;
 
-        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, IReferenceService referenceService, IPublisherService publisherService, IEMaterialFileService eMaterialFileService, IEditorService editorService)
+        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, IReferenceService referenceService, IPublisherService publisherService, IEMaterialFileService eMaterialFileService, IEditorService editorService, IResearcherService researcherService)
         {
             _academicJournalDal = academicJournalDal;
             _referenceService = referenceService;
             _publisherService = publisherService;
             _eMaterialFileService = eMaterialFileService;
             _editorService = editorService;
+            _researcherService = researcherService;
         }
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]

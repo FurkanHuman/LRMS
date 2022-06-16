@@ -60,7 +60,7 @@ namespace Business.Concrete
 
         public IDataResult<Language> GetById(int id)
         {
-            Language language = _languageDal.Get(l => l.Id == id && !l.IsDeleted);
+            Language language = _languageDal.Get(l => l.Id == id);
 
             return language == null
                 ? new ErrorDataResult<Language>(LanguageConstants.DataNotGet)

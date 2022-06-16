@@ -72,7 +72,11 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetById(Guid id)
         {
-            return new SuccessDataResult<Library>(_libraryDal.Get(l => l.Id == id), LibraryConstants.DataGet);
+            Library library = _libraryDal.Get(l => l.Id == id);
+
+            return library != null
+                ? new SuccessDataResult<Library>(library, LibraryConstants.DataGet)
+                : new ErrorDataResult<Library>(LibraryConstants.NotMatch);
         }
 
         public IDataResult<List<Library>> GetByNames(string name)

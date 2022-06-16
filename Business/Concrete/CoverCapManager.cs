@@ -62,7 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<CoverCap> GetById(byte id)
         {
-            CoverCap? coverCap = _coverCapDal.Get(u => u.Id == id);
+            CoverCap coverCap = _coverCapDal.Get(u => u.Id == id);
             return coverCap == null
                 ? new ErrorDataResult<CoverCap>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);

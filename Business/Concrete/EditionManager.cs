@@ -115,7 +115,11 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByEditionInCountryName(string countryName)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryName.Contains(countryName, StringComparison.CurrentCultureIgnoreCase) && !e.IsDeleted).ToList();
+            IDataResult<List<Country>> country = _countryService.GetByNames(countryName);
+            if (!country.Success)
+                return new ErrorDataResult<List<Edition>>(country.Message);
+
+            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryName.Contains(countryName) && !e.IsDeleted).ToList();
             return editions == null
                 ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
                 : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
@@ -123,7 +127,11 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByEditionInCountryCode(string countryCode)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryCode.Contains(countryCode, StringComparison.CurrentCultureIgnoreCase) && !e.IsDeleted).ToList();
+            IDataResult<List<Country>> country = _countryService.GetByCountryCodes(countryCode);
+            if (!country.Success)
+                return new ErrorDataResult<List<Edition>>(country.Message);
+
+            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryCode.Contains(countryCode) && !e.IsDeleted).ToList();
             return editions == null
                 ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
                 : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
@@ -131,6 +139,10 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByEditionInCityId(int cityId)
         {
+            IDataResult<City> result = _cityService.GetById(cityId);
+            if (!result.Success)
+                return new ErrorDataResult<List<Edition>>(result.Message);
+
             List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.City.Id == cityId && !e.IsDeleted).ToList();
             return editions == null
                 ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
@@ -139,6 +151,10 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByEditionInCityName(string cityName)
         {
+            IDataResult<List<City>> result = _cityService.GetByNames(cityName);
+            if (!result.Success)
+                return new ErrorDataResult<List<Edition>>(result.Message);
+
             List<Edition> editions = _editionDal.GetAll(c => c.Publisher.Address.City.CityName.Contains(cityName) && !c.IsDeleted).ToList();
 
             return editions == null
@@ -173,7 +189,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByCommunicationName(string commName)
         {
-            List<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.CommunicationName.Contains(commName, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted).ToList();
+            List<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.CommunicationName.Contains(commName) && !c.IsDeleted).ToList();
             return editions == null
                 ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
                 : new SuccessDataResult<List<Edition>>(editions, EditorConstants.DataGet);
@@ -181,7 +197,7 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByCommunicationPhone(string commPhone)
         {
-            Edition edition = _editionDal.Get(c => c.Publisher.Communication.PhoneNumber.Contains(commPhone, StringComparison.CurrentCultureIgnoreCase) && !c.Publisher.IsDeleted);
+            Edition edition = _editionDal.Get(c => c.Publisher.Communication.PhoneNumber.Contains(commPhone) && !c.Publisher.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition>(EditionConstants.PhoneNumberNotGet)
                 : new SuccessDataResult<Edition>(edition, EditionConstants.PhoneNumberGet);
@@ -189,7 +205,7 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByCommunicationFaxNumber(string commFaxNumber)
         {
-            Edition edition = _editionDal.Get(c => c.Publisher.Communication.FaxNumber.Contains(commFaxNumber, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted);
+            Edition edition = _editionDal.Get(c => c.Publisher.Communication.FaxNumber.Contains(commFaxNumber) && !c.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition>(EditionConstants.PhoneNumberNotGet)
                 : new SuccessDataResult<Edition>(edition, EditionConstants.PhoneNumberGet);
@@ -205,7 +221,7 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByCommunicationWebSite(string commWebSite)
         {
-            Edition edition = _editionDal.Get(c => c.Publisher.Communication.WebSite.Contains(commWebSite, StringComparison.CurrentCultureIgnoreCase) && !c.IsDeleted);
+            Edition edition = _editionDal.Get(c => c.Publisher.Communication.WebSite.Contains(commWebSite) && !c.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition>(EditionConstants.DataNotGetWebSites)
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGetWebSites);
@@ -238,7 +254,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Edition>> GetByNames(string name)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !e.IsDeleted).ToList();
+            List<Edition> editions = _editionDal.GetAll(e => e.Name.Contains(name) && !e.IsDeleted).ToList();
 
             return editions == null
                 ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)

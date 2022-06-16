@@ -65,7 +65,7 @@ namespace Business.Concrete
 
         public IDataResult<Dimension> GetByDimension(Dimension dimension)
         {
-            Dimension? dimensionGet = _dimensionDal.Get(d =>
+            Dimension dimensionGet = _dimensionDal.Get(d =>
             d.Width.Equals(dimension) &&
             d.Length.Equals(dimension.Length) &&
             d.Height.Equals(dimension.Height));
@@ -116,7 +116,7 @@ namespace Business.Concrete
 
         public IDataResult<Dimension> GetById(Guid id)
         {
-            Dimension? dimensionGet = _dimensionDal.Get(d => d.Id == id);
+            Dimension dimensionGet = _dimensionDal.Get(d => d.Id == id);
             return dimensionGet == null
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);

@@ -66,7 +66,11 @@ namespace Business.Concrete
 
         public IDataResult<GraphicDirector> GetById(Guid id)
         {
-            return new SuccessDataResult<GraphicDirector>(_graphicDirectorDal.Get(i => i.Id == id), GraphicDirectorConstants.DataGet);
+            GraphicDirector graphicDirector = _graphicDirectorDal.Get(i => i.Id == id);
+
+            return graphicDirector == null
+                ? new ErrorDataResult<GraphicDirector>(GraphicDirectorConstants.NotMatch)
+                : new SuccessDataResult<GraphicDirector>(GraphicDirectorConstants.DataGet);
         }
 
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
