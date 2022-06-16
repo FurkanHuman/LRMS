@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DTOs.Base
+﻿namespace Entities.DTOs.Base
 {
     internal class BasePaperDto
     {
