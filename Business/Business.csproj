@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0-preview.4.22229.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
   </ItemGroup>
 
   <ItemGroup>
