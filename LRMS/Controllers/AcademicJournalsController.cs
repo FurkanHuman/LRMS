@@ -186,7 +186,6 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-
         [HttpPost("GetSecretLevel")]
         public IActionResult GetSecretLevel(Guid id)
         {
