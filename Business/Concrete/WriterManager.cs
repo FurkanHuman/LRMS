@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using Entities.DTOs.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -18,6 +19,16 @@ namespace Business.Concrete
         public WriterManager(IWriterDal writerDal)
         {
             _writerDal = writerDal;
+        }
+
+        public IResult Add(WriterDto entity)
+        {
+            return Add(new Writer
+            {
+                Name = entity.Name,
+                SurName = entity.SurName,
+                NamePreAttachment = entity.NamePreAttachment
+            });
         }
 
         [ValidationAspect(typeof(WriterValidator), Priority = 1)]
@@ -52,6 +63,17 @@ namespace Business.Concrete
             return new SuccessResult(WriterConstants.ShadowDeleteSuccess);
         }
 
+        public IResult Update(WriterDto entity)
+        {
+            return Update(new Writer
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                SurName = entity.SurName,
+                NamePreAttachment = entity.NamePreAttachment
+            });
+        }
+
         [ValidationAspect(typeof(WriterValidator), Priority = 1)]
         public IResult Update(Writer entity)
         {
@@ -64,12 +86,28 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
 
+        public IDataResult<WriterDto> DtoGetById(Guid id)
+        {
+            IDataResult<WriterDto> writerDtoResult ;
+            // devam todo 
+            
+
+
+
+
+        }
+
         public IDataResult<Writer> GetById(Guid id)
         {
             Writer writer = _writerDal.Get(w => w.Id == id);
             return writer == null
                 ? new ErrorDataResult<Writer>(WriterConstants.NotMatch)
                 : new SuccessDataResult<Writer>(writer, WriterConstants.DataGet);
+        }
+
+        public IDataResult<List<WriterDto>> DtoGetByNames(string name)
+        {
+            return (IDataResult<List<WriterDto>>)GetByNames(name);
         }
 
         public IDataResult<List<Writer>> GetByNames(string name)
@@ -80,6 +118,11 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
+        public IDataResult<List<WriterDto>> DtoGetBySurnames(string surname)
+        {
+            return (IDataResult<List<WriterDto>>)GetBySurnames(surname);
+        }
+
         public IDataResult<List<Writer>> GetBySurnames(string surname)
         {
             List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname) && !n.IsDeleted).ToList();
@@ -88,9 +131,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
+        public IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment)
+        {
+            return (IDataResult<List<WriterDto>>)GetNamePreAttachmentList(namePreAttachment);
+        }
+
         public IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment.ToLowerInvariant())
+            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
             && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
 
@@ -99,9 +147,19 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
 
+        public IDataResult<List<WriterDto>> DtoGetAllBySecrets()
+        {
+            return (IDataResult<List<WriterDto>>)GetAllBySecrets();
+        }
+
         public IDataResult<List<Writer>> GetAllBySecrets()
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => w.IsDeleted).ToList(), WriterConstants.DataGet);
+        }
+
+        public IDataResult<List<WriterDto>> DtoGetAll()
+        {
+            return (IDataResult<List<WriterDto>>)GetAll();
         }
 
         public IDataResult<List<Writer>> GetAll()

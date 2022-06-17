@@ -9,13 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="DTOs\Get\" />
-    <Folder Include="DTOs\Set\" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <Folder Include="Abstract\" />
+    <Folder Include="DTOs\Concrete\" />
   </ItemGroup>
 
 </Project>

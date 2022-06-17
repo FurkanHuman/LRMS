@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete.Infos;
+using Entities.DTOs.Infos;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
@@ -11,7 +12,7 @@ namespace LRMS.Controllers
     {
         private readonly IWriterService _writerService;
 
-        public WritersController(IWriterService writerService)
+        public WritersController([FromForm] IWriterService writerService)
         {
             _writerService = writerService;
         }
@@ -23,15 +24,22 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoAdd")]
+        public IActionResult Add([FromForm] WriterDto writer)
+        {
+            var result = _writerService.Add(writer);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("Delete")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete([FromForm] Guid id)
         {
             var result = _writerService.Delete(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("ShadowDelete")]
-        public IActionResult ShadowDelete(Guid id)
+        public IActionResult ShadowDelete([FromForm] Guid id)
         {
             var result = _writerService.ShadowDelete(id);
             return result.Success ? Ok(result) : BadRequest(result);
@@ -44,29 +52,43 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoUpdate")]
+        public IActionResult Update([FromForm] WriterDto writer)
+        {
+            var result = _writerService.Update(writer);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetById")]
-        public IActionResult GetById(Guid id)
+        public IActionResult GetById([FromForm] Guid id)
         {
             var result = _writerService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetById")]
+        public IActionResult DtoGetById([FromForm] Guid id)
+        {
+            var result = _writerService.DtoGetById(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        public IActionResult GetByNames([FromForm] string name)
         {
             var result = _writerService.GetByNames(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        public IActionResult GetBySurnames([FromForm] string surname)
         {
             var result = _writerService.GetBySurnames(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetNamePreAttachmentList")]
-        public IActionResult GetNamePreAttachmentList(string name)
+        public IActionResult GetNamePreAttachmentList([FromForm] string name)
         {
             var result = _writerService.GetNamePreAttachmentList(name);
             return result.Success ? Ok(result) : BadRequest(result);
@@ -87,9 +109,9 @@ namespace LRMS.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAll()
+        public IActionResult DtoGetAll()
         {
-            var result = _writerService.GetAll();
+            var result = _writerService.DtoGetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }
