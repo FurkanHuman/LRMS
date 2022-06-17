@@ -6,18 +6,18 @@ namespace Business.Abstract.Base
 {
     public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper, IEntity, new()
     {
-        IDataResult<List<T>> GetByWriters(Guid writerId);
-        IDataResult<T> GetByCoverImage(Guid CImageId);
-        IDataResult<List<T>> GetByEditors(Guid id);
-        IDataResult<List<T>> GetByDirectors(Guid id);
-        IDataResult<List<T>> GetByGraphicDirectors(Guid id);
-        IDataResult<List<T>> GetByGraphicDesigns(Guid id);
-        IDataResult<List<T>> GetByRedactions(Guid id);
-        IDataResult<List<T>> GetByInterpreters(Guid id);
-        IDataResult<List<T>> GetByTechnicalNumbers(Guid id);
-        IDataResult<List<T>> GetByCommunications(Guid id);
+        IDataResult<T> GetByCoverImage(Guid cImageId);
+        IDataResult<List<T>> GetByCoverCaps(byte CoverCapNum);
+        IDataResult<List<T>> GetByCommunications(Guid communicationId);
+        IDataResult<List<T>> GetByDirectors(Guid directorId);
+        IDataResult<List<T>> GetByEditors(Guid editorId);
         IDataResult<List<T>> GetByEditions(Guid editionNum);
+        IDataResult<List<T>> GetByGraphicDirectors(Guid graphicDirectorId);
+        IDataResult<List<T>> GetByGraphicDesigns(Guid graphicDesignId);
+        IDataResult<List<T>> GetByInterpreters(Guid interpreterId);
         IDataResult<List<T>> GetByPublishers(Guid publisherNum);
-        IDataResult<List<T>> GetByCoverCaps(int CoverCapNum);
+        IDataResult<List<T>> GetByTechnicalNumbers(Guid technicalNumberId);
+        IDataResult<List<T>> GetByRedactions(Guid redactionId);
+        IDataResult<List<T>> GetByWriters(Guid writerId);
     }
 }

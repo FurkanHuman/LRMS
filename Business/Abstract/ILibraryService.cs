@@ -6,7 +6,6 @@ namespace Business.Abstract
 {
     public interface ILibraryService : IBaseEntityService<Library, Guid>
     {
-
         IDataResult<Library> GetByAddressId(Guid addressId);
         IDataResult<Library> GetByCommunicationId(Guid commId);
         IDataResult<Library> GetByCommunicationEmail(string commEmail);
