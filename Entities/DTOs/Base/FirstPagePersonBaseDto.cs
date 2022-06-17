@@ -1,6 +1,4 @@
-﻿using Core.Entities.Abstract;
-
-namespace Entities.DTOs.Base
+﻿namespace Entities.DTOs.Base
 {
     public class FirstPagePersonBaseDto
     {

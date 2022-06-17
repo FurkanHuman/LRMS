@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Abstract;
 using Core.Utilities.Result.Abstract;
-using System.Linq.Expressions;
 
 namespace Business.Abstract.Base
 {

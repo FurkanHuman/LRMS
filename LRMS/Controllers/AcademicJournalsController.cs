@@ -1,9 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Core.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
-using Entities.Concrete.Infos;
 
 namespace LRMS.Controllers
 {

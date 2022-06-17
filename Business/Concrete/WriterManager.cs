@@ -93,7 +93,7 @@ namespace Business.Concrete
                 ? new ErrorDataResult<Writer>(WriterConstants.NotMatch)
                 : new SuccessDataResult<Writer>(writer, WriterConstants.DataGet);
         }
-        
+
         public IDataResult<WriterDto> DtoGetById(Guid id)
         {
             IDataResult<Writer> writerResult = GetById(id);
@@ -157,7 +157,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
             && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
-        
+
         public IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment)
         {
             IDataResult<List<Writer>> writersResult = GetNamePreAttachmentList(namePreAttachment);
@@ -176,12 +176,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
-        
+
         public IDataResult<List<Writer>> GetAllBySecrets()
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => w.IsDeleted).ToList(), WriterConstants.DataGet);
         }
-        
+
         public IDataResult<List<WriterDto>> DtoGetAllBySecrets()
         {
             IDataResult<List<Writer>> writersResult = GetAllBySecrets();

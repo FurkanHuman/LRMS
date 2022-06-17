@@ -142,7 +142,7 @@ namespace LRMS.Controllers
             var result = _writerService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
-        
+
         [HttpGet("DtoGetAll")]
         public IActionResult DtoGetAll()
         {

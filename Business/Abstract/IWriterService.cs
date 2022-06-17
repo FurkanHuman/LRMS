@@ -5,7 +5,7 @@ using Entities.DTOs.Infos;
 
 namespace Business.Abstract
 {
-    public interface IWriterService : IFirstPersonBaseService<Writer>,IFirstPersonBaseDtoService<WriterDto>
+    public interface IWriterService : IFirstPersonBaseService<Writer>, IFirstPersonBaseDtoService<WriterDto>
     {
         IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment);
         IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment);
