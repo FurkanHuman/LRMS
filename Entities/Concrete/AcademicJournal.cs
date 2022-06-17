@@ -34,8 +34,6 @@ namespace Entities.Concrete
         [Required]
         public ushort EndPageNumber { get; set; }
 
-        public bool IsSecret { get; set; }
-
         public IList<Researcher> Researchers { get; set; }
 
         public IList<Editor> Editors { get; set; }

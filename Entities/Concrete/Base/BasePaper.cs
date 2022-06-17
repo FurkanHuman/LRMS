@@ -35,8 +35,6 @@ namespace Entities.Concrete.Base
         [Required]
         public Guid EditionId { get; set; }
 
-        public bool IsDeleted { get; set; }
-
         public IList<CoverCap> CoverCaps { get; set; }
 
         public IList<Image> CoverImages { get; set; }

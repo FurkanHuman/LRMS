@@ -33,6 +33,8 @@ namespace Entities.Concrete.Base
 
         public byte? SecretLevel { get; set; } // indicates the level of secrecy.
 
+        public bool IsDeleted { get; set; }
+
         public IList<Category> Categories { get; set; }
 
         public IList<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
