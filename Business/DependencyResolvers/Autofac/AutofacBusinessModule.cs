@@ -16,8 +16,14 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AddressManager>().As<IAddressService>().SingleInstance();
             builder.RegisterType<EfAddressDal>().As<IAddressDal>().SingleInstance();
 
-            builder.RegisterType<AudioRecordManager>().As<IAudioRecordService>();
-            builder.RegisterType<EfAudioRecordDal>().As<IAudioRecordDal>();
+            builder.RegisterType<AudioRecordManager>().As<IAudioRecordService>().SingleInstance();
+            builder.RegisterType<EfAudioRecordDal>().As<IAudioRecordDal>().SingleInstance();
+
+            builder.RegisterType<BookManager>().As<IBookService>().SingleInstance();
+            builder.RegisterType<EfBookDal>().As<IBookDal>().SingleInstance();
+
+            builder.RegisterType<BookSeriesManager>().As<IBookSeriesService>().SingleInstance();
+            builder.RegisterType<EfBookSeriesDal>().As<IBookSeriesDal>().SingleInstance();
 
             builder.RegisterType<BranchManager>().As<IBranchService>().SingleInstance();
             builder.RegisterType<EfBranchDal>().As<IBranchDal>().SingleInstance();
