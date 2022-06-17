@@ -21,16 +21,6 @@ namespace Business.Concrete
             _writerDal = writerDal;
         }
 
-        public IResult Add(WriterDto entity)
-        {
-            return Add(new Writer
-            {
-                Name = entity.Name,
-                SurName = entity.SurName,
-                NamePreAttachment = entity.NamePreAttachment
-            });
-        }
-
         [ValidationAspect(typeof(WriterValidator), Priority = 1)]
         public IResult Add(Writer entity)
         {
@@ -40,6 +30,16 @@ namespace Business.Concrete
             entity.IsDeleted = false;
             _writerDal.Add(entity);
             return new SuccessResult(WriterConstants.AddSuccess);
+        }
+
+        public IResult Add(WriterDto entity)
+        {
+            return Add(new Writer
+            {
+                Name = entity.Name,
+                SurName = entity.SurName,
+                NamePreAttachment = entity.NamePreAttachment
+            });
         }
 
         public IResult Delete(Guid id)
@@ -63,6 +63,18 @@ namespace Business.Concrete
             return new SuccessResult(WriterConstants.ShadowDeleteSuccess);
         }
 
+        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
+        public IResult Update(Writer entity)
+        {
+            IResult result = BusinessRules.Run(WriterNameOrSurnameExist(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _writerDal.Update(entity);
+            return new SuccessResult(WriterConstants.UpdateSuccess);
+        }
+
         public IResult Update(WriterDto entity)
         {
             return Update(new Writer
@@ -74,29 +86,6 @@ namespace Business.Concrete
             });
         }
 
-        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
-        public IResult Update(Writer entity)
-        {
-            _writerDal.Update(entity);
-            return new SuccessResult(WriterConstants.UpdateSuccess);
-        }
-
-        public IDataResult<List<Writer>> GetByFilterList(Expression<Func<Writer, bool>>? filter = null)
-        {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
-        }
-
-        public IDataResult<WriterDto> DtoGetById(Guid id)
-        {
-            IDataResult<WriterDto> writerDtoResult ;
-            // devam todo 
-            
-
-
-
-
-        }
-
         public IDataResult<Writer> GetById(Guid id)
         {
             Writer writer = _writerDal.Get(w => w.Id == id);
@@ -104,10 +93,19 @@ namespace Business.Concrete
                 ? new ErrorDataResult<Writer>(WriterConstants.NotMatch)
                 : new SuccessDataResult<Writer>(writer, WriterConstants.DataGet);
         }
-
-        public IDataResult<List<WriterDto>> DtoGetByNames(string name)
+        
+        public IDataResult<WriterDto> DtoGetById(Guid id)
         {
-            return (IDataResult<List<WriterDto>>)GetByNames(name);
+            IDataResult<Writer> writerResult = GetById(id);
+            return !writerResult.Success
+                ? new ErrorDataResult<WriterDto>(writerResult.Message)
+                : new SuccessDataResult<WriterDto>(new WriterDto
+                {
+                    Id = writerResult.Data.Id,
+                    Name = writerResult.Data.Name,
+                    SurName = writerResult.Data.SurName,
+                    NamePreAttachment = writerResult.Data.NamePreAttachment
+                }, writerResult.Message);
         }
 
         public IDataResult<List<Writer>> GetByNames(string name)
@@ -118,9 +116,18 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetBySurnames(string surname)
+        public IDataResult<List<WriterDto>> DtoGetByNames(string name)
         {
-            return (IDataResult<List<WriterDto>>)GetBySurnames(surname);
+            IDataResult<List<Writer>> writersResult = GetByNames(name);
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
         }
 
         public IDataResult<List<Writer>> GetBySurnames(string surname)
@@ -131,9 +138,18 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment)
+        public IDataResult<List<WriterDto>> DtoGetBySurnames(string surname)
         {
-            return (IDataResult<List<WriterDto>>)GetNamePreAttachmentList(namePreAttachment);
+            IDataResult<List<Writer>> writersResult = GetBySurnames(surname);
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
         }
 
         public IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment)
@@ -141,30 +157,62 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
             && !n.IsDeleted).ToList(), WriterConstants.DataGet);
         }
+        
+        public IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment)
+        {
+            IDataResult<List<Writer>> writersResult = GetNamePreAttachmentList(namePreAttachment);
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
+        }
 
         public IDataResult<List<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
         }
-
-        public IDataResult<List<WriterDto>> DtoGetAllBySecrets()
-        {
-            return (IDataResult<List<WriterDto>>)GetAllBySecrets();
-        }
-
+        
         public IDataResult<List<Writer>> GetAllBySecrets()
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => w.IsDeleted).ToList(), WriterConstants.DataGet);
         }
-
-        public IDataResult<List<WriterDto>> DtoGetAll()
+        
+        public IDataResult<List<WriterDto>> DtoGetAllBySecrets()
         {
-            return (IDataResult<List<WriterDto>>)GetAll();
+            IDataResult<List<Writer>> writersResult = GetAllBySecrets();
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
         }
 
         public IDataResult<List<Writer>> GetAll()
         {
             return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => !w.IsDeleted).ToList(), WriterConstants.DataGet);
+        }
+
+        public IDataResult<List<WriterDto>> DtoGetAll()
+        {
+            IDataResult<List<Writer>> writersResult = GetAll();
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
         }
 
         private IResult WriterNameOrSurnameExist(Writer entity)

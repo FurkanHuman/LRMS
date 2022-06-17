@@ -80,6 +80,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetByNames")]
+        public IActionResult DtoGetByNames([FromForm] string name)
+        {
+            var result = _writerService.DtoGetByNames(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetBySurnames")]
         public IActionResult GetBySurnames([FromForm] string surname)
         {
@@ -87,10 +94,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetBySurnames")]
+        public IActionResult DtoGetBySurnames([FromForm] string surname)
+        {
+            var result = _writerService.DtoGetBySurnames(surname);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetNamePreAttachmentList")]
         public IActionResult GetNamePreAttachmentList([FromForm] string name)
         {
             var result = _writerService.GetNamePreAttachmentList(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetNamePreAttachmentList")]
+        public IActionResult DtoGetNamePreAttachmentList([FromForm] string name)
+        {
+            var result = _writerService.DtoGetNamePreAttachmentList(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -108,7 +129,21 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpGet("DtoGetAllBySecrets")]
+        public IActionResult DtoGetAllBySecrets()
+        {
+            var result = _writerService.DtoGetAllBySecrets();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var result = _writerService.GetAll();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+        
+        [HttpGet("DtoGetAll")]
         public IActionResult DtoGetAll()
         {
             var result = _writerService.DtoGetAll();
