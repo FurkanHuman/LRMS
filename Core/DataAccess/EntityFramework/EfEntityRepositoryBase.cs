@@ -39,7 +39,6 @@ namespace Core.DataAccess.PostgreDb
             context.SaveChanges();
         }
 
-
         public void Update(TEntity entity)
         {
             using TContext context = new();
