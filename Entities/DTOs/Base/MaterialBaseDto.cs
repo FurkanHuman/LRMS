@@ -1,6 +1,6 @@
 ﻿namespace Entities.DTOs.Base
 {
-    internal class MaterialBaseDto
+    public class MaterialBaseDto
     {
     }
 }
