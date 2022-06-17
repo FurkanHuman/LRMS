@@ -95,7 +95,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditor")]
+        [HttpPost("GetByEditors")]
         public IActionResult GetByEditor(Guid[] editorId)
         {
             var result = _academicJournalService.GetByEditor(editorId);
@@ -165,7 +165,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByResearcher")]
+        [HttpPost("GetByResearchers")]
         public IActionResult GetByResearcher(Guid[] researcherId)
         {
             var result = _academicJournalService.GetByResearcher(researcherId);
