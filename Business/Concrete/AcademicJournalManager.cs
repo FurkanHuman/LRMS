@@ -37,7 +37,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(CheckIfAcademicJournalExists(entity));
             if (result != null)
                 return result;
-            entity.IsSecret = false;
+            entity.IsDeleted = false;
             _academicJournalDal.Add(entity);
             return new SuccessResult(AcademicJournalConstants.AddSuccess);
         }
@@ -54,11 +54,11 @@ namespace Business.Concrete
 
         public IResult ShadowDelete(Guid id)
         {
-            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsSecret);
+            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted);
             if (academicJournal == null)
                 return new ErrorResult(AcademicJournalConstants.NotMatch);
 
-            academicJournal.IsSecret = false;
+            academicJournal.IsDeleted = false;
             _academicJournalDal.Update(academicJournal);
             return new SuccessResult(AcademicJournalConstants.EfDeletedSuccsess);
         }
@@ -75,7 +75,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByAJNumber(ushort aJNumber)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.AJNumber == aJNumber && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.AJNumber == aJNumber && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -83,7 +83,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByCategories(int[] categoriesId)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => categoriesId.Contains(aj.CategoryId) && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => categoriesId.Contains(aj.CategoryId) && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -91,7 +91,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByDateOfYear(ushort dateOfYear)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DateOfYear == dateOfYear && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DateOfYear == dateOfYear && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -99,7 +99,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByDescriptionFinder(string finderString)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Description.Contains(finderString) && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Description.Contains(finderString) && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -107,7 +107,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByDimension(Guid dimensionId)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DimensionsId == dimensionId && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DimensionsId == dimensionId && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -119,7 +119,7 @@ namespace Business.Concrete
             if (!editor.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(editor.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EditorId == editorId && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EditorId == editorId && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -131,7 +131,7 @@ namespace Business.Concrete
             if (!editors.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => editors.Data.Select(e => e.Id).Contains(aj.EditorId) && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => editors.Data.Select(e => e.Id).Contains(aj.EditorId) && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -143,7 +143,7 @@ namespace Business.Concrete
             if (!eMFiles.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(eMFiles.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EMaterialFilesId == eMFilesId && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EMaterialFilesId == eMFilesId && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -160,7 +160,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByNames(string name)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Name.Contains(name) && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Name.Contains(name) && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -168,7 +168,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByPageRange(ushort startPage, ushort endPage)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.StartPageNumber >= startPage && aj.EndPageNumber <= endPage && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.StartPageNumber >= startPage && aj.EndPageNumber <= endPage && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -177,8 +177,8 @@ namespace Business.Concrete
         public IDataResult<List<AcademicJournal>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<AcademicJournal> academicJournal = maxPrice == null
-                ? _academicJournalDal.GetAll(aj => aj.Price >= minPrice && !aj.IsSecret).ToList()
-                : _academicJournalDal.GetAll(aj => aj.Price >= minPrice && aj.Price <= maxPrice && !aj.IsSecret).ToList();
+                ? _academicJournalDal.GetAll(aj => aj.Price >= minPrice && !aj.IsDeleted).ToList()
+                : _academicJournalDal.GetAll(aj => aj.Price >= minPrice && aj.Price <= maxPrice && !aj.IsDeleted).ToList();
 
             return academicJournal.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
@@ -191,7 +191,7 @@ namespace Business.Concrete
             if (!publisher.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(publisher.Message);
 
-            List<AcademicJournal> academicJournal = _academicJournalDal.GetAll(aj => aj.PublisherId == publisherId && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournal = _academicJournalDal.GetAll(aj => aj.PublisherId == publisherId && !aj.IsDeleted).ToList();
             return academicJournal.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournal, AcademicJournalConstants.DataGet);
@@ -203,7 +203,7 @@ namespace Business.Concrete
             if (!publishers.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(publishers.Message);
 
-            List<AcademicJournal> academicJournal = _academicJournalDal.GetAll(aj => aj.Publishers == publishers.Data && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournal = _academicJournalDal.GetAll(aj => aj.Publishers == publishers.Data && !aj.IsDeleted).ToList();
             return academicJournal.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournal, AcademicJournalConstants.DataGet);
@@ -215,7 +215,7 @@ namespace Business.Concrete
             if (!references.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(references.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.References == references.Data && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.References == references.Data && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -227,7 +227,7 @@ namespace Business.Concrete
             if (!reference.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(reference.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.ReferenceId == referenceId && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.ReferenceId == referenceId && !aj.IsDeleted).ToList();
             return academicJournals != null
                 ? new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet)
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
@@ -239,7 +239,7 @@ namespace Business.Concrete
             if (!references.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(references.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.References == references.Data && !aj.IsSecret).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.References == references.Data && !aj.IsDeleted).ToList();
             return academicJournals != null
                 ? new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet)
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
@@ -251,7 +251,7 @@ namespace Business.Concrete
             if (!researcher.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(researcher.Message);
 
-            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.ResearcherId == researcherId && !aj.IsSecret).ToList();
+            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.ResearcherId == researcherId && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
@@ -263,7 +263,7 @@ namespace Business.Concrete
             if (!researchers.Success)
                 return new ErrorDataResult<List<AcademicJournal>>("Researcher not found");
 
-            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => researcherIds.Contains(aj.ResearcherId) && !aj.IsSecret).ToList();
+            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => researcherIds.Contains(aj.ResearcherId) && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
@@ -271,7 +271,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByTitles(string title)
         {
-            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Title.Contains(title) && !aj.IsSecret).ToList();
+            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Title.Contains(title) && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
@@ -279,7 +279,7 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByVolume(ushort volume)
         {
-            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Volume == volume && !aj.IsSecret).ToList();
+            List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Volume == volume && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
@@ -287,7 +287,7 @@ namespace Business.Concrete
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
-            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsSecret);
+            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted);
 
             return academicJournal == null
                 ? new ErrorDataResult<byte?>(AcademicJournalConstants.DataNotGet)
@@ -296,7 +296,7 @@ namespace Business.Concrete
 
         public IDataResult<byte> GetState(Guid id)
         {
-            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsSecret);
+            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted);
             return academicJournal == null
                 ? new ErrorDataResult<byte>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<byte>(academicJournal.State, AcademicJournalConstants.DataGet);
@@ -309,12 +309,12 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => aj.IsSecret).ToList(), AcademicJournalConstants.DataGet);
+            return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => aj.IsDeleted).ToList(), AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<List<AcademicJournal>> GetAll()
         {
-            return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => !aj.IsSecret).ToList(), AcademicJournalConstants.DataGet);
+            return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => !aj.IsDeleted).ToList(), AcademicJournalConstants.DataGet);
         }
 
         private IResult CheckIfAcademicJournalExists(AcademicJournal academicJournal)
