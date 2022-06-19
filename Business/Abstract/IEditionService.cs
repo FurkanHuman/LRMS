@@ -13,6 +13,7 @@ namespace Business.Abstract
         IDataResult<Edition> GetByCommunicationEmail(string commEmail);
         IDataResult<Edition> GetByCommunicationWebSite(string commWebSite);
         IDataResult<Edition> GetByAdderssId(Guid addressId);
+        IDataResult<Edition> GetByPublisherId(Guid publisherId);
         IDataResult<List<Edition>> GetByAddressName(string addressName);
         IDataResult<List<Edition>> GetByAddressLines(string addressLine);
         IDataResult<List<Edition>> GetByCommunicationName(string commName);

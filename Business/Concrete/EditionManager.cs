@@ -227,6 +227,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGetWebSites);
         }
 
+        public IDataResult<Edition> GetByPublisherId(Guid publisherId)
+        {
+            Edition edition = _editionDal.Get(e=>e.Publisher.Id == publisherId && !e.IsDeleted);
+            return edition == null
+                ? new ErrorDataResult<Edition>(EditionConstants.DataNotGet)
+                : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
+        }
+
         public IDataResult<List<Edition>> GetByDateOfPublication(DateTime dateOfPublication)
         {
             List<Edition> editions = _editionDal.GetAll(e => e.Publisher.DateOfPublication == dateOfPublication).ToList();
