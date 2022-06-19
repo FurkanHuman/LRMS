@@ -15,28 +15,34 @@ namespace Business.Concrete
     public class AcademicJournalManager : IAcademicJournalService
     {
         private readonly IAcademicJournalDal _academicJournalDal;
+        private readonly ICategoryService _categoryService;
+        private readonly IDimensionService _dimensionService;
         private readonly IReferenceService _referenceService;
         private readonly IPublisherService _publisherService;
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly IEditorService _editorService;
+        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IResearcherService _researcherService;
 
-        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, IReferenceService referenceService, IPublisherService publisherService, IEMaterialFileService eMaterialFileService, IEditorService editorService, IResearcherService researcherService)
+        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, ICategoryService categoryService, IReferenceService referenceService, IPublisherService publisherService, IEMaterialFileService eMaterialFileService, IEditorService editorService, ITechnicalPlaceholderService technicalPlaceholderService, IResearcherService researcherService)
         {
             _academicJournalDal = academicJournalDal;
+            _categoryService = categoryService;
             _referenceService = referenceService;
             _publisherService = publisherService;
             _eMaterialFileService = eMaterialFileService;
             _editorService = editorService;
+            _technicalPlaceholderService = technicalPlaceholderService;
             _researcherService = researcherService;
         }
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
-        public IResult Add(AcademicJournal entity)
+        public IResult Add(AcademicJournal entity) // add a other services add Todo
         {
             IResult result = BusinessRules.Run(CheckIfAcademicJournalExists(entity));
             if (result != null)
                 return result;
+
             entity.IsDeleted = false;
             _academicJournalDal.Add(entity);
             return new SuccessResult(AcademicJournalConstants.AddSuccess);
@@ -64,7 +70,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
-        public IResult Update(AcademicJournal entity)
+        public IResult Update(AcademicJournal entity) // other service update add todo
         {
             IResult result = BusinessRules.Run(CheckIfAcademicJournalExists(entity));
             if (result != null)
@@ -83,7 +89,11 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByCategories(int[] categoriesId)
         {
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => categoriesId.Contains(aj.CategoryId) && !aj.IsDeleted).ToList();
+            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            if (!categories.Success)
+                return new ErrorDataResult<List<AcademicJournal>>(categories.Message);
+
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => categories.Data.Select(c => c.Id).Contains(aj.CategoryId) && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -107,6 +117,10 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByDimension(Guid dimensionId)
         {
+            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            if (!dimension.Success)
+                return new ErrorDataResult<List<AcademicJournal>>(dimension.Message);
+
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DimensionsId == dimensionId && !aj.IsDeleted).ToList();
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
@@ -269,6 +283,18 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
         }
 
+        public IDataResult<List<AcademicJournal>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        {
+            IDataResult<TechnicalPlaceholder> TechnicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            if (!TechnicalPlaceholder.Success)
+                return new ErrorDataResult<List<AcademicJournal>>(TechnicalPlaceholder.Message);
+
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.TechnicalPlaceholders == TechnicalPlaceholder.Data && !aj.IsDeleted).ToList();
+            return academicJournals != null
+                ? new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet)
+                : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
+        }
+
         public IDataResult<List<AcademicJournal>> GetByTitles(string title)
         {
             List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Title.Contains(title) && !aj.IsDeleted).ToList();
@@ -287,19 +313,16 @@ namespace Business.Concrete
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
-            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted);
+            byte? sLevel = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted).SecretLevel;
 
-            return academicJournal == null
+            return sLevel == null
                 ? new ErrorDataResult<byte?>(AcademicJournalConstants.DataNotGet)
-                : new SuccessDataResult<byte?>(academicJournal.SecretLevel, AcademicJournalConstants.DataGet);
+                : new SuccessDataResult<byte?>(sLevel, AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<byte> GetState(Guid id)
         {
-            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted);
-            return academicJournal == null
-                ? new ErrorDataResult<byte>(AcademicJournalConstants.DataNotGet)
-                : new SuccessDataResult<byte>(academicJournal.State, AcademicJournalConstants.DataGet);
+            return new SuccessDataResult<byte>(_academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted).State, AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<List<AcademicJournal>> GetAllByFilter(Expression<Func<AcademicJournal, bool>>? filter = null)

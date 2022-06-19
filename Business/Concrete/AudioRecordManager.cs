@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Concrete.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -14,14 +15,22 @@ namespace Business.Concrete
     public class AudioRecordManager : IAudioRecordService
     {
         private readonly IAudioRecordDal _audioRecordDal;
+        private readonly ICategoryService _categoryService;
+        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IDimensionService _dimensionService;
+        private readonly IEMaterialFileService _eMaterialFileService;
 
-        public AudioRecordManager(IAudioRecordDal audioRecordDal)
+        public AudioRecordManager(IAudioRecordDal audioRecordDal, ICategoryService categoryService, ITechnicalPlaceholderService technicalPlaceholderService, IDimensionService dimensionService, IEMaterialFileService eMaterialFileService)
         {
             _audioRecordDal = audioRecordDal;
+            _categoryService = categoryService;
+            _technicalPlaceholderService = technicalPlaceholderService;
+            _dimensionService = dimensionService;
+            _eMaterialFileService = eMaterialFileService;
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]
-        public IResult Add(AudioRecord entity)
+        public IResult Add(AudioRecord entity)// add a other services add Todo
         {
             IResult result = BusinessRules.Run(CheckIfAudioRecordExists(entity));
             if (result != null)
@@ -54,7 +63,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]
-        public IResult Update(AudioRecord entity)
+        public IResult Update(AudioRecord entity)// other service update add todo
         {
             IResult result = BusinessRules.Run(CheckIfAudioRecordExists(entity));
             if (result != null)
@@ -67,7 +76,11 @@ namespace Business.Concrete
 
         public IDataResult<List<AudioRecord>> GetByCategories(int[] categoriesId)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => categoriesId.Contains(ar.CategoryId) && !ar.IsDeleted).ToList();
+            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            if (!categories.Success)
+                return new ErrorDataResult<List<AudioRecord>>(categories.Message);
+
+            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => categories.Data.Select(c => c.Id).Contains(ar.CategoryId) && !ar.IsDeleted).ToList();
             return audioRecords == null
                 ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
                 : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
@@ -83,6 +96,10 @@ namespace Business.Concrete
 
         public IDataResult<List<AudioRecord>> GetByDimension(Guid dimensionId)
         {
+            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            if (!dimension.Success)
+                return new ErrorDataResult<List<AudioRecord>>(dimension.Message);
+
             List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.DimensionsId == dimensionId && !ar.IsDeleted).ToList();
             return audioRecords == null
                 ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
@@ -91,6 +108,10 @@ namespace Business.Concrete
 
         public IDataResult<List<AudioRecord>> GetByEMFiles(Guid eMFilesId)
         {
+            IDataResult<EMaterialFile> eMaterialFile = _eMaterialFileService.GetById(eMFilesId);
+            if (!eMaterialFile.Success)
+                return new ErrorDataResult<List<AudioRecord>>(eMaterialFile.Message);
+
             List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.EMaterialFilesId == eMFilesId && !ar.IsDeleted).ToList();
             return audioRecords == null
                 ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
@@ -173,6 +194,18 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet);
         }
 
+        public IDataResult<List<AudioRecord>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        {
+            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            if (!technicalPlaceholder.Success)
+                return new ErrorDataResult<List<AudioRecord>>(technicalPlaceholder.Message);
+
+            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.TechnicalPlaceholders == technicalPlaceholder && !ar.IsDeleted).ToList();
+            return audioRecords == null
+                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+        }
+
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
             AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted);
@@ -183,10 +216,7 @@ namespace Business.Concrete
 
         public IDataResult<byte> GetState(Guid id)
         {
-            AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted);
-            return audioRecord == null
-                ? new ErrorDataResult<byte>(AudioRecordConstants.NotMatch)
-                : new SuccessDataResult<byte>(audioRecord.State, AudioRecordConstants.DataGet);
+            return new SuccessDataResult<byte>(_audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted).State, AudioRecordConstants.DataGet);
         }
 
         public IDataResult<List<AudioRecord>> GetAllByFilter(Expression<Func<AudioRecord, bool>>? filter = null)
