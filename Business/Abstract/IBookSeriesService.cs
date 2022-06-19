@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IBookSeriesService : IBasePaperService<BookSeries>
     {
-        IDataResult<List<BookSeries>> GetByBookId(Guid bookId);
+        IDataResult<BookSeries> GetByBookId(Guid bookId);
     }
 }
