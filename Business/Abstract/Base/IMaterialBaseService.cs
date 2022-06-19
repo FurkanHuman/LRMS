@@ -13,6 +13,7 @@ namespace Business.Abstract.Base
         IDataResult<List<T>> GetByDimension(Guid dimensionId);
         IDataResult<List<T>> GetByEMFiles(Guid eMFilesId);
         IDataResult<List<T>> GetByPrice(decimal minPrice, decimal? maxPrice = null);
+        IDataResult<List<T>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId);
         IDataResult<List<T>> GetByTitles(string title);
     }
 }
