@@ -24,20 +24,8 @@ namespace Business.Concrete
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IResearcherService _researcherService;
 
-        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, ICategoryService categoryService, IReferenceService referenceService, IPublisherService publisherService, IEMaterialFileService eMaterialFileService, IEditorService editorService, ITechnicalPlaceholderService technicalPlaceholderService, IResearcherService researcherService)
-        {
-            _academicJournalDal = academicJournalDal;
-            _categoryService = categoryService;
-            _referenceService = referenceService;
-            _publisherService = publisherService;
-            _eMaterialFileService = eMaterialFileService;
-            _editorService = editorService;
-            _technicalPlaceholderService = technicalPlaceholderService;
-            _researcherService = researcherService;
-        }
-
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
-        public IResult Add(AcademicJournal entity) // add a other services add Todo
+        public IResult Add(AcademicJournal entity) // Todo:
         {
             IResult result = BusinessRules.Run(CheckIfAcademicJournalExists(entity));
             if (result != null)
@@ -170,6 +158,22 @@ namespace Business.Concrete
             return academicJournal == null
                 ? new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet);
+        }
+
+        public IDataResult<List<AcademicJournal>> GetByIds(Guid[] ids)
+        {   // Todo: check if ids less than _academicJournalDal id find
+
+            return new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.Disabled);
+
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => ids.Contains(aj.Id) && !aj.IsDeleted).ToList();
+
+
+
+
+
+            return academicJournals == null
+                ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
+                : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<List<AcademicJournal>> GetByNames(string name)
