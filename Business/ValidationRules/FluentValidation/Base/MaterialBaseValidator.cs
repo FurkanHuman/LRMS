@@ -1,7 +1,8 @@
-﻿using Business.Constants.Base;
+﻿global using FluentValidation;
+using Business.Constants.Base;
 using Core.Entities.Abstract;
 using Entities.Concrete.Base;
-using FluentValidation;
+
 
 namespace Business.ValidationRules.FluentValidation.Base
 {
