@@ -53,5 +53,7 @@
         public const string EditorIdRequired = "EditorId is required";
         public const string TechnicalNumberIdRequired = "TechnicalNumberId is required";
         public const string EditionIdRequired = "EditionId is required";
+        public const string ReferenceIdRequired = "ReferenceId is required";
+        public const string BookSeriesIdRequired = "BookSeriesId is required";
     }
 }
