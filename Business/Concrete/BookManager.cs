@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -13,7 +16,6 @@ namespace Business.Concrete
     {
         private readonly IBookDal _bookDal;//  Todo: servisleri yazmayı unutma
         private readonly ICategoryService _categoryService;
-        private readonly ICommunicationService _communicationService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholder;
         private readonly IEditionService _editionService;
         private readonly IDimensionService _dimensionService;
@@ -27,14 +29,19 @@ namespace Business.Concrete
         private readonly IGraphicDirectorService _graphicDirectorService;
         private readonly IInterpretersService _interpreterService;
         private readonly IRedactionService _redactionService;
-        private readonly IOtherPeopleService _otherPeopleService;
         private readonly ITechnicalNumberService _technicalNumberService;
         private readonly IReferenceService _referenceService;
 
-
-        public IResult Add(Book entity)
+        [ValidationAspect(typeof(BookValidator))]
+        public IResult Add(Book entity) // todo: adding fix later.
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckIfBookControl(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _bookDal.Add(entity);
+            return new SuccessResult(BookConstants.AddSuccess);
         }
 
         public IResult Delete(Guid id)
@@ -58,9 +65,16 @@ namespace Business.Concrete
             return new SuccessResult(BookConstants.EfDeletedSuccsess);
         }
 
-        public IResult Update(Book entity)
+        [ValidationAspect(typeof(BookValidator))]
+        public IResult Update(Book entity) // todo: update fix later.
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckIfBookControl(entity));
+            if (result != null)
+                return new ErrorResult(result.Message);
+
+            entity.IsDeleted = false;
+            _bookDal.Update(entity);
+            return new SuccessResult(BookConstants.UpdateSuccess);
         }
 
         public IDataResult<Book> GetById(Guid id)
@@ -323,7 +337,7 @@ namespace Business.Concrete
             List<Book> books = maxPrice == null
                 ? _bookDal.GetAll(b => b.Price >= minPrice && !b.IsDeleted).ToList()
                 : _bookDal.GetAll(b => b.Price >= minPrice && b.Price <= maxPrice && !b.IsDeleted).ToList();
-            
+
             return books == null
                 ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
                 : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
@@ -355,6 +369,11 @@ namespace Business.Concrete
             return books == null
                 ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
                 : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+        }
+
+        private IResult CheckIfBookControl(Book entity)
+        { // todo: check if book control is valid
+            throw new NotImplementedException();
         }
     }
 }

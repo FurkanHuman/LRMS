@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -29,9 +32,16 @@ namespace Business.Concrete
         private readonly IRedactionService _redactionService;
         private readonly ITechnicalNumberService _technicalNumberService;
 
-        public IResult Add(BookSeries entity)
+        [ValidationAspect(typeof(BookSeriesValidator))]
+        public IResult Add(BookSeries entity) // Todo: add fix later
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckBookSeriess(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _bookSeriesDal.Add(entity);
+            return new SuccessResult(BookSeriesConstants.AddSuccess);
         }
 
         public IResult Delete(Guid id)
@@ -55,9 +65,16 @@ namespace Business.Concrete
             return new SuccessResult(BookSeriesConstants.EfDeletedSuccsess);
         }
 
-        public IResult Update(BookSeries entity)
+        [ValidationAspect(typeof(BookSeriesValidator))]
+        public IResult Update(BookSeries entity) // Todo: update fix later
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckBookSeriess(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _bookSeriesDal.Update(entity);
+            return new SuccessResult(BookSeriesConstants.UpdateSuccess);
         }
 
         public IDataResult<BookSeries> GetById(Guid id)
@@ -345,6 +362,11 @@ namespace Business.Concrete
         public IDataResult<List<BookSeries>> GetAll()
         {
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(bs => !bs.IsDeleted).ToList(), BookSeriesConstants.DataGet);
+        }
+
+        private IResult CheckBookSeriess(BookSeries entity)
+        {   // todo: check if book series is already in db
+            throw new NotImplementedException();
         }
     }
 }
