@@ -1,5 +1,4 @@
 ﻿using Entities.Concrete.Infos;
-using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {

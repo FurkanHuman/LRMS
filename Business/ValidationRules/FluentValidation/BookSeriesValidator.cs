@@ -1,6 +1,6 @@
-﻿using Business.ValidationRules.FluentValidation.Base;
+﻿using Business.Constants;
+using Business.ValidationRules.FluentValidation.Base;
 using Entities.Concrete;
-using Business.Constants;
 
 namespace Business.ValidationRules.FluentValidation
 {

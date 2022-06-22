@@ -1,6 +1,5 @@
 ﻿using Business.Constants;
 using Entities.Concrete.Infos;
-using FluentValidation;
 
 namespace Business.Concrete
 {
