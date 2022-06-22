@@ -5,12 +5,7 @@ using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Infos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -68,7 +63,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CartographicMaterial>> GetAllBySecrets()
         {
-            return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm=>cm.IsDeleted).ToList());
+            return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => cm.IsDeleted).ToList());
         }
 
         public IDataResult<List<CartographicMaterial>> GetByCategories(int[] categoriesId)

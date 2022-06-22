@@ -229,7 +229,7 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByPublisherId(Guid publisherId)
         {
-            Edition edition = _editionDal.Get(e=>e.Publisher.Id == publisherId && !e.IsDeleted);
+            Edition edition = _editionDal.Get(e => e.Publisher.Id == publisherId && !e.IsDeleted);
             return edition == null
                 ? new ErrorDataResult<Edition>(EditionConstants.DataNotGet)
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
