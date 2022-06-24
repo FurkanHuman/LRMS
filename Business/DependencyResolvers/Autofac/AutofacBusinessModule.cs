@@ -52,6 +52,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CoverCapManager>().As<ICoverCapService>().SingleInstance();
             builder.RegisterType<EfCoverCapDal>().As<ICoverCapDal>().SingleInstance();
 
+            builder.RegisterType<DepictionManager>().As<IDepictionService>().SingleInstance();
+            builder.RegisterType<EfDepictionDal>().As<IDepictionDal>().SingleInstance();
+
             builder.RegisterType<DimensionManager>().As<IDimensionService>().SingleInstance();
             builder.RegisterType<EfDimensionDal>().As<IDimensionDal>().SingleInstance();
 
