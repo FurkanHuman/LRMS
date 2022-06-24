@@ -364,9 +364,32 @@ namespace Business.Concrete
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(bs => !bs.IsDeleted).ToList(), BookSeriesConstants.DataGet);
         }
 
-        private IResult CheckBookSeriess(BookSeries entity)
+        private IResult CheckBookSeriess(BookSeries  bookSeries)
         {   // todo: check if book series is already in db
-            throw new NotImplementedException();
+
+            bool checkBookS = _bookSeriesDal.Get( bs=>
+
+                bs.Name == bookSeries.Name
+             && bs.Title == bookSeries.Title// todo: false usage string equıalty.
+             && bs.Description.Contains(bookSeries.Description)
+             && bs.CategoryId == bookSeries.CategoryId
+             && bs.TechnicalPlaceholdersId == bookSeries.TechnicalPlaceholdersId
+             && bs.DimensionsId == bookSeries.DimensionsId
+             && bs.EMaterialFilesId == bookSeries.EMaterialFilesId
+             && bs.State == bookSeries.State
+             && bs.CoverCapId == bookSeries.CoverCapId
+             && bs.CoverImageId == bookSeries.CoverImageId
+             && bs.WriterId == bookSeries.WriterId
+             && bs.EditorId == bookSeries.EditorId
+             && bs.TechnicalNumberId == bookSeries.TechnicalNumberId
+             && bs.EditionId == bookSeries.EditionId
+             && bs.BookIds == bookSeries.BookIds
+                ) != null;
+
+            if (checkBookS)
+                return new ErrorResult(BookSeriesConstants.AlreadyExists);
+            return new SuccessResult();
+
         }
     }
 }

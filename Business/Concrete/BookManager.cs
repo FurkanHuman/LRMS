@@ -14,7 +14,7 @@ namespace Business.Concrete
 {
     public class BookManager : IBookService
     {
-        private readonly IBookDal _bookDal;//  Todo: servisleri yazmayı unutma
+        private readonly IBookDal _bookDal;//  Todo: constuructor hell fuck
         private readonly ICategoryService _categoryService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholder;
         private readonly IEditionService _editionService;
@@ -371,9 +371,31 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
         }
 
-        private IResult CheckIfBookControl(Book entity)
-        { // todo: check if book control is valid
-            throw new NotImplementedException();
+        private IResult CheckIfBookControl(Book book)
+        {
+            // todo: check if book control is valid,
+
+            bool checkBook = _bookDal.Get(b =>
+                b.Name == book.Name
+             && b.Title == book.Title
+             && b.Description.Contains(book.Description)
+             && b.CategoryId == book.CategoryId
+             && b.TechnicalPlaceholdersId == book.TechnicalPlaceholdersId
+             && b.DimensionsId == book.DimensionsId
+             && b.EMaterialFilesId == book.EMaterialFilesId
+             && b.State == book.State
+             && b.CoverCapId == book.CoverCapId
+             && b.CoverImageId == book.CoverImageId
+             && b.WriterId == book.WriterId
+             && b.EditorId == book.EditorId
+             && b.TechnicalNumberId == book.TechnicalNumberId
+             && b.EditionId == book.EditionId
+             && b.ReferenceId == book.ReferenceId
+                ) != null;
+
+            if (checkBook)
+                return new ErrorResult(BookConstants.AlreadyExists);
+            return new SuccessResult();
         }
     }
 }
