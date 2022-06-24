@@ -160,22 +160,6 @@ namespace Business.Concrete
                 : new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByIds(Guid[] ids)
-        {   // Todo: check if ids less than _academicJournalDal id find
-
-            return new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.Disabled);
-
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => ids.Contains(aj.Id) && !aj.IsDeleted).ToList();
-
-
-
-
-
-            return academicJournals == null
-                ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
-                : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
-        }
-
         public IDataResult<List<AcademicJournal>> GetByNames(string name)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Name.Contains(name) && !aj.IsDeleted).ToList();

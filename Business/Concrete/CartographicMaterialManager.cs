@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -11,17 +14,23 @@ namespace Business.Concrete
 {
     public class CartographicMaterialManager : ICartographicMaterialService
     {
-        private readonly ICartographicMaterialDal _cartographicMaterialDal;
-
+        private readonly ICartographicMaterialDal _cartographicMaterialDal; // Todo I know hell is here
         private readonly ICategoryService _categoryService;
         private readonly IDimensionService _dimensionService;
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly IImageService _imageService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
 
+        [ValidationAspect(typeof(CartographicMaterialValidator))]
         public IResult Add(CartographicMaterial entity)
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckCartographicMaterial(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _cartographicMaterialDal.Add(entity);
+            return new SuccessResult(CartographicMaterialConstants.AddSuccess);
         }
 
         public IResult Delete(Guid id)
@@ -45,9 +54,29 @@ namespace Business.Concrete
             return new SuccessResult(CartographicMaterialConstants.EfDeletedSuccsess);
         }
 
+        [ValidationAspect(typeof(CartographicMaterialValidator))]
         public IResult Update(CartographicMaterial entity)
         {
-            throw new NotImplementedException();
+            IResult result = BusinessRules.Run(CheckCartographicMaterial(entity));
+            if (result != null)
+                return result;
+
+            entity.IsDeleted = false;
+            _cartographicMaterialDal.Update(entity);
+            return new SuccessResult(CartographicMaterialConstants.UpdateSuccess);
+        }
+
+        public IDataResult<List<CartographicMaterial>> GetByCategories(int[] categoriesId)
+        {
+
+            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            if (!categories.Success)
+                return new ErrorDataResult<List<CartographicMaterial>>(categories.Message);
+
+            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(aj => categories.Data.Select(c => c.Id).Contains(aj.CategoryId) && !aj.IsDeleted).ToList();
+            return cartographicMaterials == null
+                ? new ErrorDataResult<List<CartographicMaterial>>(AcademicJournalConstants.DataNotGet)
+                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<List<CartographicMaterial>> GetAll()
@@ -64,18 +93,6 @@ namespace Business.Concrete
         public IDataResult<List<CartographicMaterial>> GetAllBySecrets()
         {
             return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => cm.IsDeleted).ToList());
-        }
-
-        public IDataResult<List<CartographicMaterial>> GetByCategories(int[] categoriesId)
-        {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
-            if (categories.Success)
-                return new ErrorDataResult<List<CartographicMaterial>>(categories.Message);
-
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => categories.Data.Select(c => c.Id).Contains(cm.CategoryId) && !cm.IsDeleted).ToList();
-            return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
         public IDataResult<List<CartographicMaterial>> GetByDate(DateTime dateTimeMin, DateTime? dateTimeMax)
@@ -127,11 +144,6 @@ namespace Business.Concrete
             return cartographicMaterial == null
                ? new ErrorDataResult<CartographicMaterial>(CartographicMaterialConstants.DataNotGet)
                : new ErrorDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
-        }
-
-        public IDataResult<List<CartographicMaterial>> GetByIds(Guid[] ids)
-        {
-            return new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.Disabled);
         }
 
         public IDataResult<CartographicMaterial> GetByImageId(Guid imageId)
@@ -203,6 +215,26 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_cartographicMaterialDal.Get(cm => cm.Id == id && !cm.IsDeleted).State, CartographicMaterialConstants.DataGet);
+        }
+
+        private IResult CheckCartographicMaterial(CartographicMaterial cartographicMaterial)
+        {
+
+            bool cotrol = _cartographicMaterialDal.Get(cm =>
+                cm.Name == cartographicMaterial.Name
+             && cm.Title == cartographicMaterial.Title
+             && cm.Description.Contains(cartographicMaterial.Description)
+             && cm.CategoryId == cartographicMaterial.CategoryId
+             && cm.TechnicalPlaceholdersId == cartographicMaterial.TechnicalPlaceholdersId
+             && cm.DimensionsId == cartographicMaterial.DimensionsId
+             && cm.EMaterialFilesId == cartographicMaterial.EMaterialFilesId
+             && cm.State == cartographicMaterial.State
+             && cm.Date == cartographicMaterial.Date
+             && cm.ImageId == cartographicMaterial.ImageId) != null;
+
+            if (cotrol)
+                return new ErrorResult(CartographicMaterialConstants.AlreadyExists);
+            return new SuccessResult();
         }
     }
 }
