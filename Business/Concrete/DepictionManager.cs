@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Core.Utilities.Result.Abstract;
 using Entities.Concrete;
 using System;
@@ -7,11 +8,21 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Result.Concrete;
+using Business.Constants;
 
 namespace Business.Concrete
 {
     public class DepictionManager : IDepictionService
     {
+        private readonly IDepictionDal _depictionDal;
+
+        private readonly ICategoryService _categoryService;
+        private readonly IDimensionService _dimensionService;
+        private readonly IEMaterialFileService _eMaterialFileService;
+        private readonly IImageService _imageService;
+        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+
         public IResult Add(Depiction entity)
         {
             throw new NotImplementedException();
@@ -94,12 +105,15 @@ namespace Business.Concrete
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
-            throw new NotImplementedException();
+            byte? sLevel = _depictionDal.Get(d=>d.Id==id && !d.IsDeleted).SecretLevel;
+            return sLevel == null
+                ? new ErrorDataResult<byte?>(DepictionConstants.DataNotGet)
+                : new SuccessDataResult<byte?>(sLevel, DepictionConstants.DataGet);
         }
 
         public IDataResult<byte> GetState(Guid id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<byte>(_depictionDal.Get(d => d.Id == id && !d.IsDeleted).State,DepictionConstants.DataGet);
         }
     }
 }
