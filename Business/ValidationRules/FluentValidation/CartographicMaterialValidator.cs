@@ -1,6 +1,15 @@
-﻿namespace Business.ValidationRules.FluentValidation
+﻿using Business.ValidationRules.FluentValidation.Base;
+using Entities.Concrete;
+using Business.Constants;
+
+namespace Business.ValidationRules.FluentValidation
 {
-    internal class CartographicMaterialValidator
+    public class CartographicMaterialValidator : MaterialBaseValidator<CartographicMaterial>
     {
+        public CartographicMaterialValidator()
+        {
+            RuleFor(i=>i.ImageId).NotEmpty().NotNull().WithMessage(CartographicMaterialConstants.ImageIdRequired);
+            RuleFor(i => i.Date).NotNull().NotEmpty().WithMessage(CartographicMaterialConstants.DateRequared);
+        }
     }
 }
