@@ -55,5 +55,7 @@
         public const string EditionIdRequired = "EditionId is required";
         public const string ReferenceIdRequired = "ReferenceId is required";
         public const string BookSeriesIdRequired = "BookSeriesId is required";
+        public const string ImageIdRequired = "ImageId is required";
+
     }
 }

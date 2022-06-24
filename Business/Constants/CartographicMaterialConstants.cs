@@ -6,5 +6,7 @@ namespace Business.Constants
     {
         protected CartographicMaterialConstants() { }
 
+        public const string DateRequared="Date is requared";
+
     }
 }
