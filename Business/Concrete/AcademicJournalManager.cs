@@ -346,7 +346,7 @@ namespace Business.Concrete
 
         private IResult CheckIfAcademicJournalExists(AcademicJournal academicJournal)
         {
-            AcademicJournal academicJournalControl = _academicJournalDal.Get(aj =>
+            bool academicJournalControl = _academicJournalDal.Get(aj =>
             aj.Name == academicJournal.Name
             && aj.Title == academicJournal.Title
             && aj.Volume == academicJournal.Volume
@@ -357,11 +357,10 @@ namespace Business.Concrete
             && aj.SecretLevel == academicJournal.SecretLevel
             && aj.EditorId == academicJournal.EditorId
             && aj.CategoryId == academicJournal.CategoryId
-            && aj.State == academicJournal.State
             && aj.StartPageNumber == academicJournal.StartPageNumber
-            && aj.EndPageNumber == academicJournal.EndPageNumber);
+            && aj.EndPageNumber == academicJournal.EndPageNumber) != null;
 
-            if (academicJournalControl != null)
+            if (academicJournalControl)
                 return new ErrorResult(AcademicJournalConstants.AlreadyExists);
             return new SuccessResult();
         }

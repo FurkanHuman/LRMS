@@ -242,7 +242,6 @@ namespace Business.Concrete
             && ar.Owner == entity.Owner
             && ar.Description == entity.Description
             && ar.Title == entity.Title
-            && ar.TechnicalPlaceholdersId == entity.TechnicalPlaceholdersId
             && ar.Price == entity.Price
             && ar.RecordDate == entity.RecordDate
             && ar.RecordEndDate == entity.RecordEndDate
