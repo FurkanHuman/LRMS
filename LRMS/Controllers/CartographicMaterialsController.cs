@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Business.Abstract;
 
 namespace LRMS.Controllers
 {
@@ -7,5 +8,11 @@ namespace LRMS.Controllers
     [ApiController]
     public class CartographicMaterialsController : ControllerBase
     {
+        private readonly ICartographicMaterialService _cartographicMaterialService;
+
+        public CartographicMaterialsController(ICartographicMaterialService cartographicMaterialService)
+        {
+            _cartographicMaterialService = cartographicMaterialService;
+        }
     }
 }
