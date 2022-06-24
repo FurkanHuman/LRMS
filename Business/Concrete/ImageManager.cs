@@ -26,20 +26,22 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
-        public IResult Add(IFormFile file, Image image)
+        public IDataResult<Image> Add(IFormFile file)
         {
             IDataResult<string> fileResult = _fileHelper.AddAsync(file);
 
             IResult result = BusinessRules.Run(ImageCheck(file), fileResult);
             if (result != null)
-                return result;
+                return new ErrorDataResult<Image>(result.Message);
 
-            image.ImagePath = fileResult.Data;
-            image.Date = DateTime.Now;
-            image.IsDeleted = false;
-
+            Image image = new()
+            {
+                ImagePath = fileResult.Data,
+                Date = DateTime.Now,
+                IsDeleted = false
+            };
             _imageDal.Add(image);
-            return new SuccessResult(ImageConstants.AddSuccess);
+            return new ErrorDataResult<Image>(image, ImageConstants.AddSuccess);
         }
 
         public IResult ShadowDelete(Guid id)
@@ -68,14 +70,19 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
-        public IResult Update(IFormFile file, Image image)
+        public IDataResult<Image> Update(IFormFile file, Image image)
         {
             string oldPath = GetById(image.Id).Data.ImagePath;
-            image.ImagePath = _fileHelper.UpdateAsync(oldPath, file).Data;
+            IDataResult<string> fileHelper = _fileHelper.UpdateAsync(oldPath, file);
+            if (!fileHelper.Success)
+                return new ErrorDataResult<Image>(fileHelper.Message);
+
+            image.ImagePath = fileHelper.Data;
             image.Date = DateTime.Now;
             image.IsDeleted = false;
+
             _imageDal.Update(image);
-            return new SuccessResult(ImageConstants.UpdateSuccess);
+            return new SuccessDataResult<Image>(image, ImageConstants.UpdateSuccess);
         }
 
         public IDataResult<Image> GetById(Guid id)

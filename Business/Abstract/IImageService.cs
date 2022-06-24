@@ -7,10 +7,10 @@ namespace Business.Abstract
 {
     public interface IImageService
     {
-        IResult Add(IFormFile file, Image image);
+        IDataResult<Image> Add(IFormFile file);
         IResult Delete(Guid id);
         IResult ShadowDelete(Guid id);
-        IResult Update(IFormFile file, Image image);
+        IDataResult<Image> Update(IFormFile file, Image image);
         IDataResult<Image> GetById(Guid id);
         IDataResult<List<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null);
         IDataResult<List<Image>> GetAllBySecrets();
