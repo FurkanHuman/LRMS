@@ -293,7 +293,7 @@ namespace Business.Concrete
         {
             IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
-                return new ErrorDataResult<List<Book>>(BookConstants.DataNotGet);
+                return new ErrorDataResult<List<Book>>(categories.Message);
 
             List<Book> books = _bookDal.GetAll(b => b.Categories.Any(c => categoriesId.Contains(c.Id)) && !b.IsDeleted).ToList();
             return books == null
