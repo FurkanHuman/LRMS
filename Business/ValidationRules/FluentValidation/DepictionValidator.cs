@@ -1,6 +1,6 @@
 ﻿using Business.ValidationRules.FluentValidation.Base;
 using Entities.Concrete;
-using System;
+using Business.Constants;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +10,9 @@ namespace Business.ValidationRules.FluentValidation
 {
     public class DepictionValidator:MaterialBaseValidator<Depiction>
     {
+        public DepictionValidator()
+        {
+            RuleFor(d => d.Image).NotEmpty().NotNull().WithMessage(DepictionConstants.ImageIdRequired);
+        }
     }
 }
