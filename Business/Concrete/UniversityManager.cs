@@ -76,6 +76,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
         }
 
+        public IDataResult<List<University>> GetByIds(Guid[] ids)
+        {
+            List<University> universities = _universityDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted).ToList();
+
+            return universities == null
+                ? new ErrorDataResult<List<University>>(UniversityConstants.DataNotGet)
+                : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
+        }
+
         public IDataResult<University> GetByAddressId(Guid id)
         {
             IDataResult<Address> address = _addressService.GetById(id);

@@ -166,9 +166,20 @@ namespace Business.Concrete
                 : new ErrorDataResult<Depiction>(DepictionConstants.NotMatch);
         }
 
+        public IDataResult<List<Depiction>> GetByIds(Guid[] ids)
+        {
+            List<Depiction> titles = _depictionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
+            return titles != null
+                ? new SuccessDataResult<List<Depiction>>(titles, DepictionConstants.DataGet)
+                : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
+        }
+
         public IDataResult<Depiction> GetByImages(Guid imageId)
         {
-            throw new NotImplementedException();
+            Depiction result = _depictionDal.Get(d => d.Image.Id == imageId && !d.IsDeleted);
+            return result != null
+                ? new SuccessDataResult<Depiction>(result, DepictionConstants.DataGet)
+                : new ErrorDataResult<Depiction>(DepictionConstants.NotMatch);
         }
 
         public IDataResult<List<Depiction>> GetByNames(string name)

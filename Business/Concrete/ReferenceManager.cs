@@ -98,6 +98,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Reference>(reference, ReferenceConstants.DataGet);
         }
 
+        public IDataResult<List<Reference>> GetByIds(Guid[] ids)
+        {
+            List<Reference> references = _referenceDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
+            return references == null
+                 ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
+                 : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
+        }
+
         public IDataResult<List<Reference>> GetByNames(string name)
         {
             return new ErrorDataResult<List<Reference>>(ReferenceConstants.Disabled);

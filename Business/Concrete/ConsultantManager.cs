@@ -80,10 +80,18 @@ namespace Business.Concrete
                 : new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
         }
 
+        public IDataResult<List<Consultant>> GetByIds(Guid[] ids)
+        {
+            List<Consultant> consultants = _consultantDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+
+            return consultants == null
+                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+        }
+
         public IDataResult<List<Consultant>> GetByNames(string name)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
-
             return consultants == null
                 ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);

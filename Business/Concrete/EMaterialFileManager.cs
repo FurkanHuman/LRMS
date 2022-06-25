@@ -96,6 +96,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<EMaterialFile>(eMaterialFile, EMaterialFileConstants.DataGet);
         }
 
+        public IDataResult<List<EMaterialFile>> GetByIds(Guid[] ids)
+        {
+            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => ids.Contains(e.Id) && !e.IsSecret).ToList();
+
+            return eMaterialFiles == null
+                ? new ErrorDataResult<List<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
+                : new SuccessDataResult<List<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
+        }
+
         public IDataResult<List<EMaterialFile>> GetByNames(string name)
         {
             List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name) && !e.IsSecret).ToList();

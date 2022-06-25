@@ -72,6 +72,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
         }
 
+        public IDataResult<List<Composer>> GetByIds(Guid[] ids)
+        {
+            List<Composer> composers = _composerDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            return composers == null
+               ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
+               : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
+        }
+
         public IDataResult<List<Composer>> GetByNames(string name)
         {
             List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();

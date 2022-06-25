@@ -77,6 +77,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<OtherPeople>(otherPeople, OtherPeopleConstants.DataGet);
         }
 
+        public IDataResult<List<OtherPeople>> GetByIds(Guid[] ids)
+        {
+            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => ids.Contains(op.Id) && !op.IsDeleted).ToList();
+
+            return otherPeoples == null
+                ? new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet)
+                : new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+        }
+
         public IDataResult<List<OtherPeople>> GetByNamePreAttach(string preAttch)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
@@ -84,7 +93,6 @@ namespace Business.Concrete
 
             if (otherPeoples == null)
                 return new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet);
-
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 

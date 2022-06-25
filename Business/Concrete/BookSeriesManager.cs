@@ -85,6 +85,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
         }
 
+        public IDataResult<List<BookSeries>> GetByIds(Guid[] ids)
+        {
+            List<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => ids.Contains(bs.Id) && !bs.IsDeleted).ToList();
+            return bookSeries == null
+                ? new ErrorDataResult<List<BookSeries>>(BookSeriesConstants.NotMatch)
+                : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
+        }
+
         public IDataResult<BookSeries> GetByBookId(Guid bookId)
         {
             IDataResult<Book> book = _bookService.GetById(bookId);

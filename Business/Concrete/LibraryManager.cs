@@ -79,9 +79,17 @@ namespace Business.Concrete
                 : new ErrorDataResult<Library>(LibraryConstants.NotMatch);
         }
 
+        public IDataResult<List<Library>> GetByIds(Guid[] ids)
+        {
+            List<Library> libraries = _libraryDal.GetAll(l => ids.Contains(l.Id) && !l.IsDestroyed).ToList();
+            return libraries == null
+                ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
+                : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
+        }
+
         public IDataResult<List<Library>> GetByNames(string name)
         {
-            List<Library> libraries = _libraryDal.GetAll(l => l.LibraryName.Contains(name, StringComparison.CurrentCultureIgnoreCase) && !l.IsDestroyed).ToList();
+            List<Library> libraries = _libraryDal.GetAll(l => l.LibraryName.Contains(name) && !l.IsDestroyed).ToList();
             return libraries == null
                 ? new ErrorDataResult<List<Library>>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);

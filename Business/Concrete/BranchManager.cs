@@ -73,6 +73,14 @@ namespace Business.Concrete
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
         }
 
+        public IDataResult<List<Branch>> GetByIds(int[] ids)
+        {
+            List<Branch> branchs = _branchDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted).ToList();
+            return branchs != null
+                ? new SuccessDataResult<List<Branch>>(branchs, BranchConstants.DataGet)
+                : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
+        }
+
         public IDataResult<List<Branch>> GetByNames(string name)
         {
             List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted).ToList();

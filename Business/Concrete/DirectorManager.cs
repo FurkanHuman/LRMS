@@ -74,6 +74,14 @@ namespace Business.Concrete
                 new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
         }
 
+        public IDataResult<List<Director>> GetByIds(Guid[] ids)
+        {
+            List<Director> directors = _directorDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted).ToList();
+            return directors == null ?
+                new ErrorDataResult<List<Director>>(DirectorConstants.DataNotGet) :
+                new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
+        }
+
         public IDataResult<List<Director>> GetByNames(string name)
         {
             List<Director> directors = _directorDal.GetAll(i => i.Name.Equals(name.Contains(name)) && !i.IsDeleted).ToList();

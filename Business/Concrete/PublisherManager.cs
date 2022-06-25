@@ -85,6 +85,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.IdFound);
         }
 
+        public IDataResult<List<Publisher>> GetByIds(Guid[] ids)
+        {
+            List<Publisher> publishers = _publisherDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted).ToList();
+            return publishers == null
+                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.NotMatch)
+                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+        }
+
         public IDataResult<List<Publisher>> GetByNames(string name)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name)).ToList();

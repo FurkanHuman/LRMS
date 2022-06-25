@@ -108,6 +108,28 @@ namespace Business.Concrete
                 }, writerResult.Message);
         }
 
+        public IDataResult<List<Writer>> GetByIds(Guid[] ids)
+        {
+            List<Writer> writers = _writerDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            return writers == null
+                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
+        }
+
+        public IDataResult<List<WriterDto>> DtoGetByIds(Guid[] ids)
+        {
+            IDataResult<List<Writer>> writersResult = GetByIds(ids);
+            return !writersResult.Success
+                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
+                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    SurName = w.SurName,
+                    NamePreAttachment = w.NamePreAttachment
+                }).ToList(), writersResult.Message);
+        }
+
         public IDataResult<List<Writer>> GetByNames(string name)
         {
             List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();

@@ -74,6 +74,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
         }
 
+        public IDataResult<List<Researcher>> GetByIds(Guid[] ids)
+        {
+            List<Researcher> researchers = _researcherDal.GetAll(n => ids.Contains(n.Id)).ToList();
+            return researchers == null
+                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+        }
+
         public IDataResult<List<Researcher>> GetByNames(string name)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => n.Name.Contains(name)).ToList();

@@ -25,7 +25,7 @@ namespace Business.Concrete
         private readonly IResearcherService _researcherService;
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
-        public IResult Add(AcademicJournal entity) // Todo:
+        public IResult Add(AcademicJournal entity) // Todo: control
         {
             IResult result = BusinessRules.Run(CheckIfAcademicJournalExists(entity));
             if (result != null)
@@ -149,7 +149,6 @@ namespace Business.Concrete
             return academicJournals == null
                 ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
-
         }
 
         public IDataResult<AcademicJournal> GetById(Guid id)
@@ -158,6 +157,14 @@ namespace Business.Concrete
             return academicJournal == null
                 ? new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet);
+        }
+
+        public IDataResult<List<AcademicJournal>> GetByIds(Guid[] ids)
+        {
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => ids.Contains(aj.Id) && !aj.IsDeleted).ToList();
+            return academicJournals.Count == 0
+                ? new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.NotMatch)
+                : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
         public IDataResult<List<AcademicJournal>> GetByNames(string name)
@@ -302,7 +309,6 @@ namespace Business.Concrete
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
             byte? sLevel = _academicJournalDal.Get(aj => aj.Id == id && !aj.IsDeleted).SecretLevel;
-
             return sLevel == null
                 ? new ErrorDataResult<byte?>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<byte?>(sLevel, AcademicJournalConstants.DataGet);

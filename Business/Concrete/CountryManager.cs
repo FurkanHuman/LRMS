@@ -73,6 +73,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<Country>(country, CountryConstants.DataGet);
         }
 
+        public IDataResult<List<Country>> GetByIds(int[] ids)
+        {
+            List<Country> countries = _countryDal.GetAll(c => ids.Contains(c.Id)).ToList();
+
+            return countries == null
+                ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
+                : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
+        }
+
         public IDataResult<List<Country>> GetByNames(string name)
         {
             List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name)).ToList();

@@ -73,6 +73,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDirector>(GraphicDirectorConstants.DataGet);
         }
 
+        public IDataResult<List<GraphicDirector>> GetByIds(Guid[] ids)
+        {
+            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            return graphicDirectors == null
+                ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.GraphicDirectorNull)
+                : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
+        }
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
         {
             List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();

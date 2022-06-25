@@ -74,6 +74,14 @@ namespace Business.Concrete
                 : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }
 
+        public IDataResult<List<City>> GetByIds(int[] ids)
+        {
+            List<City> cities = _cityDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            return cities == null
+                 ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)
+                 : new SuccessDataResult<List<City>>(cities, CityConstants.DataGet);
+        }
+
         public IDataResult<List<City>> GetAllByFilter(Expression<Func<City, bool>>? filter = null)
         {
             return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList(), CityConstants.DataGet);

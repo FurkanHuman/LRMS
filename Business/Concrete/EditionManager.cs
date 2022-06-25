@@ -74,6 +74,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
         }
 
+        public IDataResult<List<Edition>> GetByIds(Guid[] ids)
+        {
+            List<Edition> editions = _editionDal.GetAll(e => ids.Contains(e.Id) && !e.IsDeleted).ToList();
+
+            return editions == null
+                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<List<Edition>>(editions, AddressConstants.DataGet);
+        }
+
         public IDataResult<Edition> GetByAdderssId(Guid addressId)
         {
             IDataResult<Address> address = _addressService.GetById(addressId);

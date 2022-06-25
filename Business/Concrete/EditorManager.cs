@@ -68,6 +68,14 @@ namespace Business.Concrete
                 new SuccessDataResult<Editor>(EditorConstants.DataGet);
         }
 
+        public IDataResult<List<Editor>> GetByIds(Guid[] ids)
+        {
+            List<Editor> editors = _editorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            return editors == null
+                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
+        }
+
         public IDataResult<List<Editor>> GetByNames(string name)
         {
             List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name) && !n.IsDeleted).ToList();

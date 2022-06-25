@@ -72,6 +72,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Redaction>(redaction, RedactionConstants.DataGet);
         }
 
+        public IDataResult<List<Redaction>> GetByIds(Guid[] ids)
+        {
+            List<Redaction> redactions = _redactionDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
+            return redactions == null
+                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
+        }
+
         public IDataResult<List<Redaction>> GetByNames(string name)
         {
             List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name) && !r.IsDeleted).ToList();
