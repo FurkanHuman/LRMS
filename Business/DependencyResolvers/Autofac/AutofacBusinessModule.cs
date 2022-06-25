@@ -61,6 +61,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<DirectorManager>().As<IDirectorService>().SingleInstance();
             builder.RegisterType<EfDirectorDal>().As<IDirectorDal>().SingleInstance();
 
+            builder.RegisterType<DissertationManager>().As<IDissertationService>().SingleInstance();
+            builder.RegisterType<EfDissertationDal>().As<IDissertationDal>().SingleInstance();
+
             builder.RegisterType<EditionManager>().As<IEditionService>().SingleInstance();
             builder.RegisterType<EfEditionDal>().As<IEditionDal>().SingleInstance();
 
