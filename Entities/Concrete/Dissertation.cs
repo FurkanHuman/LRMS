@@ -26,12 +26,7 @@ namespace Entities.Concrete
         public int DissertationNumber { get; set; }
 
         [Required]
-        public bool PermissionStatus { get; set; }
-
-        [Required]
         public bool ApprovalStatus { get; set; }
-
-        public bool IsSecret { get; set; }
 
         public IList<University> University { get; set; }
         public IList<Researcher> Researcher { get; set; }
