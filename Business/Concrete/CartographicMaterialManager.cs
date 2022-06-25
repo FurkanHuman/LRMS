@@ -146,6 +146,14 @@ namespace Business.Concrete
                : new ErrorDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
         }
 
+        public IDataResult<List<CartographicMaterial>> GetByIds(Guid[] ids)
+        {
+            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => ids.Contains(cm.Id) && cm.IsDeleted).ToList();
+            return cartographicMaterials == null
+                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+        }
+
         public IDataResult<CartographicMaterial> GetByImageId(Guid imageId)
         {
             IDataResult<Image> image = _imageService.GetById(imageId);

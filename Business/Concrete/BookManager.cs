@@ -85,6 +85,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);
         }
 
+        public IDataResult<List<Book>> GetByIds(Guid[] ids)
+        {
+            List<Book> books = _bookDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted).ToList();
+            return books == null
+                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+        }
+
         public IDataResult<List<Book>> GetAll()
         {
             return new SuccessDataResult<List<Book>>(_bookDal.GetAll(b => !b.IsDeleted).ToList(), BookConstants.DataGet);
@@ -397,5 +405,6 @@ namespace Business.Concrete
                 return new ErrorResult(BookConstants.AlreadyExists);
             return new SuccessResult();
         }
+
     }
 }

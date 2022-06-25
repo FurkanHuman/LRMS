@@ -73,6 +73,15 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDesigner>(graphicDesigner, GraphicDesignerConstants.DataGet);
         }
 
+        public IDataResult<List<GraphicDesigner>> GetByIds(Guid[] ids)
+        {
+            List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+
+            return graphicDesigns == null
+                ? new ErrorDataResult<List<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
+                : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
+        }
+
         public IDataResult<List<GraphicDesigner>> GetByNames(string name)
         {
             List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();

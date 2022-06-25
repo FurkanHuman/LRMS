@@ -73,6 +73,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
+        public IDataResult<List<Communication>> GetByIds(Guid[] ids)
+        {
+            List<Communication> communications = _communicationDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            return communications == null
+                ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)
+                : new SuccessDataResult<List<Communication>>(communications, CommunicationConstants.DataGet);
+        }
+
         public IDataResult<List<Communication>> GetAllByFilter(Expression<Func<Communication, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
@@ -81,7 +89,6 @@ namespace Business.Concrete
         public IDataResult<List<Communication>> GetByNames(string name)
         {
             List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted).ToList();
-
             return communications == null
                 ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<List<Communication>>(communications, CommunicationConstants.DataGet);
@@ -90,7 +97,6 @@ namespace Business.Concrete
         public IDataResult<Communication> GetByEmail(string eMail)
         {
             Communication communication = _communicationDal.Get(c => c.Email == eMail && !c.IsDeleted);
-
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
@@ -99,7 +105,6 @@ namespace Business.Concrete
         public IDataResult<Communication> GetByFaxNumber(string faxNumber)
         {
             Communication communication = _communicationDal.Get(c => c.FaxNumber == faxNumber && !c.IsDeleted);
-
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
@@ -108,7 +113,6 @@ namespace Business.Concrete
         public IDataResult<Communication> GetByPhoneNumber(string phoneNumber)
         {
             Communication communication = _communicationDal.Get(c => c.PhoneNumber == phoneNumber && !c.IsDeleted);
-
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
@@ -117,7 +121,6 @@ namespace Business.Concrete
         public IDataResult<Communication> GetByWebSite(string webSite)
         {
             Communication communication = _communicationDal.Get(c => c.WebSite == webSite && !c.IsDeleted);
-
             return communication == null
                 ? new ErrorDataResult<Communication>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);

@@ -78,6 +78,14 @@ namespace Business.Concrete
                 : new ErrorDataResult<TechnicalNumber>(technicalNumber, TechnicalNumberConstants.DataGet);
         }
 
+        public IDataResult<List<TechnicalNumber>> GetByIds(Guid[] ids)
+        {
+            List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted).ToList();
+            return technicalNumbers == null
+                ? new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.DataNoGet)
+                : new ErrorDataResult<List<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.DataGet);
+        }
+
         public IDataResult<TechnicalNumber> GetByISBN(ulong ISBNNumber)
         {
             TechnicalNumber technicalNumber = _technicalNumberDal.Get(u => u.ISBN == ISBNNumber && !u.IsDeleted);

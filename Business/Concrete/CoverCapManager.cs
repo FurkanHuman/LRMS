@@ -68,6 +68,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
         }
 
+        public IDataResult<List<CoverCap>> GetByIds(byte[] ids)
+        {
+            List<CoverCap> coverCaps = _coverCapDal.GetAll(c => ids.Contains(c.Id)).ToList();
+            return coverCaps == null
+                ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
+                : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
+        }
+
         public IDataResult<List<CoverCap>> GetByNames(string name)
         {
             List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name)).ToList();

@@ -93,6 +93,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Image>(image, ImageConstants.DataGet);
         }
 
+        public IDataResult<List<Image>> GetByIds(Guid[] ids)
+        {
+            List<Image> images = _imageDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted).ToList();
+            return images == null
+                ? new ErrorDataResult<List<Image>>(ImageConstants.IsDeleted)
+                : new SuccessDataResult<List<Image>>(images, ImageConstants.DataGet);
+        }
+
         public IDataResult<List<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null)
         {
             return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet);

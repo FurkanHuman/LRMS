@@ -68,6 +68,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Interpreters>(interpreters, InterpretersConstants.DataGet);
         }
 
+        public IDataResult<List<Interpreters>> GetByIds(Guid[] ids)
+        {
+            List<Interpreters> interpreters = _interpretersDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            return interpreters == null
+                ? new ErrorDataResult<List<Interpreters>>(InterpretersConstants.DataNotGet)
+                : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
+        }
+
         public IDataResult<List<Interpreters>> GetByNames(string name)
         {
             List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();

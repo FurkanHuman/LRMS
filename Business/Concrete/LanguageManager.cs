@@ -67,6 +67,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Language>(language, LanguageConstants.DataGet);
         }
 
+        public IDataResult<List<Language>> GetByIds(int[] ids)
+        {
+            List<Language> languages = _languageDal.GetAll(l => ids.Contains(l.Id) && !l.IsDeleted).ToList();
+            return languages == null
+                ? new ErrorDataResult<List<Language>>(LanguageConstants.DataNotGet)
+                : new SuccessDataResult<List<Language>>(languages, LanguageConstants.DataGet);
+        }
+
         public IDataResult<List<Language>> GetByNames(string name)
         {
             List<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name) && !l.IsDeleted).ToList();

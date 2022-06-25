@@ -71,7 +71,6 @@ namespace Business.Concrete
         public IDataResult<List<Category>> GetByIds(int[] ids)
         {
             List<Category> categorys = _categoryDal.GetAll(Z => ids.Contains(Z.Id)).ToList();
-
             return categorys == null
                 ? new ErrorDataResult<List<Category>>(CategoryConstants.DataNotGet)
                 : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
@@ -80,7 +79,6 @@ namespace Business.Concrete
         public IDataResult<List<Category>> GetByNames(string name)
         {
             List<Category> categorys = _categoryDal.GetAll(Z => Z.Name.Contains(name)).ToList();
-
             return categorys == null
                 ? new ErrorDataResult<List<Category>>(CategoryConstants.DataNotGet)
                 : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
@@ -104,7 +102,6 @@ namespace Business.Concrete
         private IResult CategoryNameChecker(Category category)
         {
             bool res = _categoryDal.GetAll(c => c.Name.Contains(category.Name)).Any();
-
             return res
                 ? new ErrorResult(CategoryConstants.DataNotGet)
                 : new SuccessResult(CategoryConstants.DataGet);

@@ -126,6 +126,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<AudioRecord>(audioRecord, AudioRecordConstants.DataGet);
         }
 
+        public IDataResult<List<AudioRecord>> GetByIds(Guid[] ids)
+        {
+            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ids.Contains(ar.Id) && !ar.IsDeleted).ToList();
+            return audioRecords == null
+                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+        }
+
         public IDataResult<List<AudioRecord>> GetByNames(string name)
         {
             List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Name.Contains(name) && !ar.IsDeleted).ToList();

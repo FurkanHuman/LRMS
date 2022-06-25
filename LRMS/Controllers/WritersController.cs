@@ -73,6 +73,20 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("GetByIds")]
+        public IActionResult GetByIds([FromForm] Guid[] ids)
+        {
+            var result = _writerService.GetByIds(ids);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetByIds")]
+        public IActionResult DtoGetByIds([FromForm] Guid[] ids)
+        {
+            var result = _writerService.DtoGetByIds(ids);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetByNames")]
         public IActionResult GetByNames([FromForm] string name)
         {

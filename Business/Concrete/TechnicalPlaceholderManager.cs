@@ -62,6 +62,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<TechnicalPlaceholder>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
+        public IDataResult<List<TechnicalPlaceholder>> GetByIds(Guid[] ids)
+        {
+            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted).ToList();
+            return technicalPlaceholder == null
+                ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
+                : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+        }
+
         public IDataResult<List<TechnicalPlaceholder>> GetByStockCode(string stockCode)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.StockCode.Contains(stockCode) && !t.IsDeleted).ToList();

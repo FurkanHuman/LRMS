@@ -10,7 +10,7 @@ using Entities.Concrete.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
-{
+{   // todo: return a code
     public class DimensionManager : IDimensionService
     {
         private readonly IDimensionDal _dimensionDal;
@@ -120,6 +120,15 @@ namespace Business.Concrete
             return dimensionGet == null
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
+        }
+
+        public IDataResult<List<Dimension>> GetByIds(Guid[] ids)
+        {
+            List<Dimension> dimension = _dimensionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
+
+            return dimension == null
+                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<List<Dimension>>(dimension, DimensionConstants.DataGet);
         }
 
         public IDataResult<List<Dimension>> GetByX(double xMM)

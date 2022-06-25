@@ -9,6 +9,7 @@ namespace Business.Abstract.Base
         IResult Add(D entity);
         IResult Update(D entity);
         IDataResult<D> DtoGetById(I id);
+        IDataResult<List<D>> DtoGetByIds(I[] ids);
         IDataResult<List<D>> DtoGetByNames(string name);
         IDataResult<List<D>> DtoGetAllBySecrets();
         IDataResult<List<D>> DtoGetAll();

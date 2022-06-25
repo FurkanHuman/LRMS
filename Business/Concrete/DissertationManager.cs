@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 
 namespace Business.Concrete
-{
+{   // todo: write 
     public class DissertationManager : IDissertationService
     {
         private readonly IDissertationDal _dissertationDal;
@@ -102,6 +102,11 @@ namespace Business.Concrete
         }
 
         public IDataResult<Dissertation> GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Dissertation>> GetByIds(Guid[] ids)
         {
             throw new NotImplementedException();
         }

@@ -71,10 +71,17 @@ namespace Business.Concrete
         public IDataResult<Address> GetById(Guid id)
         {
             Address address = _addressDal.Get(a => a.Id == id);
-
             return address == null
                 ? new ErrorDataResult<Address>(AddressConstants.NotMatch)
                 : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
+        }
+
+        public IDataResult<List<Address>> GetByIds(Guid[] ids)
+        {
+            List<Address> addresses = _addressDal.GetAll(a => ids.Contains(a.Id) && !a.IsDeleted).ToList();
+            return addresses == null
+                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
         public IDataResult<List<Address>> GetByCityId(int cityId)
