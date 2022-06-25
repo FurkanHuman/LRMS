@@ -19,7 +19,7 @@ namespace LRMS.Controllers
         [HttpPost("Add")]
         public IActionResult Add(string categoryName)
         {
-            Category category = new() { CategoryName = categoryName };
+            Category category = new() { Name = categoryName };
             var result = _categoryService.Add(category);
             return result.Success ? Ok(result) : BadRequest(result);
         }
@@ -41,7 +41,7 @@ namespace LRMS.Controllers
         [HttpPost("Update")]
         public IActionResult Update(int id, string categoryName)
         {
-            Category category = new() { Id = id, CategoryName = categoryName };
+            Category category = new() { Id = id, Name = categoryName };
             var result = _categoryService.Update(category);
             return result.Success ? Ok(result) : BadRequest(result);
         }

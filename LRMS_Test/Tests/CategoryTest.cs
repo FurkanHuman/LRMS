@@ -13,7 +13,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void AddTest()
         {
-            Category category = new() { CategoryName = "Astronomi" };
+            Category category = new() { Name = "Astronomi" };
 
             var testAdd = _categoryService.Add(category);
 
@@ -43,7 +43,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void UpdateTest()
         {
-            Category category = new() { CategoryName = "Harita", Id = 9 };
+            Category category = new() { Name = "Harita", Id = 9 };
 
             var testUpdate = _categoryService.Update(category);
 
@@ -56,6 +56,16 @@ namespace LRMS_Test.Tests
             int id = 7;
 
             var testGetById = _categoryService.GetById(id);
+
+            Assert.IsTrue(testGetById.Success, "Get By Id Test Success");
+        }
+
+        [TestMethod]
+        public void GetByIds()
+        {
+            int[] ids = {12};
+
+            var testGetById = _categoryService.GetByIds(ids);
 
             Assert.IsTrue(testGetById.Success, "Get By Id Test Success");
         }
