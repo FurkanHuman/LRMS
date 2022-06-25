@@ -19,7 +19,7 @@ namespace LRMS.Controllers
         [HttpPost("Add")]
         public IActionResult Add(IFormFile file, Image image)
         {
-            var result = _imageService.Add(file, image);
+            var result = _imageService.Add(file);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
