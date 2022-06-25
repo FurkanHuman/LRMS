@@ -63,7 +63,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetByIds()
         {
-            int[] ids = {12};
+            int[] ids = { 12 };
 
             var testGetById = _categoryService.GetByIds(ids);
 
