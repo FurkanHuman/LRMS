@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Business.Abstract;
 
 namespace LRMS.Controllers
 {

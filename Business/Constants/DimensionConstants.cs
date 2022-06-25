@@ -10,6 +10,6 @@ namespace Business.Constants
         public const string LengthNull = "Length cannot be length.";
         public const string HeightNull = "Height can be zero. cannot be empty.";
         public const string DimensionAlreadyExists = "Dimension already exists.";
-        public const string NameLengthError= "name length error. Must be between 2 and 25";
+        public const string NameLengthError = "name length error. Must be between 2 and 25";
     }
 }

@@ -1,20 +1,15 @@
 ﻿using Business.Abstract;
-using DataAccess.Abstract;
-using Core.Utilities.Result.Abstract;
-using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Utilities.Result.Concrete;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
+using Core.Utilities.Result.Abstract;
+using Core.Utilities.Result.Concrete;
+using DataAccess.Abstract;
+using Entities.Concrete;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Http;
-using Core.Aspects.Autofac.Validation;
-using Business.ValidationRules.FluentValidation;
-using Core.Utilities.Business;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {

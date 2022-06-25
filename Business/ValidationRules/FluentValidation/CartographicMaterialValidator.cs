@@ -1,6 +1,6 @@
-﻿using Business.ValidationRules.FluentValidation.Base;
+﻿using Business.Constants;
+using Business.ValidationRules.FluentValidation.Base;
 using Entities.Concrete;
-using Business.Constants;
 
 namespace Business.ValidationRules.FluentValidation
 {
@@ -8,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CartographicMaterialValidator()
         {
-            RuleFor(i=>i.ImageId).NotEmpty().NotNull().WithMessage(CartographicMaterialConstants.ImageIdRequired);
+            RuleFor(i => i.ImageId).NotEmpty().NotNull().WithMessage(CartographicMaterialConstants.ImageIdRequired);
             RuleFor(i => i.Date).NotNull().NotEmpty().WithMessage(CartographicMaterialConstants.DateRequared);
         }
     }

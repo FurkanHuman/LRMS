@@ -364,10 +364,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(bs => !bs.IsDeleted).ToList(), BookSeriesConstants.DataGet);
         }
 
-        private IResult CheckBookSeriess(BookSeries  bookSeries)
+        private IResult CheckBookSeriess(BookSeries bookSeries)
         {   // todo: check if book series is already in db
 
-            bool checkBookS = _bookSeriesDal.Get( bs=>
+            bool checkBookS = _bookSeriesDal.Get(bs =>
 
                 bs.Name == bookSeries.Name
              && bs.Title == bookSeries.Title// todo: false usage string equıalty.
