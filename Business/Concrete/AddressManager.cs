@@ -27,11 +27,17 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Add(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.GetById(address.City.Id), _countryService.GetById(address.Country.Id));
+            var city = _cityService.GetById(address.City.Id);
+            var country = _countryService.GetById(address.Country.Id);
+
+            IResult result = BusinessRules.Run(city, country);
             if (result != null)
                 return result;
 
+            address.City = city.Data;
+            address.Country = country.Data;
             address.IsDeleted = false;
+
             _addressDal.Add(address);
             return new SuccessResult(AddressConstants.AddSuccess);
         }
