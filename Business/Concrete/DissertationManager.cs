@@ -103,7 +103,6 @@ namespace Business.Concrete
             return dissertations == null
                 ? new ErrorDataResult<List<Dissertation>>(DissertationConstans.DataNotGet)
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstans.DataGet);
-
         }
 
         public IDataResult<List<Dissertation>> GetByCities(int cityId)

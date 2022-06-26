@@ -80,6 +80,7 @@ namespace Business.Concrete
                 ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.GraphicDirectorNull)
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
+
         public IDataResult<List<GraphicDirector>> GetByNames(string name)
         {
             List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
