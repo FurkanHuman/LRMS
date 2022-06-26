@@ -10,10 +10,8 @@ namespace Entities.Concrete.Infos
 
         public string CityName { get; set; }
 
-        public bool IsDeleted { get; set; }
-
         public int CountryId { get; set; }
 
-        public Country Country { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
