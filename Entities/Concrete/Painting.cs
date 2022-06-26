@@ -16,6 +16,7 @@ namespace Entities.Concrete
         public bool IsDestroyed { get; set; }
 
         public Image Image { get; set; }
+
         public IList<Kit> Kits { get; set; }
     }
 }
