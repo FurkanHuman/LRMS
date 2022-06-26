@@ -67,6 +67,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EditionManager>().As<IEditionService>().SingleInstance();
             builder.RegisterType<EfEditionDal>().As<IEditionDal>().SingleInstance();
 
+            builder.RegisterType<EditorManager>().As<IEditorService>().SingleInstance();
+            builder.RegisterType<EfEditorDal>().As<IEditorDal>().SingleInstance();
+
+            builder.RegisterType<ElectronicsResourceManager>().As<IElectronicsResourceService>().SingleInstance();
+            builder.RegisterType<EfElectronicsResourceDal>().As<IElectronicsResourceDal>().SingleInstance();
+
             builder.RegisterType<EMaterialFileManager>().As<IEMaterialFileService>().SingleInstance();
             builder.RegisterType<EfEMaterialFileDal>().As<IEMaterialFileDal>().SingleInstance();
 
