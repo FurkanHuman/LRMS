@@ -37,10 +37,10 @@ namespace Entities.Concrete.Base
 
         public IList<Category> Categories { get; set; }
 
-        public IList<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
-
         public IList<Dimension>? Dimensions { get; set; }
 
         public IList<EMaterialFile>? EMaterialFiles { get; set; }
+
+        public IList<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
     }
 }
