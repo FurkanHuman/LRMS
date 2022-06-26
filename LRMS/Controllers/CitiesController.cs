@@ -17,9 +17,8 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(string cityName)
+        public IActionResult Add([FromForm] City city)
         {
-            City city = new() { CityName = cityName };
             var result = _cityService.Add(city);
             return result.Success ? Ok(result) : BadRequest(result);
         }
@@ -39,9 +38,8 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(int id, string cityName)
+        public IActionResult Update([FromForm] City city)
         {
-            City city = new() { Id = id, CityName = cityName };
             var result = _cityService.Update(city);
             return result.Success ? Ok(result) : BadRequest(result);
         }
