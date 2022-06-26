@@ -93,14 +93,14 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
+        [HttpGet("GetAllBySecrets")]
         public IActionResult GetAllBySecrets()
         {
             var result = _addressService.GetAllBySecrets();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             var result = _addressService.GetAll();
