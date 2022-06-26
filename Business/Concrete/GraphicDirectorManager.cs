@@ -13,7 +13,6 @@ namespace Business.Concrete
 {
     public class GraphicDirectorManager : IGraphicDirectorService
     {
-
         private readonly IGraphicDirectorDal _graphicDirectorDal;
 
         public GraphicDirectorManager(IGraphicDirectorDal graphicDirectorDal)
@@ -53,6 +52,7 @@ namespace Business.Concrete
             _graphicDirectorDal.Update(graphicDirector);
             return new SuccessResult(GraphicDirectorConstants.DataGet);
         }
+
         public IResult Update(GraphicDirector entity)
         {
             _graphicDirectorDal.Update(entity);
