@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # .editorconfig inogre files
 *.editorconfig
+/DataAccess/Migrations
