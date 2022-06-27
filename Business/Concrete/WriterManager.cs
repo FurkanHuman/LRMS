@@ -27,6 +27,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(WriterNameOrSurnameExist(entity));
             if (result != null)
                 return result;
+
             entity.IsDeleted = false;
             _writerDal.Add(entity);
             return new SuccessResult(WriterConstants.AddSuccess);
