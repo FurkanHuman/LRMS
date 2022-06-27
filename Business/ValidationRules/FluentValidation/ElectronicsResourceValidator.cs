@@ -1,10 +1,6 @@
 ﻿using Business.ValidationRules.FluentValidation.Base;
+using Business.Constants;
 using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.ValidationRules.FluentValidation
 {
@@ -12,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ElectronicsResourceValidator()
         {
-
+            RuleFor(er => er.ResourceUrl).NotEmpty().NotNull().WithMessage(ElectronicsResourceConstants.ResourceUrlNull);
         }
     }
 }
