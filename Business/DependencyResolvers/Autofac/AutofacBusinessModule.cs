@@ -76,6 +76,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EMaterialFileManager>().As<IEMaterialFileService>().SingleInstance();
             builder.RegisterType<EfEMaterialFileDal>().As<IEMaterialFileDal>().SingleInstance();
 
+            builder.RegisterType<EncyclopediaManager>().As<IEncyclopediaService>().SingleInstance();
+            builder.RegisterType<EfEncyclopediaDal>().As<IEncyclopediaDal>().SingleInstance();
+
             builder.RegisterType<GraphicDesignerManager>().As<IGraphicDesignerService>().SingleInstance();
             builder.RegisterType<EfGraphicDesignerDal>().As<IGraphicDesignerDal>().SingleInstance();
 
