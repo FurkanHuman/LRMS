@@ -2,9 +2,9 @@
 
 namespace Business.Constants
 {
-    public class DissertationConstans : BaseConstants
+    public class DissertationConstants : BaseConstants
     {
-        protected DissertationConstans() { }
+        protected DissertationConstants() { }
 
         public const string LanguageNull = "Language is null";
         public const string CityNull = "City is null";

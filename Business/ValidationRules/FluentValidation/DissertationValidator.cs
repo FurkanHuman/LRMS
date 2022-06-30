@@ -8,13 +8,13 @@ namespace Business.ValidationRules.FluentValidation
     {
         public DissertationValidator()
         {
-            RuleFor(d => d.UniversityId).NotNull().NotEmpty().WithMessage(DissertationConstans.UniversityIdRequired);
-            RuleFor(d => d.ResearcherId).NotNull().NotEmpty().WithMessage(DissertationConstans.ResearcherIdRequired);
-            RuleFor(d => d.Language).NotNull().NotEmpty().WithMessage(DissertationConstans.LanguageNull);
-            RuleFor(d => d.City).NotNull().NotEmpty().WithMessage(DissertationConstans.CityNull);
-            RuleFor(d => d.DateTimeYear).NotNull().NotEmpty().WithMessage(DissertationConstans.DateTimeYearNull);
-            RuleFor(d => d.DissertationNumber).NotNull().NotEmpty().WithMessage(DissertationConstans.DissertationNumberNull);
-            RuleFor(d => d.ApprovalStatus).NotNull().NotEmpty().WithMessage(DissertationConstans.ApprovalStatusNull);
+            RuleFor(d => d.UniversityId).NotNull().NotEmpty().WithMessage(DissertationConstants.UniversityIdRequired);
+            RuleFor(d => d.ResearcherId).NotNull().NotEmpty().WithMessage(DissertationConstants.ResearcherIdRequired);
+            RuleFor(d => d.Language).NotNull().NotEmpty().WithMessage(DissertationConstants.LanguageNull);
+            RuleFor(d => d.City).NotNull().NotEmpty().WithMessage(DissertationConstants.CityNull);
+            RuleFor(d => d.DateTimeYear).NotNull().NotEmpty().WithMessage(DissertationConstants.DateTimeYearNull);
+            RuleFor(d => d.DissertationNumber).NotNull().NotEmpty().WithMessage(DissertationConstants.DissertationNumberNull);
+            RuleFor(d => d.ApprovalStatus).NotNull().NotEmpty().WithMessage(DissertationConstants.ApprovalStatusNull);
         }
     }
 }
