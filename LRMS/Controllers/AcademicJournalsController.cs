@@ -170,6 +170,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("GetByTechnicalPlaceholders")]
+        public IActionResult GetByTechnicalPlaceholders(Guid id)
+        {
+            var result = _academicJournalService.GetByTechnicalPlaceholders(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetByTitles")]
         public IActionResult GetByTitles(string title)
         {

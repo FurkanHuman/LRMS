@@ -135,6 +135,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
+        [HttpPost("GetByTechnicalPlaceholders")]
+        public IActionResult GetByTechnicalPlaceholders(Guid id)
+        {
+            var result = _audioRecordService.GetByTechnicalPlaceholders(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetByTitles")]
         public IActionResult GetByTitles([FromForm] string titles)
         {
