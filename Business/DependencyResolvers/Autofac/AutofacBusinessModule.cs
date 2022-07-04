@@ -79,6 +79,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EncyclopediaManager>().As<IEncyclopediaService>().SingleInstance();
             builder.RegisterType<EfEncyclopediaDal>().As<IEncyclopediaDal>().SingleInstance();
 
+            builder.RegisterType<GraphicalImageManager>().As<IGraphicalImageService>().SingleInstance();
+            builder.RegisterType<EfGraphicalImageDal>().As<IGraphicalImageDal>().SingleInstance();
+
             builder.RegisterType<GraphicDesignerManager>().As<IGraphicDesignerService>().SingleInstance();
             builder.RegisterType<EfGraphicDesignerDal>().As<IGraphicDesignerDal>().SingleInstance();
 
