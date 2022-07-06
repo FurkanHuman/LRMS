@@ -250,7 +250,7 @@ namespace Business.Concrete
              && gi.OtherPeople.Id == graphicalImage.OtherPeople.Id
              ) != null;
 
-            if (!graphicalImageControl)
+            if (graphicalImageControl)
                 return new ErrorResult(GraphicalImageConstants.AlreadyExists);
 
             return new SuccessResult();

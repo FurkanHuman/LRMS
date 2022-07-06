@@ -228,7 +228,7 @@ namespace Business.Concrete
         private IResult CheckCartographicMaterial(CartographicMaterial cartographicMaterial)
         {
 
-            bool cotrol = _cartographicMaterialDal.Get(cm =>
+            bool control = _cartographicMaterialDal.Get(cm =>
                 cm.Name == cartographicMaterial.Name
              && cm.Title == cartographicMaterial.Title
              && cm.Description.Contains(cartographicMaterial.Description)
@@ -240,7 +240,7 @@ namespace Business.Concrete
              && cm.Date == cartographicMaterial.Date
              && cm.ImageId == cartographicMaterial.ImageId) != null;
 
-            if (cotrol)
+            if (control)
                 return new ErrorResult(CartographicMaterialConstants.AlreadyExists);
             return new SuccessResult();
         }
