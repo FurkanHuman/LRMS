@@ -58,6 +58,6 @@
         public const string ImageIdRequired = "ImageId is required";
         public const string UniversityIdRequired = "UniversityId is required";
         public const string ResearcherIdRequired = "ResearcherId is required";
-
+        public const string OtherPeopleIdRequired = "OtherPeopleId is required";
     }
 }
