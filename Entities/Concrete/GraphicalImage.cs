@@ -10,6 +10,9 @@ namespace Entities.Concrete
         [Required]
         public DateTime ImageCreatedDate { get; set; }
 
+        [Required]
+        public Image Image { get; set; }
+
         public OtherPeople OtherPeople { get; set; }
 
         public bool IsDestroyed { get; set; }
