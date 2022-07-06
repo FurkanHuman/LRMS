@@ -41,6 +41,8 @@ namespace Entities.Concrete
 
         public Guid? ThesesId { get; set; }
 
+        public bool IsKitBroken { get; set; }
+
         public IList<AcademicJournal>? AcademicJournals { get; set; }
 
         public IList<AudioRecord>? AudioRecords { get; set; }

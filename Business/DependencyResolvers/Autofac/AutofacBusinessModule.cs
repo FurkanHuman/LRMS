@@ -94,6 +94,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<InterpretersManager>().As<IInterpretersService>().SingleInstance();
             builder.RegisterType<EfInterpretersDal>().As<IInterpretersDal>().SingleInstance();
 
+            builder.RegisterType<KitManager>().As<IKitService>().SingleInstance();
+            builder.RegisterType<EfKitDal>().As<IKitDal>().SingleInstance();
+
             builder.RegisterType<LanguageManager>().As<ILanguageService>().SingleInstance();
             builder.RegisterType<EfLanguageDal>().As<ILanguageDal>().SingleInstance();
 
