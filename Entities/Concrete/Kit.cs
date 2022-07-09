@@ -1,10 +1,13 @@
 ﻿using Core.Entities.Abstract;
 using Entities.Concrete.Base;
+using Entities.Concrete.Infos;
 
 namespace Entities.Concrete
 {
     public class Kit : MaterialBase, IEntity
     {
+        public Guid ImageId { get; set; }
+
         public Guid? AcademicJournalsId { get; set; }
 
         public Guid? AudioRecordsId { get; set; }
@@ -42,6 +45,8 @@ namespace Entities.Concrete
         public Guid? ThesesId { get; set; }
 
         public bool IsKitBroken { get; set; }
+
+        public IList<Image> Images { get; set; }
 
         public IList<AcademicJournal>? AcademicJournals { get; set; }
 
