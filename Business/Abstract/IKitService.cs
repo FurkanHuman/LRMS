@@ -7,10 +7,10 @@ namespace Business.Abstract
 {
     public interface IKitService : IMaterialBaseService<Kit>
     {
-        IDataResult<Kit> GetByAcademicJournal(Guid AcademicJournalId);
-        IDataResult<List<Kit>> GetByAcademicJournals(Guid[] AcademicJournalIds);
-        IDataResult<Kit> GetByAudioRecord(Guid AudioRecordId);
-        IDataResult<List<Kit>> GetByAudioRecords(Guid[] AudioRecordIds);
+        IDataResult<Kit> GetByAcademicJournal(Guid academicJournalId);
+        IDataResult<List<Kit>> GetByAcademicJournals(Guid[] academicJournalIds);
+        IDataResult<Kit> GetByAudioRecord(Guid audioRecordId);
+        IDataResult<List<Kit>> GetByAudioRecords(Guid[] audioRecordIds);
         IDataResult<Kit> GetByBook(Guid bookId);
         IDataResult<List<Kit>> GetByBooks(Guid[] bookIds);
         IDataResult<Kit> GetByBookSeries(Guid bookSeriesId);
@@ -27,6 +27,7 @@ namespace Business.Abstract
         IDataResult<List<Kit>> GetByEncyclopedias(Guid[] encyclopediaIds);
         IDataResult<Kit> GetByGraphicalImage(Guid graphicalImageId);
         IDataResult<List<Kit>> GetByGraphicalImages(Guid[] graphicalImageIds);
+        IDataResult<List<Kit>> GetByImage(Guid imageId);
         IDataResult<Kit> GetByMagazine(Guid magazineId);
         IDataResult<List<Kit>> GetByMagazines(Guid[] magazineIds);
         IDataResult<Kit> GetByMicroform(Guid microformId);

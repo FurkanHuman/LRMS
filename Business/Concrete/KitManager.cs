@@ -7,6 +7,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Concrete.Infos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,31 @@ namespace Business.Concrete
     public class KitManager : IKitService // todo: write all other services and turn here
     {
         private readonly IKitDal _kitDal;
+
+        private readonly IAcademicJournalService _academicJournalService;
+        private readonly IAudioRecordService _audioRecordService;
+        private readonly IBookService _bookService;
+        private readonly IBookSeriesService _bookSeriesService;
+        private readonly ICartographicMaterialService _cartographicMaterialService;
+        private readonly ICategoryService _categoryService;
+        private readonly IDepictionService _depictionService;
+        private readonly IDimensionService _dimensionService;
+        private readonly IDissertationService _dissertationService;
+        private readonly IElectronicsResourceService _electronicsResourceService;
+        private readonly IEMaterialFileService _eMaterialFileService;
+        private readonly IEncyclopediaService _encyclopediaService;
+        private readonly IGraphicalImageService _graphicalImageService;
+        private readonly IImageService _imageService;
+        private readonly IMagazineService _magazineService;
+        private readonly IMicroformService _microformService;
+        private readonly IMusicalNoteService _musicalNoteService;
+        private readonly INewsPaperService _newsPaperService;
+        private readonly IObject3DService _object3DService;
+        private readonly IPaintingService _paintingService;
+        private readonly IPosterService _posterService;
+        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IThesisService _thesisService;
+
 
         [ValidationAspect(typeof(KitValidator))]
         public IResult Add(Kit entity)
@@ -80,69 +106,160 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(k => k.IsDeleted).ToList(), KitConstants.DataGet);
         }
 
-        public IDataResult<Kit> GetByAcademicJournal(Guid AcademicJournalId)
+        public IDataResult<Kit> GetByAcademicJournal(Guid academicJournalId)
         {
-            throw new NotImplementedException();
+            IDataResult<AcademicJournal> aJ = _academicJournalService.GetById(academicJournalId);
+            if (!aJ.Success)
+                return new ErrorDataResult<Kit>(aJ.Message);
+
+            Kit kit = _kitDal.Get(k => k.AcademicJournalsId == academicJournalId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByAcademicJournals(Guid[] AcademicJournalIds)
+        public IDataResult<List<Kit>> GetByAcademicJournals(Guid[] academicJournalIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<AcademicJournal>> aJs = _academicJournalService.GetByIds(academicJournalIds);
+            if (!aJs.Success)
+                return new ErrorDataResult<List<Kit>>(aJs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.AcademicJournals == aJs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<Kit> GetByAudioRecord(Guid AudioRecordId)
+        public IDataResult<Kit> GetByAudioRecord(Guid audioRecordId)
         {
-            throw new NotImplementedException();
+            IDataResult<AudioRecord> aR = _audioRecordService.GetById(audioRecordId);
+            if (!aR.Success)
+                return new ErrorDataResult<Kit>(aR.Message);
+
+            Kit kit = _kitDal.Get(k => k.AudioRecordsId == audioRecordId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByAudioRecords(Guid[] AudioRecordIds)
+        public IDataResult<List<Kit>> GetByAudioRecords(Guid[] audioRecordIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<AudioRecord>> aR = _audioRecordService.GetByIds(audioRecordIds);
+            if (!aR.Success)
+                return new ErrorDataResult<List<Kit>>(aR.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.AudioRecords == aR.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByBook(Guid bookId)
         {
-            throw new NotImplementedException();
+            IDataResult<Book> b = _bookService.GetById(bookId);
+            if (!b.Success)
+                return new ErrorDataResult<Kit>(b.Message);
+
+            Kit kit = _kitDal.Get(k => k.BooksId == bookId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByBooks(Guid[] bookIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Book>> bs = _bookService.GetByIds(bookIds);
+            if (!bs.Success)
+                return new ErrorDataResult<List<Kit>>(bs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Books == bs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByBookSeries(Guid bookSeriesId)
         {
-            throw new NotImplementedException();
+            IDataResult<BookSeries> bS = _bookSeriesService.GetById(bookSeriesId);
+            if (!bS.Success)
+                return new ErrorDataResult<Kit>(bS.Message);
+
+            Kit kit = _kitDal.Get(k => k.BookSeriesId == bookSeriesId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByBookSeries(Guid[] bookSeriesIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<BookSeries>> bss = _bookSeriesService.GetByIds(bookSeriesIds);
+            if (!bss.Success)
+                return new ErrorDataResult<List<Kit>>(bss.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.BookSeries == bss.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByCartographicMaterial(Guid cartographicMaterialId)
         {
-            throw new NotImplementedException();
+            IDataResult<CartographicMaterial> cM = _cartographicMaterialService.GetById(cartographicMaterialId);
+            if (!cM.Success)
+                return new ErrorDataResult<Kit>(cM.Message);
+
+            Kit kit = _kitDal.Get(k => k.CartographicMaterialsId == cartographicMaterialId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByCartographicMaterials(Guid[] cartographicMaterialIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<CartographicMaterial>>? cMs = _cartographicMaterialService.GetByIds(cartographicMaterialIds);
+            if (!cMs.Success)
+                return new ErrorDataResult<List<Kit>>(cMs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.CartographicMaterials == cMs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByCategories(int[] categoriesId)
         {
-            throw new NotImplementedException();
+            var c = _categoryService.GetByIds(categoriesId);
+            if (!c.Success)
+                return new ErrorDataResult<List<Kit>>(c.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Categories.Any(c => categoriesId.Contains(c.Id)) && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByDepiction(Guid depictionId)
         {
-            throw new NotImplementedException();
+            IDataResult<Depiction> d = _depictionService.GetById(depictionId);
+            if (!d.Success)
+                return new ErrorDataResult<Kit>(d.Message);
+
+            Kit kit = _kitDal.Get(k => k.DepictionsId == depictionId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByDepictions(Guid[] depictionIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Depiction>> ds = _depictionService.GetByIds(depictionIds);
+            if (!ds.Success)
+                return new ErrorDataResult<List<Kit>>(ds.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Depictions == ds.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByDescriptionFinder(string finderString)
@@ -155,52 +272,122 @@ namespace Business.Concrete
 
         public IDataResult<List<Kit>> GetByDimension(Guid dimensionId)
         {
-            throw new NotImplementedException();
+            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            if (!dimension.Success)
+                return new ErrorDataResult<List<Kit>>(dimension.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.DimensionsId == dimensionId && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByDissertation(Guid dissertationId)
         {
-            throw new NotImplementedException();
+            IDataResult<Dissertation> d = _dissertationService.GetById(dissertationId);
+            if (!d.Success)
+                return new ErrorDataResult<Kit>(d.Message);
+
+            Kit kit = _kitDal.Get(k => k.DissertationsId == dissertationId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByDissertations(Guid[] dissertationIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Dissertation>> ds = _dissertationService.GetByIds(dissertationIds);
+            if (!ds.Success)
+                return new ErrorDataResult<List<Kit>>(ds.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Dissertations == ds.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByElectronicsResource(Guid electronicsResourceId)
         {
-            throw new NotImplementedException();
+            IDataResult<ElectronicsResource> eR = _electronicsResourceService.GetById(electronicsResourceId);
+            if (!eR.Success)
+                return new ErrorDataResult<Kit>(eR.Message);
+
+            Kit kit = _kitDal.Get(k => k.ElectronicsResourcesId == electronicsResourceId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByElectronicsResources(Guid[] electronicsResourceIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<ElectronicsResource>> eRs = _electronicsResourceService.GetByIds(electronicsResourceIds);
+            if (!eRs.Success)
+                return new ErrorDataResult<List<Kit>>(eRs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.ElectronicsResources == eRs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByEMFiles(Guid eMFilesId)
         {
-            throw new NotImplementedException();
+            IDataResult<EMaterialFile> eMF = _eMaterialFileService.GetById(eMFilesId);
+            if (!eMF.Success)
+                return new ErrorDataResult<List<Kit>>(eMF.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.EMaterialFilesId == eMFilesId && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByEncyclopedia(Guid encyclopediaId)
         {
-            throw new NotImplementedException();
+            IDataResult<Encyclopedia> eP = _encyclopediaService.GetById(encyclopediaId);
+            if (!eP.Success)
+                return new ErrorDataResult<Kit>(eP.Message);
+
+            Kit kit = _kitDal.Get(k => k.EncyclopediasId == encyclopediaId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByEncyclopedias(Guid[] encyclopediaIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Encyclopedia>> ePs = _encyclopediaService.GetByIds(encyclopediaIds);
+            if (!ePs.Success)
+                return new ErrorDataResult<List<Kit>>(ePs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Theses == ePs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByGraphicalImage(Guid graphicalImageId)
         {
-            throw new NotImplementedException();
+            IDataResult<GraphicalImage> gI = _graphicalImageService.GetById(graphicalImageId);
+            if (!gI.Success)
+                return new ErrorDataResult<Kit>(gI.Message);
+
+            Kit kit = _kitDal.Get(k => k.GraphicalImagesId == graphicalImageId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByGraphicalImages(Guid[] graphicalImageIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<GraphicalImage>> gIs = _graphicalImageService.GetByIds(graphicalImageIds);
+            if (!gIs.Success)
+                return new ErrorDataResult<List<Kit>>(gIs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.GraphicalImages == gIs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetById(Guid id)
@@ -221,34 +408,88 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
+        public IDataResult<List<Kit>> GetByImage(Guid imageId)
+        {
+            IDataResult<Image> i = _imageService.GetById(imageId);
+            if (!i.Success)
+                return new ErrorDataResult<List<Kit>>(i.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.ImageId == imageId && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+        }
+
         public IDataResult<Kit> GetByMagazine(Guid magazineId)
         {
-            throw new NotImplementedException();
+            IDataResult<Magazine> m = _magazineService.GetById(magazineId);
+            if (!m.Success)
+                return new ErrorDataResult<Kit>(m.Message);
+
+            Kit kit = _kitDal.Get(k => k.MagazinesId == magazineId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByMagazines(Guid[] magazineIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Magazine>> ms = _magazineService.GetByIds(magazineIds);
+            if (!ms.Success)
+                return new ErrorDataResult<List<Kit>>(ms.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Magazines == ms.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByMicroform(Guid microformId)
         {
-            throw new NotImplementedException();
+            IDataResult<Microform> mF = _microformService.GetById(microformId);
+            if (!mF.Success)
+                return new ErrorDataResult<Kit>(mF.Message);
+
+            Kit kit = _kitDal.Get(k => k.MicroformsId == microformId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByMicroforms(Guid[] microformIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Microform>> mFs = _microformService.GetByIds(microformIds);
+            if (!mFs.Success)
+                return new ErrorDataResult<List<Kit>>(mFs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Microforms == mFs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByMusicalNote(Guid musicalNoteId)
         {
-            throw new NotImplementedException();
+            IDataResult<MusicalNote> mN = _musicalNoteService.GetById(musicalNoteId);
+            if (!mN.Success)
+                return new ErrorDataResult<Kit>(mN.Message);
+
+            Kit kit = _kitDal.Get(k => k.MusicalNotesId == musicalNoteId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByMusicalNotes(Guid[] musicalNoteIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<MusicalNote>> mNs = _musicalNoteService.GetByIds(musicalNoteIds);
+            if (!mNs.Success)
+                return new ErrorDataResult<List<Kit>>(mNs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.MusicalNotes == mNs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByNames(string name)
@@ -261,42 +502,98 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByNewsPaper(Guid newsPaperId)
         {
-            throw new NotImplementedException();
+            IDataResult<NewsPaper> nP = _newsPaperService.GetById(newsPaperId);
+            if (!nP.Success)
+                return new ErrorDataResult<Kit>(nP.Message);
+
+            Kit kit = _kitDal.Get(k => k.NewsPapersId == newsPaperId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByNewsPapers(Guid[] newsPaperIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<NewsPaper>> nPs = _newsPaperService.GetByIds(newsPaperIds);
+            if (!nPs.Success)
+                return new ErrorDataResult<List<Kit>>(nPs.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.NewsPapers == nPs.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByObject3D(Guid object3DId)
         {
-            throw new NotImplementedException();
+            IDataResult<Object3D> o3D = _object3DService.GetById(object3DId);
+            if (!o3D.Success)
+                return new ErrorDataResult<Kit>(o3D.Message);
+
+            Kit kit = _kitDal.Get(k => k.Object3DsId == object3DId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByObject3Ds(Guid[] object3DIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Object3D>> o3Ds = _object3DService.GetByIds(object3DIds);
+            if (!o3Ds.Success)
+                return new ErrorDataResult<List<Kit>>(o3Ds.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Object3Ds == o3Ds.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByPainting(Guid paintingId)
         {
-            throw new NotImplementedException();
+            IDataResult<Painting> ps = _paintingService.GetById(paintingId);
+            if (!ps.Success)
+                return new ErrorDataResult<Kit>(ps.Message);
+
+            Kit kit = _kitDal.Get(k => k.PaintingsId == paintingId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByPaintings(Guid[] paintingIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Painting>> ps = _paintingService.GetByIds(paintingIds);
+            if (!ps.Success)
+                return new ErrorDataResult<List<Kit>>(ps.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Paintings == ps.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByPoster(Guid posterId)
         {
-            throw new NotImplementedException();
+            IDataResult<Poster> ps = _posterService.GetById(posterId);
+            if (!ps.Success)
+                return new ErrorDataResult<Kit>(ps.Message);
+
+            Kit kit = _kitDal.Get(k => k.PostersId == posterId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByPosters(Guid[] posterIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Poster>> ps = _posterService.GetByIds(posterIds);
+            if (!ps.Success)
+                return new ErrorDataResult<List<Kit>>(ps.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Posters == ps.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
@@ -312,17 +609,38 @@ namespace Business.Concrete
 
         public IDataResult<List<Kit>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
         {
-            throw new NotImplementedException();
+            IDataResult<TechnicalPlaceholder> placeHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            if (!placeHolder.Success)
+                return new ErrorDataResult<List<Kit>>(placeHolder.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.TechnicalPlaceholdersId == technicalPlaceholderId && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByThesis(Guid thesisId)
         {
-            throw new NotImplementedException();
+            IDataResult<Thesis> t = _thesisService.GetById(thesisId);
+            if (!t.Success)
+                return new ErrorDataResult<Kit>(t.Message);
+
+            Kit kit = _kitDal.Get(k => k.ThesesId == thesisId && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByThesis(Guid[] thesisIds)
         {
-            throw new NotImplementedException();
+            IDataResult<List<Thesis>> tS = _thesisService.GetByIds(thesisIds);
+            if (!tS.Success)
+                return new ErrorDataResult<List<Kit>>(tS.Message);
+
+            List<Kit> kits = _kitDal.GetAll(k => k.Theses == tS.Data && !k.IsDeleted).ToList();
+            return kits == null
+                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<List<Kit>> GetByTitles(string title)

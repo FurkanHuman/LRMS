@@ -1,4 +1,5 @@
-﻿using Business.ValidationRules.FluentValidation.Base;
+﻿using Business.Constants;
+using Business.ValidationRules.FluentValidation.Base;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public KitValidator()
         {
-
+            RuleFor(k => k.IsKitBroken).NotEmpty().NotNull().WithMessage(KitConstants.KitBrokenNull);
         }
     }
 }
