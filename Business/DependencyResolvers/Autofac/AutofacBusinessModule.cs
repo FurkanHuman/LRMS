@@ -118,6 +118,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ResearcherManager>().As<IResearcherService>().SingleInstance();
             builder.RegisterType<EfResearcherDal>().As<IResearcherDal>().SingleInstance();
 
+            builder.RegisterType<StockManager>().As<IStockService>().SingleInstance();
+            builder.RegisterType<EfStockDal>().As<IStockDal>().SingleInstance();
+
             builder.RegisterType<TechnicalNumberManager>().As<ITechnicalNumberService>().SingleInstance();
             builder.RegisterType<EfTechnicalNumberDal>().As<ITechnicalNumberDal>().SingleInstance();
 

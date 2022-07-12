@@ -43,6 +43,7 @@ namespace DataAccess.Contexts
         public DbSet<Redaction> Redactions { get; set; }
         public DbSet<Reference> References { get; set; }
         public DbSet<Researcher> Researchers { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         public DbSet<TechnicalNumber> TechnicalNumbers { get; set; }
         public DbSet<TechnicalPlaceholder> TechnicalPlaceholders { get; set; }
         public DbSet<University> Universities { get; set; }
