@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LRMS.Controllers
@@ -9,5 +8,10 @@ namespace LRMS.Controllers
     public class EncyclopediasController : ControllerBase
     {
         private readonly IEncyclopediaService _encyclopediaService;
+
+        public EncyclopediasController(IEncyclopediaService encyclopediaService)
+        {
+            _encyclopediaService = encyclopediaService;
+        }
     }
 }
