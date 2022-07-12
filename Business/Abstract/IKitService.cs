@@ -1,7 +1,6 @@
 ﻿using Business.Abstract.Base;
 using Core.Utilities.Result.Abstract;
 using Entities.Concrete;
-using Entities.Concrete.Base;
 
 namespace Business.Abstract
 {
