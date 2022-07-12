@@ -19,14 +19,16 @@ namespace Business.Concrete
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IDimensionService _dimensionService;
         private readonly IEMaterialFileService _eMaterialFileService;
+        private readonly IStockService _stockService;
 
-        public AudioRecordManager(IAudioRecordDal audioRecordDal, ICategoryService categoryService, ITechnicalPlaceholderService technicalPlaceholderService, IDimensionService dimensionService, IEMaterialFileService eMaterialFileService)
+        public AudioRecordManager(IAudioRecordDal audioRecordDal, ICategoryService categoryService, ITechnicalPlaceholderService technicalPlaceholderService, IDimensionService dimensionService, IEMaterialFileService eMaterialFileService, IStockService stockService)
         {
             _audioRecordDal = audioRecordDal;
             _categoryService = categoryService;
             _technicalPlaceholderService = technicalPlaceholderService;
             _dimensionService = dimensionService;
             _eMaterialFileService = eMaterialFileService;
+            _stockService = stockService;
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]
@@ -240,6 +242,18 @@ namespace Business.Concrete
         public IDataResult<List<AudioRecord>> GetAll()
         {
             return new SuccessDataResult<List<AudioRecord>>(_audioRecordDal.GetAll(ar => !ar.IsDeleted).ToList(), AudioRecordConstants.DataGet);
+        }
+
+        public IDataResult<AudioRecord> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<AudioRecord>(stock.Message);
+
+            AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Stock == stock.Data && !ar.IsDeleted);
+            return audioRecord == null
+                ? new ErrorDataResult<AudioRecord>(AudioRecordConstants.NotMatch)
+                : new SuccessDataResult<AudioRecord>(audioRecord, AudioRecordConstants.DataGet);
         }
 
         private IResult CheckIfAudioRecordExists(AudioRecord entity)

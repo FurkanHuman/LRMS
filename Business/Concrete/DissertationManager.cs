@@ -25,6 +25,7 @@ namespace Business.Concrete
         private readonly ILanguageService _languageService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IUniversityService _universityService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(DissertationValidator))]
         public IResult Add(Dissertation entity)
@@ -272,6 +273,18 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_dissertationDal.Get(d => d.Id == id && !d.IsDeleted).State, DissertationConstants.DataGet);
+        }
+
+        public IDataResult<Dissertation> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<Dissertation>(stock.Message);
+
+            Dissertation dissertation = _dissertationDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
+            return dissertation == null
+                ? new ErrorDataResult<Dissertation>(DissertationConstants.NotMatch)
+                : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
         }
 
         private IResult DissertationControl(Dissertation dissertation)

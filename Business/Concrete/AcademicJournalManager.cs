@@ -23,6 +23,7 @@ namespace Business.Concrete
         private readonly IEditorService _editorService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IResearcherService _researcherService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
         public IResult Add(AcademicJournal entity) // Todo: control
@@ -280,11 +281,11 @@ namespace Business.Concrete
 
         public IDataResult<List<AcademicJournal>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> TechnicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
-            if (!TechnicalPlaceholder.Success)
-                return new ErrorDataResult<List<AcademicJournal>>(TechnicalPlaceholder.Message);
+            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            if (!technicalPlaceholder.Success)
+                return new ErrorDataResult<List<AcademicJournal>>(technicalPlaceholder.Message);
 
-            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.TechnicalPlaceholders == TechnicalPlaceholder.Data && !aj.IsDeleted).ToList();
+            List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.TechnicalPlaceholders == technicalPlaceholder.Data && !aj.IsDeleted).ToList();
             return academicJournals != null
                 ? new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet)
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
@@ -332,6 +333,18 @@ namespace Business.Concrete
         public IDataResult<List<AcademicJournal>> GetAll()
         {
             return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => !aj.IsDeleted).ToList(), AcademicJournalConstants.DataGet);
+        }
+
+        public IDataResult<AcademicJournal> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<AcademicJournal>(stock.Message);
+
+            AcademicJournal academicJournals = _academicJournalDal.Get(aj => aj.Stock == stock.Data && !aj.IsDeleted);            
+            return academicJournals != null
+                ? new SuccessDataResult<AcademicJournal>(academicJournals, AcademicJournalConstants.DataGet)
+                : new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet);
         }
 
         private IResult CheckIfAcademicJournalExists(AcademicJournal academicJournal)

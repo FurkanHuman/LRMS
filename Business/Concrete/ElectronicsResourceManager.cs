@@ -20,6 +20,7 @@ namespace Business.Concrete
         private readonly IDimensionService _dimensionService;
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(ElectronicsResourceValidator))]
         public IResult Add(ElectronicsResource electronicsResource)
@@ -200,6 +201,18 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_electronicsResourceDal.Get(er => er.Id == id && !er.IsDeleted).State, ElectronicsResourceConstants.DataGet);
+        }
+
+        public IDataResult<ElectronicsResource> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<ElectronicsResource>(stock.Message);
+
+            ElectronicsResource eResource = _electronicsResourceDal.Get(er => er.Stock == stock.Data && !er.IsDeleted);
+            return eResource == null
+                ? new ErrorDataResult<ElectronicsResource>(ElectronicsResourceConstants.NotMatch)
+                : new SuccessDataResult<ElectronicsResource>(eResource, ElectronicsResourceConstants.DataGet);
         }
 
         private IResult ElectronicsResourceControl(ElectronicsResource electronicsResource)

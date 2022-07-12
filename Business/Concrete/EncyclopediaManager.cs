@@ -28,6 +28,7 @@ namespace Business.Concrete
         private readonly ITechnicalNumberService _technicalNumberService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IWriterService _writerService;
+        private readonly IStockService _stockService;
 
         public IResult Add(Encyclopedia entity)
         {
@@ -363,6 +364,18 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_encyclopediaDal.Get(ep => ep.Id == id && !ep.IsDeleted).State, EncyclopediaConstants.DataGet);
+        }
+
+        public IDataResult<Encyclopedia> GetByStock(Guid stockId)
+        {
+            var stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<Encyclopedia>(stock.Message);
+
+            Encyclopedia encyclopedia = _encyclopediaDal.Get(e => e.Stock == stock.Data && !e.IsDeleted);
+            return encyclopedia == null
+                ? new ErrorDataResult<Encyclopedia>(EncyclopediaConstants.NotMatch)
+                : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);
         }
 
         private IResult EncyclopediaControl(Encyclopedia encyclopedia)

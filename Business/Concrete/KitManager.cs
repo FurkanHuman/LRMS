@@ -39,6 +39,7 @@ namespace Business.Concrete
         private readonly IPosterService _posterService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
         private readonly IThesisService _thesisService;
+        private readonly IStockService _stockService;
 
 
         [ValidationAspect(typeof(KitValidator))]
@@ -657,6 +658,18 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_kitDal.Get(k => k.Id == id && !k.IsDeleted).State, KitConstants.DataGet);
+        }
+
+        public IDataResult<Kit> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<Kit>(stock.Message);
+
+            Kit kit = _kitDal.Get(k => k.Stock == stock.Data && !k.IsDeleted);
+            return kit == null
+                ? new ErrorDataResult<Kit>(KitConstants.NotMatch)
+                : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
         private IResult KitControl(Kit kit)

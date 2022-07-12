@@ -31,6 +31,7 @@ namespace Business.Concrete
         private readonly IInterpretersService _interpreterService;
         private readonly IRedactionService _redactionService;
         private readonly ITechnicalNumberService _technicalNumberService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(BookSeriesValidator))]
         public IResult Add(BookSeries entity) // Todo: add fix later
@@ -370,6 +371,18 @@ namespace Business.Concrete
         public IDataResult<List<BookSeries>> GetAll()
         {
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(bs => !bs.IsDeleted).ToList(), BookSeriesConstants.DataGet);
+        }
+
+        public IDataResult<BookSeries> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<BookSeries>(stock.Message);
+
+            BookSeries audioRecord = _bookSeriesDal.Get(ar => ar.Stock == stock.Data && !ar.IsDeleted);
+            return audioRecord == null
+                ? new ErrorDataResult<BookSeries>(BookSeriesConstants.NotMatch)
+                : new SuccessDataResult<BookSeries>(audioRecord, BookSeriesConstants.DataGet);
         }
 
         private IResult CheckBookSeriess(BookSeries bookSeries)

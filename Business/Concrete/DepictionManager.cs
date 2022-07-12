@@ -22,6 +22,7 @@ namespace Business.Concrete
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly IImageService _imageService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(DepictionValidator))]
         public IResult Add(Depiction entity)
@@ -234,10 +235,22 @@ namespace Business.Concrete
             return new SuccessDataResult<byte>(_depictionDal.Get(d => d.Id == id && !d.IsDeleted).State, DepictionConstants.DataGet);
         }
 
+        public IDataResult<Depiction> GetByStock(Guid stockId)
+        {
+                IDataResult<Stock> stock = _stockService.GetById(stockId);
+                if (!stock.Success)
+                    return new ErrorDataResult<Depiction>(stock.Message);
+
+                Depiction depiction =_depictionDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
+                return depiction == null
+                    ? new ErrorDataResult<Depiction>(DepictionConstants.NotMatch)
+                    : new SuccessDataResult<Depiction>(depiction, DepictionConstants.DataGet);
+          
+        }
+
         private IResult DepictionControl(Depiction depiction)
         {
             bool control = _depictionDal.Get(d =>
-
 
                 d.Name == depiction.Name
              && d.Title == depiction.Title

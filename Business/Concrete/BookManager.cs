@@ -31,6 +31,7 @@ namespace Business.Concrete
         private readonly IRedactionService _redactionService;
         private readonly ITechnicalNumberService _technicalNumberService;
         private readonly IReferenceService _referenceService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(BookValidator))]
         public IResult Add(Book entity) // todo: adding fix later.
@@ -377,6 +378,18 @@ namespace Business.Concrete
             return books == null
                 ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
                 : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+        }
+
+        public IDataResult<Book> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<Book>(stock.Message);
+
+            Book book = _bookDal.Get(b => b.Stock == stock.Data && !b.IsDeleted);
+            return book == null
+                ? new ErrorDataResult<Book>(BookConstants.NotMatch)
+                : new SuccessDataResult<Book>(book, BookConstants.DataGet);
         }
 
         private IResult CheckIfBookControl(Book book)

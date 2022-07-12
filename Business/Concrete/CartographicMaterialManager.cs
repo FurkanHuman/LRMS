@@ -20,6 +20,7 @@ namespace Business.Concrete
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly IImageService _imageService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IStockService _stockService;
 
         [ValidationAspect(typeof(CartographicMaterialValidator))]
         public IResult Add(CartographicMaterial entity)
@@ -223,6 +224,18 @@ namespace Business.Concrete
         public IDataResult<byte> GetState(Guid id)
         {
             return new SuccessDataResult<byte>(_cartographicMaterialDal.Get(cm => cm.Id == id && !cm.IsDeleted).State, CartographicMaterialConstants.DataGet);
+        }
+
+        public IDataResult<CartographicMaterial> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<CartographicMaterial>(stock.Message);
+
+           CartographicMaterial cartographicMaterial=_cartographicMaterialDal.Get(cm => cm.Stock == stock.Data && !cm.IsDeleted);
+            return cartographicMaterial == null
+                ? new ErrorDataResult<CartographicMaterial>(CartographicMaterialConstants.NotMatch)
+                : new SuccessDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
         }
 
         private IResult CheckCartographicMaterial(CartographicMaterial cartographicMaterial)

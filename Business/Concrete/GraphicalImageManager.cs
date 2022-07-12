@@ -22,6 +22,7 @@ namespace Business.Concrete
         private readonly IEMaterialFileService _eMaterialFileService;
         private readonly IOtherPeopleService _otherPeopleService;
         private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
+        private readonly IStockService _stockService;
 
 
 
@@ -228,6 +229,19 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<byte>(_graphicalImageDal.Get(gi => gi.Id == id && !gi.IsDeleted).State, GraphicalImageConstants.DataGet);
         }
+
+        public IDataResult<GraphicalImage> GetByStock(Guid stockId)
+        {
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<GraphicalImage>(stock.Message);
+
+            GraphicalImage graphicalImage = _graphicalImageDal.Get(gi => gi.Stock == stock.Data && !gi.IsDeleted);
+            return graphicalImage == null
+                ? new ErrorDataResult<GraphicalImage>(GraphicalImageConstants.NotMatch)
+                : new SuccessDataResult<GraphicalImage>(graphicalImage, GraphicalImageConstants.DataGet);
+        }
+
         private IResult CheckGraphicalImage(GraphicalImage graphicalImage)
         {
             bool graphicalImageControl = _graphicalImageDal.Get(gi =>
