@@ -8,6 +8,7 @@ namespace Business.Abstract.Base
     {
         IDataResult<byte?> GetSecretLevel(Guid id);
         IDataResult<byte> GetState(Guid id);
+        IDataResult<T> GetByStockCode(Guid stockCodeId);
         IDataResult<List<T>> GetByCategories(int[] categoriesId);
         IDataResult<List<T>> GetByDescriptionFinder(string finderString);
         IDataResult<List<T>> GetByDimension(Guid dimensionId);

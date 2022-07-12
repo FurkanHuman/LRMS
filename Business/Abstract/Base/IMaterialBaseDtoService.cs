@@ -6,6 +6,7 @@ namespace Business.Abstract.Base
 {
     public interface IMaterialBaseDtoService<G> : IBaseDtoService<G, Guid> where G : MaterialBaseDto, IDto, new()
     {
+        IDataResult<G> DtoGetByStockCode(Guid stockCodeId);
         IDataResult<List<G>> DtoGetByTitles(string title);
         IDataResult<List<G>> DtoGetByDescriptionFinder(string finderString);
         IDataResult<List<G>> DtoGetByCategories(int[] categoriesId);
