@@ -59,5 +59,6 @@
         public const string UniversityIdRequired = "UniversityId is required";
         public const string ResearcherIdRequired = "ResearcherId is required";
         public const string OtherPeopleIdRequired = "OtherPeopleId is required";
+        public const string PublisherIdRequired = "Publisher Id is Required";
     }
 }
