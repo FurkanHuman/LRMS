@@ -23,6 +23,9 @@ namespace Entities.Concrete.Base
         [Required]
         public Guid TechnicalPlaceholdersId { get; set; }
 
+        [Required]
+        public Guid StockId { get; set; }
+
         public Guid? DimensionsId { get; set; }
 
         public Guid? EMaterialFilesId { get; set; }
@@ -34,6 +37,8 @@ namespace Entities.Concrete.Base
         public byte? SecretLevel { get; set; } // indicates the level of secrecy.
 
         public bool IsDeleted { get; set; }
+
+        public Stock Stock { get; set; }
 
         public IList<Category> Categories { get; set; }
 
