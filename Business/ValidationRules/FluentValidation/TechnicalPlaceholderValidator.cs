@@ -7,10 +7,10 @@ namespace Business.ValidationRules.FluentValidation
     {
         public TechnicalPlaceholderValidator()
         {
-            RuleFor(t => t.RowCode).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.StockNumberEmpty);
-            RuleFor(t => t.SpecialLocation).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.WhereMaterialEmpty);
+            RuleFor(t => t.ColumnCode).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.ColumnCodeEmpty);
+            RuleFor(t => t.RowCode).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.RowCodeNull);
             RuleFor(t => t.Library).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.LibraryEmpty);
-            RuleFor(t => t.RowCode).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.StockNumberNotNull);
+            RuleFor(t => t.SpecialLocation).NotNull().NotEmpty().WithMessage(TechnicalPlaceholderConstants.SpecialLocationEmpty);
         }
     }
 }
