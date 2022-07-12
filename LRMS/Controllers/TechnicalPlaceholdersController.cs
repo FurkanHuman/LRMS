@@ -58,24 +58,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByStockCode")]
-        public IActionResult GetByStockCode(string stockCode)
+        [HttpPost("GetByColumnCode")]
+        public IActionResult GetByColumnCode(string columnCode)
         {
-            var result = _technicalPlaceholderService.GetByStockCode(stockCode);
+            var result = _technicalPlaceholderService.GetByColumnCode(columnCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByStockNumber")]
-        public IActionResult GetByStockNumber(ulong stockNumber)
+        [HttpPost("GetByRowCode")]
+        public IActionResult GetByRowCode(string rowCode)
         {
-            var result = _technicalPlaceholderService.GetByStockNumber(stockNumber);
+            var result = _technicalPlaceholderService.GetByRowCode(rowCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByWhereIsMaterial")]
-        public IActionResult GetByWhereIsMaterial(string whereIsMaterial)
+        [HttpPost("GetBySpecialLocation")]
+        public IActionResult GetBySpecialLocation(string specialLocation)
         {
-            var result = _technicalPlaceholderService.GetByWhereIsMaterial(whereIsMaterial);
+            var result = _technicalPlaceholderService.GetBySpecialLocation(specialLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

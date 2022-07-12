@@ -10,14 +10,14 @@ namespace Entities.Concrete.Infos
 
         public Library Library { get; set; }
 
-        [MaxLength(24)]
-        public string? StockCode { get; set; }
+        [Required, MaxLength(12)]
+        public string ColumnCode { get; set; }
 
-        [Required]
-        public ulong StockNumber { get; set; }
+        [Required, MaxLength(12)]
+        public string RowCode { get; set; }
 
-        [Required]
-        public string WhereIsMaterial { get; set; }
+        [MaxLength(56)]
+        public string? SpecialLocation { get; set; }
 
         public bool IsDeleted { get; set; }
 

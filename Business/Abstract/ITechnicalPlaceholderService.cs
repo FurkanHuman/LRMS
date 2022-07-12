@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface ITechnicalPlaceholderService : IBaseEntityService<TechnicalPlaceholder, Guid>
     {
-        IDataResult<List<TechnicalPlaceholder>> GetByStockCode(string stockCode);
-        IDataResult<List<TechnicalPlaceholder>> GetByStockNumber(ulong stockNumber);
-        IDataResult<List<TechnicalPlaceholder>> GetByWhereIsMaterial(string whereMaterial);
+        IDataResult<List<TechnicalPlaceholder>> GetByColumnCode(string columnCode);
+        IDataResult<List<TechnicalPlaceholder>> GetByRowCode(string rowCode);
+        IDataResult<List<TechnicalPlaceholder>> GetBySpecialLocation(string specialLocation);
     }
 }
