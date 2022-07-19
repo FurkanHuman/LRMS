@@ -9,6 +9,8 @@ namespace Entities.Concrete
         [Required]
         public byte MagazineType { get; set; }
 
+        public uint Volume { get; set; }
+            
         public IList<Kit> Kits { get; set; }
     }
 }
