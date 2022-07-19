@@ -103,6 +103,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<LibraryManager>().As<ILibraryService>().SingleInstance();
             builder.RegisterType<EfLibraryDal>().As<ILibraryDal>().SingleInstance();
 
+            builder.RegisterType<MagazineManager>().As<IMagazineService>().SingleInstance();
+            builder.RegisterType<EfMagazineDal>().As<IMagazineDal>().SingleInstance();
+
             builder.RegisterType<OtherPeopleManager>().As<IOtherPeopleService>().SingleInstance();
             builder.RegisterType<EfOtherPeopleDal>().As<IOtherPeopleDal>().SingleInstance();
 
@@ -138,7 +141,7 @@ namespace Business.DependencyResolvers.Autofac
 
 
 
-            // Bunu en son aç, istemeyen autofac modülerini çalıştıruyor. SORUNUN KAYNAĞI BULUNDU FAKAT FARKLI BİR SORUN ÇIKTI
+            // Bunu en son aç, istemeyen autofac modülerini çalıştırıyor. SORUNUN KAYNAĞI BULUNDU FAKAT FARKLI BİR SORUN ÇIKTI
 
             //  Last to open it, running autofac modules that don't want it.
 
