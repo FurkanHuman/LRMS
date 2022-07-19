@@ -237,15 +237,14 @@ namespace Business.Concrete
 
         public IDataResult<Depiction> GetByStock(Guid stockId)
         {
-                IDataResult<Stock> stock = _stockService.GetById(stockId);
-                if (!stock.Success)
-                    return new ErrorDataResult<Depiction>(stock.Message);
+            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            if (!stock.Success)
+                return new ErrorDataResult<Depiction>(stock.Message);
 
-                Depiction depiction =_depictionDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
-                return depiction == null
-                    ? new ErrorDataResult<Depiction>(DepictionConstants.NotMatch)
-                    : new SuccessDataResult<Depiction>(depiction, DepictionConstants.DataGet);
-          
+            Depiction depiction = _depictionDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
+            return depiction == null
+                ? new ErrorDataResult<Depiction>(DepictionConstants.NotMatch)
+                : new SuccessDataResult<Depiction>(depiction, DepictionConstants.DataGet);
         }
 
         private IResult DepictionControl(Depiction depiction)

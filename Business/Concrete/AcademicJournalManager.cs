@@ -341,7 +341,7 @@ namespace Business.Concrete
             if (!stock.Success)
                 return new ErrorDataResult<AcademicJournal>(stock.Message);
 
-            AcademicJournal academicJournals = _academicJournalDal.Get(aj => aj.Stock == stock.Data && !aj.IsDeleted);            
+            AcademicJournal academicJournals = _academicJournalDal.Get(aj => aj.Stock == stock.Data && !aj.IsDeleted);
             return academicJournals != null
                 ? new SuccessDataResult<AcademicJournal>(academicJournals, AcademicJournalConstants.DataGet)
                 : new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet);

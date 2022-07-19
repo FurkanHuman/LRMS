@@ -232,7 +232,7 @@ namespace Business.Concrete
             if (!stock.Success)
                 return new ErrorDataResult<CartographicMaterial>(stock.Message);
 
-           CartographicMaterial cartographicMaterial=_cartographicMaterialDal.Get(cm => cm.Stock == stock.Data && !cm.IsDeleted);
+            CartographicMaterial cartographicMaterial = _cartographicMaterialDal.Get(cm => cm.Stock == stock.Data && !cm.IsDeleted);
             return cartographicMaterial == null
                 ? new ErrorDataResult<CartographicMaterial>(CartographicMaterialConstants.NotMatch)
                 : new SuccessDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
