@@ -7,7 +7,7 @@ namespace Entities.Concrete
     public class Encyclopedia : BasePaper, IEntity  // Todo: add referece entity but LATER
     {
         [Required]
-        public int SequenceNumber { get; set; }
+        public uint SequenceNumber { get; set; }
 
         public IList<Kit> Kits { get; set; }
     }
