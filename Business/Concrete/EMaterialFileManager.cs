@@ -44,10 +44,11 @@ namespace Business.Concrete
         public IResult Delete(Guid id)
         {
             EMaterialFile eMaterialFile = _eMaterialFileDal.Get(eMF => eMF.Id == id);
+            if (eMaterialFile == null)
+                return new ErrorResult(EMaterialFileConstants.NotMatch);
 
-            return eMaterialFile == null
-                ? new ErrorResult(EMaterialFileConstants.DeleteFailed)
-                : new SuccessResult(EMaterialFileConstants.DeleteSuccess);
+            _eMaterialFileDal.Delete(eMaterialFile);
+            return new ErrorResult(EMaterialFileConstants.EfDeletedSuccsess);
         }
 
         public IResult ShadowDelete(Guid id)
