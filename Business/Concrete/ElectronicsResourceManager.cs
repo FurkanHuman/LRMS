@@ -40,8 +40,7 @@ namespace Business.Concrete
             if (electronicsResource == null)
                 return new SuccessResult(ElectronicsResourceConstants.NotMatch);
 
-            electronicsResource.IsDeleted = true;
-            _electronicsResourceDal.Update(electronicsResource);
+            _electronicsResourceDal.Delete(electronicsResource);
             return new SuccessResult(ElectronicsResourceConstants.EfDeletedSuccsess);
         }
 

@@ -47,7 +47,8 @@ namespace Business.Concrete
             if (language == null)
                 return new SuccessResult(LanguageConstants.DataNotGet);
 
-            _languageDal.Delete(language);
+            language.IsDeleted = true;
+            _languageDal.Update(language);
             return new SuccessResult(LanguageConstants.DeleteSuccess);
         }
 

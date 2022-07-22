@@ -51,7 +51,7 @@ namespace Business.Concrete
         public IResult Update(TechnicalNumber technicalNumber)
         {
             _technicalNumberDal.Update(technicalNumber);
-            return new SuccessResult(TechnicalNumberConstants.AddedSuccess);
+            return new SuccessResult(TechnicalNumberConstants.UpdateSuccess);
         }
 
         public IDataResult<List<TechnicalNumber>> GetAllByBarcode(long barcode)

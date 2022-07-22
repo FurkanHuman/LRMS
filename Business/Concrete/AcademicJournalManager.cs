@@ -65,7 +65,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
             _academicJournalDal.Update(entity);
-            return new SuccessResult(AcademicJournalConstants.AddSuccess);
+            return new SuccessResult(AcademicJournalConstants.UpdateSuccess);
         }
 
         public IDataResult<List<AcademicJournal>> GetAllByAJNumber(ushort aJNumber)

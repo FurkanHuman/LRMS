@@ -51,7 +51,7 @@ namespace Business.Concrete
             if (image == null)
                 return new ErrorResult(ImageConstants.NotMatch);
 
-            image.IsDeleted = false;
+            image.IsDeleted = true;
             _imageDal.Update(image);
             return new SuccessResult(ImageConstants.DataStatusChanged);
         }

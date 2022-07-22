@@ -55,7 +55,7 @@ namespace Business.Concrete
                 return new SuccessResult(LibraryConstants.NotMatch);
 
             library.IsDestroyed = true;
-            _libraryDal.Delete(library);
+            _libraryDal.Update(library);
             return new SuccessResult(LibraryConstants.DeleteSuccess);
         }
 

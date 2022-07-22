@@ -52,7 +52,7 @@ namespace Business.Concrete
                 return new ErrorResult(BookConstants.NotMatch);
 
             _bookDal.Delete(book);
-            return new SuccessResult(BookConstants.EfDeletedSuccsess);
+            return new SuccessResult(BookConstants.DeleteSuccess);
         }
 
         public IResult ShadowDelete(Guid id)

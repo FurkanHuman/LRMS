@@ -28,7 +28,7 @@ namespace Business.Concrete
                 return result;
 
             entity.IsDeleted = false;
-            _researcherDal.Delete(entity);
+            _researcherDal.Add(entity);
             return new SuccessResult(ResearcherConstants.AddSuccess);
         }
 

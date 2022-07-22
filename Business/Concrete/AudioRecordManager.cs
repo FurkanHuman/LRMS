@@ -50,7 +50,7 @@ namespace Business.Concrete
                 return new ErrorResult(AudioRecordConstants.NotMatch);
 
             _audioRecordDal.Delete(audioRecord);
-            return new SuccessResult(AudioRecordConstants.EfDeletedSuccsess);
+            return new SuccessResult(AudioRecordConstants.DeleteSuccess);
         }
 
         public IResult ShadowDelete(Guid id)
@@ -61,7 +61,7 @@ namespace Business.Concrete
 
             audioRecord.IsDeleted = true;
             _audioRecordDal.Update(audioRecord);
-            return new SuccessResult(AudioRecordConstants.DeleteSuccess);
+            return new SuccessResult(AudioRecordConstants.EfDeletedSuccsess);
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]
