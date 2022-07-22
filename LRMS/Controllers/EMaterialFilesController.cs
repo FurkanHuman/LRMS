@@ -51,24 +51,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _eMaterialFileService.GetByNames(name);
+            var result = _eMaterialFileService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<EMaterialFile, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null)
         {
             var result = _eMaterialFileService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _eMaterialFileService.GetAllBySecrets();
+            var result = _eMaterialFileService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

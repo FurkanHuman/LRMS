@@ -6,6 +6,6 @@ namespace Business.Abstract.Base
 {
     public interface IFirstPersonBaseService<T> : IBaseEntityService<T, Guid> where T : FirstPagePersonBase, IEntity, new()
     {
-        IDataResult<List<T>> GetBySurnames(string surname);
+        IDataResult<List<T>> GetAllBySurname(string surname);
     }
 }

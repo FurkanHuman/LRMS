@@ -52,16 +52,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Researcher, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Researcher, bool>>? filter = null)
         {
             var result = _researcherService.GetAllByFilter(filter);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _researcherService.GetAllBySecrets();
+            var result = _researcherService.GetAllBySecret();
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
@@ -71,32 +71,5 @@ namespace LRMS.Controllers
             var result = _researcherService.GetAll();
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

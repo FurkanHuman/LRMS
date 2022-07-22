@@ -72,7 +72,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetByIds(Guid[] ids)
+        public IDataResult<List<Composer>> GetAllByIds(Guid[] ids)
         {
             List<Composer> composers = _composerDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
             return composers == null
@@ -80,7 +80,7 @@ namespace Business.Concrete
                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetByNames(string name)
+        public IDataResult<List<Composer>> GetAllByName(string name)
         {
             List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
             return composers == null
@@ -88,7 +88,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetBySurnames(string surname)
+        public IDataResult<List<Composer>> GetAllBySurname(string surname)
         {
             List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
             return composers == null
@@ -96,7 +96,7 @@ namespace Business.Concrete
                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetNamePreAttachmentLists(string namePreAttachment)
+        public IDataResult<List<Composer>> GetAllByNamePreAttachment(string namePreAttachment)
         {
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment)
             && !c.IsDeleted).ToList(), ComposerConstants.DataGet);
@@ -107,7 +107,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => !c.IsDeleted).ToList(), ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllBySecrets()
+        public IDataResult<List<Composer>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.IsDeleted).ToList(), ComposerConstants.DataGet);
         }

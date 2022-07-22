@@ -51,38 +51,38 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _composerService.GetByNames(name);
+            var result = _composerService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname(string surname)
         {
-            var result = _composerService.GetBySurnames(surname);
+            var result = _composerService.GetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetNamePreAttachmentLists")]
-        public IActionResult GetNamePreAttachmentLists(string namePreAttachment)
+        [HttpPost("GetAllByNamePreAttachment")]
+        public IActionResult GetAllNamePreAttachment(string namePreAttachment)
         {
-            var result = _composerService.GetNamePreAttachmentLists(namePreAttachment);
+            var result = _composerService.GetAllByNamePreAttachment(namePreAttachment);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Composer, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Composer, bool>>? filter = null)
         {
             var result = _composerService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _composerService.GetAllBySecrets();
+            var result = _composerService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

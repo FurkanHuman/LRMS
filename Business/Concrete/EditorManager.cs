@@ -68,7 +68,7 @@ namespace Business.Concrete
                 new SuccessDataResult<Editor>(EditorConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetByIds(Guid[] ids)
+        public IDataResult<List<Editor>> GetAllByIds(Guid[] ids)
         {
             List<Editor> editors = _editorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
             return editors == null
@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetByNames(string name)
+        public IDataResult<List<Editor>> GetAllByName(string name)
         {
             List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name) && !n.IsDeleted).ToList();
             return editors == null
@@ -84,7 +84,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetBySurnames(string surname)
+        public IDataResult<List<Editor>> GetAllBySurname(string surname)
         {
             List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname) && !n.IsDeleted).ToList();
             return editors == null
@@ -102,7 +102,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => !n.IsDeleted).ToList(), EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllBySecrets()
+        public IDataResult<List<Editor>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => n.IsDeleted).ToList(), EditionConstants.DataGet);
         }

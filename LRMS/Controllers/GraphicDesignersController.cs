@@ -51,31 +51,31 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _graphicDesignerService.GetByNames(name);
+            var result = _graphicDesignerService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname(string surname)
         {
-            var result = _graphicDesignerService.GetBySurnames(surname);
+            var result = _graphicDesignerService.GetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<GraphicDesigner, bool>>? filter = null)
+        public IActionResult GetByFilter(Expression<Func<GraphicDesigner, bool>>? filter = null)
         {
             var result = _graphicDesignerService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _graphicDesignerService.GetAllBySecrets();
+            var result = _graphicDesignerService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

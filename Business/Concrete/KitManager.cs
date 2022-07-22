@@ -97,7 +97,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(filter).ToList(), KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllBySecrets()
+        public IDataResult<List<Kit>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(k => k.IsDeleted).ToList(), KitConstants.DataGet);
         }
@@ -114,9 +114,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByAcademicJournals(Guid[] academicJournalIds)
+        public IDataResult<List<Kit>> GetAllByAcademicJournals(Guid[] academicJournalIds)
         {
-            IDataResult<List<AcademicJournal>> aJs = _academicJournalService.GetByIds(academicJournalIds);
+            IDataResult<List<AcademicJournal>> aJs = _academicJournalService.GetAllByIds(academicJournalIds);
             if (!aJs.Success)
                 return new ErrorDataResult<List<Kit>>(aJs.Message);
 
@@ -138,9 +138,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByAudioRecords(Guid[] audioRecordIds)
+        public IDataResult<List<Kit>> GetAllByAudioRecords(Guid[] audioRecordIds)
         {
-            IDataResult<List<AudioRecord>> aR = _audioRecordService.GetByIds(audioRecordIds);
+            IDataResult<List<AudioRecord>> aR = _audioRecordService.GetAllByIds(audioRecordIds);
             if (!aR.Success)
                 return new ErrorDataResult<List<Kit>>(aR.Message);
 
@@ -162,9 +162,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByBooks(Guid[] bookIds)
+        public IDataResult<List<Kit>> GetAllByBooks(Guid[] bookIds)
         {
-            IDataResult<List<Book>> bs = _bookService.GetByIds(bookIds);
+            IDataResult<List<Book>> bs = _bookService.GetAllByIds(bookIds);
             if (!bs.Success)
                 return new ErrorDataResult<List<Kit>>(bs.Message);
 
@@ -186,9 +186,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByBookSeries(Guid[] bookSeriesIds)
+        public IDataResult<List<Kit>> GetAllByBookSeries(Guid[] bookSeriesIds)
         {
-            IDataResult<List<BookSeries>> bss = _bookSeriesService.GetByIds(bookSeriesIds);
+            IDataResult<List<BookSeries>> bss = _bookSeriesService.GetAllByIds(bookSeriesIds);
             if (!bss.Success)
                 return new ErrorDataResult<List<Kit>>(bss.Message);
 
@@ -210,9 +210,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByCartographicMaterials(Guid[] cartographicMaterialIds)
+        public IDataResult<List<Kit>> GetAllByCartographicMaterials(Guid[] cartographicMaterialIds)
         {
-            IDataResult<List<CartographicMaterial>>? cMs = _cartographicMaterialService.GetByIds(cartographicMaterialIds);
+            IDataResult<List<CartographicMaterial>>? cMs = _cartographicMaterialService.GetAllByIds(cartographicMaterialIds);
             if (!cMs.Success)
                 return new ErrorDataResult<List<Kit>>(cMs.Message);
 
@@ -222,9 +222,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<Kit>> GetAllByCategories(int[] categoriesId)
         {
-            var c = _categoryService.GetByIds(categoriesId);
+            var c = _categoryService.GetAllByIds(categoriesId);
             if (!c.Success)
                 return new ErrorDataResult<List<Kit>>(c.Message);
 
@@ -246,9 +246,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByDepictions(Guid[] depictionIds)
+        public IDataResult<List<Kit>> GetAllByDepictions(Guid[] depictionIds)
         {
-            IDataResult<List<Depiction>> ds = _depictionService.GetByIds(depictionIds);
+            IDataResult<List<Depiction>> ds = _depictionService.GetAllByIds(depictionIds);
             if (!ds.Success)
                 return new ErrorDataResult<List<Kit>>(ds.Message);
 
@@ -258,7 +258,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<Kit>> GetAllByDescriptionFinder(string finderString)
         {
             List<Kit> kits = _kitDal.GetAll(k => k.Description.Contains(finderString) && !k.IsDeleted).ToList();
             return kits == null
@@ -266,7 +266,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<Kit>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -290,9 +290,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByDissertations(Guid[] dissertationIds)
+        public IDataResult<List<Kit>> GetAllByDissertations(Guid[] dissertationIds)
         {
-            IDataResult<List<Dissertation>> ds = _dissertationService.GetByIds(dissertationIds);
+            IDataResult<List<Dissertation>> ds = _dissertationService.GetAllByIds(dissertationIds);
             if (!ds.Success)
                 return new ErrorDataResult<List<Kit>>(ds.Message);
 
@@ -314,9 +314,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByElectronicsResources(Guid[] electronicsResourceIds)
+        public IDataResult<List<Kit>> GetAllByElectronicsResources(Guid[] electronicsResourceIds)
         {
-            IDataResult<List<ElectronicsResource>> eRs = _electronicsResourceService.GetByIds(electronicsResourceIds);
+            IDataResult<List<ElectronicsResource>> eRs = _electronicsResourceService.GetAllByIds(electronicsResourceIds);
             if (!eRs.Success)
                 return new ErrorDataResult<List<Kit>>(eRs.Message);
 
@@ -326,13 +326,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<Kit>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMF = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMF = _eMaterialFileService.GetById(eMFileId);
             if (!eMF.Success)
                 return new ErrorDataResult<List<Kit>>(eMF.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.EMaterialFilesId == eMFilesId && !k.IsDeleted).ToList();
+            List<Kit> kits = _kitDal.GetAll(k => k.EMaterialFilesId == eMFileId && !k.IsDeleted).ToList();
             return kits == null
                 ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
@@ -350,9 +350,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByEncyclopedias(Guid[] encyclopediaIds)
+        public IDataResult<List<Kit>> GetAllByEncyclopedias(Guid[] encyclopediaIds)
         {
-            IDataResult<List<Encyclopedia>> ePs = _encyclopediaService.GetByIds(encyclopediaIds);
+            IDataResult<List<Encyclopedia>> ePs = _encyclopediaService.GetAllByIds(encyclopediaIds);
             if (!ePs.Success)
                 return new ErrorDataResult<List<Kit>>(ePs.Message);
 
@@ -374,9 +374,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByGraphicalImages(Guid[] graphicalImageIds)
+        public IDataResult<List<Kit>> GetAllByGraphicalImages(Guid[] graphicalImageIds)
         {
-            IDataResult<List<GraphicalImage>> gIs = _graphicalImageService.GetByIds(graphicalImageIds);
+            IDataResult<List<GraphicalImage>> gIs = _graphicalImageService.GetAllByIds(graphicalImageIds);
             if (!gIs.Success)
                 return new ErrorDataResult<List<Kit>>(gIs.Message);
 
@@ -395,7 +395,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByIds(Guid[] ids)
+        public IDataResult<List<Kit>> GetAllByIds(Guid[] ids)
         {
             List<Kit> kits = _kitDal.GetAll(k => ids.Contains(k.Id)).ToList();
 
@@ -404,7 +404,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByImage(Guid imageId)
+        public IDataResult<List<Kit>> GetAllByImage(Guid imageId)
         {
             IDataResult<Image> i = _imageService.GetById(imageId);
             if (!i.Success)
@@ -428,9 +428,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByMagazines(Guid[] magazineIds)
+        public IDataResult<List<Kit>> GetAllByMagazines(Guid[] magazineIds)
         {
-            IDataResult<List<Magazine>> ms = _magazineService.GetByIds(magazineIds);
+            IDataResult<List<Magazine>> ms = _magazineService.GetAllByIds(magazineIds);
             if (!ms.Success)
                 return new ErrorDataResult<List<Kit>>(ms.Message);
 
@@ -452,9 +452,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByMicroforms(Guid[] microformIds)
+        public IDataResult<List<Kit>> GetAllByMicroforms(Guid[] microformIds)
         {
-            IDataResult<List<Microform>> mFs = _microformService.GetByIds(microformIds);
+            IDataResult<List<Microform>> mFs = _microformService.GetAllByIds(microformIds);
             if (!mFs.Success)
                 return new ErrorDataResult<List<Kit>>(mFs.Message);
 
@@ -476,9 +476,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByMusicalNotes(Guid[] musicalNoteIds)
+        public IDataResult<List<Kit>> GetAllByMusicalNotes(Guid[] musicalNoteIds)
         {
-            IDataResult<List<MusicalNote>> mNs = _musicalNoteService.GetByIds(musicalNoteIds);
+            IDataResult<List<MusicalNote>> mNs = _musicalNoteService.GetAllByIds(musicalNoteIds);
             if (!mNs.Success)
                 return new ErrorDataResult<List<Kit>>(mNs.Message);
 
@@ -488,7 +488,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByNames(string name)
+        public IDataResult<List<Kit>> GetAllByName(string name)
         {
             List<Kit> kits = _kitDal.GetAll(k => k.Name.Contains(name) && !k.IsDeleted).ToList();
             return kits == null
@@ -508,9 +508,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByNewsPapers(Guid[] newsPaperIds)
+        public IDataResult<List<Kit>> GetAllByNewsPapers(Guid[] newsPaperIds)
         {
-            IDataResult<List<NewsPaper>> nPs = _newsPaperService.GetByIds(newsPaperIds);
+            IDataResult<List<NewsPaper>> nPs = _newsPaperService.GetAllByIds(newsPaperIds);
             if (!nPs.Success)
                 return new ErrorDataResult<List<Kit>>(nPs.Message);
 
@@ -532,9 +532,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByObject3Ds(Guid[] object3DIds)
+        public IDataResult<List<Kit>> GetAllByObject3Ds(Guid[] object3DIds)
         {
-            IDataResult<List<Object3D>> o3Ds = _object3DService.GetByIds(object3DIds);
+            IDataResult<List<Object3D>> o3Ds = _object3DService.GetAllByIds(object3DIds);
             if (!o3Ds.Success)
                 return new ErrorDataResult<List<Kit>>(o3Ds.Message);
 
@@ -556,9 +556,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByPaintings(Guid[] paintingIds)
+        public IDataResult<List<Kit>> GetAllByPaintings(Guid[] paintingIds)
         {
-            IDataResult<List<Painting>> ps = _paintingService.GetByIds(paintingIds);
+            IDataResult<List<Painting>> ps = _paintingService.GetAllByIds(paintingIds);
             if (!ps.Success)
                 return new ErrorDataResult<List<Kit>>(ps.Message);
 
@@ -580,9 +580,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByPosters(Guid[] posterIds)
+        public IDataResult<List<Kit>> GetAllByPosters(Guid[] posterIds)
         {
-            IDataResult<List<Poster>> ps = _posterService.GetByIds(posterIds);
+            IDataResult<List<Poster>> ps = _posterService.GetAllByIds(posterIds);
             if (!ps.Success)
                 return new ErrorDataResult<List<Kit>>(ps.Message);
 
@@ -592,7 +592,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<Kit>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<Kit> kits = maxPrice == null
                 ? _kitDal.GetAll(k => k.Price == minPrice && !k.IsDeleted).ToList()
@@ -603,7 +603,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<Kit>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> placeHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!placeHolder.Success)
@@ -627,9 +627,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByThesis(Guid[] thesisIds)
+        public IDataResult<List<Kit>> GetAllByThesis(Guid[] thesisIds)
         {
-            IDataResult<List<Thesis>> tS = _thesisService.GetByIds(thesisIds);
+            IDataResult<List<Thesis>> tS = _thesisService.GetAllByIds(thesisIds);
             if (!tS.Success)
                 return new ErrorDataResult<List<Kit>>(tS.Message);
 
@@ -639,7 +639,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetByTitles(string title)
+        public IDataResult<List<Kit>> GetAllByTitle(string title)
         {
             List<Kit> kits = _kitDal.GetAll(k => k.Title.Contains(title) && !k.IsDeleted).ToList();
             return kits == null

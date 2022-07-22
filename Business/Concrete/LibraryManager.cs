@@ -79,7 +79,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<Library>(LibraryConstants.NotMatch);
         }
 
-        public IDataResult<List<Library>> GetByIds(Guid[] ids)
+        public IDataResult<List<Library>> GetAllByIds(Guid[] ids)
         {
             List<Library> libraries = _libraryDal.GetAll(l => ids.Contains(l.Id) && !l.IsDestroyed).ToList();
             return libraries == null
@@ -87,7 +87,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByNames(string name)
+        public IDataResult<List<Library>> GetAllByName(string name)
         {
             List<Library> libraries = _libraryDal.GetAll(l => l.LibraryName.Contains(name) && !l.IsDestroyed).ToList();
             return libraries == null
@@ -100,7 +100,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(filter).ToList(), LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryTypes(byte libType)
+        public IDataResult<List<Library>> GetAllByLibraryType(byte libType)
         {
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(l => l.LibraryType == libType && !l.IsDestroyed).ToList(), LibraryConstants.DataGet);
         }
@@ -118,7 +118,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCountryId(int countryId)
+        public IDataResult<List<Library>> GetAllByLibraryInCountryId(int countryId)
         {
             IDataResult<Country> country = _countryService.GetById(countryId);
             if (!country.Success)
@@ -131,9 +131,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByAddressNames(string addressName)
+        public IDataResult<List<Library>> GetAllByAddressName(string addressName)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetByNames(addressName);
+            IDataResult<List<Address>> addresses = _addressService.GetAllByName(addressName);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Library>>(addresses.Message);
 
@@ -150,9 +150,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByAddressLines(string addressLine)
+        public IDataResult<List<Library>> GetAllByAddressLine(string addressLine)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetBySearchString(addressLine);
+            IDataResult<List<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Library>>(addresses.Message);
 
@@ -169,9 +169,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCountryNames(string countryName)
+        public IDataResult<List<Library>> GetAllByLibraryInCountryName(string countryName)
         {
-            IDataResult<List<Country>> countyries = _countryService.GetByNames(countryName);
+            IDataResult<List<Country>> countyries = _countryService.GetAllByName(countryName);
             if (!countyries.Success)
                 return new ErrorDataResult<List<Library>>(countyries.Message);
 
@@ -188,9 +188,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCountryCode(string countryCode)
+        public IDataResult<List<Library>> GetAllByLibraryInCountryCode(string countryCode)
         {
-            IDataResult<List<Country>> countyries = _countryService.GetByCountryCodes(countryCode);
+            IDataResult<List<Country>> countyries = _countryService.GetAllByCountryCode(countryCode);
             if (!countyries.Success)
                 return new ErrorDataResult<List<Library>>(countyries.Message);
 
@@ -207,7 +207,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCityId(int cityId)
+        public IDataResult<List<Library>> GetAllByLibraryInCityId(int cityId)
         {
             IDataResult<City> city = _cityService.GetById(cityId);
             if (!city.Success)
@@ -218,9 +218,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInCityNames(string cityName)
+        public IDataResult<List<Library>> GetAllByLibraryInCityName(string cityName)
         {
-            IDataResult<List<City>> cities = _cityService.GetByNames(cityName);
+            IDataResult<List<City>> cities = _cityService.GetAllByName(cityName);
             if (!cities.Success)
                 return new ErrorDataResult<List<Library>>(cities.Message);
 
@@ -237,9 +237,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInPostalCode(string postalCode)
+        public IDataResult<List<Library>> GetAllByLibraryInPostalCode(string postalCode)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetByPostalCode(postalCode);
+            IDataResult<List<Address>> addresses = _addressService.GetAllByPostalCode(postalCode);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Library>>(addresses.Message);
             List<Library> libraries = new();
@@ -255,9 +255,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Library>>(libraries, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByLibraryInGeoLocation(string geoLoc)
+        public IDataResult<List<Library>> GetAllByLibraryInGeoLocation(string geoLoc)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetByGeoLocation(geoLoc);
+            IDataResult<List<Address>> addresses = _addressService.GetAllByGeoLocation(geoLoc);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Library>>(addresses.Message);
             List<Library> libraries = new();
@@ -285,9 +285,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
         }
 
-        public IDataResult<List<Library>> GetByCommunicationNames(string commName)
+        public IDataResult<List<Library>> GetAllByCommunicationName(string commName)
         {
-            IDataResult<List<Communication>> comms = _communicationService.GetByNames(commName);
+            IDataResult<List<Communication>> comms = _communicationService.GetAllByName(commName);
             if (!comms.Success)
                 return new ErrorDataResult<List<Library>>(comms.Message);
             List<Library> libraries = new();
@@ -351,13 +351,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
         }
 
-        public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryTypes()
+        public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryType()
         {
             Dictionary<byte, string> LibTypes = Enum.GetValues(typeof(LibraryConstants.LibraryTypes)).Cast<LibraryConstants.LibraryTypes>().ToDictionary(l => (byte)l, l => l.ToString());
             return new SuccessDataResult<Dictionary<byte, string>>(LibTypes, LibraryConstants.Disabled);
         }
 
-        public IDataResult<List<Library>> GetAllBySecrets()
+        public IDataResult<List<Library>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Library>>(_libraryDal.GetAll(l => l.IsDestroyed).ToList(), LibraryConstants.DataGet);
         }

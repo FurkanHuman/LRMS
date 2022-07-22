@@ -6,7 +6,7 @@ namespace Business.Abstract
 {
     public interface ITechnicalNumberService : IBaseEntityService<TechnicalNumber, Guid>
     {
-        IDataResult<List<TechnicalNumber>> GetByBarcode(long barcode);
+        IDataResult<List<TechnicalNumber>> GetAllByBarcode(long barcode);
         IDataResult<TechnicalNumber> GetByISBN(ulong ISBNNumber);
         IDataResult<TechnicalNumber> GetByCertificateNum(string certificateNum);
     }

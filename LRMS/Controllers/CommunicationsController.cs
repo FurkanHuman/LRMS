@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _communicationService.GetByNames(name);
+            var result = _communicationService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -87,16 +87,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Communication, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Communication, bool>>? filter = null)
         {
             var result = _communicationService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _communicationService.GetAllBySecrets();
+            var result = _communicationService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

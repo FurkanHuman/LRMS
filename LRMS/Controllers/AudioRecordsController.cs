@@ -51,101 +51,101 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByCategories")]
-        public IActionResult GetByCategories([FromForm] int[] id)
+        [HttpPost("GetAllByCategories")]
+        public IActionResult GetAllByCategories([FromForm] int[] id)
         {
-            var result = _audioRecordService.GetByCategories(id);
+            var result = _audioRecordService.GetAllByCategories(id);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByDescriptionFinder")]
-        public IActionResult GetByDescriptionFinder([FromForm] string description)
+        [HttpPost("GetAllByDescriptionFinder")]
+        public IActionResult GetAllByDescriptionFinder([FromForm] string description)
         {
-            var result = _audioRecordService.GetByDescriptionFinder(description);
+            var result = _audioRecordService.GetAllByDescriptionFinder(description);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByDimension")]
-        public IActionResult GetByDimension([FromForm] Guid dimension)
+        [HttpPost("GetAllByDimension")]
+        public IActionResult GetAllByDimension([FromForm] Guid dimension)
         {
-            var result = _audioRecordService.GetByDimension(dimension);
+            var result = _audioRecordService.GetAllByDimension(dimension);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByEMFiles")]
-        public IActionResult GetByEMFiles([FromForm] Guid id)
+        [HttpPost("GetAllByEMFile")]
+        public IActionResult GetAllByEMFile([FromForm] Guid id)
         {
-            var result = _audioRecordService.GetByEMFiles(id);
+            var result = _audioRecordService.GetAllByEMFile(id);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames([FromForm] string names)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName([FromForm] string names)
         {
-            var result = _audioRecordService.GetByNames(names);
+            var result = _audioRecordService.GetAllByName(names);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByOwnerNames")]
-        public IActionResult GetByOwnerNames([FromForm] string names)
+        [HttpPost("GetAllByOwnerName")]
+        public IActionResult GetAllByOwnerName([FromForm] string names)
         {
-            var result = _audioRecordService.GetByOwnerNames(names);
+            var result = _audioRecordService.GetAllByOwnerName(names);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByPrice")]
-        public IActionResult GetByPrice([FromForm] decimal price)
+        [HttpPost("GetAllByPrice")]
+        public IActionResult GetAllByPrice([FromForm] decimal price)
         {
-            var result = _audioRecordService.GetByPrice(price);
+            var result = _audioRecordService.GetAllByPrice(price);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByPriceMinMax")]
-        public IActionResult GetByPriceMinMax([FromForm] decimal min, decimal max)
+        [HttpPost("GetAllByPriceMinMax")]
+        public IActionResult GetAllByPriceMinMax([FromForm] decimal min, decimal max)
         {
-            var result = _audioRecordService.GetByPrice(min, max);
+            var result = _audioRecordService.GetAllByPrice(min, max);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByRecordDate")]
-        public IActionResult GetByRecordDate([FromForm] DateTime recordDate)
+        [HttpPost("GetAllByRecordDate")]
+        public IActionResult GetAllByRecordDate([FromForm] DateTime recordDate)
         {
-            var result = _audioRecordService.GetByRecordDate(recordDate);
+            var result = _audioRecordService.GetAllByRecordDate(recordDate);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByRecordDateMinMax")]
-        public IActionResult GetByRecordDateMinMax([FromForm] DateTime min, DateTime max)
+        [HttpPost("GetAllByRecordDateMinMax")]
+        public IActionResult GetAllByRecordDateMinMax([FromForm] DateTime min, DateTime max)
         {
-            var result = _audioRecordService.GetByRecordDate(min, max);
+            var result = _audioRecordService.GetAllByRecordDate(min, max);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByRecordingLength")]
-        public IActionResult GetByRecordingLength([FromForm] float recordingLength)
+        [HttpPost("GetAllByRecordingLength")]
+        public IActionResult GetAllByRecordingLength([FromForm] float recordingLength)
         {
-            var result = _audioRecordService.GetByRecordingLength(recordingLength);
+            var result = _audioRecordService.GetAllByRecordingLength(recordingLength);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByRecordingLengthMinMax")]
-        public IActionResult GetByRecordingLengthMinMax([FromForm] float min, float max)
+        [HttpPost("GetAllByRecordingLengthMinMax")]
+        public IActionResult GetAllByRecordingLengthMinMax([FromForm] float min, float max)
         {
-            var result = _audioRecordService.GetByRecordingLength(min, max);
+            var result = _audioRecordService.GetAllByRecordingLength(min, max);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByTechnicalPlaceholders")]
-        public IActionResult GetByTechnicalPlaceholders(Guid id)
+        [HttpPost("GetAllByTechnicalPlaceholder")]
+        public IActionResult GetAllByTechnicalPlaceholder(Guid id)
         {
-            var result = _audioRecordService.GetByTechnicalPlaceholders(id);
+            var result = _audioRecordService.GetAllByTechnicalPlaceholder(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByTitles")]
-        public IActionResult GetByTitles([FromForm] string titles)
+        [HttpPost("GetAllByTitle")]
+        public IActionResult GetAllByTitle([FromForm] string title)
         {
-            var result = _audioRecordService.GetByTitles(titles);
+            var result = _audioRecordService.GetAllByTitle(title);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
@@ -170,10 +170,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _audioRecordService.GetAllBySecrets();
+            var result = _audioRecordService.GetAllBySecret();
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 

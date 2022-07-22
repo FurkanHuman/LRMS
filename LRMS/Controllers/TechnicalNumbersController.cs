@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByBarcode")]
-        public IActionResult GetByBarcode(long barcode)
+        [HttpPost("GetAllByBarcode")]
+        public IActionResult GetAllByBarcode(long barcode)
         {
-            var result = _technicalNumberService.GetByBarcode(barcode);
+            var result = _technicalNumberService.GetAllByBarcode(barcode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -73,16 +73,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<TechnicalNumber, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<TechnicalNumber, bool>>? filter = null)
         {
             var result = _technicalNumberService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _technicalNumberService.GetAllBySecrets();
+            var result = _technicalNumberService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

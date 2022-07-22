@@ -78,14 +78,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ElectronicsResource>>(_electronicsResourceDal.GetAll(filter).ToList(), ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllBySecrets()
+        public IDataResult<List<ElectronicsResource>> GetAllBySecret()
         {
             return new SuccessDataResult<List<ElectronicsResource>>(_electronicsResourceDal.GetAll(er => er.IsDeleted).ToList(), ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<ElectronicsResource>> GetAllByCategories(int[] categoriesId)
         {
-            var categories = _categoryService.GetByIds(categoriesId);
+            var categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<List<ElectronicsResource>>(categories.Message);
 
@@ -95,7 +95,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<ElectronicsResource>> GetAllByDescriptionFinder(string finderString)
         {
             List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Description.Contains(finderString) && !er.IsDeleted).ToList();
             return electronicsResources == null
@@ -103,7 +103,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<ElectronicsResource>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -115,7 +115,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<ElectronicsResource>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFile.Success)
@@ -135,7 +135,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<ElectronicsResource>(electronicsResource, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByIds(Guid[] ids)
+        public IDataResult<List<ElectronicsResource>> GetAllByIds(Guid[] ids)
         {
             List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => ids.Contains(er.Id) && !er.IsDeleted).ToList();
             return electronicsResources == null
@@ -143,7 +143,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByNames(string name)
+        public IDataResult<List<ElectronicsResource>> GetAllByName(string name)
         {
             List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Name.Contains(name) && !er.IsDeleted).ToList();
             return electronicsResources == null
@@ -151,7 +151,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<ElectronicsResource>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<ElectronicsResource> electronicsResources = maxPrice == null
                 ? _electronicsResourceDal.GetAll(er => er.Price == minPrice && !er.IsDeleted).ToList()
@@ -162,7 +162,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByResourceUrlFinderString(string finderStr)
+        public IDataResult<List<ElectronicsResource>> GetAllByResourceUrlFinderString(string finderStr)
         {
             List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.ResourceUrl.Contains(finderStr) && !er.IsDeleted).ToList();
             return electronicsResources == null
@@ -170,7 +170,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<ElectronicsResource>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlacHold = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlacHold.Success)
@@ -182,7 +182,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetByTitles(string title)
+        public IDataResult<List<ElectronicsResource>> GetAllByTitle(string title)
         {
             List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Title.Contains(title) && !er.IsDeleted).ToList();
             return electronicsResources == null

@@ -81,7 +81,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Stock>>(_stockDal.GetAll(filter).ToList(), StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllBySecrets()
+        public IDataResult<List<Stock>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Stock>>(_stockDal.GetAll(s => s.IsDeleted).ToList(), StockConstans.DataGet);
         }
@@ -94,7 +94,7 @@ namespace Business.Concrete
                : new SuccessDataResult<Stock>(stock, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetByIds(Guid[] ids)
+        public IDataResult<List<Stock>> GetAllByIds(Guid[] ids)
         {
             List<Stock> stocks = _stockDal.GetAll(s => ids.Contains(s.Id) && !s.IsDeleted).ToList();
             return stocks == null
@@ -102,7 +102,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetByLibraries(Guid libraryId)
+        public IDataResult<List<Stock>> GetAllByLibrary(Guid libraryId)
         {
             IDataResult<Library> lib = _libraryService.GetById(libraryId);
             if (!lib.Success)
@@ -114,12 +114,12 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetByNames(string name)
+        public IDataResult<List<Stock>> GetAllByName(string name)
         {
             return new ErrorDataResult<List<Stock>>(StockConstans.Disabled);
         }
 
-        public IDataResult<List<Stock>> GetByQuantites(uint quantity)
+        public IDataResult<List<Stock>> GetAllByQuanty(uint quantity)
         {
             List<Stock> stocks = _stockDal.GetAll(s => s.Quantity == quantity && !s.IsDeleted).ToList();
             return stocks == null
@@ -127,7 +127,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetByStockCodes(string stockCode)
+        public IDataResult<List<Stock>> GetAllByStockCode(string stockCode)
         {
             List<Stock> stocks = _stockDal.GetAll(s => s.StockCode.Contains(stockCode) && !s.IsDeleted).ToList();
             return stocks == null

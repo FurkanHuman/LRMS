@@ -77,7 +77,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<OtherPeople>(otherPeople, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetByIds(Guid[] ids)
+        public IDataResult<List<OtherPeople>> GetAllByIds(Guid[] ids)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => ids.Contains(op.Id) && !op.IsDeleted).ToList();
 
@@ -86,7 +86,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetByNamePreAttach(string preAttch)
+        public IDataResult<List<OtherPeople>> GetAllByNamePreAttach(string preAttch)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
             && !op.IsDeleted).ToList();
@@ -96,7 +96,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetByNames(string name)
+        public IDataResult<List<OtherPeople>> GetAllByName(string name)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Name.Contains(name)
             && !op.IsDeleted).ToList();
@@ -107,7 +107,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetBySurnames(string surname)
+        public IDataResult<List<OtherPeople>> GetAllBySurname(string surname)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.SurName.Contains(surname) && !op.IsDeleted
             && !op.IsDeleted).ToList();
@@ -118,7 +118,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetByTitles(string title)
+        public IDataResult<List<OtherPeople>> GetAllByTitle(string title)
         {
             List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Title.Contains(title)
             && !op.IsDeleted).ToList();
@@ -129,7 +129,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllBySecrets()
+        public IDataResult<List<OtherPeople>> GetAllBySecret()
         {
             return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(op => op.IsDeleted).ToList(), OtherPeopleConstants.DataGet);
         }

@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetByIds(Guid[] ids)
+        public IDataResult<List<Communication>> GetAllByIds(Guid[] ids)
         {
             List<Communication> communications = _communicationDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
             return communications == null
@@ -86,7 +86,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetByNames(string name)
+        public IDataResult<List<Communication>> GetAllByName(string name)
         {
             List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted).ToList();
             return communications == null
@@ -131,7 +131,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => !c.IsDeleted).ToList(), CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAllBySecrets()
+        public IDataResult<List<Communication>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => c.IsDeleted).ToList(), CommunicationConstants.DataGet);
         }

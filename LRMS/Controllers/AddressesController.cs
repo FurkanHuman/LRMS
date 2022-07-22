@@ -51,52 +51,52 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetByName(string name)
         {
-            var result = _addressService.GetByNames(name);
+            var result = _addressService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPostalCode")]
-        public IActionResult GetByPostalCodes(string postalCode)
+        [HttpPost("GetAllByPostalCode")]
+        public IActionResult GetAllByPostalCode(string postalCode)
         {
-            var result = _addressService.GetByPostalCode(postalCode);
+            var result = _addressService.GetAllByPostalCode(postalCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCityId")]
-        public IActionResult GetByCityId(int cityId)
+        [HttpPost("GetAllByCityId")]
+        public IActionResult GetAllByCityId(int cityId)
         {
-            var result = _addressService.GetByCityId(cityId);
+            var result = _addressService.GetAllByCityId(cityId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByGeoLocation")]
-        public IActionResult GetByGeoLocation(string geoLocation)
+        [HttpPost("GetAllByGeoLocation")]
+        public IActionResult GetAllByGeoLocation(string geoLocation)
         {
-            var result = _addressService.GetByGeoLocation(geoLocation);
+            var result = _addressService.GetAllByGeoLocation(geoLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySearchString")]
-        public IActionResult GetBySearchString(string searchString)
+        [HttpPost("GetAllBySearchString")]
+        public IActionResult GetAllBySearchString(string searchString)
         {
-            var result = _addressService.GetBySearchString(searchString);
+            var result = _addressService.GetAllBySearchString(searchString);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Address, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Address, bool>>? filter = null)
         {
             var result = _addressService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _addressService.GetAllBySecrets();
+            var result = _addressService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

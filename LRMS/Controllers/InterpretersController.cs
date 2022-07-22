@@ -51,24 +51,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _interpreterService.GetByNames(name);
+            var result = _interpreterService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname(string surname)
         {
-            var result = _interpreterService.GetBySurnames(surname);
+            var result = _interpreterService.GetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByWhichToLanguageList")]
-        public IActionResult GetByWhichToLanguageList(string langName)
+        [HttpPost("GetAllByWhichToLanguage")]
+        public IActionResult GetAllByWhichToLanguage(string langName)
         {
-            var result = _interpreterService.GetByWhichToLanguageList(langName);
+            var result = _interpreterService.GetAllByWhichToLanguage(langName);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -79,10 +79,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _interpreterService.GetAllBySecrets();
+            var result = _interpreterService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

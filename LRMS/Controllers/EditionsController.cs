@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _editionService.GetByNames(name);
+            var result = _editionService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -65,10 +65,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCommunicationName")]
-        public IActionResult GetByCommunicationName(string name)
+        [HttpPost("GetAllByCommunicationName")]
+        public IActionResult GetAllByCommunicationName(string name)
         {
-            var result = _editionService.GetByCommunicationName(name);
+            var result = _editionService.GetAllByCommunicationName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -107,101 +107,101 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressName")]
-        public IActionResult GetByAddressName(string name)
+        [HttpPost("GetAllByAddressName")]
+        public IActionResult GetAllByAddressName(string name)
         {
-            var result = _editionService.GetByAddressName(name);
+            var result = _editionService.GetAllByAddressName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressLines")]
-        public IActionResult GetByAddressLine(string line)
+        [HttpPost("GetAllByAddressLine")]
+        public IActionResult GetAllByAddressLine(string line)
         {
-            var result = _editionService.GetByAddressLines(line);
+            var result = _editionService.GetAllByAddressLine(line);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionNumbers")]
-        public IActionResult GetByEditionNumbers(int number)
+        [HttpPost("GetAllByEditionNumber")]
+        public IActionResult GetAllByEditionNumbers(int number)
         {
-            var result = _editionService.GetByEditionNumbers(number);
+            var result = _editionService.GetAllByEditionNumber(number);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInCountryId")]
-        public IActionResult GetByEditionCountryId(int id)
+        [HttpPost("GetAllByEditionInCountryId")]
+        public IActionResult GetAllByEditionCountryId(int id)
         {
-            var result = _editionService.GetByEditionInCountryId(id);
+            var result = _editionService.GetAllByEditionInCountryId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInCountryName")]
-        public IActionResult GetByEditionCountryName(string name)
+        [HttpPost("GetAllByEditionInCountryName")]
+        public IActionResult GetAllByEditionCountryName(string name)
         {
-            var result = _editionService.GetByEditionInCountryName(name);
+            var result = _editionService.GetAllByEditionInCountryName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInCountryCode")]
-        public IActionResult GetByEditionCountryCode(string code)
+        [HttpPost("GetAllByEditionInCountryCode")]
+        public IActionResult GetAllByEditionCountryCode(string code)
         {
-            var result = _editionService.GetByEditionInCountryCode(code);
+            var result = _editionService.GetAllByEditionInCountryCode(code);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInCityId")]
-        public IActionResult GetByEditionCityId(int id)
+        [HttpPost("GetAllByEditionInCityId")]
+        public IActionResult GetAllByEditionCityId(int id)
         {
-            var result = _editionService.GetByEditionInCityId(id);
+            var result = _editionService.GetAllByEditionInCityId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInCityName")]
-        public IActionResult GetByEditionCityName(string name)
+        [HttpPost("GetAllByEditionInCityName")]
+        public IActionResult GetAllByEditionCityName(string name)
         {
-            var result = _editionService.GetByEditionInCityName(name);
+            var result = _editionService.GetAllByEditionInCityName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInPostalCode")]
-        public IActionResult GetByEditionPostalCode(string postalCode)
+        [HttpPost("GetAllByEditionInPostalCode")]
+        public IActionResult GetAllByEditionPostalCode(string postalCode)
         {
-            var result = _editionService.GetByEditionInPostalCode(postalCode);
+            var result = _editionService.GetAllByEditionInPostalCode(postalCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditionInGeoLocation")]
-        public IActionResult GetByEditionGeoLocation(string geoLocation)
+        [HttpPost("GetAllByEditionInGeoLocation")]
+        public IActionResult GetAllByEditionGeoLocation(string geoLocation)
         {
-            var result = _editionService.GetByEditionInGeoLocation(geoLocation);
+            var result = _editionService.GetAllByEditionInGeoLocation(geoLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDateOfPublication")]
-        public IActionResult GetByDateOfPublication(DateTime dateOfPublication)
+        [HttpPost("GetAllByDateOfPublication")]
+        public IActionResult GetAllByDateOfPublication(DateTime dateOfPublication)
         {
-            var result = _editionService.GetByDateOfPublication(dateOfPublication);
+            var result = _editionService.GetAllByDateOfPublication(dateOfPublication);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDateOfPublicationMinMax")]
-        public IActionResult GetByDateOfPublicationMinMax(DateTime min, DateTime max)
+        [HttpPost("GetAllByDateOfPublicationMinMax")]
+        public IActionResult GetAllByDateOfPublicationMinMax(DateTime min, DateTime max)
         {
-            var result = _editionService.GetByDateOfPublicationMinMax(min, max);
+            var result = _editionService.GetAllByDateOfPublicationMinMax(min, max);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Edition, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Edition, bool>>? filter = null)
         {
             var result = _editionService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpPost("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _editionService.GetAllBySecrets();
+            var result = _editionService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

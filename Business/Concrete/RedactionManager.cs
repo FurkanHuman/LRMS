@@ -72,7 +72,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Redaction>(redaction, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetByIds(Guid[] ids)
+        public IDataResult<List<Redaction>> GetAllByIds(Guid[] ids)
         {
             List<Redaction> redactions = _redactionDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
             return redactions == null
@@ -80,7 +80,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetByNames(string name)
+        public IDataResult<List<Redaction>> GetAllByName(string name)
         {
             List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name) && !r.IsDeleted).ToList();
             return redactions == null
@@ -88,7 +88,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetBySurnames(string surname)
+        public IDataResult<List<Redaction>> GetAllBySurname(string surname)
         {
             List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname) && !r.IsDeleted).ToList();
             return redactions == null
@@ -96,7 +96,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAllBySecrets()
+        public IDataResult<List<Redaction>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r => r.IsDeleted).ToList(), RedactionConstants.DataGet);
         }

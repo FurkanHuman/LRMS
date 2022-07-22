@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetByIds(int[] ids)
+        public IDataResult<List<Branch>> GetAllByIds(int[] ids)
         {
             List<Branch> branchs = _branchDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted).ToList();
             return branchs != null
@@ -81,7 +81,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetByNames(string name)
+        public IDataResult<List<Branch>> GetAllByName(string name)
         {
             List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted).ToList();
             return branchs != null
@@ -99,7 +99,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => !b.IsDeleted).ToList(), BranchConstants.DataGet);
         }
 
-        public IDataResult<List<Branch>> GetAllBySecrets()
+        public IDataResult<List<Branch>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => b.IsDeleted).ToList(), BranchConstants.DataGet);
         }

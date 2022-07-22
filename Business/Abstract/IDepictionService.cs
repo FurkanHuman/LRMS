@@ -9,6 +9,6 @@ namespace Business.Abstract
     {
         IResult Add(IFormFile formFile, Depiction depiction);
         IResult Update(IFormFile formFile, Depiction depiction, Guid imageId);
-        IDataResult<Depiction> GetByImages(Guid imageId);
+        IDataResult<Depiction> GetByImage(Guid imageId);
     }
 }

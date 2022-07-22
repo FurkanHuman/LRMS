@@ -68,7 +68,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Interpreters>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetByIds(Guid[] ids)
+        public IDataResult<List<Interpreters>> GetAllByIds(Guid[] ids)
         {
             List<Interpreters> interpreters = _interpretersDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
             return interpreters == null
@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetByNames(string name)
+        public IDataResult<List<Interpreters>> GetAllByName(string name)
         {
             List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
             return interpreters == null
@@ -84,7 +84,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetBySurnames(string surname)
+        public IDataResult<List<Interpreters>> GetAllBySurname(string surname)
         {
             List<Interpreters> interpreters = _interpretersDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
             return interpreters == null
@@ -92,7 +92,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Interpreters>>(interpreters, InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetByWhichToLanguageList(string langName)
+        public IDataResult<List<Interpreters>> GetAllByWhichToLanguage(string langName)
         {
             List<Interpreters> interpreterss = _interpretersDal.GetAll(l => l.WhichToLanguage.Contains(langName, StringComparison.CurrentCultureIgnoreCase) && !l.IsDeleted).ToList();
             return interpreterss == null
@@ -105,7 +105,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(filter).ToList(), InterpretersConstants.DataGet);
         }
 
-        public IDataResult<List<Interpreters>> GetAllBySecrets()
+        public IDataResult<List<Interpreters>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Interpreters>>(_interpretersDal.GetAll(i => i.IsDeleted).ToList(), InterpretersConstants.DataGet);
         }

@@ -85,7 +85,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.IdFound);
         }
 
-        public IDataResult<List<Publisher>> GetByIds(Guid[] ids)
+        public IDataResult<List<Publisher>> GetAllByIds(Guid[] ids)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted).ToList();
             return publishers == null
@@ -93,7 +93,7 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByNames(string name)
+        public IDataResult<List<Publisher>> GetAllByName(string name)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name)).ToList();
             return publishers == null
@@ -113,7 +113,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInCountryId(int countryId)
+        public IDataResult<List<Publisher>> GetAllByPublisherInCountryId(int countryId)
         {   // third way.todo
             IDataResult<Country> country = _countryService.GetById(countryId);
             if (!country.Success)
@@ -125,9 +125,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByAddressName(string addressName)
+        public IDataResult<List<Publisher>> GetAllByAddressName(string addressName)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetByNames(addressName);
+            IDataResult<List<Address>> addresses = _addressService.GetAllByName(addressName);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Publisher>>(addresses.Message);
 
@@ -137,9 +137,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByAddressLines(string addressLine)
+        public IDataResult<List<Publisher>> GetAllByAddressLine(string addressLine)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetBySearchString(addressLine);
+            IDataResult<List<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
             if (!addresses.Success)
                 return new ErrorDataResult<List<Publisher>>(addresses.Message);
 
@@ -149,9 +149,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInCountryName(string countryName)
+        public IDataResult<List<Publisher>> GetAllByPublisherInCountryName(string countryName)
         {
-            IDataResult<List<Country>> countrys = _countryService.GetByNames(countryName);
+            IDataResult<List<Country>> countrys = _countryService.GetAllByName(countryName);
             if (!countrys.Success)
                 return new ErrorDataResult<List<Publisher>>(countrys.Message);
 
@@ -161,9 +161,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInCountryCode(string countryCode)
+        public IDataResult<List<Publisher>> GetAllByPublisherInCountryCode(string countryCode)
         {
-            IDataResult<List<Country>> countrys = _countryService.GetByCountryCodes(countryCode);
+            IDataResult<List<Country>> countrys = _countryService.GetAllByCountryCode(countryCode);
             if (!countrys.Success)
                 return new ErrorDataResult<List<Publisher>>(countrys.Message);
 
@@ -173,7 +173,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInCityId(int cityId)
+        public IDataResult<List<Publisher>> GetAllByPublisherInCityId(int cityId)
         {
             IDataResult<City> city = _cityService.GetById(cityId);
             if (!city.Success)
@@ -185,9 +185,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInCityName(string cityName)
+        public IDataResult<List<Publisher>> GetAllByPublisherInCityName(string cityName)
         {
-            IDataResult<List<City>> cities = _cityService.GetByNames(cityName);
+            IDataResult<List<City>> cities = _cityService.GetAllByName(cityName);
             if (!cities.Success)
                 return new ErrorDataResult<List<Publisher>>(cities.Message);
 
@@ -197,7 +197,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInPostalCode(string postalCode)
+        public IDataResult<List<Publisher>> GetAllByPublisherInPostalCode(string postalCode)
         {   // run??
             List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode) && !p.IsDeleted).ToList();
 
@@ -206,7 +206,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetByPublisherInGeoLocation(string geoLoc)
+        public IDataResult<List<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc) && !p.IsDeleted).ToList();
 
@@ -228,9 +228,9 @@ namespace Business.Concrete
 
         }
 
-        public IDataResult<List<Publisher>> GetByCommunicationName(string commName)
+        public IDataResult<List<Publisher>> GetAllByCommunicationName(string commName)
         {
-            IDataResult<List<Communication>> commNames = _communicationService.GetByNames(commName);
+            IDataResult<List<Communication>> commNames = _communicationService.GetAllByName(commName);
             if (!commNames.Success)
                 return new ErrorDataResult<List<Publisher>>(commNames.Message);
 
@@ -296,7 +296,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByDateOfPublication(DateTime dateOfPublication)
+        public IDataResult<List<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication == dateOfPublication && !p.IsDeleted).ToList();
 
@@ -305,7 +305,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
+        public IDataResult<List<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
         {
             List<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication >= minDate && p.DateOfPublication <= maxDate && !p.IsDeleted).ToList();
 
@@ -324,7 +324,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(p => !p.IsDeleted).ToList(), PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllBySecrets()
+        public IDataResult<List<Publisher>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(p => p.IsDeleted).ToList(), PublisherConstants.DataGet);
         }

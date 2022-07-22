@@ -62,7 +62,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<TechnicalPlaceholder>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetByIds(Guid[] ids)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllByIds(Guid[] ids)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -70,7 +70,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetByColumnCode(string columnCode)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllByColumnCode(string columnCode)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.ColumnCode.Contains(columnCode) && !t.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -78,7 +78,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetByRowCode(string rowCode)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllByRowCode(string rowCode)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.RowCode.Contains(rowCode) && !t.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -86,7 +86,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetBySpecialLocation(string specialLocation)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllBySpecialLocation(string specialLocation)
         {
             List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.SpecialLocation.Contains(specialLocation) && !t.IsDeleted).ToList();
             return technicalPlaceholder == null
@@ -94,7 +94,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetByNames(string name)
+        public IDataResult<List<TechnicalPlaceholder>> GetAllByName(string name)
         {
             return new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.Disabled);
         }
@@ -104,7 +104,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(filter).ToList());
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllBySecrets()
+        public IDataResult<List<TechnicalPlaceholder>> GetAllBySecret()
         {
             return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => ph.IsDeleted).ToList());
         }

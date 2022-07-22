@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IEncyclopediaService : IBasePaperService<Encyclopedia>
     {
-        IDataResult<List<Encyclopedia>> GetBySequenceNumber(int sequenceNumber);
+        IDataResult<List<Encyclopedia>> GetAllBySequenceNumber(uint sequenceNumber);
     }
 }

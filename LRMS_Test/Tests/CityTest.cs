@@ -62,15 +62,15 @@ namespace LRMS_Test.Tests
         }
 
         [TestMethod]
-        public void GetByName()
+        public void GetAllByName()
         {
-            var testGetByName = _cityService.GetByNames("Ed");
+            var testGetByName = _cityService.GetAllByName("Ed");
 
             Assert.IsTrue(testGetByName.Success, " Get By Names Test Success");
         }
 
         [TestMethod]
-        public void GetByFilterLists()
+        public void GetAllByFilter()
         {
             int id = 10;
 
@@ -80,9 +80,9 @@ namespace LRMS_Test.Tests
         }
 
         [TestMethod]
-        public void GetAllBySecrets()
+        public void GetAllBySecret()
         {
-            var testGetAllBySecrets = _cityService.GetAllBySecrets();
+            var testGetAllBySecrets = _cityService.GetAllBySecret();
 
             Assert.IsTrue(testGetAllBySecrets.Success, "Get All By Secrets Test Success");
         }

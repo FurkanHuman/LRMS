@@ -74,7 +74,7 @@ namespace Business.Concrete
                 new SuccessDataResult<Director>(director, DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetByIds(Guid[] ids)
+        public IDataResult<List<Director>> GetAllByIds(Guid[] ids)
         {
             List<Director> directors = _directorDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted).ToList();
             return directors == null ?
@@ -82,7 +82,7 @@ namespace Business.Concrete
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetByNames(string name)
+        public IDataResult<List<Director>> GetAllByName(string name)
         {
             List<Director> directors = _directorDal.GetAll(i => i.Name.Equals(name.Contains(name)) && !i.IsDeleted).ToList();
             return directors == null ?
@@ -90,7 +90,7 @@ namespace Business.Concrete
                 new SuccessDataResult<List<Director>>(directors, DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetBySurnames(string surname)
+        public IDataResult<List<Director>> GetAllBySurname(string surname)
         {
             List<Director> directors = _directorDal.GetAll(i => i.SurName.Equals(surname.Contains(surname)) && !i.IsDeleted).ToList();
             return directors == null ?
@@ -103,7 +103,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(filter).ToList(), DirectorConstants.DataGet);
         }
 
-        public IDataResult<List<Director>> GetAllBySecrets()
+        public IDataResult<List<Director>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Director>>(_directorDal.GetAll(n => n.IsDeleted).ToList(), DirectorConstants.DataGet);
         }

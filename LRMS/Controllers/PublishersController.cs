@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _publisherService.GetByNames(name);
+            var result = _publisherService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -65,31 +65,31 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressName")]
-        public IActionResult GetByAddressName(string name)
+        [HttpPost("GetAllByAddressName")]
+        public IActionResult GetAllByAddressName(string name)
         {
-            var result = _publisherService.GetByAddressName(name);
+            var result = _publisherService.GetAllByAddressName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressLines")]
-        public IActionResult GetByAddressLines(string line)
+        [HttpPost("GetAllByAddressLine")]
+        public IActionResult GetAllByAddressLine(string line)
         {
-            var result = _publisherService.GetByAddressLines(line);
+            var result = _publisherService.GetAllByAddressLine(line);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInCityId")]
-        public IActionResult GetByPublisherInCityId(int id)
+        [HttpPost("GetAllByPublisherInCityId")]
+        public IActionResult GetAllByPublisherInCityId(int id)
         {
-            var result = _publisherService.GetByPublisherInCityId(id);
+            var result = _publisherService.GetAllByPublisherInCityId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInCityName")]
-        public IActionResult GetByPublisherInCityName(string name)
+        [HttpPost("GetAllByPublisherInCityName")]
+        public IActionResult GetAllByPublisherInCityName(string name)
         {
-            var result = _publisherService.GetByPublisherInCityName(name);
+            var result = _publisherService.GetAllByPublisherInCityName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -114,10 +114,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCommunicationNames")]
-        public IActionResult GetByCommunicationNames(string name)
+        [HttpPost("GetAllByCommunicationName")]
+        public IActionResult GetAllByCommunicationName(string name)
         {
-            var result = _publisherService.GetByCommunicationName(name);
+            var result = _publisherService.GetAllByCommunicationName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -135,66 +135,66 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInCountryId")]
-        public IActionResult GetByPublisherInCountryId(int id)
+        [HttpPost("GetAllByPublisherInCountryId")]
+        public IActionResult GetAllByPublisherInCountryId(int id)
         {
-            var result = _publisherService.GetByPublisherInCountryId(id);
+            var result = _publisherService.GetAllByPublisherInCountryId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInCountryName")]
-        public IActionResult GetByPublisherInCountryName(string name)
+        [HttpPost("GetAllByPublisherInCountryName")]
+        public IActionResult GetAllByPublisherInCountryName(string name)
         {
-            var result = _publisherService.GetByPublisherInCountryName(name);
+            var result = _publisherService.GetAllByPublisherInCountryName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInCountryCode")]
-        public IActionResult GetByPublisherInCountryCode(string code)
+        [HttpPost("GetAllByPublisherInCountryCode")]
+        public IActionResult GetAllByPublisherInCountryCode(string code)
         {
-            var result = _publisherService.GetByPublisherInCountryCode(code);
+            var result = _publisherService.GetAllByPublisherInCountryCode(code);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInGeoLocation")]
-        public IActionResult GetByPublisherInGeoLocation(string geoLocation)
+        [HttpPost("GetAllByPublisherInGeoLocation")]
+        public IActionResult GetAllByPublisherInGeoLocation(string geoLocation)
         {
-            var result = _publisherService.GetByPublisherInGeoLocation(geoLocation);
+            var result = _publisherService.GetAllByPublisherInGeoLocation(geoLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherInPostalCode")]
-        public IActionResult GetByPublisherInPostalCode(string postalCode)
+        [HttpPost("GetAllByPublisherInPostalCode")]
+        public IActionResult GetAllByPublisherInPostalCode(string postalCode)
         {
-            var result = _publisherService.GetByPublisherInPostalCode(postalCode);
+            var result = _publisherService.GetAllByPublisherInPostalCode(postalCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDateOfPublication")]
-        public IActionResult GetByDateOfPublication(DateTime dateOfPublication)
+        [HttpPost("GetAllByDateOfPublication")]
+        public IActionResult GetAllByDateOfPublication(DateTime dateOfPublication)
         {
-            var result = _publisherService.GetByDateOfPublication(dateOfPublication);
+            var result = _publisherService.GetAllByDateOfPublication(dateOfPublication);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDateOfPublicationRange")]
-        public IActionResult GetByDateOfPublicationRange(DateTime from, DateTime to)
+        [HttpPost("GetAllByDateOfPublicationRange")]
+        public IActionResult GetAllByDateOfPublicationRange(DateTime from, DateTime to)
         {
-            var result = _publisherService.GetByDateOfPublicationMinMax(from, to);
+            var result = _publisherService.GetAllByDateOfPublicationMinMax(from, to);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Publisher, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Publisher, bool>>? filter = null)
         {
             var result = _publisherService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _publisherService.GetAllBySecrets();
+            var result = _publisherService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

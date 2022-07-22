@@ -12,10 +12,10 @@ namespace Business.Abstract.Base
         IResult ShadowDelete(I id);
         IResult Update(T entity);
         IDataResult<T> GetById(I id);
-        IDataResult<List<T>> GetByIds(I[] ids);
+        IDataResult<List<T>> GetAllByIds(I[] ids);
         IDataResult<List<T>> GetAllByFilter(Expression<Func<T, bool>>? filter = null);
-        IDataResult<List<T>> GetByNames(string name);
-        IDataResult<List<T>> GetAllBySecrets();
+        IDataResult<List<T>> GetAllByName(string name);
+        IDataResult<List<T>> GetAllBySecret();
         IDataResult<List<T>> GetAll();
     }
 }

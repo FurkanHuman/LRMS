@@ -58,66 +58,66 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByBranchId")]
-        public IActionResult GetByBranchId(int id)
+        [HttpPost("GetAllByBranchId")]
+        public IActionResult GetAllByBranchId(int id)
         {
-            var result = _universityService.GetByBranchId(id);
+            var result = _universityService.GetAllByBranchId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByBranchNames")]
-        public IActionResult GetByBranchNames(string name)
+        [HttpPost("GetAllByBranchName")]
+        public IActionResult GetAllByBranchName(string name)
         {
-            var result = _universityService.GetByBranchNames(name);
+            var result = _universityService.GetAllByBranchName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCityId")]
-        public IActionResult GetByCityId(int id)
+        [HttpPost("GetAllByCityId")]
+        public IActionResult GetAllByCityId(int id)
         {
-            var result = _universityService.GetByCityId(id);
+            var result = _universityService.GetAllByCityId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCityNames")]
-        public IActionResult GetByCityNames(string name)
+        [HttpPost("GetAllByCityName")]
+        public IActionResult GetAllByCityNames(string name)
         {
-            var result = _universityService.GetByCityNames(name);
+            var result = _universityService.GetAllByCityName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCountryId")]
-        public IActionResult GetByCountryId(int id)
+        [HttpPost("GetAllByCountryId")]
+        public IActionResult GetAllByCountryId(int id)
         {
-            var result = _universityService.GetByCountryId(id);
+            var result = _universityService.GetAllByCountryId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCountryNames")]
-        public IActionResult GetByCountryNames(string name)
+        [HttpPost("GetAllByCountryName")]
+        public IActionResult GetAllByCountryName(string name)
         {
-            var result = _universityService.GetByCountryNames(name);
+            var result = _universityService.GetAllByCountryName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByInstituteNames")]
-        public IActionResult GetByInstituteNames(string name)
+        [HttpPost("GetAllByInstituteName")]
+        public IActionResult GetAllByInstituteName(string name)
         {
-            var result = _universityService.GetByInstituteNames(name);
+            var result = _universityService.GetAllByInstituteName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<University, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<University, bool>>? filter = null)
         {
             var result = _universityService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _universityService.GetAllBySecrets();
+            var result = _universityService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

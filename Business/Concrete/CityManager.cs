@@ -74,7 +74,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }
 
-        public IDataResult<List<City>> GetByIds(int[] ids)
+        public IDataResult<List<City>> GetAllByIds(int[] ids)
         {
             List<City> cities = _cityDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
             return cities == null
@@ -87,7 +87,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList(), CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetByNames(string name)
+        public IDataResult<List<City>> GetAllByName(string name)
         {
             List<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name)).ToList();
 
@@ -96,7 +96,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<City>>(cities, CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetAllBySecrets()
+        public IDataResult<List<City>> GetAllBySecret()
         {
             return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => c.IsDeleted).ToList(), CityConstants.DataGet);
         }

@@ -51,39 +51,39 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string names)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string names)
         {
-            var result = _consultantService.GetByNames(names);
+            var result = _consultantService.GetAllByName(names);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surnames)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetBySurname(string surnames)
         {
-            var result = _consultantService.GetBySurnames(surnames);
+            var result = _consultantService.GetAllBySurname(surnames);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetNamePreAttachmentLists")]
-        public IActionResult GetNamePreAttachmentLists(string namePreAttachment)
+        [HttpPost("GetAllByNamePreAttachment")]
+        public IActionResult GetAllNamePreAttachment(string namePreAttachment)
         {
-            var result = _consultantService.GetNamePreAttachmentLists(namePreAttachment);
+            var result = _consultantService.GetAllByNamePreAttachment(namePreAttachment);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetAllByFilterLists(Expression<Func<Consultant, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Consultant, bool>>? filter = null)
         {
             var result = _consultantService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _consultantService.GetAllBySecrets();
+            var result = _consultantService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

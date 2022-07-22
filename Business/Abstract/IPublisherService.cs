@@ -12,17 +12,17 @@ namespace Business.Abstract
         IDataResult<Publisher> GetByCommunicationFaxNumber(string commFaxNumber);
         IDataResult<Publisher> GetByCommunicationPhone(string commPhone);
         IDataResult<Publisher> GetByCommunicationWebSite(string commWebSite);
-        IDataResult<List<Publisher>> GetByAddressName(string addressName);
-        IDataResult<List<Publisher>> GetByAddressLines(string addressLine);
-        IDataResult<List<Publisher>> GetByPublisherInCityId(int cityId);
-        IDataResult<List<Publisher>> GetByPublisherInCityName(string cityName);
-        IDataResult<List<Publisher>> GetByCommunicationName(string commName);
-        IDataResult<List<Publisher>> GetByPublisherInCountryId(int countryId);
-        IDataResult<List<Publisher>> GetByPublisherInCountryName(string countryName);
-        IDataResult<List<Publisher>> GetByPublisherInCountryCode(string countryCode);
-        IDataResult<List<Publisher>> GetByPublisherInGeoLocation(string geoLoc);
-        IDataResult<List<Publisher>> GetByPublisherInPostalCode(string postalCode);
-        IDataResult<List<Publisher>> GetByDateOfPublication(DateTime dateOfPublication);
-        IDataResult<List<Publisher>> GetByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
+        IDataResult<List<Publisher>> GetAllByAddressName(string addressName);
+        IDataResult<List<Publisher>> GetAllByAddressLine(string addressLine);
+        IDataResult<List<Publisher>> GetAllByPublisherInCityId(int cityId);
+        IDataResult<List<Publisher>> GetAllByPublisherInCityName(string cityName);
+        IDataResult<List<Publisher>> GetAllByCommunicationName(string commName);
+        IDataResult<List<Publisher>> GetAllByPublisherInCountryId(int countryId);
+        IDataResult<List<Publisher>> GetAllByPublisherInCountryName(string countryName);
+        IDataResult<List<Publisher>> GetAllByPublisherInCountryCode(string countryCode);
+        IDataResult<List<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc);
+        IDataResult<List<Publisher>> GetAllByPublisherInPostalCode(string postalCode);
+        IDataResult<List<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication);
+        IDataResult<List<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
     }
 }

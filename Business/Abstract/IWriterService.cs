@@ -7,7 +7,7 @@ namespace Business.Abstract
 {
     public interface IWriterService : IFirstPersonBaseService<Writer>, IFirstPersonBaseDtoService<WriterDto>
     {
-        IDataResult<List<Writer>> GetNamePreAttachmentList(string namePreAttachment);
-        IDataResult<List<WriterDto>> DtoGetNamePreAttachmentList(string namePreAttachment);
+        IDataResult<List<Writer>> GetAllNamePreAttachment(string namePreAttachment);
+        IDataResult<List<WriterDto>> DtoGetAllNamePreAttachment(string namePreAttachment);
     }
 }

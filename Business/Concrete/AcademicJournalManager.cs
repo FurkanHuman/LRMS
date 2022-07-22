@@ -68,7 +68,7 @@ namespace Business.Concrete
             return new SuccessResult(AcademicJournalConstants.AddSuccess);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByAJNumber(ushort aJNumber)
+        public IDataResult<List<AcademicJournal>> GetAllByAJNumber(ushort aJNumber)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.AJNumber == aJNumber && !aj.IsDeleted).ToList();
             return academicJournals == null
@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<AcademicJournal>> GetAllByCategories(int[] categoriesId)
         {
             IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
@@ -88,7 +88,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByDateOfYear(ushort dateOfYear)
+        public IDataResult<List<AcademicJournal>> GetAllByDateOfYear(ushort dateOfYear)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.DateOfYear == dateOfYear && !aj.IsDeleted).ToList();
             return academicJournals == null
@@ -96,7 +96,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<AcademicJournal>> GetAllByDescriptionFinder(string finderString)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Description.Contains(finderString) && !aj.IsDeleted).ToList();
             return academicJournals == null
@@ -104,7 +104,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<AcademicJournal>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -116,7 +116,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByEditor(Guid editorId)
+        public IDataResult<List<AcademicJournal>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
@@ -128,7 +128,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByEditor(Guid[] editorIds)
+        public IDataResult<List<AcademicJournal>> GetAllByEditors(Guid[] editorIds)
         {
             IDataResult<List<Editor>> editors = _editorService.GetAllByFilter(e => editorIds.Contains(e.Id));
             if (!editors.Success)
@@ -140,7 +140,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<AcademicJournal>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
@@ -160,7 +160,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByIds(Guid[] ids)
+        public IDataResult<List<AcademicJournal>> GetAllByIds(Guid[] ids)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => ids.Contains(aj.Id) && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
@@ -168,7 +168,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByNames(string name)
+        public IDataResult<List<AcademicJournal>> GetAllByName(string name)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.Name.Contains(name) && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
@@ -176,7 +176,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByPageRange(ushort startPage, ushort endPage)
+        public IDataResult<List<AcademicJournal>> GetAllByPageRange(ushort startPage, ushort endPage)
         {
             List<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.StartPageNumber >= startPage && aj.EndPageNumber <= endPage && !aj.IsDeleted).ToList();
             return academicJournals.Count == 0
@@ -184,7 +184,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<AcademicJournal>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<AcademicJournal> academicJournal = maxPrice == null
                 ? _academicJournalDal.GetAll(aj => aj.Price >= minPrice && !aj.IsDeleted).ToList()
@@ -195,7 +195,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournal, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByPublisher(Guid publisherId)
+        public IDataResult<List<AcademicJournal>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Publisher> publisher = _publisherService.GetById(publisherId);
             if (!publisher.Success)
@@ -207,9 +207,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournal, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByPublisherDateOfPublication(DateTime DateOfPublication)
+        public IDataResult<List<AcademicJournal>> GetAllByPublisherDateOfPublication(DateTime DateOfPublication)
         {
-            IDataResult<List<Publisher>> publishers = _publisherService.GetByDateOfPublication(DateOfPublication);
+            IDataResult<List<Publisher>> publishers = _publisherService.GetAllByDateOfPublication(DateOfPublication);
             if (!publishers.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(publishers.Message);
 
@@ -219,9 +219,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournal, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByReferenceDate(DateTime referenceDate)
+        public IDataResult<List<AcademicJournal>> GetAllByReferenceDate(DateTime referenceDate)
         {
-            IDataResult<List<Reference>> references = _referenceService.GetByReferenceDate(referenceDate);
+            IDataResult<List<Reference>> references = _referenceService.GetAllByReferenceDate(referenceDate);
             if (!references.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(references.Message);
 
@@ -231,7 +231,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByReferenceId(Guid referenceId)
+        public IDataResult<List<AcademicJournal>> GetAllByReferenceId(Guid referenceId)
         {
             IDataResult<Reference> reference = _referenceService.GetById(referenceId);
             if (!reference.Success)
@@ -243,9 +243,9 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByReferenceOwner(string owner)
+        public IDataResult<List<AcademicJournal>> GetAllByReferenceOwner(string owner)
         {
-            IDataResult<List<Reference>> references = _referenceService.GetByOwner(owner);
+            IDataResult<List<Reference>> references = _referenceService.GetAllByOwner(owner);
             if (!references.Success)
                 return new ErrorDataResult<List<AcademicJournal>>(references.Message);
 
@@ -255,7 +255,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByResearcher(Guid researcherId)
+        public IDataResult<List<AcademicJournal>> GetAllByResearcher(Guid researcherId)
         {
             IDataResult<Researcher> researcher = _researcherService.GetById(researcherId);
             if (!researcher.Success)
@@ -267,7 +267,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByResearcher(Guid[] researcherIds)
+        public IDataResult<List<AcademicJournal>> GetAllByResearchers(Guid[] researcherIds)
         {
             IDataResult<List<Researcher>> researchers = _researcherService.GetAllByFilter(r => researcherIds.Contains(r.Id));
             if (!researchers.Success)
@@ -279,7 +279,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<AcademicJournal>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
@@ -291,7 +291,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByTitles(string title)
+        public IDataResult<List<AcademicJournal>> GetAllByTitle(string title)
         {
             List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Title.Contains(title) && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
@@ -299,7 +299,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<AcademicJournal>>(_academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetByVolume(ushort volume)
+        public IDataResult<List<AcademicJournal>> GetAllByVolume(ushort volume)
         {
             List<AcademicJournal> _academicJournals = _academicJournalDal.GetAll(aj => aj.Volume == volume && !aj.IsDeleted).ToList();
             return _academicJournals.Count == 0
@@ -325,7 +325,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(filter).ToList(), AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<AcademicJournal>> GetAllBySecrets()
+        public IDataResult<List<AcademicJournal>> GetAllBySecret()
         {
             return new SuccessDataResult<List<AcademicJournal>>(_academicJournalDal.GetAll(aj => aj.IsDeleted).ToList(), AcademicJournalConstants.DataGet);
         }

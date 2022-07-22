@@ -52,16 +52,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Image, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Image, bool>>? filter = null)
         {
             var result = _imageService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _imageService.GetAllBySecrets();
+            var result = _imageService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

@@ -51,31 +51,31 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _countryService.GetByNames(name);
+            var result = _countryService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCountryCodes")]
-        public IActionResult GetByCountryCodes(string countryCode)
+        [HttpPost("GetAllByCountryCode")]
+        public IActionResult GetAllByCountryCodes(string countryCode)
         {
-            var result = _countryService.GetByCountryCodes(countryCode);
+            var result = _countryService.GetAllByCountryCode(countryCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Country, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Country, bool>>? filter = null)
         {
             var result = _countryService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _countryService.GetAllBySecrets();
+            var result = _countryService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

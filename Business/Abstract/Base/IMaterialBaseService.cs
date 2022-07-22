@@ -9,12 +9,12 @@ namespace Business.Abstract.Base
         IDataResult<byte?> GetSecretLevel(Guid id);
         IDataResult<byte> GetState(Guid id);
         IDataResult<T> GetByStock(Guid stockId);
-        IDataResult<List<T>> GetByCategories(int[] categoriesId);
-        IDataResult<List<T>> GetByDescriptionFinder(string finderString);
-        IDataResult<List<T>> GetByDimension(Guid dimensionId);
-        IDataResult<List<T>> GetByEMFiles(Guid eMFilesId);
-        IDataResult<List<T>> GetByPrice(decimal minPrice, decimal? maxPrice = null);
-        IDataResult<List<T>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId);
-        IDataResult<List<T>> GetByTitles(string title);
+        IDataResult<List<T>> GetAllByCategories(int[] categoriesId);
+        IDataResult<List<T>> GetAllByDescriptionFinder(string finderString);
+        IDataResult<List<T>> GetAllByDimension(Guid dimensionId);
+        IDataResult<List<T>> GetAllByEMFile(Guid eMFileId);
+        IDataResult<List<T>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null);
+        IDataResult<List<T>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId);
+        IDataResult<List<T>> GetAllByTitle(string title);
     }
 }

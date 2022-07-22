@@ -51,45 +51,45 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _technicalPlaceholderService.GetByNames(name);
+            var result = _technicalPlaceholderService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByColumnCode")]
-        public IActionResult GetByColumnCode(string columnCode)
+        [HttpPost("GetAllByColumnCode")]
+        public IActionResult GetAllByColumnCode(string columnCode)
         {
-            var result = _technicalPlaceholderService.GetByColumnCode(columnCode);
+            var result = _technicalPlaceholderService.GetAllByColumnCode(columnCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByRowCode")]
-        public IActionResult GetByRowCode(string rowCode)
+        [HttpPost("GetAllByRowCode")]
+        public IActionResult GetAllByRowCode(string rowCode)
         {
-            var result = _technicalPlaceholderService.GetByRowCode(rowCode);
+            var result = _technicalPlaceholderService.GetAllByRowCode(rowCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySpecialLocation")]
-        public IActionResult GetBySpecialLocation(string specialLocation)
+        [HttpPost("GetAllBySpecialLocation")]
+        public IActionResult GetAllBySpecialLocation(string specialLocation)
         {
-            var result = _technicalPlaceholderService.GetBySpecialLocation(specialLocation);
+            var result = _technicalPlaceholderService.GetAllBySpecialLocation(specialLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
         {
             var result = _technicalPlaceholderService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _technicalPlaceholderService.GetAllBySecrets();
+            var result = _technicalPlaceholderService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

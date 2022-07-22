@@ -7,12 +7,12 @@ namespace Business.Abstract
     public interface IDimensionService : IBaseEntityService<Dimension, Guid>
     {
         IDataResult<Dimension> GetByDimension(Dimension dimension);
-        IDataResult<List<Dimension>> GetByX(double xMM);
-        IDataResult<List<Dimension>> GetByY(double yMM);
-        IDataResult<List<Dimension>> GetByZ(double zMM);
-        IDataResult<List<Dimension>> GetByXandY(double xMM, double yMM);
-        IDataResult<List<Dimension>> GetByYandZ(double yMM, double zMM);
-        IDataResult<List<Dimension>> GetByZandX(double zMM, double xMM);
-        IDataResult<List<Dimension>> GetByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm);
+        IDataResult<List<Dimension>> GetAllByX(double xMM);
+        IDataResult<List<Dimension>> GetAllByY(double yMM);
+        IDataResult<List<Dimension>> GetAllByZ(double zMM);
+        IDataResult<List<Dimension>> GetAllByXandY(double xMM, double yMM);
+        IDataResult<List<Dimension>> GetAllByYandZ(double yMM, double zMM);
+        IDataResult<List<Dimension>> GetAllByZandX(double zMM, double xMM);
+        IDataResult<List<Dimension>> GetAllByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm);
     }
 }

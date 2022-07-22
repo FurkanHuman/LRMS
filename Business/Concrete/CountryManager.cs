@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Country>(country, CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetByIds(int[] ids)
+        public IDataResult<List<Country>> GetAllByIds(int[] ids)
         {
             List<Country> countries = _countryDal.GetAll(c => ids.Contains(c.Id)).ToList();
 
@@ -82,7 +82,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
         }
 
-        public IDataResult<List<Country>> GetByNames(string name)
+        public IDataResult<List<Country>> GetAllByName(string name)
         {
             List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name)).ToList();
 
@@ -91,7 +91,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
         }
 
-        public IDataResult<List<Country>> GetByCountryCodes(string countryCode)
+        public IDataResult<List<Country>> GetAllByCountryCode(string countryCode)
         {
             List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode)).ToList();
             return countries == null
@@ -104,7 +104,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Country>>(_countryDal.GetAll(filter).ToList(), CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetAllBySecrets()
+        public IDataResult<List<Country>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Country>>(_countryDal.GetAll(C => C.IsDeleted).ToList(), CountryConstants.DataGet);
         }

@@ -6,6 +6,6 @@ namespace Business.Abstract.Base
 {
     public interface IFirstPersonBaseDtoService<D> : IBaseDtoService<D, Guid> where D : FirstPagePersonBaseDto, IDto, new()
     {
-        IDataResult<List<D>> DtoGetBySurnames(string surname);
+        IDataResult<List<D>> DtoGetAllBySurname(string surname);
     }
 }

@@ -86,7 +86,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByIds(Guid[] ids)
+        public IDataResult<List<BookSeries>> GetAllByIds(Guid[] ids)
         {
             List<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => ids.Contains(bs.Id) && !bs.IsDeleted).ToList();
             return bookSeries == null
@@ -118,7 +118,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByCoverCaps(byte coverCapNum)
+        public IDataResult<List<BookSeries>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> coverCap = _coverCapService.GetById(coverCapNum);
             if (!coverCap.Success)
@@ -130,7 +130,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByCommunications(Guid communicationId)
+        public IDataResult<List<BookSeries>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> comm = _editionService.GetByCommunicationId(communicationId);
             if (!comm.Success)
@@ -142,7 +142,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByDirectors(Guid directorId)
+        public IDataResult<List<BookSeries>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
@@ -154,7 +154,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByEditors(Guid editorId)
+        public IDataResult<List<BookSeries>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
@@ -166,7 +166,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByEditions(Guid editionId)
+        public IDataResult<List<BookSeries>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
@@ -178,7 +178,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByGraphicDirectors(Guid graphicDirectorId)
+        public IDataResult<List<BookSeries>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> graphicDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!graphicDirector.Success)
@@ -190,7 +190,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByGraphicDesigns(Guid graphicDesignId)
+        public IDataResult<List<BookSeries>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> graphicDesign = _graphicDesignerService.GetById(graphicDesignId);
             if (!graphicDesign.Success)
@@ -202,7 +202,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByInterpreters(Guid interpreterId)
+        public IDataResult<List<BookSeries>> GetAllByInterpreter(Guid interpreterId)
         {
             IDataResult<Interpreters> interpreter = _interpreterService.GetById(interpreterId);
             if (!interpreter.Success)
@@ -214,7 +214,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByPublishers(Guid publisherId)
+        public IDataResult<List<BookSeries>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
             if (!edition.Success)
@@ -226,7 +226,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByTechnicalNumbers(Guid technicalNumberId)
+        public IDataResult<List<BookSeries>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> technicalNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!technicalNumber.Success)
@@ -238,7 +238,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByRedactions(Guid redactionId)
+        public IDataResult<List<BookSeries>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
@@ -250,7 +250,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByWriters(Guid writerId)
+        public IDataResult<List<BookSeries>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)
@@ -275,7 +275,7 @@ namespace Business.Concrete
             return new SuccessDataResult<byte>(_bookSeriesDal.Get(bs => bs.Id == id && !bs.IsDeleted).State);
         }
 
-        public IDataResult<List<BookSeries>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<BookSeries>> GetAllByCategories(int[] categoriesId)
         {
             IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (categories.Data.Count != categoriesId.Length)
@@ -287,7 +287,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<BookSeries>>(BookSeriesConstants.DataNotGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<BookSeries>> GetAllByDescriptionFinder(string finderString)
         {
             List<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => bs.Description.Contains(finderString) && !bs.IsDeleted).ToList();
             return bookSeries == null
@@ -295,7 +295,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<BookSeries>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimension.GetById(dimensionId);
             if (!dimension.Success)
@@ -307,7 +307,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<BookSeries>>(BookConstants.DataNotGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<BookSeries>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMaterialFile = _eMaterialFile.GetById(eMFilesId);
             if (!eMaterialFile.Success)
@@ -319,7 +319,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<BookSeries>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<BookSeries> bookSeries = maxPrice == null
                 ? _bookSeriesDal.GetAll(bs => bs.Price >= minPrice && !bs.IsDeleted).ToList()
@@ -330,7 +330,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<BookSeries>>(BookSeriesConstants.DataNotGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<BookSeries>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholder.GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
@@ -342,7 +342,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByTitles(string title)
+        public IDataResult<List<BookSeries>> GetAllByTitle(string title)
         {
             List<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => bs.Title.Contains(title) && !bs.IsDeleted).ToList();
             return bookSeries == null
@@ -350,7 +350,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetByNames(string name)
+        public IDataResult<List<BookSeries>> GetAllByName(string name)
         {
             List<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => bs.Name.Contains(name) && !bs.IsDeleted).ToList();
             return bookSeries == null
@@ -363,7 +363,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(filter).ToList(), BookSeriesConstants.DataGet);
         }
 
-        public IDataResult<List<BookSeries>> GetAllBySecrets()
+        public IDataResult<List<BookSeries>> GetAllBySecret()
         {
             return new SuccessDataResult<List<BookSeries>>(_bookSeriesDal.GetAll(bs => bs.IsDeleted).ToList(), BookSeriesConstants.DataGet);
         }

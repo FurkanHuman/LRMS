@@ -68,7 +68,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetByIds(byte[] ids)
+        public IDataResult<List<CoverCap>> GetAllByIds(byte[] ids)
         {
             List<CoverCap> coverCaps = _coverCapDal.GetAll(c => ids.Contains(c.Id)).ToList();
             return coverCaps == null
@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetByNames(string name)
+        public IDataResult<List<CoverCap>> GetAllByName(string name)
         {
             List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name)).ToList();
             return coverCaps == null
@@ -89,7 +89,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(filter).ToList());
         }
 
-        public IDataResult<List<CoverCap>> GetAllBySecrets()
+        public IDataResult<List<CoverCap>> GetAllBySecret()
         {
             return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(c => c.IsDeleted).ToList());
         }

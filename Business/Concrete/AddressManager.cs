@@ -82,7 +82,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByIds(Guid[] ids)
+        public IDataResult<List<Address>> GetAllByIds(Guid[] ids)
         {
             List<Address> addresses = _addressDal.GetAll(a => ids.Contains(a.Id) && !a.IsDeleted).ToList();
             return addresses == null
@@ -90,7 +90,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByCityId(int cityId)
+        public IDataResult<List<Address>> GetAllByCityId(int cityId)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.City.Id == cityId && !a.IsDeleted).ToList();
             return addresses == null
@@ -98,7 +98,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByCountryId(int countryId)
+        public IDataResult<List<Address>> GetAllByCountryId(int countryId)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.Country.Id == countryId && !a.IsDeleted).ToList();
             return addresses == null
@@ -106,7 +106,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByGeoLocation(string geoLocation)
+        public IDataResult<List<Address>> GetAllByGeoLocation(string geoLocation)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.GeoLocation == geoLocation && !a.IsDeleted).ToList();
             return addresses == null
@@ -114,7 +114,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByPostalCode(string postalCode)
+        public IDataResult<List<Address>> GetAllByPostalCode(string postalCode)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.PostalCode == postalCode && !a.IsDeleted).ToList();
             return addresses == null
@@ -122,7 +122,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetBySearchString(string searchStr)
+        public IDataResult<List<Address>> GetAllBySearchString(string searchStr)
         {
             List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr) && !a.IsDeleted).ToList();
             return addresses == null
@@ -130,7 +130,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetByNames(string name)
+        public IDataResult<List<Address>> GetAllByName(string name)
         {
             List<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name)).ToList();
             return addresses == null
@@ -148,7 +148,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => !a.IsDeleted).ToList(), AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllBySecrets()
+        public IDataResult<List<Address>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => a.IsDeleted).ToList(), AddressConstants.DataGet);
         }

@@ -51,24 +51,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _branchService.GetByNames(name);
+            var result = _branchService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Branch, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
         {
             var result = _branchService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _branchService.GetAllBySecrets();
+            var result = _branchService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

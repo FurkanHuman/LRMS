@@ -6,7 +6,7 @@ namespace Business.Abstract
 {
     public interface IResearcherService : IFirstPersonBaseService<Researcher>
     {
-        IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment);
-        IDataResult<List<Researcher>> GetSpecialtyList(string Specialty);
+        IDataResult<List<Researcher>> GetAllNamePreAttachment(string namePreAttachment);
+        IDataResult<List<Researcher>> GetAllSpecialty(string Specialty);
     }
 }

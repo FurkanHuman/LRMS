@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDirector>(GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetByIds(Guid[] ids)
+        public IDataResult<List<GraphicDirector>> GetAllByIds(Guid[] ids)
         {
             List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
             return graphicDirectors == null
@@ -81,7 +81,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetByNames(string name)
+        public IDataResult<List<GraphicDirector>> GetAllByName(string name)
         {
             List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
             return graphicDirectors == null
@@ -89,7 +89,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetBySurnames(string surname)
+        public IDataResult<List<GraphicDirector>> GetAllBySurname(string surname)
         {
             List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
             return graphicDirectors == null
@@ -107,7 +107,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllBySecrets()
+        public IDataResult<List<GraphicDirector>> GetAllBySecret()
         {
             return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
         }

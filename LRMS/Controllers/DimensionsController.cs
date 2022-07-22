@@ -51,10 +51,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _dimensionsService.GetByNames(name);
+            var result = _dimensionsService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -65,66 +65,66 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByXandY")]
-        public IActionResult GetByXandY(double xMM, double yMM)
+        [HttpPost("GetAllByXandY")]
+        public IActionResult GetAllByXandY(double xMM, double yMM)
         {
-            var result = _dimensionsService.GetByXandY(xMM, yMM);
+            var result = _dimensionsService.GetAllByXandY(xMM, yMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByYandZ")]
-        public IActionResult GetByYandZ(double yMM, double zMM)
+        [HttpPost("GetAllByYandZ")]
+        public IActionResult GetAllByYandZ(double yMM, double zMM)
         {
-            var result = _dimensionsService.GetByYandZ(yMM, zMM);
+            var result = _dimensionsService.GetAllByYandZ(yMM, zMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByZandX")]
-        public IActionResult GetByZandX(double zMM, double xMM)
+        [HttpPost("GetAllByZandX")]
+        public IActionResult GetAllByZandX(double zMM, double xMM)
         {
-            var result = _dimensionsService.GetByZandX(zMM, xMM);
+            var result = _dimensionsService.GetAllByZandX(zMM, xMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByXYZMinMax")]
-        public IActionResult GetByXYZMinMax(double xMinMM, double? xMaxMM, double yMinMM, double? yMaxMM, double zMinMM, double? zMaxMM)
+        [HttpPost("GetAllByXYZMinMax")]
+        public IActionResult GetAllByXYZMinMax(double xMinMM, double? xMaxMM, double yMinMM, double? yMaxMM, double zMinMM, double? zMaxMM)
         {
-            var result = _dimensionsService.GetByXYZMinMax(xMinMM, xMaxMM, yMinMM, yMaxMM, zMinMM, zMaxMM);
+            var result = _dimensionsService.GetAllByXYZMinMax(xMinMM, xMaxMM, yMinMM, yMaxMM, zMinMM, zMaxMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByX")]
-        public IActionResult GetByX(double xMM)
+        [HttpPost("GetAllByX")]
+        public IActionResult GetAllByX(double xMM)
         {
-            var result = _dimensionsService.GetByX(xMM);
+            var result = _dimensionsService.GetAllByX(xMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByY")]
-        public IActionResult GetByY(double yMM)
+        [HttpPost("GetAllByY")]
+        public IActionResult GetAllByY(double yMM)
         {
-            var result = _dimensionsService.GetByY(yMM);
+            var result = _dimensionsService.GetAllByY(yMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByZ")]
-        public IActionResult GetByZ(double zMM)
+        [HttpPost("GetAllByZ")]
+        public IActionResult GetAllByZ(double zMM)
         {
-            var result = _dimensionsService.GetByZ(zMM);
+            var result = _dimensionsService.GetAllByZ(zMM);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Dimension, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Dimension, bool>>? filter = null)
         {
             var result = _dimensionsService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _dimensionsService.GetAllBySecrets();
+            var result = _dimensionsService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

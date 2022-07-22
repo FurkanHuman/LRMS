@@ -110,12 +110,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Depiction>>(_depictionDal.GetAll(filter).ToList(), DepictionConstants.DataGet);
         }
 
-        public IDataResult<List<Depiction>> GetAllBySecrets()
+        public IDataResult<List<Depiction>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Depiction>>(_depictionDal.GetAll(d => d.IsDeleted).ToList(), DepictionConstants.DataGet);
         }
 
-        public IDataResult<List<Depiction>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<Depiction>> GetAllByCategories(int[] categoriesId)
         {
             IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
@@ -127,7 +127,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<Depiction>> GetAllByDescriptionFinder(string finderString)
         {
             List<Depiction> results = _depictionDal.GetAll(d => d.Description.Contains(finderString) && !d.IsDeleted).ToList();
             return results != null
@@ -135,7 +135,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<Depiction>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -147,7 +147,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<Depiction>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFile.Success)
@@ -167,7 +167,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<Depiction>(DepictionConstants.NotMatch);
         }
 
-        public IDataResult<List<Depiction>> GetByIds(Guid[] ids)
+        public IDataResult<List<Depiction>> GetAllByIds(Guid[] ids)
         {
             List<Depiction> titles = _depictionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
             return titles != null
@@ -175,7 +175,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<Depiction> GetByImages(Guid imageId)
+        public IDataResult<Depiction> GetByImage(Guid imageId)
         {
             Depiction result = _depictionDal.Get(d => d.Image.Id == imageId && !d.IsDeleted);
             return result != null
@@ -183,7 +183,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<Depiction>(DepictionConstants.NotMatch);
         }
 
-        public IDataResult<List<Depiction>> GetByNames(string name)
+        public IDataResult<List<Depiction>> GetAllByName(string name)
         {
             List<Depiction> results = _depictionDal.GetAll(d => d.Name == name && !d.IsDeleted).ToList();
             return results != null
@@ -191,7 +191,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<Depiction>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<Depiction> results = maxPrice == null
                 ? _depictionDal.GetAll(d => d.Price == minPrice && !d.IsDeleted).ToList()
@@ -202,7 +202,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<Depiction>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
@@ -214,7 +214,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<List<Depiction>>(DepictionConstants.DataNotGet);
         }
 
-        public IDataResult<List<Depiction>> GetByTitles(string title)
+        public IDataResult<List<Depiction>> GetAllByTitle(string title)
         {
             List<Depiction> titles = _depictionDal.GetAll(d => d.Title == title && !d.IsDeleted).ToList();
             return titles != null

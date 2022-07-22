@@ -63,13 +63,13 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetByName()
         {
-            var testGetByName = _branchService.GetByNames("Müh");
+            var testGetByName = _branchService.GetAllByName("Müh");
 
             Assert.IsTrue(testGetByName.Success, " Get By Names Test Success");
         }
 
         [TestMethod]
-        public void GetByFilterLists()
+        public void GetByFilter()
         {
             int id = 3;
 
@@ -79,9 +79,9 @@ namespace LRMS_Test.Tests
         }
 
         [TestMethod]
-        public void GetAllBySecrets()
+        public void GetAllBySecret()
         {
-            var testGetAllBySecrets = _branchService.GetAllBySecrets();
+            var testGetAllBySecrets = _branchService.GetAllBySecret();
 
             Assert.IsTrue(testGetAllBySecrets.Success, "Get All By Secrets Test Success");
         }

@@ -73,7 +73,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDesigner>(graphicDesigner, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetByIds(Guid[] ids)
+        public IDataResult<List<GraphicDesigner>> GetAllByIds(Guid[] ids)
         {
             List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
 
@@ -82,7 +82,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetByNames(string name)
+        public IDataResult<List<GraphicDesigner>> GetAllByName(string name)
         {
             List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
 
@@ -91,7 +91,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetBySurnames(string surname)
+        public IDataResult<List<GraphicDesigner>> GetAllBySurname(string surname)
         {
             List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
             return graphicDesigns == null
@@ -103,7 +103,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDesignerConstants.DataGet);
         }
-        public IDataResult<List<GraphicDesigner>> GetAllBySecrets()
+        public IDataResult<List<GraphicDesigner>> GetAllBySecret()
         {
             return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDesignerConstants.DataGet);
         }

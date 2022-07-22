@@ -74,7 +74,7 @@ namespace Business.Concrete
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
-        public IDataResult<List<Dimension>> GetByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm)
+        public IDataResult<List<Dimension>> GetAllByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm)
         {
             List<Dimension> dimensions = _dimensionDal.GetAll(d =>
             d.Width >= minXmm && d.Width <= maxXmm &&
@@ -87,7 +87,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByXandY(double xMM, double yMM)
+        public IDataResult<List<Dimension>> GetAllByXandY(double xMM, double yMM)
         {
             List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Width.Equals(xMM) && d.Length.Equals(yMM) && !d.IsDeleted).ToList();
 
@@ -96,7 +96,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByYandZ(double yMM, double zMM)
+        public IDataResult<List<Dimension>> GetAllByYandZ(double yMM, double zMM)
         {
             List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Length.Equals(yMM) && d.Height.Equals(zMM) && !d.IsDeleted).ToList();
 
@@ -105,7 +105,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByZandX(double zMM, double xMM)
+        public IDataResult<List<Dimension>> GetAllByZandX(double zMM, double xMM)
         {
             List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Height.Equals(zMM) && d.Width.Equals(xMM) && !d.IsDeleted).ToList();
 
@@ -122,7 +122,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByIds(Guid[] ids)
+        public IDataResult<List<Dimension>> GetAllByIds(Guid[] ids)
         {
             List<Dimension> dimension = _dimensionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
 
@@ -131,7 +131,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimension, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByX(double xMM)
+        public IDataResult<List<Dimension>> GetAllByX(double xMM)
         {
             List<Dimension> dimensionXmm = _dimensionDal.GetAll(d => d.Width.Equals(xMM)).ToList();
 
@@ -140,7 +140,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensionXmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByY(double yMM)
+        public IDataResult<List<Dimension>> GetAllByY(double yMM)
         {
             List<Dimension> dimensionYmm = _dimensionDal.GetAll(d => d.Height.Equals(yMM)).ToList();
 
@@ -149,7 +149,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensionYmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByZ(double zMM)
+        public IDataResult<List<Dimension>> GetAllByZ(double zMM)
         {
             List<Dimension> dimensionZmm = _dimensionDal.GetAll(d => d.Length.Equals(zMM)).ToList();
 
@@ -158,7 +158,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetByNames(string name)
+        public IDataResult<List<Dimension>> GetAllByName(string name)
         {
             List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name)).ToList();
 
@@ -172,7 +172,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(filter).ToList(), DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllBySecrets()
+        public IDataResult<List<Dimension>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(d => d.IsDeleted).ToList(), DimensionConstants.DataGet);
         }

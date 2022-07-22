@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IConsultantService : IFirstPersonBaseService<Consultant>
     {
-        IDataResult<List<Consultant>> GetNamePreAttachmentLists(string namePreAttachment);
+        IDataResult<List<Consultant>> GetAllByNamePreAttachment(string namePreAttachment);
     }
 }

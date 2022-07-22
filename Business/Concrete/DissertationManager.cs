@@ -81,7 +81,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Dissertation>>(_dissertationDal.GetAll(filter).ToList(), DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllBySecrets()
+        public IDataResult<List<Dissertation>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Dissertation>>(_dissertationDal.GetAll(d => d.IsDeleted).ToList(), DissertationConstants.DataGet);
         }
@@ -94,9 +94,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<Dissertation>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetByIds(categoriesId);
+            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<List<Dissertation>>(categories.Message);
 
@@ -106,7 +106,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByCities(int cityId)
+        public IDataResult<List<Dissertation>> GetAllByCity(int cityId)
         {
             IDataResult<City> city = _cityService.GetById(cityId);
             if (city.Success)
@@ -118,7 +118,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByCountries(int countryId)
+        public IDataResult<List<Dissertation>> GetAllByCountry(int countryId)
         {
             IDataResult<Country> country = _countryService.GetById(countryId);
             if (country.Success)
@@ -130,7 +130,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByDateTimeYear(ushort year, ushort? yearMax = null)
+        public IDataResult<List<Dissertation>> GetAllByDateTimeYear(ushort year, ushort? yearMax = null)
         {
             List<Dissertation> dissertations = yearMax == null
                 ? _dissertationDal.GetAll(d => d.DateTimeYear == year && !d.IsDeleted).ToList()
@@ -141,7 +141,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<Dissertation>> GetAllByDescriptionFinder(string finderString)
         {
             List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Description.Contains(finderString) && !d.IsDeleted).ToList();
             return dissertations == null
@@ -149,7 +149,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<Dissertation>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -162,7 +162,7 @@ namespace Business.Concrete
         }
 
 
-        public IDataResult<List<Dissertation>> GetByDissertationNumber(int dissertationNumber)
+        public IDataResult<List<Dissertation>> GetAllByDissertationNumber(int dissertationNumber)
         {
             List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.DissertationNumber == dissertationNumber && !d.IsDeleted).ToList();
             return dissertations == null
@@ -170,7 +170,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<Dissertation>> GetAllByEMFile(Guid eMFilesId)
         {
             var eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
@@ -190,7 +190,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByIds(Guid[] ids)
+        public IDataResult<List<Dissertation>> GetAllByIds(Guid[] ids)
         {
             List<Dissertation> dissertations = _dissertationDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
             return dissertations == null
@@ -198,7 +198,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByLanguages(int languageId)
+        public IDataResult<List<Dissertation>> GetAllByLanguage(int languageId)
         {
             IDataResult<Language> language = _languageService.GetById(languageId);
             if (!language.Success)
@@ -210,7 +210,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByNames(string name)
+        public IDataResult<List<Dissertation>> GetAllByName(string name)
         {
             List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Name.Contains(name) && !d.IsDeleted).ToList();
             return dissertations == null
@@ -218,7 +218,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<Dissertation>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<Dissertation> dissertations = maxPrice == null
                 ? _dissertationDal.GetAll(d => d.Price == minPrice && !d.IsDeleted).ToList()
@@ -229,7 +229,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<Dissertation>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> tPH = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!tPH.Success)
@@ -241,7 +241,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByTitles(string title)
+        public IDataResult<List<Dissertation>> GetAllByTitle(string title)
         {
 
             List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Title.Contains(title) && !d.IsDeleted).ToList();
@@ -250,7 +250,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetByUniversity(Guid universityId)
+        public IDataResult<List<Dissertation>> GetAllByUniversity(Guid universityId)
         {
             IDataResult<University> universities = _universityService.GetById(universityId);
             if (!universities.Success)

@@ -6,7 +6,7 @@ namespace Business.Abstract
 {
     public interface IOtherPeopleService : IFirstPersonBaseService<OtherPeople>
     {
-        IDataResult<List<OtherPeople>> GetByTitles(string title);
-        IDataResult<List<OtherPeople>> GetByNamePreAttach(string preAttch);
+        IDataResult<List<OtherPeople>> GetAllByTitle(string title);
+        IDataResult<List<OtherPeople>> GetAllByNamePreAttach(string preAttch);
     }
 }

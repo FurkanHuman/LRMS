@@ -51,36 +51,36 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _referenceService.GetByNames(name);
+            var result = _referenceService.GetAllByName(name);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByOwner")]
-        public IActionResult GetByOwner(string ownerStr)
+        [HttpPost("GetAllByOwner")]
+        public IActionResult GetAllByOwner(string ownerStr)
         {
-            var result = _referenceService.GetByOwner(ownerStr);
+            var result = _referenceService.GetAllByOwner(ownerStr);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByReferenceDate")]
-        public IActionResult GetByReferenceDate(DateTime referenceDate)
+        [HttpPost("GetAllByReferenceDate")]
+        public IActionResult GetAllByReferenceDate(DateTime referenceDate)
         {
-            var result = _referenceService.GetByReferenceDate(referenceDate);
+            var result = _referenceService.GetAllByReferenceDate(referenceDate);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetBySubText")]
-        public IActionResult GetBySubText(string subText)
+        [HttpPost("GetAllBySubText")]
+        public IActionResult GetAllBySubText(string subText)
         {
-            var result = _referenceService.GetBySubText(subText);
+            var result = _referenceService.GetAllBySubText(subText);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Reference, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Reference, bool>>? filter = null)
         {
             var result = _referenceService.GetAllByFilter(filter);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);

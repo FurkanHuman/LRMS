@@ -73,80 +73,80 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByIds")]
-        public IActionResult GetByIds([FromForm] Guid[] ids)
+        [HttpPost("GetAllByIds")]
+        public IActionResult GetAllByIds([FromForm] Guid[] ids)
         {
-            var result = _writerService.GetByIds(ids);
+            var result = _writerService.GetAllByIds(ids);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("DtoGetByIds")]
-        public IActionResult DtoGetByIds([FromForm] Guid[] ids)
+        [HttpPost("DtoGetAllByIds")]
+        public IActionResult DtoGetAllByIds([FromForm] Guid[] ids)
         {
-            var result = _writerService.DtoGetByIds(ids);
+            var result = _writerService.DtoGetAllByIds(ids);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames([FromForm] string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName([FromForm] string name)
         {
-            var result = _writerService.GetByNames(name);
+            var result = _writerService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("DtoGetByNames")]
-        public IActionResult DtoGetByNames([FromForm] string name)
+        [HttpPost("DtoGetAllByName")]
+        public IActionResult DtoGetAllByName([FromForm] string name)
         {
-            var result = _writerService.DtoGetByNames(name);
+            var result = _writerService.DtoGetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames([FromForm] string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname([FromForm] string surname)
         {
-            var result = _writerService.GetBySurnames(surname);
+            var result = _writerService.GetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("DtoGetBySurnames")]
-        public IActionResult DtoGetBySurnames([FromForm] string surname)
+        [HttpPost("DtoGetAllBySurname")]
+        public IActionResult DtoGetAllBySurname([FromForm] string surname)
         {
-            var result = _writerService.DtoGetBySurnames(surname);
+            var result = _writerService.DtoGetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetNamePreAttachmentList")]
-        public IActionResult GetNamePreAttachmentList([FromForm] string name)
+        [HttpPost("GetAllNamePreAttachment")]
+        public IActionResult GetAllNamePreAttachment([FromForm] string name)
         {
-            var result = _writerService.GetNamePreAttachmentList(name);
+            var result = _writerService.GetAllNamePreAttachment(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("DtoGetNamePreAttachmentList")]
-        public IActionResult DtoGetNamePreAttachmentList([FromForm] string name)
+        [HttpPost("DtoGetAllNamePreAttachment")]
+        public IActionResult DtoGetAllNamePreAttachment([FromForm] string name)
         {
-            var result = _writerService.DtoGetNamePreAttachmentList(name);
+            var result = _writerService.DtoGetAllNamePreAttachment(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Writer, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
             var result = _writerService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _writerService.GetAllBySecrets();
+            var result = _writerService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("DtoGetAllBySecrets")]
-        public IActionResult DtoGetAllBySecrets()
+        [HttpGet("DtoGetAllBySecret")]
+        public IActionResult DtoGetAllBySecret()
         {
-            var result = _writerService.DtoGetAllBySecrets();
+            var result = _writerService.DtoGetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

@@ -12,17 +12,17 @@ namespace Business.Abstract
         IDataResult<Library> GetByCommunicationFaxNumber(string commFaxNumber);
         IDataResult<Library> GetByCommunicationPhone(string commPhone);
         IDataResult<Library> GetByCommunicationWebSite(string commWebSite);
-        IDataResult<List<Library>> GetByAddressNames(string addressName);
-        IDataResult<List<Library>> GetByAddressLines(string addressLine);
-        IDataResult<List<Library>> GetByCommunicationNames(string commName);
-        IDataResult<List<Library>> GetByLibraryTypes(byte libType);
-        IDataResult<List<Library>> GetByLibraryInCountryId(int countryId);
-        IDataResult<List<Library>> GetByLibraryInCountryNames(string countryName);
-        IDataResult<List<Library>> GetByLibraryInCountryCode(string countryCode);
-        IDataResult<List<Library>> GetByLibraryInCityId(int cityId);
-        IDataResult<List<Library>> GetByLibraryInCityNames(string cityName);
-        IDataResult<List<Library>> GetByLibraryInPostalCode(string postalCode);
-        IDataResult<List<Library>> GetByLibraryInGeoLocation(string geoLoc);
-        IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryTypes();
+        IDataResult<List<Library>> GetAllByAddressName(string addressName);
+        IDataResult<List<Library>> GetAllByAddressLine(string addressLine);
+        IDataResult<List<Library>> GetAllByCommunicationName(string commName);
+        IDataResult<List<Library>> GetAllByLibraryType(byte libType);
+        IDataResult<List<Library>> GetAllByLibraryInCountryId(int countryId);
+        IDataResult<List<Library>> GetAllByLibraryInCountryName(string countryName);
+        IDataResult<List<Library>> GetAllByLibraryInCountryCode(string countryCode);
+        IDataResult<List<Library>> GetAllByLibraryInCityId(int cityId);
+        IDataResult<List<Library>> GetAllByLibraryInCityName(string cityName);
+        IDataResult<List<Library>> GetAllByLibraryInPostalCode(string postalCode);
+        IDataResult<List<Library>> GetAllByLibraryInGeoLocation(string geoLoc);
+        IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryType();
     }
 }

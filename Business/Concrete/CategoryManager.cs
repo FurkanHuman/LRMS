@@ -68,7 +68,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Category>(category, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetByIds(int[] ids)
+        public IDataResult<List<Category>> GetAllByIds(int[] ids)
         {
             List<Category> categorys = _categoryDal.GetAll(Z => ids.Contains(Z.Id)).ToList();
             return categorys == null
@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetByNames(string name)
+        public IDataResult<List<Category>> GetAllByName(string name)
         {
             List<Category> categorys = _categoryDal.GetAll(Z => Z.Name.Contains(name)).ToList();
             return categorys == null
@@ -89,7 +89,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(filter), CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAllBySecrets()
+        public IDataResult<List<Category>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
         }

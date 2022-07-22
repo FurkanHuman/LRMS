@@ -51,45 +51,45 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _otherPeopleService.GetByNames(name);
+            var result = _otherPeopleService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname(string surname)
         {
-            var result = _otherPeopleService.GetBySurnames(surname);
+            var result = _otherPeopleService.GetAllBySurname(surname);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByTitles")]
-        public IActionResult GetByTitles(string title)
+        [HttpPost("GetAllByTitle")]
+        public IActionResult GetAllByTitle(string title)
         {
-            var result = _otherPeopleService.GetByTitles(title);
+            var result = _otherPeopleService.GetAllByTitle(title);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNamePreAttach")]
-        public IActionResult GetByNamePreAttach(string namePreAttach)
+        [HttpPost("GetAllByNamePreAttach")]
+        public IActionResult GetAllByNamePreAttach(string namePreAttach)
         {
-            var result = _otherPeopleService.GetByNamePreAttach(namePreAttach);
+            var result = _otherPeopleService.GetAllByNamePreAttach(namePreAttach);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<OtherPeople, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<OtherPeople, bool>>? filter = null)
         {
             var result = _otherPeopleService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _otherPeopleService.GetAllBySecrets();
+            var result = _otherPeopleService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

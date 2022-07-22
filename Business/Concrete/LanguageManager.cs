@@ -67,7 +67,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Language>(language, LanguageConstants.DataGet);
         }
 
-        public IDataResult<List<Language>> GetByIds(int[] ids)
+        public IDataResult<List<Language>> GetAllByIds(int[] ids)
         {
             List<Language> languages = _languageDal.GetAll(l => ids.Contains(l.Id) && !l.IsDeleted).ToList();
             return languages == null
@@ -75,7 +75,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Language>>(languages, LanguageConstants.DataGet);
         }
 
-        public IDataResult<List<Language>> GetByNames(string name)
+        public IDataResult<List<Language>> GetAllByName(string name)
         {
             List<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name) && !l.IsDeleted).ToList();
             return languages == null
@@ -88,7 +88,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Language>>(_languageDal.GetAll(filter).ToList<Language>(), LanguageConstants.DataGet);
         }
 
-        public IDataResult<List<Language>> GetAllBySecrets()
+        public IDataResult<List<Language>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Language>>(_languageDal.GetAll(l => l.IsDeleted).ToList<Language>(), LanguageConstants.DataGet);
         }

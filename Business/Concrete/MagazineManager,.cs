@@ -84,7 +84,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(m => !m.IsDeleted).ToList(), MagazineConstants.DataGet);
         }
 
-        public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryMagazineTypes()
+        public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryMagazineType()
         {
             Dictionary<byte, string> magTypes = Enum.GetValues(typeof(MagazineConstants.MagazineTypes)).Cast<MagazineConstants.MagazineTypes>().ToDictionary(m => (byte)m, m => m.ToString());
             return new SuccessDataResult<Dictionary<byte, string>>(magTypes, MagazineConstants.DataGet);
@@ -95,14 +95,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(filter).ToList(), MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllBySecrets()
+        public IDataResult<List<Magazine>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(m => m.IsDeleted).ToList(), MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByCategories(int[] categoriesId)
+        public IDataResult<List<Magazine>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetByIds(categoriesId);
+            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<List<Magazine>>(categories.Message);
 
@@ -112,7 +112,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByCommunications(Guid communicationId)
+        public IDataResult<List<Magazine>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
             if (!edition.Success)
@@ -124,7 +124,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByCoverCaps(byte coverCapNum)
+        public IDataResult<List<Magazine>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> coverCap = _coverCapService.GetById(coverCapNum);
             if (!coverCap.Success)
@@ -148,7 +148,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByDescriptionFinder(string finderString)
+        public IDataResult<List<Magazine>> GetAllByDescriptionFinder(string finderString)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => m.Description.Contains(finderString) && m.IsDeleted).ToList();
 
@@ -157,7 +157,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByDimension(Guid dimensionId)
+        public IDataResult<List<Magazine>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
@@ -169,7 +169,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByDirectors(Guid directorId)
+        public IDataResult<List<Magazine>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
@@ -181,7 +181,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByEditions(Guid editionId)
+        public IDataResult<List<Magazine>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
@@ -193,7 +193,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByEditors(Guid editorId)
+        public IDataResult<List<Magazine>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
@@ -205,7 +205,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByEMFiles(Guid eMFilesId)
+        public IDataResult<List<Magazine>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
@@ -217,7 +217,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByGraphicDesigns(Guid graphicDesignId)
+        public IDataResult<List<Magazine>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> gdesign = _graphicDesignerService.GetById(graphicDesignId);
             if (!gdesign.Success)
@@ -229,7 +229,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByGraphicDirectors(Guid graphicDirectorId)
+        public IDataResult<List<Magazine>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> gDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!gDirector.Success)
@@ -250,7 +250,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByIds(Guid[] ids)
+        public IDataResult<List<Magazine>> GetAllByIds(Guid[] ids)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted).ToList();
 
@@ -259,7 +259,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByInterpreters(Guid interpreterId)
+        public IDataResult<List<Magazine>> GetAllByInterpreter(Guid interpreterId)
         {
             IDataResult<Interpreters> interpreters = _interpretersService.GetById(interpreterId);
             if (!interpreters.Success)
@@ -271,7 +271,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByMagazineType(byte magazineType)
+        public IDataResult<List<Magazine>> GetAllByMagazineType(byte magazineType)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => m.MagazineType == magazineType && m.IsDeleted).ToList();
 
@@ -280,7 +280,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByNames(string name)
+        public IDataResult<List<Magazine>> GetAllByName(string name)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => m.Name == name && m.IsDeleted).ToList();
 
@@ -289,7 +289,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<List<Magazine>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
             List<Magazine> magazines = maxPrice == null
                 ? _magazineDal.GetAll(m => m.Price == minPrice && m.IsDeleted).ToList()
@@ -300,7 +300,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByPublishers(Guid publisherId)
+        public IDataResult<List<Magazine>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
             if (!edition.Success)
@@ -312,7 +312,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByRedactions(Guid redactionId)
+        public IDataResult<List<Magazine>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
@@ -336,7 +336,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByTechnicalNumbers(Guid technicalNumberId)
+        public IDataResult<List<Magazine>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> tNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!tNumber.Success)
@@ -348,7 +348,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByTechnicalPlaceholders(Guid technicalPlaceholderId)
+        public IDataResult<List<Magazine>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> tPHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!tPHolder.Success)
@@ -360,7 +360,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByTitles(string title)
+        public IDataResult<List<Magazine>> GetAllByTitle(string title)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => m.Title == title && m.IsDeleted).ToList();
 
@@ -369,7 +369,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByVolume(uint volume)
+        public IDataResult<List<Magazine>> GetAllByVolume(uint volume)
         {
             List<Magazine> magazines = _magazineDal.GetAll(m => m.Volume == volume && m.IsDeleted).ToList();
 
@@ -378,7 +378,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetByWriters(Guid writerId)
+        public IDataResult<List<Magazine>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)

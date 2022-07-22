@@ -7,11 +7,11 @@ namespace Business.Abstract.Base
     public interface IMaterialBaseDtoService<G> : IBaseDtoService<G, Guid> where G : MaterialBaseDto, IDto, new()
     {
         IDataResult<G> DtoGetByStockCode(Guid stockCodeId);
-        IDataResult<List<G>> DtoGetByTitles(string title);
-        IDataResult<List<G>> DtoGetByDescriptionFinder(string finderString);
-        IDataResult<List<G>> DtoGetByCategories(int[] categoriesId);
-        IDataResult<List<G>> DtoGetByDimension(Guid dimensionId);
-        IDataResult<List<G>> DtoGetByEMFiles(Guid eMFilesId);
-        IDataResult<List<G>> DtoGetByPrice(decimal minPrice, decimal? maxPrice = null);
+        IDataResult<List<G>> DtoGetAllByTitle(string title);
+        IDataResult<List<G>> DtoGetAllByDescriptionFinder(string finderString);
+        IDataResult<List<G>> DtoGetAllByCategories(int[] categoriesId);
+        IDataResult<List<G>> DtoGetAllByDimension(Guid dimensionId);
+        IDataResult<List<G>> DtoGetAllByEMFile(Guid eMFilesId);
+        IDataResult<List<G>> DtoGetAllByPrice(decimal minPrice, decimal? maxPrice = null);
     }
 }

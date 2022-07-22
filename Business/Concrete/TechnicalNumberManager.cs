@@ -54,7 +54,7 @@ namespace Business.Concrete
             return new SuccessResult(TechnicalNumberConstants.AddedSuccess);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetByBarcode(long barcode)
+        public IDataResult<List<TechnicalNumber>> GetAllByBarcode(long barcode)
         {
             List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => u.Barcode == barcode && !u.IsDeleted).ToList();
             return technicalNumbers == null
@@ -78,7 +78,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<TechnicalNumber>(technicalNumber, TechnicalNumberConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetByIds(Guid[] ids)
+        public IDataResult<List<TechnicalNumber>> GetAllByIds(Guid[] ids)
         {
             List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted).ToList();
             return technicalNumbers == null
@@ -94,7 +94,7 @@ namespace Business.Concrete
                 : new ErrorDataResult<TechnicalNumber>(technicalNumber, TechnicalNumberConstants.ISBNNumberFetched);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetByNames(string name)
+        public IDataResult<List<TechnicalNumber>> GetAllByName(string name)
         {
             return new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.Disabled);
         }
@@ -104,7 +104,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(filter).ToList(), TechnicalNumberConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllBySecrets()
+        public IDataResult<List<TechnicalNumber>> GetAllBySecret()
         {
             return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(u => u.IsDeleted).ToList(), TechnicalNumberConstants.DataGet);
         }

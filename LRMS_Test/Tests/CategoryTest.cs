@@ -61,25 +61,25 @@ namespace LRMS_Test.Tests
         }
 
         [TestMethod]
-        public void GetByIds()
+        public void GetAllByIds()
         {
             int[] ids = { 12 };
 
-            var testGetById = _categoryService.GetByIds(ids);
+            var testGetById = _categoryService.GetAllByIds(ids);
 
             Assert.IsTrue(testGetById.Success, "Get By Id Test Success");
         }
 
         [TestMethod]
-        public void GetByName()
+        public void GetAllByName()
         {
-            var testGetByName = _categoryService.GetByNames("Kor");
+            var testGetByName = _categoryService.GetAllByName("Kor");
 
             Assert.IsTrue(testGetByName.Success, " Get By Names Test Success");
         }
 
         [TestMethod]
-        public void GetByFilterLists()
+        public void GetByFilter()
         {
             int id = 10;
 
@@ -89,9 +89,9 @@ namespace LRMS_Test.Tests
         }
 
         [TestMethod]
-        public void GetAllBySecrets()
+        public void GetAllBySecret()
         {
-            var testGetAllBySecrets = _categoryService.GetAllBySecrets();
+            var testGetAllBySecrets = _categoryService.GetAllBySecret();
 
             Assert.IsTrue(testGetAllBySecrets.Success, "Get All By Secrets Test Success");
         }

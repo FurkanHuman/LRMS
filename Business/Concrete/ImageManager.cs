@@ -93,7 +93,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Image>(image, ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetByIds(Guid[] ids)
+        public IDataResult<List<Image>> GetAllByIds(Guid[] ids)
         {
             List<Image> images = _imageDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted).ToList();
             return images == null
@@ -111,7 +111,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => !g.IsDeleted).ToList(), ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetAllBySecrets()
+        public IDataResult<List<Image>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => g.IsDeleted).ToList(), ImageConstants.DataGet);
         }

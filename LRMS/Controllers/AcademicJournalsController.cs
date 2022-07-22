@@ -51,143 +51,143 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAJNumber")]
-        public IActionResult GetByAJNumber(ushort ajNumber)
+        [HttpPost("GetAllByAJNumber")]
+        public IActionResult GetAllByAJNumber(ushort ajNumber)
         {
-            var result = _academicJournalService.GetByAJNumber(ajNumber);
+            var result = _academicJournalService.GetAllByAJNumber(ajNumber);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCategories")]
-        public IActionResult GetByCategories(int[] categoryIds)
+        [HttpPost("GetAllByCategories")]
+        public IActionResult GetAllByCategories(int[] categoryIds)
         {
-            var result = _academicJournalService.GetByCategories(categoryIds);
+            var result = _academicJournalService.GetAllByCategories(categoryIds);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDateOfYear")]
-        public IActionResult GetByDateOfYear(ushort dateOfYear)
+        [HttpPost("GetAllByDateOfYear")]
+        public IActionResult GetAllByDateOfYear(ushort dateOfYear)
         {
-            var result = _academicJournalService.GetByDateOfYear(dateOfYear);
+            var result = _academicJournalService.GetAllByDateOfYear(dateOfYear);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDescriptionFinder")]
-        public IActionResult GetByDescriptionFinder(string description)
+        [HttpPost("GetAllByDescriptionFinder")]
+        public IActionResult GetAllByDescriptionFinder(string description)
         {
-            var result = _academicJournalService.GetByDescriptionFinder(description);
+            var result = _academicJournalService.GetAllByDescriptionFinder(description);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByDimension")]
-        public IActionResult GetByDimension(Guid id)
+        [HttpPost("GetAllByDimension")]
+        public IActionResult GetAllByDimension(Guid id)
         {
-            var result = _academicJournalService.GetByDimension(id);
+            var result = _academicJournalService.GetAllByDimension(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditor")]
-        public IActionResult GetByEditor(Guid editorId)
+        [HttpPost("GetAllByEditor")]
+        public IActionResult GetAllByEditor(Guid editorId)
         {
-            var result = _academicJournalService.GetByEditor(editorId);
+            var result = _academicJournalService.GetAllByEditor(editorId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEditors")]
-        public IActionResult GetByEditor(Guid[] editorId)
+        [HttpPost("GetAllByEditors")]
+        public IActionResult GetAllByEditors(Guid[] editorId)
         {
-            var result = _academicJournalService.GetByEditor(editorId);
+            var result = _academicJournalService.GetAllByEditors(editorId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByEMFiles")]
-        public IActionResult GetByEMFiles(Guid id)
+        [HttpPost("GetAllByEMFile")]
+        public IActionResult GetAllByEMFile(Guid id)
         {
-            var result = _academicJournalService.GetByEMFiles(id);
+            var result = _academicJournalService.GetAllByEMFile(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _academicJournalService.GetByNames(name);
+            var result = _academicJournalService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPageRange")]
-        public IActionResult GetByPageRange(ushort min, ushort max)
+        [HttpPost("GetAllByPageRange")]
+        public IActionResult GetAllByPageRange(ushort min, ushort max)
         {
-            var result = _academicJournalService.GetByPageRange(min, max);
+            var result = _academicJournalService.GetAllByPageRange(min, max);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisher")]
-        public IActionResult GetByPublisher(Guid publisherId)
+        [HttpPost("GetAllByPublisher")]
+        public IActionResult GetAllByPublisher(Guid publisherId)
         {
-            var result = _academicJournalService.GetByPublisher(publisherId);
+            var result = _academicJournalService.GetAllByPublisher(publisherId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByPublisherDateOfPublication")]
-        public IActionResult GetByPublisherDateOfPublication(DateTime dateOfPublication)
+        [HttpPost("GetAllByPublisherDateOfPublication")]
+        public IActionResult GetAllByPublisherDateOfPublication(DateTime dateOfPublication)
         {
-            var result = _academicJournalService.GetByPublisherDateOfPublication(dateOfPublication);
+            var result = _academicJournalService.GetAllByPublisherDateOfPublication(dateOfPublication);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByReferenceDate")]
-        public IActionResult GetByReferenceDate(DateTime referenceDate)
+        [HttpPost("GetAllByReferenceDate")]
+        public IActionResult GetAllByReferenceDate(DateTime referenceDate)
         {
-            var result = _academicJournalService.GetByReferenceDate(referenceDate);
+            var result = _academicJournalService.GetAllByReferenceDate(referenceDate);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByReferenceId")]
-        public IActionResult GetByReferenceId(Guid referenceId)
+        [HttpPost("GetAllByReferenceId")]
+        public IActionResult GetAllByReferenceId(Guid referenceId)
         {
-            var result = _academicJournalService.GetByReferenceId(referenceId);
+            var result = _academicJournalService.GetAllByReferenceId(referenceId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByReferenceOwner")]
-        public IActionResult GetByReferenceOwner(string owner)
+        [HttpPost("GetAllByReferenceOwner")]
+        public IActionResult GetAllByReferenceOwner(string owner)
         {
-            var result = _academicJournalService.GetByReferenceOwner(owner);
+            var result = _academicJournalService.GetAllByReferenceOwner(owner);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByResearcher")]
-        public IActionResult GetByResearcher(Guid researcherId)
+        [HttpPost("GetAllByResearcher")]
+        public IActionResult GetAllByResearcher(Guid researcherId)
         {
-            var result = _academicJournalService.GetByResearcher(researcherId);
+            var result = _academicJournalService.GetAllByResearcher(researcherId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByResearchers")]
-        public IActionResult GetByResearcher(Guid[] researcherId)
+        [HttpPost("GetAllByResearchers")]
+        public IActionResult GetAllByResearchers(Guid[] researcherIds)
         {
-            var result = _academicJournalService.GetByResearcher(researcherId);
+            var result = _academicJournalService.GetAllByResearchers(researcherIds);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByTechnicalPlaceholders")]
-        public IActionResult GetByTechnicalPlaceholders(Guid id)
+        [HttpPost("GetAllByTechnicalPlaceholder")]
+        public IActionResult GetAllByTechnicalPlaceholder(Guid id)
         {
-            var result = _academicJournalService.GetByTechnicalPlaceholders(id);
+            var result = _academicJournalService.GetAllByTechnicalPlaceholder(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByTitles")]
-        public IActionResult GetByTitles(string title)
+        [HttpPost("GetAllByTitle")]
+        public IActionResult GetAllByTitle(string title)
         {
-            var result = _academicJournalService.GetByTitles(title);
+            var result = _academicJournalService.GetAllByTitle(title);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByVolume")]
-        public IActionResult GetByVolume(ushort volume)
+        [HttpPost("GetAllByVolume")]
+        public IActionResult GetAllByVolume(ushort volume)
         {
-            var result = _academicJournalService.GetByVolume(volume);
+            var result = _academicJournalService.GetAllByVolume(volume);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -212,10 +212,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _academicJournalService.GetAllBySecrets();
+            var result = _academicJournalService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

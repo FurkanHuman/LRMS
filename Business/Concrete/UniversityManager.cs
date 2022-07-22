@@ -76,7 +76,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByIds(Guid[] ids)
+        public IDataResult<List<University>> GetAllByIds(Guid[] ids)
         {
             List<University> universities = _universityDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted).ToList();
 
@@ -97,7 +97,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<University>(university, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByNames(string name)
+        public IDataResult<List<University>> GetAllByName(string name)
         {
             List<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(name) && !u.IsDeleted).ToList();
 
@@ -106,7 +106,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByInstituteNames(string instituteName)
+        public IDataResult<List<University>> GetAllByInstituteName(string instituteName)
         {
             List<University> universities = _universityDal.GetAll(u => u.Institute.Contains(instituteName) && !u.IsDeleted).ToList();
 
@@ -115,7 +115,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByBranchNames(string branchName)
+        public IDataResult<List<University>> GetAllByBranchName(string branchName)
         {
             List<University> universities = _universityDal.GetAll(u => u.Branch.Name.Contains(branchName) && !u.IsDeleted).ToList();
 
@@ -124,7 +124,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByBranchId(int branchId)
+        public IDataResult<List<University>> GetAllByBranchId(int branchId)
         {
             IDataResult<Branch> branch = _branchService.GetById(branchId);
             if (!branch.Success)
@@ -137,7 +137,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByCityNames(string cityName)
+        public IDataResult<List<University>> GetAllByCityName(string cityName)
         {
             List<University> universities = _universityDal.GetAll(u => u.Address.City.CityName.Contains(cityName) && !u.IsDeleted).ToList();
 
@@ -146,7 +146,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByCityId(int cityId)
+        public IDataResult<List<University>> GetAllByCityId(int cityId)
         {
             List<University> universities = _universityDal.GetAll(u => u.Address.City.Id == cityId && !u.IsDeleted).ToList();
             return universities == null
@@ -154,7 +154,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByCountryNames(string countryName)
+        public IDataResult<List<University>> GetAllByCountryName(string countryName)
         {
             List<University> universities = _universityDal.GetAll(u => u.Address.Country.CountryName.Contains(countryName) && !u.IsDeleted).ToList();
 
@@ -163,7 +163,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<University>>(universities, UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetByCountryId(int countryId)
+        public IDataResult<List<University>> GetAllByCountryId(int countryId)
         {
             List<University> universities = _universityDal.GetAll(u => u.Address.Country.Id == countryId && !u.IsDeleted).ToList();
 
@@ -177,7 +177,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(filter).ToList(), UniversityConstants.DataGet);
         }
 
-        public IDataResult<List<University>> GetAllBySecrets()
+        public IDataResult<List<University>> GetAllBySecret()
         {
             return new SuccessDataResult<List<University>>(_universityDal.GetAll(u => u.IsDeleted).ToList(), UniversityConstants.DataGet);
         }

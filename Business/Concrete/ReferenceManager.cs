@@ -79,7 +79,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(r => !r.IsDeleted).ToList(), ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllBySecrets()
+        public IDataResult<List<Reference>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(r => r.IsDeleted).ToList(), ReferenceConstants.DataGet);
         }
@@ -98,7 +98,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Reference>(reference, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetByIds(Guid[] ids)
+        public IDataResult<List<Reference>> GetAllByIds(Guid[] ids)
         {
             List<Reference> references = _referenceDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
             return references == null
@@ -106,12 +106,12 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetByNames(string name)
+        public IDataResult<List<Reference>> GetAllByName(string name)
         {
             return new ErrorDataResult<List<Reference>>(ReferenceConstants.Disabled);
         }
 
-        public IDataResult<List<Reference>> GetByOwner(string ownerStr)
+        public IDataResult<List<Reference>> GetAllByOwner(string ownerStr)
         {
             List<Reference> references = _referenceDal.GetAll(r => r.Owner.Contains(ownerStr) && !r.IsDeleted).ToList();
             return references == null
@@ -119,7 +119,7 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetByReferenceDate(DateTime date)
+        public IDataResult<List<Reference>> GetAllByReferenceDate(DateTime date)
         {
             List<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate == date && !r.IsDeleted).ToList();
             return references == null
@@ -127,7 +127,7 @@ namespace Business.Concrete
                  : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetBySubText(string subText)
+        public IDataResult<List<Reference>> GetAllBySubText(string subText)
         {
             List<Reference> references = _referenceDal.GetAll(r => r.SubText.Contains(subText) && !r.IsDeleted).ToList();
             return references == null

@@ -74,7 +74,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetByIds(Guid[] ids)
+        public IDataResult<List<Researcher>> GetAllByIds(Guid[] ids)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => ids.Contains(n.Id)).ToList();
             return researchers == null
@@ -82,7 +82,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetByNames(string name)
+        public IDataResult<List<Researcher>> GetAllByName(string name)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => n.Name.Contains(name)).ToList();
             return researchers == null
@@ -90,7 +90,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetBySurnames(string surname)
+        public IDataResult<List<Researcher>> GetAllBySurname(string surname)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => n.SurName.Contains(surname)).ToList();
             return researchers == null
@@ -98,7 +98,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetNamePreAttachmentList(string namePreAttachment)
+        public IDataResult<List<Researcher>> GetAllNamePreAttachment(string namePreAttachment)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment) && !n.IsDeleted).ToList();
             return researchers == null
@@ -106,7 +106,7 @@ namespace Business.Concrete
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetSpecialtyList(string Specialty)
+        public IDataResult<List<Researcher>> GetAllSpecialty(string Specialty)
         {
             List<Researcher> researchers = _researcherDal.GetAll(n => n.Specialty.Contains(Specialty) && !n.IsDeleted).ToList();
             return researchers == null
@@ -114,7 +114,7 @@ namespace Business.Concrete
                    : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllBySecrets()
+        public IDataResult<List<Researcher>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted).ToList(), ResearcherConstants.DataGet);
         }

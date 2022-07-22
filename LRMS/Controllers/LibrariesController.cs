@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿
+using Business.Abstract;
 using Entities.Concrete.Infos;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
@@ -51,10 +52,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _libraryService.GetByNames(name);
+            var result = _libraryService.GetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -65,17 +66,17 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressNames")]
-        public IActionResult GetByAddressNames(string name)
+        [HttpPost("GetAllByAddressName")]
+        public IActionResult GetAllByAddressName(string name)
         {
-            var result = _libraryService.GetByAddressNames(name);
+            var result = _libraryService.GetAllByAddressName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByAddressLines")]
-        public IActionResult GetByAddressLines(string line)
+        [HttpPost("GetAllByAddressLine")]
+        public IActionResult GetByAddressLine(string line)
         {
-            var result = _libraryService.GetByAddressLines(line);
+            var result = _libraryService.GetAllByAddressLine(line);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -93,10 +94,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByCommunicationNames")]
-        public IActionResult GetByCommunicationNames(string name)
+        [HttpPost("GetAllByCommunicationName")]
+        public IActionResult GetAllByCommunicationName(string name)
         {
-            var result = _libraryService.GetByCommunicationNames(name);
+            var result = _libraryService.GetAllByCommunicationName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -121,80 +122,80 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryTypes")]
-        public IActionResult GetByLibraryTypes(byte libraryType)
+        [HttpPost("GetAllByLibraryType")]
+        public IActionResult GetAllByLibraryType(byte libraryType)
         {
-            var result = _libraryService.GetByLibraryTypes(libraryType);
+            var result = _libraryService.GetAllByLibraryType(libraryType);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInCountryId")]
-        public IActionResult GetByLibraryInCountryId(int id)
+        [HttpPost("GetAllByLibraryInCountryId")]
+        public IActionResult GetAllByLibraryInCountryId(int id)
         {
-            var result = _libraryService.GetByLibraryInCountryId(id);
+            var result = _libraryService.GetAllByLibraryInCountryId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInCountryNames")]
-        public IActionResult GetByLibraryInCountryNames(string name)
+        [HttpPost("GetAllByLibraryInCountryName")]
+        public IActionResult GetAllByLibraryInCountryName(string name)
         {
-            var result = _libraryService.GetByLibraryInCountryNames(name);
+            var result = _libraryService.GetAllByLibraryInCountryName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInCountryCode")]
-        public IActionResult GetByLibraryInCountryCode(string code)
+        [HttpPost("GetAllByLibraryInCountryCode")]
+        public IActionResult GetAllByLibraryInCountryCode(string code)
         {
-            var result = _libraryService.GetByLibraryInCountryCode(code);
+            var result = _libraryService.GetAllByLibraryInCountryCode(code);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInCityId")]
-        public IActionResult GetByLibraryInCityId(int id)
+        [HttpPost("GetAllByLibraryInCityId")]
+        public IActionResult GetAllByLibraryInCityId(int id)
         {
-            var result = _libraryService.GetByLibraryInCityId(id);
+            var result = _libraryService.GetAllByLibraryInCityId(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInCityNames")]
-        public IActionResult GetByLibraryInCityNames(string name)
+        [HttpPost("GetAllByLibraryInCityName")]
+        public IActionResult GetAllByLibraryInCityName(string name)
         {
-            var result = _libraryService.GetByLibraryInCityNames(name);
+            var result = _libraryService.GetAllByLibraryInCityName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInPostalCode")]
-        public IActionResult GetByLibraryInPostalCode(string postalCode)
+        [HttpPost("GetAllByLibraryInPostalCode")]
+        public IActionResult GetAllByLibraryInPostalCode(string postalCode)
         {
-            var result = _libraryService.GetByLibraryInPostalCode(postalCode);
+            var result = _libraryService.GetAllByLibraryInPostalCode(postalCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetByLibraryInGeoLocation")]
-        public IActionResult GetByLibraryInGeoLocation(string geoLocation)
+        [HttpPost("GetAllByLibraryInGeoLocation")]
+        public IActionResult GetAllByLibraryInGeoLocation(string geoLocation)
         {
-            var result = _libraryService.GetByLibraryInGeoLocation(geoLocation);
+            var result = _libraryService.GetAllByLibraryInGeoLocation(geoLocation);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Library, bool>>? filter = null)
+        public IActionResult GetAllByFilter(Expression<Func<Library, bool>>? filter = null)
         {
             var result = _libraryService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllByLibraryTypes")]
-        public IActionResult GetAllByLibraryTypes()
+        [HttpGet("GetAllByLibraryType")]
+        public IActionResult GetAllByLibraryType()
         {
-            var result = _libraryService.GetAllEnumToDictionaryLibraryTypes();
+            var result = _libraryService.GetAllEnumToDictionaryLibraryType();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _libraryService.GetAllBySecrets();
+            var result = _libraryService.GetAllBySecret();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

@@ -80,7 +80,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
         }
 
-        public IDataResult<List<Consultant>> GetByIds(Guid[] ids)
+        public IDataResult<List<Consultant>> GetAllByIds(Guid[] ids)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
 
@@ -89,7 +89,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetByNames(string name)
+        public IDataResult<List<Consultant>> GetAllByName(string name)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
             return consultants == null
@@ -97,7 +97,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetBySurnames(string surname)
+        public IDataResult<List<Consultant>> GetAllBySurname(string surname)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
 
@@ -106,7 +106,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetNamePreAttachmentLists(string namePreAttachment)
+        public IDataResult<List<Consultant>> GetAllByNamePreAttachment(string namePreAttachment)
         {
             List<Consultant> consultants = _consultantDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment) && !c.IsDeleted).ToList();
 
@@ -115,7 +115,7 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetAllBySecrets()
+        public IDataResult<List<Consultant>> GetAllBySecret()
         {
             return new SuccessDataResult<List<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted).ToList(), ConsultantConstants.DataGet);
         }

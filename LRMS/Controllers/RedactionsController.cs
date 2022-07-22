@@ -51,31 +51,31 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetByNames")]
-        public IActionResult GetByNames(string name)
+        [HttpPost("GetAllByName")]
+        public IActionResult GetAllByName(string name)
         {
-            var result = _redactionService.GetByNames(name);
+            var result = _redactionService.GetAllByName(name);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetBySurnames")]
-        public IActionResult GetBySurnames(string surname)
+        [HttpPost("GetAllBySurname")]
+        public IActionResult GetAllBySurname(string surname)
         {
-            var result = _redactionService.GetBySurnames(surname);
+            var result = _redactionService.GetAllBySurname(surname);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
         [HttpPost("GetAllByFilter")]
-        public IActionResult GetByFilterLists(Expression<Func<Redaction, bool>>? filter = null)
+        public IActionResult GetByFilter(Expression<Func<Redaction, bool>>? filter = null)
         {
             var result = _redactionService.GetAllByFilter(filter);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllBySecrets")]
-        public IActionResult GetAllBySecrets()
+        [HttpGet("GetAllBySecret")]
+        public IActionResult GetAllBySecret()
         {
-            var result = _redactionService.GetAllBySecrets();
+            var result = _redactionService.GetAllBySecret();
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
