@@ -106,6 +106,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<MagazineManager>().As<IMagazineService>().SingleInstance();
             builder.RegisterType<EfMagazineDal>().As<IMagazineDal>().SingleInstance();
 
+            builder.RegisterType<MicroformManager>().As<IMicroformService>().SingleInstance();
+            builder.RegisterType<EfMicroformDal>().As<IMicroformDal>().SingleInstance();
+
             builder.RegisterType<OtherPeopleManager>().As<IOtherPeopleService>().SingleInstance();
             builder.RegisterType<EfOtherPeopleDal>().As<IOtherPeopleDal>().SingleInstance();
 
