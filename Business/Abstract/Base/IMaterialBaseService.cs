@@ -9,6 +9,8 @@ namespace Business.Abstract.Base
         IDataResult<byte?> GetSecretLevel(Guid id);
         IDataResult<byte> GetState(Guid id);
         IDataResult<T> GetByStock(Guid stockId);
+
+        // list to IEnumrable change after
         IDataResult<List<T>> GetAllByCategories(int[] categoriesId);
         IDataResult<List<T>> GetAllByDescriptionFinder(string finderString);
         IDataResult<List<T>> GetAllByDimension(Guid dimensionId);

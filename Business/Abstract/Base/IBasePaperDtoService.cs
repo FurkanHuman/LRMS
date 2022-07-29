@@ -6,6 +6,7 @@ namespace Business.Abstract.Base
 {
     public interface IBasePaperDtoService<D> : IMaterialBaseDtoService<D> where D : BasePaperDto, IDto, new()
     {
+        // list to IEnumrable change after
         IDataResult<D> DtoGetByCoverImage(Guid CImageId);
         IDataResult<List<D>> DtoGetAllByWriter(Guid writerId);
         IDataResult<List<D>> DtoGetAllByEditor(Guid editorId);

@@ -6,6 +6,7 @@ namespace Business.Abstract.Base
 {
     public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper, IEntity, new()
     {
+        // list to IEnumrable change after
         IDataResult<T> GetByCoverImage(Guid cImageId);
         IDataResult<List<T>> GetAllByCoverCap(byte coverCapNum);
         IDataResult<List<T>> GetAllByCommunication(Guid communicationId);
