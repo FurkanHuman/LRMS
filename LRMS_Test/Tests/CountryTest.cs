@@ -1,6 +1,14 @@
-﻿namespace LRMS_Test.Tests
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace LRMS_Test.Tests
 {
-    internal class CountryTest
+    [TestClass]
+    public class CountryTest
     {
+        [TestMethod]
+        public void MyTestMethod()
+        {
+
+        }
+
     }
 }
