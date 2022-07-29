@@ -50,9 +50,9 @@ namespace Core.DataAccess.PostgreDb
         public IEnumerable<TEntity> IGetAll(Expression<Func<TEntity, bool>>? filter = null) // todo try code
         {
             using TContext context = new();
-            return filter == null ?
-                context.Set<TEntity>() :
-                context.Set<TEntity>().Where(filter);
+            return filter == null 
+                ? context.Set<TEntity>().ToArray()
+                : context.Set<TEntity>().Where(filter).ToArray();
         }
     }
 }
