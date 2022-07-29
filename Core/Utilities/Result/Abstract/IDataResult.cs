@@ -1,6 +1,6 @@
 ﻿namespace Core.Utilities.Result.Abstract
 {
-    public interface IDataResult<T> : IResult
+    public interface IDataResult<out T> : IResult
     {
         T Data { get; }
     }
