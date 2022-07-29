@@ -10,7 +10,7 @@ namespace Entities.Concrete
         public string NewsPaperName { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public uint Number { get; set; }
 
         [Required]
         public Guid ImageId { get; set; }

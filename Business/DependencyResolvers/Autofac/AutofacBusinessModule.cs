@@ -109,8 +109,11 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<MicroformManager>().As<IMicroformService>().SingleInstance();
             builder.RegisterType<EfMicroformDal>().As<IMicroformDal>().SingleInstance();
 
-            builder.RegisterType<MusicalNoteManager>().As<IMicroformService>().SingleInstance();
+            builder.RegisterType<MusicalNoteManager>().As<IMusicalNoteService>().SingleInstance();
             builder.RegisterType<EfMusicalNoteDal>().As<IMusicalNoteDal>().SingleInstance();
+
+            builder.RegisterType<NewsPaperManager>().As<INewsPaperService>().SingleInstance();
+            builder.RegisterType<EfNewsPaperDal>().As<INewsPaperDal>().SingleInstance();
 
             builder.RegisterType<OtherPeopleManager>().As<IOtherPeopleService>().SingleInstance();
             builder.RegisterType<EfOtherPeopleDal>().As<IOtherPeopleDal>().SingleInstance();
