@@ -80,5 +80,12 @@ namespace LRMS.Controllers
             var result = _categoryService.GetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
+        [HttpGet("IGetAll")]
+        public IActionResult IGetAll()
+        {
+            var result = _categoryService.IGetAll();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Entities.Abstract;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -97,6 +98,11 @@ namespace Business.Concrete
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
+        }
+
+        public IDataResult<IEnumerable<Category>> IGetAll()
+        {
+            return new SuccessDataResult<IEnumerable<Category>>(_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
         private IResult CategoryNameChecker(Category category)
