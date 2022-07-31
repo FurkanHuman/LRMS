@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Business.ServiceCollection.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,7 +14,8 @@ namespace Business.Concrete
     public class PublisherManager : IPublisherService // todo reWrite
     {
         private readonly IPublisherDal _publisherDal;
-        private readonly IEditionServiceCollection _editionServiceCollection; // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
+    
+        // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
         // https://www.linkedin.com/pulse/yaz%C4%B1l%C4%B1mc%C4%B1n%C4%B1n-gizli-kabusu-constructor-injection-cehennemi-kerem-varis/?originalSubdomain=tr - Kerem Varış
 
         private readonly IAddressService _addressService;
@@ -31,12 +31,6 @@ namespace Business.Concrete
             _countryService = countryService;
             _cityService = cityService;
             _communicationService = communicationService;
-        }
-
-        public PublisherManager(IPublisherDal publisherDal, IEditionServiceCollection editionServiceCollection)
-        {
-            _publisherDal = publisherDal;
-            _editionServiceCollection = editionServiceCollection;
         }
 
         [ValidationAspect(typeof(PublisherValidator), Priority = 1)]

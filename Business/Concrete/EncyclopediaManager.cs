@@ -194,13 +194,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<List<Encyclopedia>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<List<Encyclopedia>>(eMFile.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EMaterialFilesId == eMFilesId && !ep.IsDeleted).ToList();
+            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EMaterialFilesId == eMFileId && !ep.IsDeleted).ToList();
             return encyclopedias == null
                 ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
                 : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
