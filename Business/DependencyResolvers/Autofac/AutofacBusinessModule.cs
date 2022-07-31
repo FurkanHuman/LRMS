@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.Facade;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 
@@ -10,8 +11,10 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AcademicJournalManager>().As<IAcademicJournalService>();
-            builder.RegisterType<EfAcademicJournalDal>().As<IAcademicJournalDal>();
+            builder.RegisterType<FacadeManager>().As<IFacadeService>().SingleInstance();
+
+            builder.RegisterType<AcademicJournalManager>().As<IAcademicJournalService>().SingleInstance();
+            builder.RegisterType<EfAcademicJournalDal>().As<IAcademicJournalDal>().SingleInstance();
 
             builder.RegisterType<AddressManager>().As<IAddressService>().SingleInstance();
             builder.RegisterType<EfAddressDal>().As<IAddressDal>().SingleInstance();
@@ -115,6 +118,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<NewsPaperManager>().As<INewsPaperService>().SingleInstance();
             builder.RegisterType<EfNewsPaperDal>().As<INewsPaperDal>().SingleInstance();
 
+            builder.RegisterType<Object3DManager>().As<IObject3DService>().SingleInstance();
+            builder.RegisterType<EfObject3DDal>().As<IObject3DDal>().SingleInstance();
+
             builder.RegisterType<OtherPeopleManager>().As<IOtherPeopleService>().SingleInstance();
             builder.RegisterType<EfOtherPeopleDal>().As<IOtherPeopleDal>().SingleInstance();
 
@@ -145,6 +151,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<WriterManager>().As<IWriterService>().SingleInstance();
             builder.RegisterType<EfWriterDal>().As<IWriterDal>().SingleInstance();
 
+            
             // Todo daha sonra yapılacak  builder.RegisterType<AuthManager>().As<IAuthService>(); Not.
             // builder.RegisterType<JwtHelper>().As<ITokenHelper>()"
 
