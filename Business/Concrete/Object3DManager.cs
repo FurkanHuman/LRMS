@@ -194,7 +194,7 @@ namespace Business.Concrete
             if (!techPlaceHolder.Success)
                 return new ErrorDataResult<List<Object3D>>(techPlaceHolder.Message);
 
-            List<Object3D> object3Ds = _object3DDal.GetAll(o => o.TechnicalPlaceholdersId==technicalPlaceholderId && !o.IsDeleted).ToList();
+            List<Object3D> object3Ds = _object3DDal.GetAll(o => o.TechnicalPlaceholdersId == technicalPlaceholderId && !o.IsDeleted).ToList();
             return object3Ds == null
                 ? new ErrorDataResult<List<Object3D>>(Object3DConstants.DataNotGet)
                 : new SuccessDataResult<List<Object3D>>(object3Ds, Object3DConstants.DataGet);
@@ -222,7 +222,7 @@ namespace Business.Concrete
             if (!image.Success)
                 return new ErrorDataResult<Object3D>(image.Message);
 
-            Object3D object3D = _object3DDal.Get(o => o.ImageId==imageId && !o.IsDeleted);
+            Object3D object3D = _object3DDal.Get(o => o.ImageId == imageId && !o.IsDeleted);
             return object3D == null
                 ? new ErrorDataResult<Object3D>(Object3DConstants.DataNotGet)
                 : new SuccessDataResult<Object3D>(object3D, Object3DConstants.DataGet);

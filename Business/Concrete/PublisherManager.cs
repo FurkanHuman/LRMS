@@ -14,7 +14,7 @@ namespace Business.Concrete
     public class PublisherManager : IPublisherService // todo reWrite
     {
         private readonly IPublisherDal _publisherDal;
-    
+
         // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
         // https://www.linkedin.com/pulse/yaz%C4%B1l%C4%B1mc%C4%B1n%C4%B1n-gizli-kabusu-constructor-injection-cehennemi-kerem-varis/?originalSubdomain=tr - Kerem Varış
 

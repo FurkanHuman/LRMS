@@ -1,5 +1,4 @@
 ﻿using Business.Abstract.Base;
-using Core.Entities.Abstract;
 using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
 
