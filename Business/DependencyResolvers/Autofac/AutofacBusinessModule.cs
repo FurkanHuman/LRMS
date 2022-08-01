@@ -124,6 +124,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<OtherPeopleManager>().As<IOtherPeopleService>().SingleInstance();
             builder.RegisterType<EfOtherPeopleDal>().As<IOtherPeopleDal>().SingleInstance();
 
+            builder.RegisterType<PaintingManager>().As<IPaintingService>().SingleInstance();
+            builder.RegisterType<EfPaintingDal>().As<IPaintingDal>().SingleInstance();
+
+            builder.RegisterType<PosterManager>().As<IPosterService>().SingleInstance();
+            builder.RegisterType<EfPosterDal>().As<IPosterDal>().SingleInstance();
+
             builder.RegisterType<PublisherManager>().As<IPublisherService>().SingleInstance();
             builder.RegisterType<EfPublisherDal>().As<IPublisherDal>().SingleInstance();
 
@@ -151,7 +157,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<WriterManager>().As<IWriterService>().SingleInstance();
             builder.RegisterType<EfWriterDal>().As<IWriterDal>().SingleInstance();
 
-            
+
             // Todo daha sonra yapılacak  builder.RegisterType<AuthManager>().As<IAuthService>(); Not.
             // builder.RegisterType<JwtHelper>().As<ITokenHelper>()"
 
