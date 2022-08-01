@@ -24,6 +24,8 @@ namespace Business.Concrete
             _facadeService = facadeService;
         }
 
+
+        [ValidationAspect(typeof(Object3DValidator))]
         public IResult Add(Object3D object3D)
         {
             IResult result = BusinessRules.Run(Object3DControlDB(object3D));
