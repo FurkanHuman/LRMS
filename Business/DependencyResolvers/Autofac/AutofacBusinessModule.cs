@@ -151,6 +151,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<TechnicalPlaceholderManager>().As<ITechnicalPlaceholderService>().SingleInstance();
             builder.RegisterType<EfTechnicalPlaceholderDal>().As<ITechnicalPlaceholderDal>().SingleInstance();
 
+            builder.RegisterType<ThesisManager>().As<IThesisService>().SingleInstance();
+            builder.RegisterType<EfThesisDal>().As<IThesisDal>().SingleInstance();
+
             builder.RegisterType<UniversityManager>().As<IUniversityService>().SingleInstance();
             builder.RegisterType<EfUniversityDal>().As<IUniversityDal>().SingleInstance();
 
