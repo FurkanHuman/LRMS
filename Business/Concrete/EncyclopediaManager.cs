@@ -98,12 +98,10 @@ namespace Business.Concrete
             return encyclopedias == null
                 ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
                 : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
-
         }
 
         public IDataResult<List<Encyclopedia>> GetAllByCommunication(Guid communicationId)
         {
-
             IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
             if (!edition.Success)
                 return new ErrorDataResult<List<Encyclopedia>>(edition.Message);
