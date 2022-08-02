@@ -61,5 +61,6 @@
         public const string OtherPeopleIdRequired = "OtherPeopleId is required";
         public const string PublisherIdRequired = "Publisher Id is Required";
         public const string StockRequired = "Stock is Required";
+        public const string ConsultantIdRequired = "Consultant Id is Required";
     }
 }
