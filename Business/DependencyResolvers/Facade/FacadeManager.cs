@@ -54,10 +54,7 @@ namespace Business.DependencyResolvers.Facade
         private readonly IUniversityService _universityService;
         private readonly IWriterService _writerService;
 
-        public FacadeManager(IWriterService writerService)
-        {
-            _writerService = writerService;
-        }
+
 
         public FacadeManager(IAcademicJournalService academicJournalService,
                              IAddressService addressService,
@@ -208,7 +205,6 @@ namespace Business.DependencyResolvers.Facade
         public ITechnicalPlaceholderService TechnicalPlaceholderService() => _technicalPlaceholderService;
         public IThesisService ThesisService() => _thesisService;
         public IUniversityService UniversityService() => _universityService;
-
         public IWriterService WriterService() => _writerService;
     }
 }
