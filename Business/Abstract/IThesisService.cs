@@ -18,10 +18,9 @@ namespace Business.Abstract
         IDataResult<IEnumerable<Thesis>> GetAllByCountryId(int countryId);
         IDataResult<IEnumerable<Thesis>> GetAllByCountryCode(string countryCode);
         IDataResult<IEnumerable<Thesis>> GetAllByDateTimeYear(ushort year);
-        IDataResult<IEnumerable<Thesis>> GetAllBylangaugeId(Guid langaugeId);
+        IDataResult<IEnumerable<Thesis>> GetAllBylangaugeId(int langaugeId);
         IDataResult<IEnumerable<Thesis>> GetAllByThesisNumber(int thesisNumber);
         IDataResult<IEnumerable<Thesis>> GetAllByPermissionStatus(bool status);
         IDataResult<IEnumerable<Thesis>> GetAllByApprovalStatus(bool status);
-        IDataResult<IEnumerable<Thesis>> GetAllBySecretStatus(bool status);
     }
 }
