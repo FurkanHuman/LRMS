@@ -101,7 +101,7 @@ namespace Business.Concrete
 
         public IDataResult<IEnumerable<Category>> IGetAll()
         {
-            return new SuccessDataResult<IEnumerable<Category>>(_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<IEnumerable<Category>>(_categoryDal.IGetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
         private IResult CategoryNameChecker(Category category)
