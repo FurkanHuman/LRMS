@@ -99,11 +99,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Category>> IGetAll()
-        {
-            return new SuccessDataResult<IEnumerable<Category>>(_categoryDal.IGetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
-        }
-
         private IResult CategoryNameChecker(Category category)
         {
             bool res = _categoryDal.GetAll(c => c.Name.Contains(category.Name)).Any();

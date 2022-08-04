@@ -12,7 +12,7 @@ namespace Core.DataAccess.PostgreDb
         public TEntity? Get(Expression<Func<TEntity, bool>> filter)
         {
             using TContext context = new();
-            return context.Set<TEntity>().SingleOrDefault(filter.Compile());
+            return context.Set<TEntity>().FirstOrDefault(filter.Compile());
         }
 
         public IList<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)
@@ -45,14 +45,6 @@ namespace Core.DataAccess.PostgreDb
             EntityEntry<TEntity> UpdateEntity = context.Entry(entity);
             UpdateEntity.State = EntityState.Modified;
             context.SaveChanges();
-        }
-
-        public IEnumerable<TEntity> IGetAll(Expression<Func<TEntity, bool>>? filter = null) // todo try code
-        {
-            using TContext context = new();
-            return filter == null 
-                ? context.Set<TEntity>().ToArray()
-                : context.Set<TEntity>().Where(filter).ToArray();
         }
     }
 }
