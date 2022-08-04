@@ -8,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public BookSeriesValidator()
         {
-            RuleFor(bs => bs.BookIds).NotNull().NotEmpty().WithMessage(CartographicMaterialConstants.BookSeriesIdRequired);
+            RuleFor(bs => bs.BooksIds).NotNull().NotEmpty().WithMessage(CartographicMaterialConstants.BookSeriesIdRequired);
         }
     }
 }

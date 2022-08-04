@@ -100,7 +100,7 @@ namespace Business.Concrete
             if (!book.Success)
                 return new ErrorDataResult<BookSeries>(book.Message);
 
-            BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.BookIds == bookId && !bs.IsDeleted);
+            BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.BooksIds == bookId && !bs.IsDeleted);
             return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.DataNotGet)
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
@@ -404,7 +404,7 @@ namespace Business.Concrete
              && bs.EditorId == bookSeries.EditorId
              && bs.TechnicalNumberId == bookSeries.TechnicalNumberId
              && bs.EditionId == bookSeries.EditionId
-             && bs.BookIds == bookSeries.BookIds
+             && bs.BooksIds == bookSeries.BooksIds
                 ) != null;
 
             if (checkBookS)
