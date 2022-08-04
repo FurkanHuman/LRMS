@@ -67,76 +67,76 @@ namespace Business.Concrete
             return new SuccessResult(CartographicMaterialConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<CartographicMaterial>> GetAllByCategories(int[] categoriesId)
         {
 
-            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
-                return new ErrorDataResult<List<CartographicMaterial>>(categories.Message);
+                return new ErrorDataResult<IList<CartographicMaterial>>(categories.Message);
 
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(aj => categories.Data.Select(c => c.Id).Contains(aj.CategoryId) && !aj.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(aj => categories.Data.Select(c => c.Id).Contains(aj.CategoryId) && !aj.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(AcademicJournalConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, AcademicJournalConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(AcademicJournalConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAll()
+        public IDataResult<IList<CartographicMaterial>> GetAll()
         {
 
-            return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => !cm.IsDeleted).ToList());
+            return new SuccessDataResult<IList<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => !cm.IsDeleted));
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByFilter(Expression<Func<CartographicMaterial, bool>>? filter = null)
+        public IDataResult<IList<CartographicMaterial>> GetAllByFilter(Expression<Func<CartographicMaterial, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(filter).ToList());
+            return new SuccessDataResult<IList<CartographicMaterial>>(_cartographicMaterialDal.GetAll(filter));
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllBySecret()
+        public IDataResult<IList<CartographicMaterial>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => cm.IsDeleted).ToList());
+            return new SuccessDataResult<IList<CartographicMaterial>>(_cartographicMaterialDal.GetAll(cm => cm.IsDeleted));
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByDate(DateTime dateTimeMin, DateTime? dateTimeMax)
+        public IDataResult<IList<CartographicMaterial>> GetAllByDate(DateTime dateTimeMin, DateTime? dateTimeMax)
         {
-            List<CartographicMaterial> cartographicMaterials = dateTimeMax == null
-                ? _cartographicMaterialDal.GetAll(cm => cm.Date == dateTimeMin && !cm.IsDeleted).ToList()
-                : _cartographicMaterialDal.GetAll(cm => cm.Date <= dateTimeMin && cm.Date >= dateTimeMax && !cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = dateTimeMax == null
+                ? _cartographicMaterialDal.GetAll(cm => cm.Date == dateTimeMin && !cm.IsDeleted)
+                : _cartographicMaterialDal.GetAll(cm => cm.Date <= dateTimeMin && cm.Date >= dateTimeMax && !cm.IsDeleted);
 
             return cartographicMaterials == null
-                 ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                 : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                 ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                 : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<CartographicMaterial>> GetAllByDescriptionFinder(string finderString)
         {
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Description.Contains(finderString) && !cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Description.Contains(finderString) && !cm.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<CartographicMaterial>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new SuccessDataResult<List<CartographicMaterial>>(dimension.Message);
+                return new SuccessDataResult<IList<CartographicMaterial>>(dimension.Message);
 
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.DimensionsId == dimensionId && cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.DimensionsId == dimensionId && cm.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<CartographicMaterial>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMaterialFile = _eMaterialFileService.GetById(eMFilesId);
             if (!eMaterialFile.Success)
-                return new ErrorDataResult<List<CartographicMaterial>>(eMaterialFile.Message);
+                return new ErrorDataResult<IList<CartographicMaterial>>(eMaterialFile.Message);
 
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.EMaterialFilesId == eMFilesId && cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.EMaterialFilesId == eMFilesId && cm.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
         public IDataResult<CartographicMaterial> GetById(Guid id)
@@ -147,12 +147,12 @@ namespace Business.Concrete
                : new ErrorDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<CartographicMaterial>> GetAllByIds(Guid[] ids)
         {
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => ids.Contains(cm.Id) && cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => ids.Contains(cm.Id) && cm.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
         public IDataResult<CartographicMaterial> GetAllByImageId(Guid imageId)
@@ -167,50 +167,50 @@ namespace Business.Concrete
                 : new SuccessDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByImageIds(Guid[] imageIds)
+        public IDataResult<IList<CartographicMaterial>> GetAllByImageIds(Guid[] imageIds)
         {
-            return new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.Disabled);
+            return new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.Disabled);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByName(string name)
+        public IDataResult<IList<CartographicMaterial>> GetAllByName(string name)
         {
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Name.Contains(name) && !cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Name.Contains(name) && !cm.IsDeleted);
 
             return cartographicMaterials == null
-            ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-            : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+            ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+            : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<CartographicMaterial>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<CartographicMaterial> cartographicMaterials = maxPrice == null
-                ? _cartographicMaterialDal.GetAll(cm => cm.Price == minPrice && !cm.IsDeleted).ToList()
-                : _cartographicMaterialDal.GetAll(ar => ar.Price >= minPrice && ar.Price <= maxPrice && !ar.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = maxPrice == null
+                ? _cartographicMaterialDal.GetAll(cm => cm.Price == minPrice && !cm.IsDeleted)
+                : _cartographicMaterialDal.GetAll(ar => ar.Price >= minPrice && ar.Price <= maxPrice && !ar.IsDeleted);
 
             return cartographicMaterials == null
-            ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-            : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+            ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+            : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<CartographicMaterial>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> tPHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!tPHolder.Success)
-                return new ErrorDataResult<List<CartographicMaterial>>(tPHolder.Message);
+                return new ErrorDataResult<IList<CartographicMaterial>>(tPHolder.Message);
 
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.TechnicalPlaceholdersId == technicalPlaceholderId && !cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.TechnicalPlaceholdersId == technicalPlaceholderId && !cm.IsDeleted);
             return cartographicMaterials == null
-                ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-                : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+                ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+                : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<List<CartographicMaterial>> GetAllByTitle(string title)
+        public IDataResult<IList<CartographicMaterial>> GetAllByTitle(string title)
         {
-            List<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Title.Contains(title) && !cm.IsDeleted).ToList();
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.Title.Contains(title) && !cm.IsDeleted);
 
             return cartographicMaterials == null
-            ? new ErrorDataResult<List<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
-            : new SuccessDataResult<List<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
+            ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
+            : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

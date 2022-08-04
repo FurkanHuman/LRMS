@@ -74,13 +74,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Edition>> GetAllByIds(Guid[] ids)
         {
-            List<Edition> editions = _editionDal.GetAll(e => ids.Contains(e.Id) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => ids.Contains(e.Id) && !e.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, AddressConstants.DataGet);
         }
 
         public IDataResult<Edition> GetByAdderssId(Guid addressId)
@@ -96,96 +96,96 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInCountryId(int countryId)
+        public IDataResult<IList<Edition>> GetAllByEditionInCountryId(int countryId)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.Id == countryId && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.Id == countryId && !e.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AllDataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AllDataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByAddressName(string addressName)
+        public IDataResult<IList<Edition>> GetAllByAddressName(string addressName)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.AddressName.Contains(addressName) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.AddressName.Contains(addressName) && !e.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByAddressLine(string addressLine)
+        public IDataResult<IList<Edition>> GetAllByAddressLine(string addressLine)
         {
-            List<Edition> editions = _editionDal.GetAll(e => (e.Publisher.Address.AddressLine1 + e.Publisher.Address.AddressLine2).Contains(addressLine) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => (e.Publisher.Address.AddressLine1 + e.Publisher.Address.AddressLine2).Contains(addressLine) && !e.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInCountryName(string countryName)
+        public IDataResult<IList<Edition>> GetAllByEditionInCountryName(string countryName)
         {
-            IDataResult<List<Country>> country = _countryService.GetAllByName(countryName);
+            IDataResult<IList<Country>> country = _countryService.GetAllByName(countryName);
             if (!country.Success)
-                return new ErrorDataResult<List<Edition>>(country.Message);
+                return new ErrorDataResult<IList<Edition>>(country.Message);
 
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryName.Contains(countryName) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryName.Contains(countryName) && !e.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInCountryCode(string countryCode)
+        public IDataResult<IList<Edition>> GetAllByEditionInCountryCode(string countryCode)
         {
-            IDataResult<List<Country>> country = _countryService.GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> country = _countryService.GetAllByCountryCode(countryCode);
             if (!country.Success)
-                return new ErrorDataResult<List<Edition>>(country.Message);
+                return new ErrorDataResult<IList<Edition>>(country.Message);
 
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryCode.Contains(countryCode) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryCode.Contains(countryCode) && !e.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInCityId(int cityId)
+        public IDataResult<IList<Edition>> GetAllByEditionInCityId(int cityId)
         {
             IDataResult<City> result = _cityService.GetById(cityId);
             if (!result.Success)
-                return new ErrorDataResult<List<Edition>>(result.Message);
+                return new ErrorDataResult<IList<Edition>>(result.Message);
 
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.City.Id == cityId && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.City.Id == cityId && !e.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInCityName(string cityName)
+        public IDataResult<IList<Edition>> GetAllByEditionInCityName(string cityName)
         {
-            IDataResult<List<City>> result = _cityService.GetAllByName(cityName);
+            IDataResult<IList<City>> result = _cityService.GetAllByName(cityName);
             if (!result.Success)
-                return new ErrorDataResult<List<Edition>>(result.Message);
+                return new ErrorDataResult<IList<Edition>>(result.Message);
 
-            List<Edition> editions = _editionDal.GetAll(c => c.Publisher.Address.City.CityName.Contains(cityName) && !c.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Address.City.CityName.Contains(cityName) && !c.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInPostalCode(string postalCode)
+        public IDataResult<IList<Edition>> GetAllByEditionInPostalCode(string postalCode)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.PostalCode.Contains(postalCode) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.PostalCode.Contains(postalCode) && !e.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionInGeoLocation(string geoLoc)
+        public IDataResult<IList<Edition>> GetAllByEditionInGeoLocation(string geoLoc)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.PostalCode.Contains(geoLoc) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.PostalCode.Contains(geoLoc) && !e.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.AddressNotFound)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.AddressFound);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
         }
 
         public IDataResult<Edition> GetByCommunicationId(Guid commId)
@@ -196,12 +196,12 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditorConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByCommunicationName(string commName)
+        public IDataResult<IList<Edition>> GetAllByCommunicationName(string commName)
         {
-            List<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.CommunicationName.Contains(commName) && !c.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.CommunicationName.Contains(commName) && !c.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
-                : new SuccessDataResult<List<Edition>>(editions, EditorConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Edition>>(editions, EditorConstants.DataGet);
         }
 
         public IDataResult<Edition> GetByCommunicationPhone(string commPhone)
@@ -244,53 +244,53 @@ namespace Business.Concrete
                 : new SuccessDataResult<Edition>(edition, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByDateOfPublication(DateTime dateOfPublication)
+        public IDataResult<IList<Edition>> GetAllByDateOfPublication(DateTime dateOfPublication)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.Publisher.DateOfPublication == dateOfPublication).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.DateOfPublication == dateOfPublication);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
-                : new ErrorDataResult<List<Edition>>(editions, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
+                : new ErrorDataResult<IList<Edition>>(editions, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
+        public IDataResult<IList<Edition>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
         {
-            List<Edition> editions = _editionDal.GetAll(c => c.Publisher.DateOfPublication > minDate && c.Publisher.DateOfPublication < maxDate && !c.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.DateOfPublication > minDate && c.Publisher.DateOfPublication < maxDate && !c.IsDeleted);
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByEditionNumber(int eNumber)
+        public IDataResult<IList<Edition>> GetAllByEditionNumber(int eNumber)
         {
-            List<Edition> editions = _editionDal.GetAll(e => e.EditionNumber == eNumber && !e.IsDeleted).ToList();
-
-            return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.NotMatch)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGet);
-        }
-
-        public IDataResult<List<Edition>> GetAllByName(string name)
-        {
-            List<Edition> editions = _editionDal.GetAll(e => e.Name.Contains(name) && !e.IsDeleted).ToList();
+            IList<Edition> editions = _editionDal.GetAll(e => e.EditionNumber == eNumber && !e.IsDeleted);
 
             return editions == null
-                ? new ErrorDataResult<List<Edition>>(EditionConstants.DataNotGet)
-                : new SuccessDataResult<List<Edition>>(editions, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.NotMatch)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllByFilter(Expression<Func<Edition, bool>>? filter = null)
+        public IDataResult<IList<Edition>> GetAllByName(string name)
         {
-            return new SuccessDataResult<List<Edition>>(_editionDal.GetAll(filter).ToList(), EditionConstants.DataGet);
+            IList<Edition> editions = _editionDal.GetAll(e => e.Name.Contains(name) && !e.IsDeleted);
+
+            return editions == null
+                ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAllBySecret()
+        public IDataResult<IList<Edition>> GetAllByFilter(Expression<Func<Edition, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Edition>>(_editionDal.GetAll(f => f.IsDeleted).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<IList<Edition>>(_editionDal.GetAll(filter), EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Edition>> GetAll()
+        public IDataResult<IList<Edition>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Edition>>(_editionDal.GetAll(f => !f.IsDeleted).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<IList<Edition>>(_editionDal.GetAll(f => f.IsDeleted), EditionConstants.DataGet);
+        }
+
+        public IDataResult<IList<Edition>> GetAll()
+        {
+            return new SuccessDataResult<IList<Edition>>(_editionDal.GetAll(f => !f.IsDeleted), EditionConstants.DataGet);
         }
 
         private IResult EditionControl(Edition edition)

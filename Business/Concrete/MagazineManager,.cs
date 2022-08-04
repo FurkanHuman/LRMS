@@ -79,9 +79,9 @@ namespace Business.Concrete
             return new ErrorResult(MagazineConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Magazine>> GetAll()
+        public IDataResult<IList<Magazine>> GetAll()
         {
-            return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(m => !m.IsDeleted).ToList(), MagazineConstants.DataGet);
+            return new SuccessDataResult<IList<Magazine>>(_magazineDal.GetAll(m => !m.IsDeleted), MagazineConstants.DataGet);
         }
 
         public IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryMagazineType()
@@ -90,50 +90,50 @@ namespace Business.Concrete
             return new SuccessDataResult<Dictionary<byte, string>>(magTypes, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByFilter(Expression<Func<Magazine, bool>>? filter = null)
+        public IDataResult<IList<Magazine>> GetAllByFilter(Expression<Func<Magazine, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(filter).ToList(), MagazineConstants.DataGet);
+            return new SuccessDataResult<IList<Magazine>>(_magazineDal.GetAll(filter), MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllBySecret()
+        public IDataResult<IList<Magazine>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Magazine>>(_magazineDal.GetAll(m => m.IsDeleted).ToList(), MagazineConstants.DataGet);
+            return new SuccessDataResult<IList<Magazine>>(_magazineDal.GetAll(m => m.IsDeleted), MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Magazine>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Magazine>>(categories.Message);
+                return new ErrorDataResult<IList<Magazine>>(categories.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => categoriesId.Contains(m.CategoryId) && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => categoriesId.Contains(m.CategoryId) && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByCommunication(Guid communicationId)
+        public IDataResult<IList<Magazine>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Magazine>>(edition.Message);
+                return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.EditionId == edition.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.EditionId == edition.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByCoverCap(byte coverCapNum)
+        public IDataResult<IList<Magazine>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> coverCap = _coverCapService.GetById(coverCapNum);
             if (!coverCap.Success)
-                return new ErrorDataResult<List<Magazine>>(coverCap.Message);
+                return new ErrorDataResult<IList<Magazine>>(coverCap.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.CoverCapId == coverCap.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.CoverCapId == coverCap.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
         public IDataResult<Magazine> GetByCoverImage(Guid cImageId)
@@ -148,97 +148,97 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Magazine>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.Description.Contains(finderString) && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.Description.Contains(finderString) && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Magazine>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Magazine>>(dimension.Message);
+                return new ErrorDataResult<IList<Magazine>>(dimension.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.DimensionsId == dimension.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.DimensionsId == dimension.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByDirector(Guid directorId)
+        public IDataResult<IList<Magazine>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
-                return new ErrorDataResult<List<Magazine>>(director.Message);
+                return new ErrorDataResult<IList<Magazine>>(director.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.DirectorId == director.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.DirectorId == director.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByEdition(Guid editionId)
+        public IDataResult<IList<Magazine>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Magazine>>(edition.Message);
+                return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.EditionId == edition.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.EditionId == edition.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByEditor(Guid editorId)
+        public IDataResult<IList<Magazine>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
-                return new ErrorDataResult<List<Magazine>>(editor.Message);
+                return new ErrorDataResult<IList<Magazine>>(editor.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.EditorId == editor.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.EditorId == editor.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<Magazine>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
-                return new ErrorDataResult<List<Magazine>>(eMFiles.Message);
+                return new ErrorDataResult<IList<Magazine>>(eMFiles.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.EMaterialFiles == eMFiles.Data && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.EMaterialFiles == eMFiles.Data && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByGraphicDesign(Guid graphicDesignId)
+        public IDataResult<IList<Magazine>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> gdesign = _graphicDesignerService.GetById(graphicDesignId);
             if (!gdesign.Success)
-                return new ErrorDataResult<List<Magazine>>(gdesign.Message);
+                return new ErrorDataResult<IList<Magazine>>(gdesign.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.GraphicDesignId == gdesign.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.GraphicDesignId == gdesign.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByGraphicDirector(Guid graphicDirectorId)
+        public IDataResult<IList<Magazine>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> gDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!gDirector.Success)
-                return new ErrorDataResult<List<Magazine>>(gDirector.Message);
+                return new ErrorDataResult<IList<Magazine>>(gDirector.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.GraphicDirectorId == gDirector.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.GraphicDirectorId == gDirector.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
         public IDataResult<Magazine> GetById(Guid id)
@@ -250,78 +250,78 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Magazine>> GetAllByIds(Guid[] ids)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByInterpreter(Guid interpreterId)
+        public IDataResult<IList<Magazine>> GetAllByInterpreter(Guid interpreterId)
         {
             IDataResult<Interpreters> interpreters = _interpretersService.GetById(interpreterId);
             if (!interpreters.Success)
-                return new ErrorDataResult<List<Magazine>>(interpreters.Message);
+                return new ErrorDataResult<IList<Magazine>>(interpreters.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.InterpretersId == interpreters.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.InterpretersId == interpreters.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByMagazineType(byte magazineType)
+        public IDataResult<IList<Magazine>> GetAllByMagazineType(byte magazineType)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.MagazineType == magazineType && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.MagazineType == magazineType && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByName(string name)
+        public IDataResult<IList<Magazine>> GetAllByName(string name)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.Name == name && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.Name == name && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Magazine>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Magazine> magazines = maxPrice == null
-                ? _magazineDal.GetAll(m => m.Price == minPrice && m.IsDeleted).ToList()
-                : _magazineDal.GetAll(m => m.Price >= minPrice && m.Price <= maxPrice && m.IsDeleted).ToList();
+            IList<Magazine> magazines = maxPrice == null
+                ? _magazineDal.GetAll(m => m.Price == minPrice && m.IsDeleted)
+                : _magazineDal.GetAll(m => m.Price >= minPrice && m.Price <= maxPrice && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByPublisher(Guid publisherId)
+        public IDataResult<IList<Magazine>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Magazine>>(edition.Message);
+                return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.EditorId == edition.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.EditorId == edition.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByRedaction(Guid redactionId)
+        public IDataResult<IList<Magazine>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
-                return new ErrorDataResult<List<Magazine>>(redaction.Message);
+                return new ErrorDataResult<IList<Magazine>>(redaction.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.RedactionId == redaction.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.RedactionId == redaction.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
         public IDataResult<Magazine> GetByStock(Guid stockId)
@@ -336,58 +336,58 @@ namespace Business.Concrete
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByTechnicalNumber(Guid technicalNumberId)
+        public IDataResult<IList<Magazine>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> tNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!tNumber.Success)
-                return new ErrorDataResult<List<Magazine>>(tNumber.Message);
+                return new ErrorDataResult<IList<Magazine>>(tNumber.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.TechnicalNumberId == tNumber.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.TechnicalNumberId == tNumber.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Magazine>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> tPHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!tPHolder.Success)
-                return new ErrorDataResult<List<Magazine>>(tPHolder.Message);
+                return new ErrorDataResult<IList<Magazine>>(tPHolder.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.TechnicalPlaceholdersId == tPHolder.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.TechnicalPlaceholdersId == tPHolder.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByTitle(string title)
+        public IDataResult<IList<Magazine>> GetAllByTitle(string title)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.Title == title && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.Title == title && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByVolume(uint volume)
+        public IDataResult<IList<Magazine>> GetAllByVolume(uint volume)
         {
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.Volume == volume && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.Volume == volume && m.IsDeleted);
 
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<List<Magazine>> GetAllByWriter(Guid writerId)
+        public IDataResult<IList<Magazine>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)
-                return new ErrorDataResult<List<Magazine>>(writer.Message);
+                return new ErrorDataResult<IList<Magazine>>(writer.Message);
 
-            List<Magazine> magazines = _magazineDal.GetAll(m => m.WriterId == writer.Data.Id && m.IsDeleted).ToList();
+            IList<Magazine> magazines = _magazineDal.GetAll(m => m.WriterId == writer.Data.Id && m.IsDeleted);
             return magazines == null
-                ? new ErrorDataResult<List<Magazine>>(MagazineConstants.DataNotGet)
-                : new SuccessDataResult<List<Magazine>>(magazines, MagazineConstants.DataGet);
+                ? new ErrorDataResult<IList<Magazine>>(MagazineConstants.DataNotGet)
+                : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

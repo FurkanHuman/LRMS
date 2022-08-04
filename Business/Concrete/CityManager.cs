@@ -74,36 +74,36 @@ namespace Business.Concrete
                 : new ErrorDataResult<City>(CityConstants.CityNotFound);
         }
 
-        public IDataResult<List<City>> GetAllByIds(int[] ids)
+        public IDataResult<IList<City>> GetAllByIds(int[] ids)
         {
-            List<City> cities = _cityDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            IList<City> cities = _cityDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted);
             return cities == null
-                 ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)
-                 : new SuccessDataResult<List<City>>(cities, CityConstants.DataGet);
+                 ? new ErrorDataResult<IList<City>>(CityConstants.NotMatch)
+                 : new SuccessDataResult<IList<City>>(cities, CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetAllByFilter(Expression<Func<City, bool>>? filter = null)
+        public IDataResult<IList<City>> GetAllByFilter(Expression<Func<City, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll(filter).ToList(), CityConstants.DataGet);
+            return new SuccessDataResult<IList<City>>(_cityDal.GetAll(filter), CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetAllByName(string name)
+        public IDataResult<IList<City>> GetAllByName(string name)
         {
-            List<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name)).ToList();
+            IList<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name));
 
             return cities == null
-                ? new ErrorDataResult<List<City>>(CityConstants.NotMatch)
-                : new SuccessDataResult<List<City>>(cities, CityConstants.DataGet);
+                ? new ErrorDataResult<IList<City>>(CityConstants.NotMatch)
+                : new SuccessDataResult<IList<City>>(cities, CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetAllBySecret()
+        public IDataResult<IList<City>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => c.IsDeleted).ToList(), CityConstants.DataGet);
+            return new SuccessDataResult<IList<City>>(_cityDal.GetAll(c => c.IsDeleted), CityConstants.DataGet);
         }
 
-        public IDataResult<List<City>> GetAll()
+        public IDataResult<IList<City>> GetAll()
         {
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll(c => !c.IsDeleted).ToList(), CityConstants.DataGet);
+            return new SuccessDataResult<IList<City>>(_cityDal.GetAll(c => !c.IsDeleted), CityConstants.DataGet);
         }
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)

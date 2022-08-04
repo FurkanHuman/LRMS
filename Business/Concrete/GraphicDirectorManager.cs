@@ -59,9 +59,9 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDirectorConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<GraphicDirector>> GetByFilterList(Expression<Func<GraphicDirector, bool>>? filter = null)
+        public IDataResult<IList<GraphicDirector>> GetByFilterIList(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDirector>>(_graphicDirectorDal.GetAll(filter), GraphicDirectorConstants.DataGet);
         }
 
         public IDataResult<GraphicDirector> GetById(Guid id)
@@ -73,43 +73,43 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDirector>(GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<GraphicDirector>> GetAllByIds(Guid[] ids)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            IList<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted);
             return graphicDirectors == null
-                ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.GraphicDirectorNull)
-                : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDirector>>(GraphicDirectorConstants.GraphicDirectorNull)
+                : new SuccessDataResult<IList<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllByName(string name)
+        public IDataResult<IList<GraphicDirector>> GetAllByName(string name)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
+            IList<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted);
             return graphicDirectors == null
-                ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllBySurname(string surname)
+        public IDataResult<IList<GraphicDirector>> GetAllBySurname(string surname)
         {
-            List<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
+            IList<GraphicDirector> graphicDirectors = _graphicDirectorDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted);
             return graphicDirectors == null
-                ? new ErrorDataResult<List<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDirector>>(GraphicDirectorConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicDirector>>(graphicDirectors, GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllByFilter(Expression<Func<GraphicDirector, bool>>? filter = null)
+        public IDataResult<IList<GraphicDirector>> GetAllByFilter(Expression<Func<GraphicDirector, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(filter).ToList(), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDirector>>(_graphicDirectorDal.GetAll(filter), GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAll()
+        public IDataResult<IList<GraphicDirector>> GetAll()
         {
-            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => !gd.IsDeleted), GraphicDirectorConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDirector>> GetAllBySecret()
+        public IDataResult<IList<GraphicDirector>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDirectorConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDirector>>(_graphicDirectorDal.GetAll(gd => gd.IsDeleted), GraphicDirectorConstants.DataGet);
         }
 
         private IResult GraphicDirectorNameOrSurnameExist(GraphicDirector entity)

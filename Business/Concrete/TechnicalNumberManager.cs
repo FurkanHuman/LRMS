@@ -54,12 +54,12 @@ namespace Business.Concrete
             return new SuccessResult(TechnicalNumberConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllByBarcode(long barcode)
+        public IDataResult<IList<TechnicalNumber>> GetAllByBarcode(long barcode)
         {
-            List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => u.Barcode == barcode && !u.IsDeleted).ToList();
+            IList<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => u.Barcode == barcode && !u.IsDeleted);
             return technicalNumbers == null
-                ? new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.DataNoGet)
-                : new ErrorDataResult<List<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalNumber>>(TechnicalNumberConstants.DataNoGet)
+                : new ErrorDataResult<IList<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.DataGet);
         }
 
         public IDataResult<TechnicalNumber> GetByCertificateNum(string certificateNum)
@@ -78,12 +78,12 @@ namespace Business.Concrete
                 : new ErrorDataResult<TechnicalNumber>(technicalNumber, TechnicalNumberConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<TechnicalNumber>> GetAllByIds(Guid[] ids)
         {
-            List<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted).ToList();
+            IList<TechnicalNumber> technicalNumbers = _technicalNumberDal.GetAll(u => ids.Contains(u.Id) && !u.IsDeleted);
             return technicalNumbers == null
-                ? new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.DataNoGet)
-                : new ErrorDataResult<List<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalNumber>>(TechnicalNumberConstants.DataNoGet)
+                : new ErrorDataResult<IList<TechnicalNumber>>(technicalNumbers, TechnicalNumberConstants.DataGet);
         }
 
         public IDataResult<TechnicalNumber> GetByISBN(ulong ISBNNumber)
@@ -94,23 +94,23 @@ namespace Business.Concrete
                 : new ErrorDataResult<TechnicalNumber>(technicalNumber, TechnicalNumberConstants.ISBNNumberFetched);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllByName(string name)
+        public IDataResult<IList<TechnicalNumber>> GetAllByName(string name)
         {
-            return new ErrorDataResult<List<TechnicalNumber>>(TechnicalNumberConstants.Disabled);
+            return new ErrorDataResult<IList<TechnicalNumber>>(TechnicalNumberConstants.Disabled);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllByFilter(Expression<Func<TechnicalNumber, bool>>? filter = null)
+        public IDataResult<IList<TechnicalNumber>> GetAllByFilter(Expression<Func<TechnicalNumber, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(filter).ToList(), TechnicalNumberConstants.DataGet);
+            return new SuccessDataResult<IList<TechnicalNumber>>(_technicalNumberDal.GetAll(filter), TechnicalNumberConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalNumber>> GetAllBySecret()
+        public IDataResult<IList<TechnicalNumber>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(u => u.IsDeleted).ToList(), TechnicalNumberConstants.DataGet);
+            return new SuccessDataResult<IList<TechnicalNumber>>(_technicalNumberDal.GetAll(u => u.IsDeleted), TechnicalNumberConstants.DataGet);
         }
-        public IDataResult<List<TechnicalNumber>> GetAll()
+        public IDataResult<IList<TechnicalNumber>> GetAll()
         {
-            return new SuccessDataResult<List<TechnicalNumber>>(_technicalNumberDal.GetAll(u => !u.IsDeleted).ToList(), TechnicalNumberConstants.DataGet);
+            return new SuccessDataResult<IList<TechnicalNumber>>(_technicalNumberDal.GetAll(u => !u.IsDeleted), TechnicalNumberConstants.DataGet);
         }
     }
 }

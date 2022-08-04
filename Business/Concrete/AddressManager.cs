@@ -82,75 +82,75 @@ namespace Business.Concrete
                 : new SuccessDataResult<Address>(address, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Address>> GetAllByIds(Guid[] ids)
         {
-            List<Address> addresses = _addressDal.GetAll(a => ids.Contains(a.Id) && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => ids.Contains(a.Id) && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByCityId(int cityId)
+        public IDataResult<IList<Address>> GetAllByCityId(int cityId)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.City.Id == cityId && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => a.City.Id == cityId && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByCountryId(int countryId)
+        public IDataResult<IList<Address>> GetAllByCountryId(int countryId)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.Country.Id == countryId && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => a.Country.Id == countryId && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByGeoLocation(string geoLocation)
+        public IDataResult<IList<Address>> GetAllByGeoLocation(string geoLocation)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.GeoLocation == geoLocation && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => a.GeoLocation == geoLocation && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByPostalCode(string postalCode)
+        public IDataResult<IList<Address>> GetAllByPostalCode(string postalCode)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.PostalCode == postalCode && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => a.PostalCode == postalCode && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllBySearchString(string searchStr)
+        public IDataResult<IList<Address>> GetAllBySearchString(string searchStr)
         {
-            List<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr) && !a.IsDeleted).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => (a.AddressLine1 + a.AddressLine2).Contains(searchStr) && !a.IsDeleted);
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByName(string name)
+        public IDataResult<IList<Address>> GetAllByName(string name)
         {
-            List<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name)).ToList();
+            IList<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name));
             return addresses == null
-                ? new ErrorDataResult<List<Address>>(AddressConstants.NotMatch)
-                : new SuccessDataResult<List<Address>>(addresses, AddressConstants.DataGet);
+                ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
+                : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllByFilter(Expression<Func<Address, bool>>? filter = null)
+        public IDataResult<IList<Address>> GetAllByFilter(Expression<Func<Address, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(filter).ToList(), AddressConstants.DataGet);
+            return new SuccessDataResult<IList<Address>>(_addressDal.GetAll(filter), AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAll()
+        public IDataResult<IList<Address>> GetAll()
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => !a.IsDeleted).ToList(), AddressConstants.DataGet);
+            return new SuccessDataResult<IList<Address>>(_addressDal.GetAll(a => !a.IsDeleted), AddressConstants.DataGet);
         }
 
-        public IDataResult<List<Address>> GetAllBySecret()
+        public IDataResult<IList<Address>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(a => a.IsDeleted).ToList(), AddressConstants.DataGet);
+            return new SuccessDataResult<IList<Address>>(_addressDal.GetAll(a => a.IsDeleted), AddressConstants.DataGet);
         }
     }
 }

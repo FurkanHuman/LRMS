@@ -68,35 +68,35 @@ namespace Business.Concrete
                 : new SuccessDataResult<CoverCap>(coverCap, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetAllByIds(byte[] ids)
+        public IDataResult<IList<CoverCap>> GetAllByIds(byte[] ids)
         {
-            List<CoverCap> coverCaps = _coverCapDal.GetAll(c => ids.Contains(c.Id)).ToList();
+            IList<CoverCap> coverCaps = _coverCapDal.GetAll(c => ids.Contains(c.Id));
             return coverCaps == null
-                ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
-                : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
+                ? new ErrorDataResult<IList<CoverCap>>(CoverCapConstants.DataNotGet)
+                : new SuccessDataResult<IList<CoverCap>>(coverCaps, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetAllByName(string name)
+        public IDataResult<IList<CoverCap>> GetAllByName(string name)
         {
-            List<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name)).ToList();
+            IList<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name));
             return coverCaps == null
-                ? new ErrorDataResult<List<CoverCap>>(CoverCapConstants.DataNotGet)
-                : new SuccessDataResult<List<CoverCap>>(coverCaps, CategoryConstants.DataGet);
+                ? new ErrorDataResult<IList<CoverCap>>(CoverCapConstants.DataNotGet)
+                : new SuccessDataResult<IList<CoverCap>>(coverCaps, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<CoverCap>> GetAllByFilter(Expression<Func<CoverCap, bool>>? filter = null)
+        public IDataResult<IList<CoverCap>> GetAllByFilter(Expression<Func<CoverCap, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(filter).ToList());
+            return new SuccessDataResult<IList<CoverCap>>(_coverCapDal.GetAll(filter));
         }
 
-        public IDataResult<List<CoverCap>> GetAllBySecret()
+        public IDataResult<IList<CoverCap>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(c => c.IsDeleted).ToList());
+            return new SuccessDataResult<IList<CoverCap>>(_coverCapDal.GetAll(c => c.IsDeleted));
         }
 
-        public IDataResult<List<CoverCap>> GetAll()
+        public IDataResult<IList<CoverCap>> GetAll()
         {
-            return new SuccessDataResult<List<CoverCap>>(_coverCapDal.GetAll(c => !c.IsDeleted).ToList());
+            return new SuccessDataResult<IList<CoverCap>>(_coverCapDal.GetAll(c => !c.IsDeleted));
         }
 
         private IResult CoverCapChecker(CoverCap coverCap)

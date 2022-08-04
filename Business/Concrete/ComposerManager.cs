@@ -59,9 +59,9 @@ namespace Business.Concrete
             return new SuccessResult(ComposerConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Composer>> GetAllByFilter(Expression<Func<Composer, bool>>? filter = null)
+        public IDataResult<IList<Composer>> GetAllByFilter(Expression<Func<Composer, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(filter).ToList(), ComposerConstants.DataGet);
+            return new SuccessDataResult<IList<Composer>>(_composerDal.GetAll(filter), ComposerConstants.DataGet);
         }
 
         public IDataResult<Composer> GetById(Guid id)
@@ -72,44 +72,44 @@ namespace Business.Concrete
                 : new SuccessDataResult<Composer>(composer, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Composer>> GetAllByIds(Guid[] ids)
         {
-            List<Composer> composers = _composerDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            IList<Composer> composers = _composerDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted);
             return composers == null
-               ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
-               : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
+               ? new ErrorDataResult<IList<Composer>>(ComposerConstants.DataNotGet)
+               : new SuccessDataResult<IList<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllByName(string name)
+        public IDataResult<IList<Composer>> GetAllByName(string name)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
+            IList<Composer> composers = _composerDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted);
             return composers == null
-                ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
-                : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
+                ? new ErrorDataResult<IList<Composer>>(ComposerConstants.DataNotGet)
+                : new SuccessDataResult<IList<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllBySurname(string surname)
+        public IDataResult<IList<Composer>> GetAllBySurname(string surname)
         {
-            List<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
+            IList<Composer> composers = _composerDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted);
             return composers == null
-               ? new ErrorDataResult<List<Composer>>(ComposerConstants.DataNotGet)
-               : new SuccessDataResult<List<Composer>>(composers, ComposerConstants.DataGet);
+               ? new ErrorDataResult<IList<Composer>>(ComposerConstants.DataNotGet)
+               : new SuccessDataResult<IList<Composer>>(composers, ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllByNamePreAttachment(string namePreAttachment)
+        public IDataResult<IList<Composer>> GetAllByNamePreAttachment(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment)
-            && !c.IsDeleted).ToList(), ComposerConstants.DataGet);
+            return new SuccessDataResult<IList<Composer>>(_composerDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment)
+            && !c.IsDeleted), ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAll()
+        public IDataResult<IList<Composer>> GetAll()
         {
-            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => !c.IsDeleted).ToList(), ComposerConstants.DataGet);
+            return new SuccessDataResult<IList<Composer>>(_composerDal.GetAll(c => !c.IsDeleted), ComposerConstants.DataGet);
         }
 
-        public IDataResult<List<Composer>> GetAllBySecret()
+        public IDataResult<IList<Composer>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Composer>>(_composerDal.GetAll(c => c.IsDeleted).ToList(), ComposerConstants.DataGet);
+            return new SuccessDataResult<IList<Composer>>(_composerDal.GetAll(c => c.IsDeleted), ComposerConstants.DataGet);
         }
 
         private IResult ComposerNameOrSurnameExist(Composer entity)

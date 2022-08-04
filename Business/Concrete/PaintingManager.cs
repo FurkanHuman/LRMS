@@ -69,142 +69,142 @@ namespace Business.Concrete
             return new SuccessResult(PaintingConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Painting>> GetAll()
+        public IDataResult<IList<Painting>> GetAll()
         {
-            return new SuccessDataResult<List<Painting>>(_paintingDal.GetAll(p => !p.IsDeleted).ToList(), PaintingConstants.DataGet);
+            return new SuccessDataResult<IList<Painting>>(_paintingDal.GetAll(p => !p.IsDeleted), PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Painting>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Painting>>(categories.Message);
+                return new ErrorDataResult<IList<Painting>>(categories.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => p.Categories.ToList() == categories.Data.ToList() && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.Categories == categories.Data && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Painting>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Painting> paintings = _paintingDal.GetAll(p => p.Description.Contains(finderString) && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.Description.Contains(finderString) && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByDestroyState(bool state)
+        public IDataResult<IList<Painting>> GetAllByDestroyState(bool state)
         {
-            List<Painting> paintings = _paintingDal.GetAll(p => p.IsDestroyed == state && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.IsDestroyed == state && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Painting>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Painting>>(dimension.Message);
+                return new ErrorDataResult<IList<Painting>>(dimension.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => p.DimensionsId == dimensionId && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.DimensionsId == dimensionId && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Painting>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Painting>>(eMFile.Message);
+                return new ErrorDataResult<IList<Painting>>(eMFile.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => p.EMaterialFilesId == eMFileId && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.EMaterialFilesId == eMFileId && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByFilter(Expression<Func<Painting, bool>>? filter = null)
+        public IDataResult<IList<Painting>> GetAllByFilter(Expression<Func<Painting, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Painting>>(_paintingDal.GetAll(filter).ToList(), PaintingConstants.DataGet);
+            return new SuccessDataResult<IList<Painting>>(_paintingDal.GetAll(filter), PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Painting>> GetAllByIds(Guid[] ids)
         {
-            List<Painting> paintings = _paintingDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByName(string name)
+        public IDataResult<IList<Painting>> GetAllByName(string name)
         {
-            List<Painting> paintings = _paintingDal.GetAll(p => p.Name.Contains(name) && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.Name.Contains(name) && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByOwnerId(Guid ownerId)
+        public IDataResult<IList<Painting>> GetAllByOwnerId(Guid ownerId)
         {
             IDataResult<OtherPeople> owner = _facadeService.OtherPeopleService().GetById(ownerId);
             if (!owner.Success)
-                return new ErrorDataResult<List<Painting>>(owner.Message);
+                return new ErrorDataResult<IList<Painting>>(owner.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => p.Owner == owner && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.Owner == owner && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByOwnersId(Guid[] ownerIds)
+        public IDataResult<IList<Painting>> GetAllByOwnersId(Guid[] ownerIds)
         {
-            IDataResult<List<OtherPeople>> owners = _facadeService.OtherPeopleService().GetAllByIds(ownerIds);
+            IDataResult<IList<OtherPeople>> owners = _facadeService.OtherPeopleService().GetAllByIds(ownerIds);
             if (!owners.Success)
-                return new ErrorDataResult<List<Painting>>(owners.Message);
+                return new ErrorDataResult<IList<Painting>>(owners.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => owners.Data.Contains(p.Owner) && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => owners.Data.Contains(p.Owner) && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Painting>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Painting> paintings = maxPrice == null
-                ? _paintingDal.GetAll(p => p.Price == minPrice && !p.IsDeleted).ToList()
-                : _paintingDal.GetAll(p => p.Price >= minPrice && p.Price <= maxPrice && !p.IsDeleted).ToList();
+            IList<Painting> paintings = maxPrice == null
+                ? _paintingDal.GetAll(p => p.Price == minPrice && !p.IsDeleted)
+                : _paintingDal.GetAll(p => p.Price >= minPrice && p.Price <= maxPrice && !p.IsDeleted);
 
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllBySecret()
+        public IDataResult<IList<Painting>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Painting>>(_paintingDal.GetAll(p => p.IsDeleted).ToList(), PaintingConstants.DataGet);
+            return new SuccessDataResult<IList<Painting>>(_paintingDal.GetAll(p => p.IsDeleted), PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Painting>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<Painting>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<Painting>>(techPlaceHolder.Message);
 
-            List<Painting> paintings = _paintingDal.GetAll(p => p.TechnicalPlaceholdersId == technicalPlaceholderId && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.TechnicalPlaceholdersId == technicalPlaceholderId && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
-        public IDataResult<List<Painting>> GetAllByTitle(string title)
+        public IDataResult<IList<Painting>> GetAllByTitle(string title)
         {
-            List<Painting> paintings = _paintingDal.GetAll(p => p.Title.Contains(title) && !p.IsDeleted).ToList();
+            IList<Painting> paintings = _paintingDal.GetAll(p => p.Title.Contains(title) && !p.IsDeleted);
             return paintings == null
-                ? new ErrorDataResult<List<Painting>>(PaintingConstants.DataNotGet)
-                : new SuccessDataResult<List<Painting>>(paintings, PaintingConstants.DataGet);
+                ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
+                : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
         }
 
         public IDataResult<Painting> GetById(Guid id)

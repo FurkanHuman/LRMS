@@ -71,19 +71,19 @@ namespace Business.Concrete
             return new SuccessResult(StockConstans.AddSuccess);
         }
 
-        public IDataResult<List<Stock>> GetAll()
+        public IDataResult<IList<Stock>> GetAll()
         {
-            return new SuccessDataResult<List<Stock>>(_stockDal.GetAll(s => !s.IsDeleted).ToList(), StockConstans.DataGet);
+            return new SuccessDataResult<IList<Stock>>(_stockDal.GetAll(s => !s.IsDeleted), StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllByFilter(Expression<Func<Stock, bool>>? filter = null)
+        public IDataResult<IList<Stock>> GetAllByFilter(Expression<Func<Stock, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Stock>>(_stockDal.GetAll(filter).ToList(), StockConstans.DataGet);
+            return new SuccessDataResult<IList<Stock>>(_stockDal.GetAll(filter), StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllBySecret()
+        public IDataResult<IList<Stock>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Stock>>(_stockDal.GetAll(s => s.IsDeleted).ToList(), StockConstans.DataGet);
+            return new SuccessDataResult<IList<Stock>>(_stockDal.GetAll(s => s.IsDeleted), StockConstans.DataGet);
         }
 
         public IDataResult<Stock> GetById(Guid id)
@@ -94,45 +94,45 @@ namespace Business.Concrete
                : new SuccessDataResult<Stock>(stock, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Stock>> GetAllByIds(Guid[] ids)
         {
-            List<Stock> stocks = _stockDal.GetAll(s => ids.Contains(s.Id) && !s.IsDeleted).ToList();
+            IList<Stock> stocks = _stockDal.GetAll(s => ids.Contains(s.Id) && !s.IsDeleted);
             return stocks == null
-                ? new ErrorDataResult<List<Stock>>(StockConstans.DataNotGet)
-                : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
+                ? new ErrorDataResult<IList<Stock>>(StockConstans.DataNotGet)
+                : new SuccessDataResult<IList<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllByLibrary(Guid libraryId)
+        public IDataResult<IList<Stock>> GetAllByLibrary(Guid libraryId)
         {
             IDataResult<Library> lib = _libraryService.GetById(libraryId);
             if (!lib.Success)
-                return new ErrorDataResult<List<Stock>>(lib.Message);
+                return new ErrorDataResult<IList<Stock>>(lib.Message);
 
-            List<Stock> stocks = _stockDal.GetAll(s => s.Library == lib.Data && !s.IsDeleted).ToList();
+            IList<Stock> stocks = _stockDal.GetAll(s => s.Library == lib.Data && !s.IsDeleted);
             return stocks == null
-                ? new ErrorDataResult<List<Stock>>(StockConstans.DataNotGet)
-                : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
+                ? new ErrorDataResult<IList<Stock>>(StockConstans.DataNotGet)
+                : new SuccessDataResult<IList<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllByName(string name)
+        public IDataResult<IList<Stock>> GetAllByName(string name)
         {
-            return new ErrorDataResult<List<Stock>>(StockConstans.Disabled);
+            return new ErrorDataResult<IList<Stock>>(StockConstans.Disabled);
         }
 
-        public IDataResult<List<Stock>> GetAllByQuanty(uint quantity)
+        public IDataResult<IList<Stock>> GetAllByQuanty(uint quantity)
         {
-            List<Stock> stocks = _stockDal.GetAll(s => s.Quantity == quantity && !s.IsDeleted).ToList();
+            IList<Stock> stocks = _stockDal.GetAll(s => s.Quantity == quantity && !s.IsDeleted);
             return stocks == null
-                ? new ErrorDataResult<List<Stock>>(StockConstans.DataNotGet)
-                : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
+                ? new ErrorDataResult<IList<Stock>>(StockConstans.DataNotGet)
+                : new SuccessDataResult<IList<Stock>>(stocks, StockConstans.DataGet);
         }
 
-        public IDataResult<List<Stock>> GetAllByStockCode(string stockCode)
+        public IDataResult<IList<Stock>> GetAllByStockCode(string stockCode)
         {
-            List<Stock> stocks = _stockDal.GetAll(s => s.StockCode.Contains(stockCode) && !s.IsDeleted).ToList();
+            IList<Stock> stocks = _stockDal.GetAll(s => s.StockCode.Contains(stockCode) && !s.IsDeleted);
             return stocks == null
-                ? new ErrorDataResult<List<Stock>>(StockConstans.DataNotGet)
-                : new SuccessDataResult<List<Stock>>(stocks, StockConstans.DataGet);
+                ? new ErrorDataResult<IList<Stock>>(StockConstans.DataNotGet)
+                : new SuccessDataResult<IList<Stock>>(stocks, StockConstans.DataGet);
         }
 
         private IResult StockControl(Stock stock)

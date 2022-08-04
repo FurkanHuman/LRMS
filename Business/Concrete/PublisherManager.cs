@@ -79,20 +79,20 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.IdFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Publisher>> GetAllByIds(Guid[] ids)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
             return publishers == null
-                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.NotMatch)
-                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                 ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.NotMatch)
+                 : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByName(string name)
+        public IDataResult<IList<Publisher>> GetAllByName(string name)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name)).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Name.Contains(name));
             return publishers == null
-                 ? new ErrorDataResult<List<Publisher>>(PublisherConstants.NotMatch)
-                 : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                 ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.NotMatch)
+                 : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
         public IDataResult<Publisher> GetByAddressId(Guid addressId)
@@ -107,106 +107,106 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInCountryId(int countryId)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInCountryId(int countryId)
         {   // third way.todo
             IDataResult<Country> country = _countryService.GetById(countryId);
             if (!country.Success)
-                return new ErrorDataResult<List<Publisher>>(country.Message);
+                return new ErrorDataResult<IList<Publisher>>(country.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == country && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == country && !p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByAddressName(string addressName)
+        public IDataResult<IList<Publisher>> GetAllByAddressName(string addressName)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetAllByName(addressName);
+            IDataResult<IList<Address>> addresses = _addressService.GetAllByName(addressName);
             if (!addresses.Success)
-                return new ErrorDataResult<List<Publisher>>(addresses.Message);
+                return new ErrorDataResult<IList<Publisher>>(addresses.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address == addresses && p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address == addresses && p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByAddressLine(string addressLine)
+        public IDataResult<IList<Publisher>> GetAllByAddressLine(string addressLine)
         {
-            IDataResult<List<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
+            IDataResult<IList<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
             if (!addresses.Success)
-                return new ErrorDataResult<List<Publisher>>(addresses.Message);
+                return new ErrorDataResult<IList<Publisher>>(addresses.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address == addresses && p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address == addresses && p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInCountryName(string countryName)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInCountryName(string countryName)
         {
-            IDataResult<List<Country>> countrys = _countryService.GetAllByName(countryName);
+            IDataResult<IList<Country>> countrys = _countryService.GetAllByName(countryName);
             if (!countrys.Success)
-                return new ErrorDataResult<List<Publisher>>(countrys.Message);
+                return new ErrorDataResult<IList<Publisher>>(countrys.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == countrys && p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == countrys && p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInCountryCode(string countryCode)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInCountryCode(string countryCode)
         {
-            IDataResult<List<Country>> countrys = _countryService.GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> countrys = _countryService.GetAllByCountryCode(countryCode);
             if (!countrys.Success)
-                return new ErrorDataResult<List<Publisher>>(countrys.Message);
+                return new ErrorDataResult<IList<Publisher>>(countrys.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == countrys && p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.Country == countrys && p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGet)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInCityId(int cityId)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInCityId(int cityId)
         {
             IDataResult<City> city = _cityService.GetById(cityId);
             if (!city.Success)
-                return new ErrorDataResult<List<Publisher>>(city.Message);
+                return new ErrorDataResult<IList<Publisher>>(city.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.City == city && p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.City == city && p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGet)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInCityName(string cityName)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInCityName(string cityName)
         {
-            IDataResult<List<City>> cities = _cityService.GetAllByName(cityName);
+            IDataResult<IList<City>> cities = _cityService.GetAllByName(cityName);
             if (!cities.Success)
-                return new ErrorDataResult<List<Publisher>>(cities.Message);
+                return new ErrorDataResult<IList<Publisher>>(cities.Message);
 
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.City == cities && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.City == cities && !p.IsDeleted);
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInPostalCode(string postalCode)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInPostalCode(string postalCode)
         {   // run??
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode) && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.PostalCode.Contains(postalCode) && !p.IsDeleted);
 
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
-        public IDataResult<List<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc)
+        public IDataResult<IList<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc) && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.Address.GeoLocation.Contains(geoLoc) && !p.IsDeleted);
 
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.AddressNotFound)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.AddressFound);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.AddressNotFound)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.AddressFound);
         }
 
         public IDataResult<Publisher> GetByCommunicationId(Guid commId)
@@ -222,11 +222,11 @@ namespace Business.Concrete
 
         }
 
-        public IDataResult<List<Publisher>> GetAllByCommunicationName(string commName)
+        public IDataResult<IList<Publisher>> GetAllByCommunicationName(string commName)
         {
-            IDataResult<List<Communication>> commNames = _communicationService.GetAllByName(commName);
+            IDataResult<IList<Communication>> commNames = _communicationService.GetAllByName(commName);
             if (!commNames.Success)
-                return new ErrorDataResult<List<Publisher>>(commNames.Message);
+                return new ErrorDataResult<IList<Publisher>>(commNames.Message);
 
             List<Publisher> publishers = new();
 
@@ -238,8 +238,8 @@ namespace Business.Concrete
             }
 
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(CommunicationConstants.DataNotGet)
-                : new SuccessDataResult<List<Publisher>>(publishers, CommunicationConstants.DataGet);
+                ? new ErrorDataResult<IList<Publisher>>(CommunicationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Publisher>>(publishers, CommunicationConstants.DataGet);
         }
 
         public IDataResult<Publisher> GetByCommunicationPhone(string commPhone)
@@ -290,37 +290,37 @@ namespace Business.Concrete
                 : new SuccessDataResult<Publisher>(publisher, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication)
+        public IDataResult<IList<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication == dateOfPublication && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication == dateOfPublication && !p.IsDeleted);
 
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGet)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
+        public IDataResult<IList<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate)
         {
-            List<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication >= minDate && p.DateOfPublication <= maxDate && !p.IsDeleted).ToList();
+            IList<Publisher> publishers = _publisherDal.GetAll(p => p.DateOfPublication >= minDate && p.DateOfPublication <= maxDate && !p.IsDeleted);
 
             return publishers == null
-                ? new ErrorDataResult<List<Publisher>>(PublisherConstants.DataNotGet)
-                : new SuccessDataResult<List<Publisher>>(publishers, PublisherConstants.DataGet);
+                ? new ErrorDataResult<IList<Publisher>>(PublisherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Publisher>>(publishers, PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllByFilter(Expression<Func<Publisher, bool>>? filter = null)
+        public IDataResult<IList<Publisher>> GetAllByFilter(Expression<Func<Publisher, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(filter).ToList(), PublisherConstants.DataGet);
+            return new SuccessDataResult<IList<Publisher>>(_publisherDal.GetAll(filter), PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAll()
+        public IDataResult<IList<Publisher>> GetAll()
         {
-            return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(p => !p.IsDeleted).ToList(), PublisherConstants.DataGet);
+            return new SuccessDataResult<IList<Publisher>>(_publisherDal.GetAll(p => !p.IsDeleted), PublisherConstants.DataGet);
         }
 
-        public IDataResult<List<Publisher>> GetAllBySecret()
+        public IDataResult<IList<Publisher>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll(p => p.IsDeleted).ToList(), PublisherConstants.DataGet);
+            return new SuccessDataResult<IList<Publisher>>(_publisherDal.GetAll(p => p.IsDeleted), PublisherConstants.DataGet);
         }
 
         private IResult PublisherControl(Publisher publisher)

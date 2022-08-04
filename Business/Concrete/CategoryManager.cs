@@ -68,35 +68,35 @@ namespace Business.Concrete
                 : new SuccessDataResult<Category>(category, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAllByIds(int[] ids)
+        public IDataResult<IList<Category>> GetAllByIds(int[] ids)
         {
-            List<Category> categorys = _categoryDal.GetAll(Z => ids.Contains(Z.Id)).ToList();
+            IList<Category> categorys = _categoryDal.GetAll(Z => ids.Contains(Z.Id));
             return categorys == null
-                ? new ErrorDataResult<List<Category>>(CategoryConstants.DataNotGet)
-                : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
+                ? new ErrorDataResult<IList<Category>>(CategoryConstants.DataNotGet)
+                : new SuccessDataResult<IList<Category>>(categorys, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAllByName(string name)
+        public IDataResult<IList<Category>> GetAllByName(string name)
         {
-            List<Category> categorys = _categoryDal.GetAll(Z => Z.Name.Contains(name)).ToList();
+            IList<Category> categorys = _categoryDal.GetAll(Z => Z.Name.Contains(name));
             return categorys == null
-                ? new ErrorDataResult<List<Category>>(CategoryConstants.DataNotGet)
-                : new SuccessDataResult<List<Category>>(categorys, CategoryConstants.DataGet);
+                ? new ErrorDataResult<IList<Category>>(CategoryConstants.DataNotGet)
+                : new SuccessDataResult<IList<Category>>(categorys, CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAllByFilter(Expression<Func<Category, bool>>? filter = null)
+        public IDataResult<IList<Category>> GetAllByFilter(Expression<Func<Category, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(filter), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(filter), CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAllBySecret()
+        public IDataResult<IList<Category>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
         }
 
-        public IDataResult<List<Category>> GetAll()
+        public IDataResult<IList<Category>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>((List<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
         private IResult CategoryNameChecker(Category category)

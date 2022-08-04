@@ -73,25 +73,25 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Communication>> GetAllByIds(Guid[] ids)
         {
-            List<Communication> communications = _communicationDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            IList<Communication> communications = _communicationDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted);
             return communications == null
-                ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)
-                : new SuccessDataResult<List<Communication>>(communications, CommunicationConstants.DataGet);
+                ? new ErrorDataResult<IList<Communication>>(CommunicationConstants.NotMatch)
+                : new SuccessDataResult<IList<Communication>>(communications, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAllByFilter(Expression<Func<Communication, bool>>? filter = null)
+        public IDataResult<IList<Communication>> GetAllByFilter(Expression<Func<Communication, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(filter).ToList(), CommunicationConstants.DataGet);
+            return new SuccessDataResult<IList<Communication>>(_communicationDal.GetAll(filter), CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAllByName(string name)
+        public IDataResult<IList<Communication>> GetAllByName(string name)
         {
-            List<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted).ToList();
+            IList<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted);
             return communications == null
-                ? new ErrorDataResult<List<Communication>>(CommunicationConstants.NotMatch)
-                : new SuccessDataResult<List<Communication>>(communications, CommunicationConstants.DataGet);
+                ? new ErrorDataResult<IList<Communication>>(CommunicationConstants.NotMatch)
+                : new SuccessDataResult<IList<Communication>>(communications, CommunicationConstants.DataGet);
         }
 
         public IDataResult<Communication> GetByEmail(string eMail)
@@ -126,14 +126,14 @@ namespace Business.Concrete
                 : new SuccessDataResult<Communication>(communication, CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAll()
+        public IDataResult<IList<Communication>> GetAll()
         {
-            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => !c.IsDeleted).ToList(), CommunicationConstants.DataGet);
+            return new SuccessDataResult<IList<Communication>>(_communicationDal.GetAll(c => !c.IsDeleted), CommunicationConstants.DataGet);
         }
 
-        public IDataResult<List<Communication>> GetAllBySecret()
+        public IDataResult<IList<Communication>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Communication>>(_communicationDal.GetAll(c => c.IsDeleted).ToList(), CommunicationConstants.DataGet);
+            return new SuccessDataResult<IList<Communication>>(_communicationDal.GetAll(c => c.IsDeleted), CommunicationConstants.DataGet);
         }
 
         private IResult CommunicationChecker(Communication communication)

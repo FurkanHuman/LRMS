@@ -76,48 +76,48 @@ namespace Business.Concrete
             return new SuccessResult(AudioRecordConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<AudioRecord>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
-                return new ErrorDataResult<List<AudioRecord>>(categories.Message);
+                return new ErrorDataResult<IList<AudioRecord>>(categories.Message);
 
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => categories.Data.Select(c => c.Id).Contains(ar.CategoryId) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => categories.Data.Select(c => c.Id).Contains(ar.CategoryId) && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<AudioRecord>> GetAllByDescriptionFinder(string finderString)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Description.Contains(finderString) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Description.Contains(finderString) && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<AudioRecord>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<AudioRecord>>(dimension.Message);
+                return new ErrorDataResult<IList<AudioRecord>>(dimension.Message);
 
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.DimensionsId == dimensionId && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.DimensionsId == dimensionId && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<AudioRecord>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMaterialFile = _eMaterialFileService.GetById(eMFilesId);
             if (!eMaterialFile.Success)
-                return new ErrorDataResult<List<AudioRecord>>(eMaterialFile.Message);
+                return new ErrorDataResult<IList<AudioRecord>>(eMaterialFile.Message);
 
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.EMaterialFilesId == eMFilesId && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.EMaterialFilesId == eMFilesId && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
         public IDataResult<AudioRecord> GetById(Guid id)
@@ -128,92 +128,92 @@ namespace Business.Concrete
                 : new SuccessDataResult<AudioRecord>(audioRecord, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<AudioRecord>> GetAllByIds(Guid[] ids)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ids.Contains(ar.Id) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ids.Contains(ar.Id) && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByName(string name)
+        public IDataResult<IList<AudioRecord>> GetAllByName(string name)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Name.Contains(name) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Name.Contains(name) && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByOwnerName(string name)
+        public IDataResult<IList<AudioRecord>> GetAllByOwnerName(string name)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Owner.Contains(name) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Owner.Contains(name) && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<AudioRecord>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<AudioRecord> audioRecords = maxPrice == null
-                ? _audioRecordDal.GetAll(ar => ar.Price == minPrice && !ar.IsDeleted).ToList()
-                : _audioRecordDal.GetAll(ar => ar.Price >= minPrice && ar.Price <= maxPrice && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = maxPrice == null
+                ? _audioRecordDal.GetAll(ar => ar.Price == minPrice && !ar.IsDeleted)
+                : _audioRecordDal.GetAll(ar => ar.Price >= minPrice && ar.Price <= maxPrice && !ar.IsDeleted);
 
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AcademicJournalConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AcademicJournalConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByRecordDate(DateTime recordDate)
+        public IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordDate == recordDate && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordDate == recordDate && !ar.IsDeleted);
             return audioRecords == null
-                 ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                 : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                 ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByRecordDate(DateTime recordDate, DateTime recordEndDate)
+        public IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate, DateTime recordEndDate)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordDate >= recordDate && ar.RecordEndDate <= recordEndDate && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordDate >= recordDate && ar.RecordEndDate <= recordEndDate && !ar.IsDeleted);
             return audioRecords.Count > 0
-                ? new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
-                : new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet);
+                ? new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
+                : new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByRecordingLength(float recordingLength)
+        public IDataResult<IList<AudioRecord>> GetAllByRecordingLength(float recordingLength)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordingLength == recordingLength && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordingLength == recordingLength && !ar.IsDeleted);
             return audioRecords != null
-                ? new SuccessDataResult<List<AudioRecord>>(audioRecords, AcademicJournalConstants.DataGet)
-                : new ErrorDataResult<List<AudioRecord>>(AcademicJournalConstants.DataNotGet);
+                ? new SuccessDataResult<IList<AudioRecord>>(audioRecords, AcademicJournalConstants.DataGet)
+                : new ErrorDataResult<IList<AudioRecord>>(AcademicJournalConstants.DataNotGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByRecordingLength(float recordingLengthMin, float recordingLengthMax)
+        public IDataResult<IList<AudioRecord>> GetAllByRecordingLength(float recordingLengthMin, float recordingLengthMax)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordingLength >= recordingLengthMin && ar.RecordingLength <= recordingLengthMax && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.RecordingLength >= recordingLengthMin && ar.RecordingLength <= recordingLengthMax && !ar.IsDeleted);
             return audioRecords.Count > 0
-                ? new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
-                : new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet);
+                ? new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
+                : new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByTitle(string title)
+        public IDataResult<IList<AudioRecord>> GetAllByTitle(string title)
         {
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Title.Contains(title) && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Title.Contains(title) && !ar.IsDeleted);
 
             return audioRecords.Count > 0
-                ? new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
-                : new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet);
+                ? new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet)
+                : new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<AudioRecord>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
-                return new ErrorDataResult<List<AudioRecord>>(technicalPlaceholder.Message);
+                return new ErrorDataResult<IList<AudioRecord>>(technicalPlaceholder.Message);
 
-            List<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.TechnicalPlaceholders == technicalPlaceholder && !ar.IsDeleted).ToList();
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.TechnicalPlaceholders == technicalPlaceholder && !ar.IsDeleted);
             return audioRecords == null
-                ? new ErrorDataResult<List<AudioRecord>>(AudioRecordConstants.DataNotGet)
-                : new SuccessDataResult<List<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
+                ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
+                : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
@@ -229,19 +229,19 @@ namespace Business.Concrete
             return new SuccessDataResult<byte>(_audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted).State, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllByFilter(Expression<Func<AudioRecord, bool>>? filter = null)
+        public IDataResult<IList<AudioRecord>> GetAllByFilter(Expression<Func<AudioRecord, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<AudioRecord>>(_audioRecordDal.GetAll(filter).ToList(), AudioRecordConstants.DataGet);
+            return new SuccessDataResult<IList<AudioRecord>>(_audioRecordDal.GetAll(filter), AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAllBySecret()
+        public IDataResult<IList<AudioRecord>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<AudioRecord>>(_audioRecordDal.GetAll(ar => ar.IsDeleted).ToList(), AudioRecordConstants.DataGet);
+            return new SuccessDataResult<IList<AudioRecord>>(_audioRecordDal.GetAll(ar => ar.IsDeleted), AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<List<AudioRecord>> GetAll()
+        public IDataResult<IList<AudioRecord>> GetAll()
         {
-            return new SuccessDataResult<List<AudioRecord>>(_audioRecordDal.GetAll(ar => !ar.IsDeleted).ToList(), AudioRecordConstants.DataGet);
+            return new SuccessDataResult<IList<AudioRecord>>(_audioRecordDal.GetAll(ar => !ar.IsDeleted), AudioRecordConstants.DataGet);
         }
 
         public IDataResult<AudioRecord> GetByStock(Guid stockId)

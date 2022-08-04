@@ -63,13 +63,13 @@ namespace Business.Concrete
             return new SuccessResult(ConsultantConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Consultant>> GetAllByFilter(Expression<Func<Consultant, bool>>? filter = null)
+        public IDataResult<IList<Consultant>> GetAllByFilter(Expression<Func<Consultant, bool>>? filter = null)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(filter).ToList();
+            IList<Consultant> consultants = _consultantDal.GetAll(filter);
 
             return consultants == null
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
-                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+                ? new ErrorDataResult<IList<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<IList<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
         public IDataResult<Consultant> GetById(Guid id)
@@ -80,49 +80,49 @@ namespace Business.Concrete
                 : new SuccessDataResult<Consultant>(consultant, ConsultantConstants.NotMatch);
         }
 
-        public IDataResult<List<Consultant>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Consultant>> GetAllByIds(Guid[] ids)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted).ToList();
+            IList<Consultant> consultants = _consultantDal.GetAll(c => ids.Contains(c.Id) && !c.IsDeleted);
 
             return consultants == null
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
-                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+                ? new ErrorDataResult<IList<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<IList<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetAllByName(string name)
+        public IDataResult<IList<Consultant>> GetAllByName(string name)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted).ToList();
+            IList<Consultant> consultants = _consultantDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted);
             return consultants == null
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
-                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+                ? new ErrorDataResult<IList<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<IList<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetAllBySurname(string surname)
+        public IDataResult<IList<Consultant>> GetAllBySurname(string surname)
         {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted).ToList();
-
-            return consultants == null
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
-                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
-        }
-
-        public IDataResult<List<Consultant>> GetAllByNamePreAttachment(string namePreAttachment)
-        {
-            List<Consultant> consultants = _consultantDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment) && !c.IsDeleted).ToList();
+            IList<Consultant> consultants = _consultantDal.GetAll(c => c.SurName.Contains(surname) && !c.IsDeleted);
 
             return consultants == null
-                ? new ErrorDataResult<List<Consultant>>(ConsultantConstants.DataNotGet)
-                : new SuccessDataResult<List<Consultant>>(consultants, ConsultantConstants.DataGet);
+                ? new ErrorDataResult<IList<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<IList<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetAllBySecret()
+        public IDataResult<IList<Consultant>> GetAllByNamePreAttachment(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted).ToList(), ConsultantConstants.DataGet);
+            IList<Consultant> consultants = _consultantDal.GetAll(c => c.NamePreAttachment.Contains(namePreAttachment) && !c.IsDeleted);
+
+            return consultants == null
+                ? new ErrorDataResult<IList<Consultant>>(ConsultantConstants.DataNotGet)
+                : new SuccessDataResult<IList<Consultant>>(consultants, ConsultantConstants.DataGet);
         }
 
-        public IDataResult<List<Consultant>> GetAll()
+        public IDataResult<IList<Consultant>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted).ToList(), ConsultantConstants.DataGet);
+            return new SuccessDataResult<IList<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted), ConsultantConstants.DataGet);
+        }
+
+        public IDataResult<IList<Consultant>> GetAll()
+        {
+            return new SuccessDataResult<IList<Consultant>>(_consultantDal.GetAll(c => !c.IsDeleted), ConsultantConstants.DataGet);
         }
 
         private IResult ConsultantExist(Consultant entity)

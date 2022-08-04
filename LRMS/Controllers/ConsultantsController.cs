@@ -80,7 +80,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllByIsDeleted")]
+        [HttpGet("DtoGetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
             var result = _consultantService.GetAllByIsDeleted();

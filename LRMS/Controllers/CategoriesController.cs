@@ -67,7 +67,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllByIsDeleted")]
+        [HttpGet("DtoGetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
             var result = _categoryService.GetAllByIsDeleted();
@@ -78,13 +78,6 @@ namespace LRMS.Controllers
         public IActionResult GetAll()
         {
             var result = _categoryService.GetAll();
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
-        [HttpGet("IGetAll")]
-        public IActionResult IGetAll()
-        {
-            var result = _categoryService.IGetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

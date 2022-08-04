@@ -68,142 +68,142 @@ namespace Business.Concrete
             return new SuccessResult(MusicalNoteConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<MusicalNote>> GetAll()
+        public IDataResult<IList<MusicalNote>> GetAll()
         {
-            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => !mn.IsDeleted).ToList(), MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<IList<MusicalNote>>(_musicalNoteDal.GetAll(mn => !mn.IsDeleted), MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<MusicalNote>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<MusicalNote>>(categories.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(categories.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Categories == categories && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Categories == categories && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByComposer(Guid composerId)
+        public IDataResult<IList<MusicalNote>> GetAllByComposer(Guid composerId)
         {
             IDataResult<Composer> composer = _composerService.GetById(composerId);
             if (!composer.Success)
-                return new ErrorDataResult<List<MusicalNote>>(composer.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(composer.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.ComposerId == composerId && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.ComposerId == composerId && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByComposers(Guid[] composerIds)
+        public IDataResult<IList<MusicalNote>> GetAllByComposers(Guid[] composerIds)
         {
-            IDataResult<List<Composer>> composers = _composerService.GetAllByIds(composerIds);
+            IDataResult<IList<Composer>> composers = _composerService.GetAllByIds(composerIds);
             if (!composers.Success)
-                return new ErrorDataResult<List<MusicalNote>>(composers.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(composers.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Composers == composers && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Composers == composers && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByDateOfWriting(DateTime dateOfWriting)
+        public IDataResult<IList<MusicalNote>> GetAllByDateOfWriting(DateTime dateOfWriting)
         {
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.DateOfWriting == dateOfWriting && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.DateOfWriting == dateOfWriting && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<MusicalNote>> GetAllByDescriptionFinder(string finderString)
         {
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Description.Contains(finderString) && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Description.Contains(finderString) && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<MusicalNote>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimmension = _dimensionService.GetById(dimensionId);
             if (!dimmension.Success)
-                return new ErrorDataResult<List<MusicalNote>>(dimmension.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(dimmension.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.DimensionsId == dimensionId && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.DimensionsId == dimensionId && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<MusicalNote>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<MusicalNote>>(eMFile.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(eMFile.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.EMaterialFilesId == eMFileId && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.EMaterialFilesId == eMFileId && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByFilter(Expression<Func<MusicalNote, bool>>? filter = null)
+        public IDataResult<IList<MusicalNote>> GetAllByFilter(Expression<Func<MusicalNote, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(filter).ToList(), MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<IList<MusicalNote>>(_musicalNoteDal.GetAll(filter), MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<MusicalNote>> GetAllByIds(Guid[] ids)
         {
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => ids.Contains(mn.Id) && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => ids.Contains(mn.Id) && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByName(string name)
+        public IDataResult<IList<MusicalNote>> GetAllByName(string name)
         {
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Name.Contains(name) && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Name.Contains(name) && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<MusicalNote>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<MusicalNote> musicalNotes = maxPrice == null
-                ? _musicalNoteDal.GetAll(mn => mn.Price == minPrice && !mn.IsDeleted).ToList()
-                : _musicalNoteDal.GetAll(mn => mn.Price >= minPrice && mn.Price <= maxPrice && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = maxPrice == null
+                ? _musicalNoteDal.GetAll(mn => mn.Price == minPrice && !mn.IsDeleted)
+                : _musicalNoteDal.GetAll(mn => mn.Price >= minPrice && mn.Price <= maxPrice && !mn.IsDeleted);
 
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllBySecret()
+        public IDataResult<IList<MusicalNote>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => mn.IsDeleted).ToList(), MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<IList<MusicalNote>>(_musicalNoteDal.GetAll(mn => mn.IsDeleted), MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<MusicalNote>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             var techPlaceHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<MusicalNote>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<MusicalNote>>(techPlaceHolder.Message);
 
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.TechnicalPlaceholdersId == technicalPlaceholderId && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.TechnicalPlaceholdersId == technicalPlaceholderId && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
-        public IDataResult<List<MusicalNote>> GetAllByTitle(string title)
+        public IDataResult<IList<MusicalNote>> GetAllByTitle(string title)
         {
-            List<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Title.Contains(title) && !mn.IsDeleted).ToList();
+            IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => mn.Title.Contains(title) && !mn.IsDeleted);
             return musicalNotes == null
-                ? new ErrorDataResult<List<MusicalNote>>(MusicalNoteConstants.DataNotGet)
-                : new SuccessDataResult<List<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
+                ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
+                : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
         }
 
         public IDataResult<MusicalNote> GetById(Guid id)

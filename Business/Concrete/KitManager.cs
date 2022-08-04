@@ -87,19 +87,19 @@ namespace Business.Concrete
             return new SuccessResult(KitConstants.AddSuccess);
         }
 
-        public IDataResult<List<Kit>> GetAll()
+        public IDataResult<IList<Kit>> GetAll()
         {
-            return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(k => !k.IsDeleted).ToList(), KitConstants.DataGet);
+            return new SuccessDataResult<IList<Kit>>(_kitDal.GetAll(k => !k.IsDeleted), KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByFilter(Expression<Func<Kit, bool>>? filter = null)
+        public IDataResult<IList<Kit>> GetAllByFilter(Expression<Func<Kit, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(filter).ToList(), KitConstants.DataGet);
+            return new SuccessDataResult<IList<Kit>>(_kitDal.GetAll(filter), KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllBySecret()
+        public IDataResult<IList<Kit>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Kit>>(_kitDal.GetAll(k => k.IsDeleted).ToList(), KitConstants.DataGet);
+            return new SuccessDataResult<IList<Kit>>(_kitDal.GetAll(k => k.IsDeleted), KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByAcademicJournal(Guid academicJournalId)
@@ -114,16 +114,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByAcademicJournals(Guid[] academicJournalIds)
+        public IDataResult<IList<Kit>> GetAllByAcademicJournals(Guid[] academicJournalIds)
         {
-            IDataResult<List<AcademicJournal>> aJs = _academicJournalService.GetAllByIds(academicJournalIds);
+            IDataResult<IList<AcademicJournal>> aJs = _academicJournalService.GetAllByIds(academicJournalIds);
             if (!aJs.Success)
-                return new ErrorDataResult<List<Kit>>(aJs.Message);
+                return new ErrorDataResult<IList<Kit>>(aJs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.AcademicJournals == aJs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.AcademicJournals == aJs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByAudioRecord(Guid audioRecordId)
@@ -138,16 +138,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByAudioRecords(Guid[] audioRecordIds)
+        public IDataResult<IList<Kit>> GetAllByAudioRecords(Guid[] audioRecordIds)
         {
-            IDataResult<List<AudioRecord>> aR = _audioRecordService.GetAllByIds(audioRecordIds);
+            IDataResult<IList<AudioRecord>> aR = _audioRecordService.GetAllByIds(audioRecordIds);
             if (!aR.Success)
-                return new ErrorDataResult<List<Kit>>(aR.Message);
+                return new ErrorDataResult<IList<Kit>>(aR.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.AudioRecords == aR.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.AudioRecords == aR.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByBook(Guid bookId)
@@ -162,16 +162,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByBooks(Guid[] bookIds)
+        public IDataResult<IList<Kit>> GetAllByBooks(Guid[] bookIds)
         {
-            IDataResult<List<Book>> bs = _bookService.GetAllByIds(bookIds);
+            IDataResult<IList<Book>> bs = _bookService.GetAllByIds(bookIds);
             if (!bs.Success)
-                return new ErrorDataResult<List<Kit>>(bs.Message);
+                return new ErrorDataResult<IList<Kit>>(bs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Books == bs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Books == bs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByBookSeries(Guid bookSeriesId)
@@ -186,16 +186,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByBookSeries(Guid[] bookSeriesIds)
+        public IDataResult<IList<Kit>> GetAllByBookSeries(Guid[] bookSeriesIds)
         {
-            IDataResult<List<BookSeries>> bss = _bookSeriesService.GetAllByIds(bookSeriesIds);
+            IDataResult<IList<BookSeries>> bss = _bookSeriesService.GetAllByIds(bookSeriesIds);
             if (!bss.Success)
-                return new ErrorDataResult<List<Kit>>(bss.Message);
+                return new ErrorDataResult<IList<Kit>>(bss.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.BookSeries == bss.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.BookSeries == bss.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByCartographicMaterial(Guid cartographicMaterialId)
@@ -210,28 +210,28 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByCartographicMaterials(Guid[] cartographicMaterialIds)
+        public IDataResult<IList<Kit>> GetAllByCartographicMaterials(Guid[] cartographicMaterialIds)
         {
-            IDataResult<List<CartographicMaterial>>? cMs = _cartographicMaterialService.GetAllByIds(cartographicMaterialIds);
+            IDataResult<IList<CartographicMaterial>>? cMs = _cartographicMaterialService.GetAllByIds(cartographicMaterialIds);
             if (!cMs.Success)
-                return new ErrorDataResult<List<Kit>>(cMs.Message);
+                return new ErrorDataResult<IList<Kit>>(cMs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.CartographicMaterials == cMs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.CartographicMaterials == cMs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Kit>> GetAllByCategories(int[] categoriesId)
         {
             var c = _categoryService.GetAllByIds(categoriesId);
             if (!c.Success)
-                return new ErrorDataResult<List<Kit>>(c.Message);
+                return new ErrorDataResult<IList<Kit>>(c.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Categories.Any(c => categoriesId.Contains(c.Id)) && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Categories.Any(c => categoriesId.Contains(c.Id)) && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByDepiction(Guid depictionId)
@@ -246,36 +246,36 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByDepictions(Guid[] depictionIds)
+        public IDataResult<IList<Kit>> GetAllByDepictions(Guid[] depictionIds)
         {
-            IDataResult<List<Depiction>> ds = _depictionService.GetAllByIds(depictionIds);
+            IDataResult<IList<Depiction>> ds = _depictionService.GetAllByIds(depictionIds);
             if (!ds.Success)
-                return new ErrorDataResult<List<Kit>>(ds.Message);
+                return new ErrorDataResult<IList<Kit>>(ds.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Depictions == ds.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Depictions == ds.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Kit>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Kit> kits = _kitDal.GetAll(k => k.Description.Contains(finderString) && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Description.Contains(finderString) && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Kit>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Kit>>(dimension.Message);
+                return new ErrorDataResult<IList<Kit>>(dimension.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.DimensionsId == dimensionId && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.DimensionsId == dimensionId && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByDissertation(Guid dissertationId)
@@ -290,16 +290,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByDissertations(Guid[] dissertationIds)
+        public IDataResult<IList<Kit>> GetAllByDissertations(Guid[] dissertationIds)
         {
-            IDataResult<List<Dissertation>> ds = _dissertationService.GetAllByIds(dissertationIds);
+            IDataResult<IList<Dissertation>> ds = _dissertationService.GetAllByIds(dissertationIds);
             if (!ds.Success)
-                return new ErrorDataResult<List<Kit>>(ds.Message);
+                return new ErrorDataResult<IList<Kit>>(ds.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Dissertations == ds.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Dissertations == ds.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByElectronicsResource(Guid electronicsResourceId)
@@ -314,28 +314,28 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByElectronicsResources(Guid[] electronicsResourceIds)
+        public IDataResult<IList<Kit>> GetAllByElectronicsResources(Guid[] electronicsResourceIds)
         {
-            IDataResult<List<ElectronicsResource>> eRs = _electronicsResourceService.GetAllByIds(electronicsResourceIds);
+            IDataResult<IList<ElectronicsResource>> eRs = _electronicsResourceService.GetAllByIds(electronicsResourceIds);
             if (!eRs.Success)
-                return new ErrorDataResult<List<Kit>>(eRs.Message);
+                return new ErrorDataResult<IList<Kit>>(eRs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.ElectronicsResources == eRs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.ElectronicsResources == eRs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Kit>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMF = _eMaterialFileService.GetById(eMFileId);
             if (!eMF.Success)
-                return new ErrorDataResult<List<Kit>>(eMF.Message);
+                return new ErrorDataResult<IList<Kit>>(eMF.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.EMaterialFilesId == eMFileId && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.EMaterialFilesId == eMFileId && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByEncyclopedia(Guid encyclopediaId)
@@ -350,16 +350,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByEncyclopedias(Guid[] encyclopediaIds)
+        public IDataResult<IList<Kit>> GetAllByEncyclopedias(Guid[] encyclopediaIds)
         {
-            IDataResult<List<Encyclopedia>> ePs = _encyclopediaService.GetAllByIds(encyclopediaIds);
+            IDataResult<IList<Encyclopedia>> ePs = _encyclopediaService.GetAllByIds(encyclopediaIds);
             if (!ePs.Success)
-                return new ErrorDataResult<List<Kit>>(ePs.Message);
+                return new ErrorDataResult<IList<Kit>>(ePs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Theses == ePs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Theses == ePs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByGraphicalImage(Guid graphicalImageId)
@@ -374,16 +374,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByGraphicalImages(Guid[] graphicalImageIds)
+        public IDataResult<IList<Kit>> GetAllByGraphicalImages(Guid[] graphicalImageIds)
         {
-            IDataResult<List<GraphicalImage>> gIs = _graphicalImageService.GetAllByIds(graphicalImageIds);
+            IDataResult<IList<GraphicalImage>> gIs = _graphicalImageService.GetAllByIds(graphicalImageIds);
             if (!gIs.Success)
-                return new ErrorDataResult<List<Kit>>(gIs.Message);
+                return new ErrorDataResult<IList<Kit>>(gIs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.GraphicalImages == gIs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.GraphicalImages == gIs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetById(Guid id)
@@ -395,25 +395,25 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Kit>> GetAllByIds(Guid[] ids)
         {
-            List<Kit> kits = _kitDal.GetAll(k => ids.Contains(k.Id)).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => ids.Contains(k.Id));
 
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByImage(Guid imageId)
+        public IDataResult<IList<Kit>> GetAllByImage(Guid imageId)
         {
             IDataResult<Image> i = _imageService.GetById(imageId);
             if (!i.Success)
-                return new ErrorDataResult<List<Kit>>(i.Message);
+                return new ErrorDataResult<IList<Kit>>(i.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.ImageId == imageId && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.ImageId == imageId && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByMagazine(Guid magazineId)
@@ -428,16 +428,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByMagazines(Guid[] magazineIds)
+        public IDataResult<IList<Kit>> GetAllByMagazines(Guid[] magazineIds)
         {
-            IDataResult<List<Magazine>> ms = _magazineService.GetAllByIds(magazineIds);
+            IDataResult<IList<Magazine>> ms = _magazineService.GetAllByIds(magazineIds);
             if (!ms.Success)
-                return new ErrorDataResult<List<Kit>>(ms.Message);
+                return new ErrorDataResult<IList<Kit>>(ms.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Magazines == ms.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Magazines == ms.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByMicroform(Guid microformId)
@@ -452,16 +452,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByMicroforms(Guid[] microformIds)
+        public IDataResult<IList<Kit>> GetAllByMicroforms(Guid[] microformIds)
         {
-            IDataResult<List<Microform>> mFs = _microformService.GetAllByIds(microformIds);
+            IDataResult<IList<Microform>> mFs = _microformService.GetAllByIds(microformIds);
             if (!mFs.Success)
-                return new ErrorDataResult<List<Kit>>(mFs.Message);
+                return new ErrorDataResult<IList<Kit>>(mFs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Microforms == mFs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Microforms == mFs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByMusicalNote(Guid musicalNoteId)
@@ -476,24 +476,24 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByMusicalNotes(Guid[] musicalNoteIds)
+        public IDataResult<IList<Kit>> GetAllByMusicalNotes(Guid[] musicalNoteIds)
         {
-            IDataResult<List<MusicalNote>> mNs = _musicalNoteService.GetAllByIds(musicalNoteIds);
+            IDataResult<IList<MusicalNote>> mNs = _musicalNoteService.GetAllByIds(musicalNoteIds);
             if (!mNs.Success)
-                return new ErrorDataResult<List<Kit>>(mNs.Message);
+                return new ErrorDataResult<IList<Kit>>(mNs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.MusicalNotes == mNs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.MusicalNotes == mNs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByName(string name)
+        public IDataResult<IList<Kit>> GetAllByName(string name)
         {
-            List<Kit> kits = _kitDal.GetAll(k => k.Name.Contains(name) && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Name.Contains(name) && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByNewsPaper(Guid newsPaperId)
@@ -508,16 +508,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByNewsPapers(Guid[] newsPaperIds)
+        public IDataResult<IList<Kit>> GetAllByNewsPapers(Guid[] newsPaperIds)
         {
-            IDataResult<List<NewsPaper>> nPs = _newsPaperService.GetAllByIds(newsPaperIds);
+            IDataResult<IList<NewsPaper>> nPs = _newsPaperService.GetAllByIds(newsPaperIds);
             if (!nPs.Success)
-                return new ErrorDataResult<List<Kit>>(nPs.Message);
+                return new ErrorDataResult<IList<Kit>>(nPs.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.NewsPapers == nPs.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.NewsPapers == nPs.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByObject3D(Guid object3DId)
@@ -532,16 +532,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByObject3Ds(Guid[] object3DIds)
+        public IDataResult<IList<Kit>> GetAllByObject3Ds(Guid[] object3DIds)
         {
-            IDataResult<List<Object3D>> o3Ds = _object3DService.GetAllByIds(object3DIds);
+            IDataResult<IList<Object3D>> o3Ds = _object3DService.GetAllByIds(object3DIds);
             if (!o3Ds.Success)
-                return new ErrorDataResult<List<Kit>>(o3Ds.Message);
+                return new ErrorDataResult<IList<Kit>>(o3Ds.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Object3Ds == o3Ds.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Object3Ds == o3Ds.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByPainting(Guid paintingId)
@@ -556,16 +556,16 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByPaintings(Guid[] paintingIds)
+        public IDataResult<IList<Kit>> GetAllByPaintings(Guid[] paintingIds)
         {
-            IDataResult<List<Painting>> ps = _paintingService.GetAllByIds(paintingIds);
+            IDataResult<IList<Painting>> ps = _paintingService.GetAllByIds(paintingIds);
             if (!ps.Success)
-                return new ErrorDataResult<List<Kit>>(ps.Message);
+                return new ErrorDataResult<IList<Kit>>(ps.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Paintings == ps.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Paintings == ps.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByPoster(Guid posterId)
@@ -580,39 +580,39 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByPosters(Guid[] posterIds)
+        public IDataResult<IList<Kit>> GetAllByPosters(Guid[] posterIds)
         {
-            IDataResult<List<Poster>> ps = _posterService.GetAllByIds(posterIds);
+            IDataResult<IList<Poster>> ps = _posterService.GetAllByIds(posterIds);
             if (!ps.Success)
-                return new ErrorDataResult<List<Kit>>(ps.Message);
+                return new ErrorDataResult<IList<Kit>>(ps.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Posters == ps.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Posters == ps.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Kit>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Kit> kits = maxPrice == null
-                ? _kitDal.GetAll(k => k.Price == minPrice && !k.IsDeleted).ToList()
-                : _kitDal.GetAll(k => k.Price >= minPrice && k.Price <= maxPrice && !k.IsDeleted).ToList();
+            IList<Kit> kits = maxPrice == null
+                ? _kitDal.GetAll(k => k.Price == minPrice && !k.IsDeleted)
+                : _kitDal.GetAll(k => k.Price >= minPrice && k.Price <= maxPrice && !k.IsDeleted);
 
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Kit>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> placeHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!placeHolder.Success)
-                return new ErrorDataResult<List<Kit>>(placeHolder.Message);
+                return new ErrorDataResult<IList<Kit>>(placeHolder.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.TechnicalPlaceholdersId == technicalPlaceholderId && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.TechnicalPlaceholdersId == technicalPlaceholderId && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<Kit> GetByThesis(Guid thesisId)
@@ -627,24 +627,24 @@ namespace Business.Concrete
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByThesis(Guid[] thesisIds)
+        public IDataResult<IList<Kit>> GetAllByThesis(Guid[] thesisIds)
         {
-            IDataResult<List<Thesis>> tS = _thesisService.GetAllByIds(thesisIds);
+            IDataResult<IList<Thesis>> tS = _thesisService.GetAllByIds(thesisIds);
             if (!tS.Success)
-                return new ErrorDataResult<List<Kit>>(tS.Message);
+                return new ErrorDataResult<IList<Kit>>(tS.Message);
 
-            List<Kit> kits = _kitDal.GetAll(k => k.Theses == tS.Data && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Theses == tS.Data && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
-        public IDataResult<List<Kit>> GetAllByTitle(string title)
+        public IDataResult<IList<Kit>> GetAllByTitle(string title)
         {
-            List<Kit> kits = _kitDal.GetAll(k => k.Title.Contains(title) && !k.IsDeleted).ToList();
+            IList<Kit> kits = _kitDal.GetAll(k => k.Title.Contains(title) && !k.IsDeleted);
             return kits == null
-                ? new ErrorDataResult<List<Kit>>(KitConstants.DataNotGet)
-                : new SuccessDataResult<List<Kit>>(kits, KitConstants.DataGet);
+                ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
+                : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

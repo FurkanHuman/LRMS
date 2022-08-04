@@ -60,9 +60,9 @@ namespace Business.Concrete
             return new SuccessResult(GraphicDesignerConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetAllByFilter(Expression<Func<GraphicDesigner, bool>>? filter = null)
+        public IDataResult<IList<GraphicDesigner>> GetAllByFilter(Expression<Func<GraphicDesigner, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(filter).ToList(), GraphicDesignerConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDesigner>>(_graphicDesignDal.GetAll(filter), GraphicDesignerConstants.DataGet);
         }
 
         public IDataResult<GraphicDesigner> GetById(Guid id)
@@ -73,39 +73,39 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicDesigner>(graphicDesigner, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<GraphicDesigner>> GetAllByIds(Guid[] ids)
         {
-            List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            IList<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted);
 
             return graphicDesigns == null
-                ? new ErrorDataResult<List<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetAllByName(string name)
+        public IDataResult<IList<GraphicDesigner>> GetAllByName(string name)
         {
-            List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
+            IList<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted);
 
             return graphicDesigns == null
-                ? new ErrorDataResult<List<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetAllBySurname(string surname)
+        public IDataResult<IList<GraphicDesigner>> GetAllBySurname(string surname)
         {
-            List<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted).ToList();
+            IList<GraphicDesigner> graphicDesigns = _graphicDesignDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted);
             return graphicDesigns == null
-                ? new ErrorDataResult<List<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicDesigner>>(GraphicDesignerConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicDesigner>>(graphicDesigns, GraphicDesignerConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicDesigner>> GetAll()
+        public IDataResult<IList<GraphicDesigner>> GetAll()
         {
-            return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => !gd.IsDeleted).ToList(), GraphicDesignerConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => !gd.IsDeleted), GraphicDesignerConstants.DataGet);
         }
-        public IDataResult<List<GraphicDesigner>> GetAllBySecret()
+        public IDataResult<IList<GraphicDesigner>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => gd.IsDeleted).ToList(), GraphicDesignerConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicDesigner>>(_graphicDesignDal.GetAll(gd => gd.IsDeleted), GraphicDesignerConstants.DataGet);
         }
 
         private IResult GraphicDesignNameOrSurnameExist(GraphicDesigner entity)

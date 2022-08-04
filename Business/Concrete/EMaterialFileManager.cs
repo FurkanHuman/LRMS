@@ -97,37 +97,37 @@ namespace Business.Concrete
                 : new SuccessDataResult<EMaterialFile>(eMaterialFile, EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<EMaterialFile>> GetAllByIds(Guid[] ids)
         {
-            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => ids.Contains(e.Id) && !e.IsSecret).ToList();
+            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => ids.Contains(e.Id) && !e.IsSecret);
 
             return eMaterialFiles == null
-                ? new ErrorDataResult<List<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
-                : new SuccessDataResult<List<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
+                ? new ErrorDataResult<IList<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
+                : new SuccessDataResult<IList<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAllByName(string name)
+        public IDataResult<IList<EMaterialFile>> GetAllByName(string name)
         {
-            List<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name) && !e.IsSecret).ToList();
+            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name) && !e.IsSecret);
 
             return eMaterialFiles == null
-                ? new ErrorDataResult<List<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
-                : new SuccessDataResult<List<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
+                ? new ErrorDataResult<IList<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
+                : new SuccessDataResult<IList<EMaterialFile>>(eMaterialFiles, EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null)
+        public IDataResult<IList<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(filter).ToList(), EMaterialFileConstants.DataGet);
+            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(filter), EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAll()
+        public IDataResult<IList<EMaterialFile>> GetAll()
         {
-            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsSecret).ToList(), EMaterialFileConstants.DataGet);
+            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsSecret), EMaterialFileConstants.DataGet);
         }
 
-        public IDataResult<List<EMaterialFile>> GetAllBySecret()
+        public IDataResult<IList<EMaterialFile>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<EMaterialFile>>(_eMaterialFileDal.GetAll(e => e.IsSecret).ToList(), EMaterialFileConstants.DataGet);
+            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => e.IsSecret), EMaterialFileConstants.DataGet);
         }
 
         private static IResult FileCheck(IFormFile file)

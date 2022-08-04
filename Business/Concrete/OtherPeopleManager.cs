@@ -64,9 +64,9 @@ namespace Business.Concrete
             return new SuccessResult(OtherPeopleConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllByFilter(Expression<Func<OtherPeople, bool>>? filter = null)
+        public IDataResult<IList<OtherPeople>> GetAllByFilter(Expression<Func<OtherPeople, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(filter).ToList(), OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(_otherPeopleDal.GetAll(filter), OtherPeopleConstants.DataGet);
         }
 
         public IDataResult<OtherPeople> GetById(Guid id)
@@ -77,66 +77,66 @@ namespace Business.Concrete
                 : new SuccessDataResult<OtherPeople>(otherPeople, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<OtherPeople>> GetAllByIds(Guid[] ids)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => ids.Contains(op.Id) && !op.IsDeleted).ToList();
+            IList<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => ids.Contains(op.Id) && !op.IsDeleted);
 
             return otherPeoples == null
-                ? new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet)
-                : new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+                ? new ErrorDataResult<IList<OtherPeople>>(OtherPeopleConstants.DataNotGet)
+                : new SuccessDataResult<IList<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllByNamePreAttach(string preAttch)
+        public IDataResult<IList<OtherPeople>> GetAllByNamePreAttach(string preAttch)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
-            && !op.IsDeleted).ToList();
+            IList<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.NamePreAttachment.Contains(preAttch)
+            && !op.IsDeleted);
 
             if (otherPeoples == null)
-                return new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet);
-            return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+                return new ErrorDataResult<IList<OtherPeople>>(OtherPeopleConstants.DataNotGet);
+            return new SuccessDataResult<IList<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllByName(string name)
+        public IDataResult<IList<OtherPeople>> GetAllByName(string name)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Name.Contains(name)
-            && !op.IsDeleted).ToList();
+            IList<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Name.Contains(name)
+            && !op.IsDeleted);
 
             if (otherPeoples == null)
-                return new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet);
+                return new ErrorDataResult<IList<OtherPeople>>(OtherPeopleConstants.DataNotGet);
 
-            return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllBySurname(string surname)
+        public IDataResult<IList<OtherPeople>> GetAllBySurname(string surname)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.SurName.Contains(surname) && !op.IsDeleted
-            && !op.IsDeleted).ToList();
+            IList<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.SurName.Contains(surname) && !op.IsDeleted
+            && !op.IsDeleted);
 
             if (otherPeoples == null)
-                return new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet);
+                return new ErrorDataResult<IList<OtherPeople>>(OtherPeopleConstants.DataNotGet);
 
-            return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllByTitle(string title)
+        public IDataResult<IList<OtherPeople>> GetAllByTitle(string title)
         {
-            List<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Title.Contains(title)
-            && !op.IsDeleted).ToList();
+            IList<OtherPeople> otherPeoples = _otherPeopleDal.GetAll(op => op.Title.Contains(title)
+            && !op.IsDeleted);
 
             if (otherPeoples == null)
-                return new ErrorDataResult<List<OtherPeople>>(OtherPeopleConstants.DataNotGet);
+                return new ErrorDataResult<IList<OtherPeople>>(OtherPeopleConstants.DataNotGet);
 
-            return new SuccessDataResult<List<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(otherPeoples, OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAllBySecret()
+        public IDataResult<IList<OtherPeople>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(op => op.IsDeleted).ToList(), OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(_otherPeopleDal.GetAll(op => op.IsDeleted), OtherPeopleConstants.DataGet);
         }
 
-        public IDataResult<List<OtherPeople>> GetAll()
+        public IDataResult<IList<OtherPeople>> GetAll()
         {
-            return new SuccessDataResult<List<OtherPeople>>(_otherPeopleDal.GetAll(op => !op.IsDeleted).ToList(), OtherPeopleConstants.DataGet);
+            return new SuccessDataResult<IList<OtherPeople>>(_otherPeopleDal.GetAll(op => !op.IsDeleted), OtherPeopleConstants.DataGet);
         }
 
         private IResult OtherPeopleExits(OtherPeople otherPeople)

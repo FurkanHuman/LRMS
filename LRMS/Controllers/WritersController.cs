@@ -143,10 +143,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("DtoGetAllBySecret")]
+        [HttpGet("DtoGetAllByIsDeleted")]
         public IActionResult DtoGetAllBySecret()
         {
-            var result = _writerService.DtoGetAllBySecret();
+            var result = _writerService.DtoGetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
