@@ -13,8 +13,6 @@ namespace Entities.Concrete
         [Required]
         public DateTime DateOfWriting { get; set; }
 
-        public bool IsSecret { get; set; }
-
         public IList<Composer> Composers { get; set; }
         public IList<Kit> Kits { get; set; }
     }

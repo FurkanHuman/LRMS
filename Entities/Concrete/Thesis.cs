@@ -37,8 +37,6 @@ namespace Entities.Concrete
         [Required]
         public bool ApprovalStatus { get; set; }
 
-        public bool IsSecret { get; set; }
-
         public Consultant Consultant { get; set; }
         public University University { get; set; }
         public IList<Kit> Kits { get; set; }
