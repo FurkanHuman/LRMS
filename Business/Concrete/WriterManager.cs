@@ -109,133 +109,79 @@ namespace Business.Concrete
                 }, writerResult.Message);
         }
 
-        public IDataResult<List<Writer>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Writer>> GetAllByIds(Guid[] ids)
         {
-            List<Writer> writers = _writerDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            IList<Writer> writers = _writerDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted);
             return writers == null
-                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
+                ? new ErrorDataResult<IList<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAllByIds(Guid[] ids)
+        public IDataResult<IList<WriterDto>> DtoGetAllByIds(Guid[] ids)
         {
-            IDataResult<List<Writer>> writersResult = GetAllByIds(ids);
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
-        public IDataResult<List<Writer>> GetAllByName(string name)
+        public IDataResult<IList<Writer>> GetAllByName(string name)
         {
-            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted).ToList();
+            IList<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(name) && !n.IsDeleted);
             return writers == null
-                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
+                ? new ErrorDataResult<IList<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAllByName(string name)
+        public IDataResult<IList<WriterDto>> DtoGetAllByName(string name)
         {
-            IDataResult<List<Writer>> writersResult = GetAllByName(name);
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
-        public IDataResult<List<Writer>> GetAllBySurname(string surname)
+        public IDataResult<IList<Writer>> GetAllBySurname(string surname)
         {
-            List<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname) && !n.IsDeleted).ToList();
+            IList<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname) && !n.IsDeleted);
             return writers == null
-                ? new ErrorDataResult<List<Writer>>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<List<Writer>>(writers, WriterConstants.DataGet);
+                ? new ErrorDataResult<IList<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Writer>>(writers, WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAllBySurname(string surname)
+        public IDataResult<IList<WriterDto>> DtoGetAllBySurname(string surname)
         {
-            IDataResult<List<Writer>> writersResult = GetAllBySurname(surname);
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
-        public IDataResult<List<Writer>> GetAllNamePreAttachment(string namePreAttachment)
+        public IDataResult<IList<Writer>> GetAllNamePreAttachment(string namePreAttachment)
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
-            && !n.IsDeleted).ToList(), WriterConstants.DataGet);
+            return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
+            && !n.IsDeleted), WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAllNamePreAttachment(string namePreAttachment)
+        public IDataResult<IList<WriterDto>> DtoGetAllNamePreAttachment(string namePreAttachment)
         {
-            IDataResult<List<Writer>> writersResult = GetAllNamePreAttachment(namePreAttachment);
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
-        public IDataResult<List<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
+        public IDataResult<IList<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(filter).ToList(), WriterConstants.DataGet);
+            return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(filter), WriterConstants.DataGet);
         }
 
-        public IDataResult<List<Writer>> GetAllBySecret()
+        public IDataResult<IList<Writer>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => w.IsDeleted).ToList(), WriterConstants.DataGet);
+            return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(w => w.IsDeleted), WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAllBySecret()
+        public IDataResult<IList<WriterDto>> DtoGetAllByIsDeleted()
         {
-            IDataResult<List<Writer>> writersResult = GetAllBySecret();
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
-        public IDataResult<List<Writer>> GetAll()
+        public IDataResult<IList<Writer>> GetAll()
         {
-            return new SuccessDataResult<List<Writer>>(_writerDal.GetAll(w => !w.IsDeleted).ToList(), WriterConstants.DataGet);
+            return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(w => !w.IsDeleted), WriterConstants.DataGet);
         }
 
-        public IDataResult<List<WriterDto>> DtoGetAll()
+        public IDataResult<IList<WriterDto>> DtoGetAll()
         {
-            IDataResult<List<Writer>> writersResult = GetAll();
-            return !writersResult.Success
-                ? new ErrorDataResult<List<WriterDto>>(writersResult.Message)
-                : new SuccessDataResult<List<WriterDto>>(writersResult.Data.Select(w => new WriterDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    SurName = w.SurName,
-                    NamePreAttachment = w.NamePreAttachment
-                }).ToList(), writersResult.Message);
+            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
         }
 
         private IResult WriterNameOrSurnameExist(Writer entity)

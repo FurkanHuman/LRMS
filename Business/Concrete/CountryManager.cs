@@ -73,45 +73,45 @@ namespace Business.Concrete
                 : new SuccessDataResult<Country>(country, CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetAllByIds(int[] ids)
+        public IDataResult<IList<Country>> GetAllByIds(int[] ids)
         {
-            List<Country> countries = _countryDal.GetAll(c => ids.Contains(c.Id)).ToList();
+            IList<Country> countries = _countryDal.GetAll(c => ids.Contains(c.Id));
 
             return countries == null
-                ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
-                : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
+                ? new ErrorDataResult<IList<Country>>(CountryConstants.NotMatch)
+                : new SuccessDataResult<IList<Country>>(countries, CountryConstants.NotMatch);
         }
 
-        public IDataResult<List<Country>> GetAllByName(string name)
+        public IDataResult<IList<Country>> GetAllByName(string name)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name)).ToList();
+            IList<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name));
 
             return countries == null
-                ? new ErrorDataResult<List<Country>>(CountryConstants.NotMatch)
-                : new SuccessDataResult<List<Country>>(countries, CountryConstants.NotMatch);
+                ? new ErrorDataResult<IList<Country>>(CountryConstants.NotMatch)
+                : new SuccessDataResult<IList<Country>>(countries, CountryConstants.NotMatch);
         }
 
-        public IDataResult<List<Country>> GetAllByCountryCode(string countryCode)
+        public IDataResult<IList<Country>> GetAllByCountryCode(string countryCode)
         {
-            List<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode)).ToList();
+            IList<Country> countries = _countryDal.GetAll(c => c.CountryCode.Contains(countryCode));
             return countries == null
-                ? new ErrorDataResult<List<Country>>(CountryConstants.CountryNotFound)
-                : new SuccessDataResult<List<Country>>(countries, CountryConstants.DataGet);
+                ? new ErrorDataResult<IList<Country>>(CountryConstants.CountryNotFound)
+                : new SuccessDataResult<IList<Country>>(countries, CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetAllByFilter(Expression<Func<Country, bool>>? filter = null)
+        public IDataResult<IList<Country>> GetAllByFilter(Expression<Func<Country, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(filter).ToList(), CountryConstants.DataGet);
+            return new SuccessDataResult<IList<Country>>(_countryDal.GetAll(filter), CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetAllBySecret()
+        public IDataResult<IList<Country>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(C => C.IsDeleted).ToList(), CountryConstants.DataGet);
+            return new SuccessDataResult<IList<Country>>(_countryDal.GetAll(C => C.IsDeleted), CountryConstants.DataGet);
         }
 
-        public IDataResult<List<Country>> GetAll()
+        public IDataResult<IList<Country>> GetAll()
         {
-            return new SuccessDataResult<List<Country>>(_countryDal.GetAll(C => !C.IsDeleted).ToList(), CountryConstants.DataGet);
+            return new SuccessDataResult<IList<Country>>(_countryDal.GetAll(C => !C.IsDeleted), CountryConstants.DataGet);
         }
 
         private IResult CountryControl(Country country)

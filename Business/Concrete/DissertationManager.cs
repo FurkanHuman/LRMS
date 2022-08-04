@@ -71,19 +71,19 @@ namespace Business.Concrete
             return new SuccessResult(DissertationConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Dissertation>> GetAll()
+        public IDataResult<IList<Dissertation>> GetAll()
         {
-            return new SuccessDataResult<List<Dissertation>>(_dissertationDal.GetAll(d => !d.IsDeleted).ToList(), DissertationConstants.DataGet);
+            return new SuccessDataResult<IList<Dissertation>>(_dissertationDal.GetAll(d => !d.IsDeleted), DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByFilter(Expression<Func<Dissertation, bool>>? filter = null)
+        public IDataResult<IList<Dissertation>> GetAllByFilter(Expression<Func<Dissertation, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Dissertation>>(_dissertationDal.GetAll(filter).ToList(), DissertationConstants.DataGet);
+            return new SuccessDataResult<IList<Dissertation>>(_dissertationDal.GetAll(filter), DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllBySecret()
+        public IDataResult<IList<Dissertation>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Dissertation>>(_dissertationDal.GetAll(d => d.IsDeleted).ToList(), DissertationConstants.DataGet);
+            return new SuccessDataResult<IList<Dissertation>>(_dissertationDal.GetAll(d => d.IsDeleted), DissertationConstants.DataGet);
         }
 
         public IDataResult<Dissertation> GetByApprovalStatus(Guid id)
@@ -94,92 +94,92 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Dissertation>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Dissertation>>(categories.Message);
+                return new ErrorDataResult<IList<Dissertation>>(categories.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => categoriesId.Contains(d.CategoryId) && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => categoriesId.Contains(d.CategoryId) && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByCity(int cityId)
+        public IDataResult<IList<Dissertation>> GetAllByCity(int cityId)
         {
             IDataResult<City> city = _cityService.GetById(cityId);
             if (city.Success)
-                return new ErrorDataResult<List<Dissertation>>(city.Message);
+                return new ErrorDataResult<IList<Dissertation>>(city.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.City.Id == cityId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.City.Id == cityId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByCountry(int countryId)
+        public IDataResult<IList<Dissertation>> GetAllByCountry(int countryId)
         {
             IDataResult<Country> country = _countryService.GetById(countryId);
             if (country.Success)
-                return new ErrorDataResult<List<Dissertation>>(country.Message);
+                return new ErrorDataResult<IList<Dissertation>>(country.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.City.CountryId == countryId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.City.CountryId == countryId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByDateTimeYear(ushort year, ushort? yearMax = null)
+        public IDataResult<IList<Dissertation>> GetAllByDateTimeYear(ushort year, ushort? yearMax = null)
         {
-            List<Dissertation> dissertations = yearMax == null
-                ? _dissertationDal.GetAll(d => d.DateTimeYear == year && !d.IsDeleted).ToList()
-                : _dissertationDal.GetAll(d => d.DateTimeYear >= year && d.DateTimeYear <= yearMax && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = yearMax == null
+                ? _dissertationDal.GetAll(d => d.DateTimeYear == year && !d.IsDeleted)
+                : _dissertationDal.GetAll(d => d.DateTimeYear >= year && d.DateTimeYear <= yearMax && !d.IsDeleted);
 
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Dissertation>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Description.Contains(finderString) && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Description.Contains(finderString) && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Dissertation>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Dissertation>>(dimension.Message);
+                return new ErrorDataResult<IList<Dissertation>>(dimension.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.DimensionsId == dimensionId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.DimensionsId == dimensionId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
 
-        public IDataResult<List<Dissertation>> GetAllByDissertationNumber(int dissertationNumber)
+        public IDataResult<IList<Dissertation>> GetAllByDissertationNumber(int dissertationNumber)
         {
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.DissertationNumber == dissertationNumber && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.DissertationNumber == dissertationNumber && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<Dissertation>> GetAllByEMFile(Guid eMFilesId)
         {
             var eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
-                return new ErrorDataResult<List<Dissertation>>(eMFiles.Message);
+                return new ErrorDataResult<IList<Dissertation>>(eMFiles.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.EMaterialFilesId == eMFilesId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.EMaterialFilesId == eMFilesId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
         public IDataResult<Dissertation> GetById(Guid id)
@@ -190,76 +190,76 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Dissertation>> GetAllByIds(Guid[] ids)
         {
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByLanguage(int languageId)
+        public IDataResult<IList<Dissertation>> GetAllByLanguage(int languageId)
         {
             IDataResult<Language> language = _languageService.GetById(languageId);
             if (!language.Success)
-                return new ErrorDataResult<List<Dissertation>>(language.Message);
+                return new ErrorDataResult<IList<Dissertation>>(language.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Language.Id == languageId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Language.Id == languageId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByName(string name)
+        public IDataResult<IList<Dissertation>> GetAllByName(string name)
         {
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Name.Contains(name) && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Name.Contains(name) && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Dissertation>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Dissertation> dissertations = maxPrice == null
-                ? _dissertationDal.GetAll(d => d.Price == minPrice && !d.IsDeleted).ToList()
-                : _dissertationDal.GetAll(d => d.Price >= minPrice && d.Price <= maxPrice && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = maxPrice == null
+                ? _dissertationDal.GetAll(d => d.Price == minPrice && !d.IsDeleted)
+                : _dissertationDal.GetAll(d => d.Price >= minPrice && d.Price <= maxPrice && !d.IsDeleted);
 
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Dissertation>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> tPH = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!tPH.Success)
-                return new ErrorDataResult<List<Dissertation>>(tPH.Message);
+                return new ErrorDataResult<IList<Dissertation>>(tPH.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.TechnicalPlaceholdersId == technicalPlaceholderId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.TechnicalPlaceholdersId == technicalPlaceholderId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByTitle(string title)
+        public IDataResult<IList<Dissertation>> GetAllByTitle(string title)
         {
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Title.Contains(title) && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.Title.Contains(title) && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<List<Dissertation>> GetAllByUniversity(Guid universityId)
+        public IDataResult<IList<Dissertation>> GetAllByUniversity(Guid universityId)
         {
             IDataResult<University> universities = _universityService.GetById(universityId);
             if (!universities.Success)
-                return new ErrorDataResult<List<Dissertation>>(universities.Message);
+                return new ErrorDataResult<IList<Dissertation>>(universities.Message);
 
-            List<Dissertation> dissertations = _dissertationDal.GetAll(d => d.UniversityId == universityId && !d.IsDeleted).ToList();
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.UniversityId == universityId && !d.IsDeleted);
             return dissertations == null
-                ? new ErrorDataResult<List<Dissertation>>(DissertationConstants.DataNotGet)
-                : new SuccessDataResult<List<Dissertation>>(dissertations, DissertationConstants.DataGet);
+                ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

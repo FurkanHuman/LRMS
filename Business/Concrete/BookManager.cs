@@ -86,47 +86,47 @@ namespace Business.Concrete
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Book>> GetAllByIds(Guid[] ids)
         {
-            List<Book> books = _bookDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAll()
+        public IDataResult<IList<Book>> GetAll()
         {
-            return new SuccessDataResult<List<Book>>(_bookDal.GetAll(b => !b.IsDeleted).ToList(), BookConstants.DataGet);
+            return new SuccessDataResult<IList<Book>>(_bookDal.GetAll(b => !b.IsDeleted), BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByFilter(Expression<Func<Book, bool>>? filter = null)
+        public IDataResult<IList<Book>> GetAllByFilter(Expression<Func<Book, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Book>>(_bookDal.GetAll(filter).ToList(), BookConstants.DataGet);
+            return new SuccessDataResult<IList<Book>>(_bookDal.GetAll(filter), BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllBySecret()
+        public IDataResult<IList<Book>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Book>>(_bookDal.GetAll(b => b.IsDeleted).ToList(), BookConstants.DataGet);
+            return new SuccessDataResult<IList<Book>>(_bookDal.GetAll(b => b.IsDeleted), BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByOriginalBookName(string originalBookName)
+        public IDataResult<IList<Book>> GetAllByOriginalBookName(string originalBookName)
         {
-            List<Book> books = _bookDal.GetAll(b => b.OriginalBookName.Contains(originalBookName) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.OriginalBookName.Contains(originalBookName) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByReference(Guid referenceId)
+        public IDataResult<IList<Book>> GetAllByReference(Guid referenceId)
         {
             IDataResult<Reference> reference = _referenceService.GetById(referenceId);
             if (!reference.Success)
-                return new ErrorDataResult<List<Book>>(reference.Message);
+                return new ErrorDataResult<IList<Book>>(reference.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.ReferenceId == referenceId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.ReferenceId == referenceId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
         public IDataResult<Book> GetByCoverImage(Guid cImageId)
@@ -141,148 +141,148 @@ namespace Business.Concrete
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByCoverCap(byte coverCapNum)
+        public IDataResult<IList<Book>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> covercap = _coverCapService.GetById(coverCapNum);
             if (!covercap.Success)
-                return new ErrorDataResult<List<Book>>(covercap.Message);
+                return new ErrorDataResult<IList<Book>>(covercap.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.CoverCapId == coverCapNum && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.CoverCapId == coverCapNum && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByCommunication(Guid communicationId)
+        public IDataResult<IList<Book>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Book>>(edition.Message);
+                return new ErrorDataResult<IList<Book>>(edition.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.EditionId == edition.Data.Id && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.EditionId == edition.Data.Id && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByDirector(Guid directorId)
+        public IDataResult<IList<Book>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
-                return new ErrorDataResult<List<Book>>(director.Message);
+                return new ErrorDataResult<IList<Book>>(director.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.DirectorId == directorId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.DirectorId == directorId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByEditor(Guid editorId)
+        public IDataResult<IList<Book>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
-                return new ErrorDataResult<List<Book>>(editor.Message);
+                return new ErrorDataResult<IList<Book>>(editor.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.EditorId == editorId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.EditorId == editorId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByEdition(Guid editionId)
+        public IDataResult<IList<Book>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Book>>(edition.Message);
+                return new ErrorDataResult<IList<Book>>(edition.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.EditionId == editionId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.EditionId == editionId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByGraphicDirector(Guid graphicDirectorId)
+        public IDataResult<IList<Book>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> graphicDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!graphicDirector.Success)
-                return new ErrorDataResult<List<Book>>(graphicDirector.Message);
+                return new ErrorDataResult<IList<Book>>(graphicDirector.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.GraphicDirectorId == graphicDirectorId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.GraphicDirectorId == graphicDirectorId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByGraphicDesign(Guid graphicDesignId)
+        public IDataResult<IList<Book>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> graphicDesign = _graphicDesignerService.GetById(graphicDesignId);
             if (!graphicDesign.Success)
-                return new ErrorDataResult<List<Book>>(graphicDesign.Message);
+                return new ErrorDataResult<IList<Book>>(graphicDesign.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.GraphicDesignId == graphicDesignId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.GraphicDesignId == graphicDesignId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByInterpreter(Guid interpreterId)
+        public IDataResult<IList<Book>> GetAllByInterpreter(Guid interpreterId)
         {
             IDataResult<Interpreters> interpreter = _interpreterService.GetById(interpreterId);
             if (!interpreter.Success)
-                return new ErrorDataResult<List<Book>>(interpreter.Message);
+                return new ErrorDataResult<IList<Book>>(interpreter.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.InterpretersId == interpreterId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.InterpretersId == interpreterId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByPublisher(Guid publisherId)
+        public IDataResult<IList<Book>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Book>>(edition.Message);
+                return new ErrorDataResult<IList<Book>>(edition.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.EditionId == edition.Data.Id && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.EditionId == edition.Data.Id && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByTechnicalNumber(Guid technicalNumberId)
+        public IDataResult<IList<Book>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> technicalNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!technicalNumber.Success)
-                return new ErrorDataResult<List<Book>>(technicalNumber.Message);
+                return new ErrorDataResult<IList<Book>>(technicalNumber.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.TechnicalNumberId == technicalNumberId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.TechnicalNumberId == technicalNumberId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByRedaction(Guid redactionId)
+        public IDataResult<IList<Book>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
-                return new ErrorDataResult<List<Book>>(redaction.Message);
+                return new ErrorDataResult<IList<Book>>(redaction.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.RedactionId == redactionId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.RedactionId == redactionId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByWriter(Guid writerId)
+        public IDataResult<IList<Book>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)
-                return new ErrorDataResult<List<Book>>(writer.Message);
+                return new ErrorDataResult<IList<Book>>(writer.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.WriterId == writerId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.WriterId == writerId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
@@ -298,86 +298,86 @@ namespace Business.Concrete
             return new SuccessDataResult<byte>(_bookDal.Get(b => b.Id == id).State, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Book>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
             if (!categories.Success)
-                return new ErrorDataResult<List<Book>>(categories.Message);
+                return new ErrorDataResult<IList<Book>>(categories.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.Categories.Any(c => categoriesId.Contains(c.Id)) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.Categories.Any(c => categoriesId.Contains(c.Id)) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Book>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Book> books = _bookDal.GetAll(b => b.Description.Contains(finderString) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.Description.Contains(finderString) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Book>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Book>>(dimension.Message);
-            List<Book> books = _bookDal.GetAll(b => b.DimensionsId == dimensionId && !b.IsDeleted).ToList();
+                return new ErrorDataResult<IList<Book>>(dimension.Message);
+            IList<Book> books = _bookDal.GetAll(b => b.DimensionsId == dimensionId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<Book>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFile.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFile = _eMaterialFile.GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Book>>(eMFile.Message);
+                return new ErrorDataResult<IList<Book>>(eMFile.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.EMaterialFilesId == eMFilesId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.EMaterialFilesId == eMFileId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Book>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Book> books = maxPrice == null
-                ? _bookDal.GetAll(b => b.Price >= minPrice && !b.IsDeleted).ToList()
-                : _bookDal.GetAll(b => b.Price >= minPrice && b.Price <= maxPrice && !b.IsDeleted).ToList();
+            IList<Book> books = maxPrice == null
+                ? _bookDal.GetAll(b => b.Price >= minPrice && !b.IsDeleted)
+                : _bookDal.GetAll(b => b.Price >= minPrice && b.Price <= maxPrice && !b.IsDeleted);
 
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Book>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholder.GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
-                return new ErrorDataResult<List<Book>>(technicalPlaceholder.Message);
+                return new ErrorDataResult<IList<Book>>(technicalPlaceholder.Message);
 
-            List<Book> books = _bookDal.GetAll(b => b.TechnicalPlaceholdersId == technicalPlaceholderId && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.TechnicalPlaceholdersId == technicalPlaceholderId && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByTitle(string title)
+        public IDataResult<IList<Book>> GetAllByTitle(string title)
         {
-            List<Book> books = _bookDal.GetAll(b => b.Title.Contains(title) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.Title.Contains(title) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
-        public IDataResult<List<Book>> GetAllByName(string name)
+        public IDataResult<IList<Book>> GetAllByName(string name)
         {
-            List<Book> books = _bookDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted).ToList();
+            IList<Book> books = _bookDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted);
             return books == null
-                ? new ErrorDataResult<List<Book>>(BookConstants.DataNotGet)
-                : new SuccessDataResult<List<Book>>(books, BookConstants.DataGet);
+                ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
+                : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
         }
 
         public IDataResult<Book> GetByStock(Guid stockId)

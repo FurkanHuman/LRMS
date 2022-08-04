@@ -59,9 +59,9 @@ namespace Business.Concrete
             return new SuccessResult(RedactionConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Redaction>> GetAllByFilter(Expression<Func<Redaction, bool>>? filter = null)
+        public IDataResult<IList<Redaction>> GetAllByFilter(Expression<Func<Redaction, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(filter).ToList(), RedactionConstants.DataGet);
+            return new SuccessDataResult<IList<Redaction>>(_redactionDal.GetAll(filter), RedactionConstants.DataGet);
         }
 
         public IDataResult<Redaction> GetById(Guid id)
@@ -72,38 +72,38 @@ namespace Business.Concrete
                 : new SuccessDataResult<Redaction>(redaction, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Redaction>> GetAllByIds(Guid[] ids)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
+            IList<Redaction> redactions = _redactionDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted);
             return redactions == null
-                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
-                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
+                ? new ErrorDataResult<IList<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAllByName(string name)
+        public IDataResult<IList<Redaction>> GetAllByName(string name)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name) && !r.IsDeleted).ToList();
+            IList<Redaction> redactions = _redactionDal.GetAll(r => r.Name.Contains(name) && !r.IsDeleted);
             return redactions == null
-                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
-                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
+                ? new ErrorDataResult<IList<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAllBySurname(string surname)
+        public IDataResult<IList<Redaction>> GetAllBySurname(string surname)
         {
-            List<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname) && !r.IsDeleted).ToList();
+            IList<Redaction> redactions = _redactionDal.GetAll(r => r.SurName.Contains(surname) && !r.IsDeleted);
             return redactions == null
-                ? new ErrorDataResult<List<Redaction>>(RedactionConstants.DataNotGet)
-                : new SuccessDataResult<List<Redaction>>(redactions, RedactionConstants.DataGet);
+                ? new ErrorDataResult<IList<Redaction>>(RedactionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Redaction>>(redactions, RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAllBySecret()
+        public IDataResult<IList<Redaction>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r => r.IsDeleted).ToList(), RedactionConstants.DataGet);
+            return new SuccessDataResult<IList<Redaction>>(_redactionDal.GetAll(r => r.IsDeleted), RedactionConstants.DataGet);
         }
 
-        public IDataResult<List<Redaction>> GetAll()
+        public IDataResult<IList<Redaction>> GetAll()
         {
-            return new SuccessDataResult<List<Redaction>>(_redactionDal.GetAll(r => !r.IsDeleted).ToList(), RedactionConstants.DataGet);
+            return new SuccessDataResult<IList<Redaction>>(_redactionDal.GetAll(r => !r.IsDeleted), RedactionConstants.DataGet);
         }
 
         private IResult RedactionNameOrSurnameExist(Redaction entity)

@@ -74,19 +74,19 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<Reference>> GetAll()
+        public IDataResult<IList<Reference>> GetAll()
         {
-            return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(r => !r.IsDeleted).ToList(), ReferenceConstants.DataGet);
+            return new SuccessDataResult<IList<Reference>>(_referenceDal.GetAll(r => !r.IsDeleted), ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllBySecret()
+        public IDataResult<IList<Reference>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(r => r.IsDeleted).ToList(), ReferenceConstants.DataGet);
+            return new SuccessDataResult<IList<Reference>>(_referenceDal.GetAll(r => r.IsDeleted), ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllByFilter(Expression<Func<Reference, bool>>? filter = null)
+        public IDataResult<IList<Reference>> GetAllByFilter(Expression<Func<Reference, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Reference>>(_referenceDal.GetAll(filter).ToList(), ReferenceConstants.DataGet);
+            return new SuccessDataResult<IList<Reference>>(_referenceDal.GetAll(filter), ReferenceConstants.DataGet);
         }
 
         public IDataResult<Reference> GetById(Guid id)
@@ -98,41 +98,41 @@ namespace Business.Concrete
                 : new SuccessDataResult<Reference>(reference, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Reference>> GetAllByIds(Guid[] ids)
         {
-            List<Reference> references = _referenceDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted).ToList();
+            IList<Reference> references = _referenceDal.GetAll(r => ids.Contains(r.Id) && !r.IsDeleted);
             return references == null
-                 ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
-                 : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
+                 ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
+                 : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllByName(string name)
+        public IDataResult<IList<Reference>> GetAllByName(string name)
         {
-            return new ErrorDataResult<List<Reference>>(ReferenceConstants.Disabled);
+            return new ErrorDataResult<IList<Reference>>(ReferenceConstants.Disabled);
         }
 
-        public IDataResult<List<Reference>> GetAllByOwner(string ownerStr)
+        public IDataResult<IList<Reference>> GetAllByOwner(string ownerStr)
         {
-            List<Reference> references = _referenceDal.GetAll(r => r.Owner.Contains(ownerStr) && !r.IsDeleted).ToList();
+            IList<Reference> references = _referenceDal.GetAll(r => r.Owner.Contains(ownerStr) && !r.IsDeleted);
             return references == null
-                 ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
-                 : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
+                 ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
+                 : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllByReferenceDate(DateTime date)
+        public IDataResult<IList<Reference>> GetAllByReferenceDate(DateTime date)
         {
-            List<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate == date && !r.IsDeleted).ToList();
+            IList<Reference> references = _referenceDal.GetAll(r => r.ReferenceDate == date && !r.IsDeleted);
             return references == null
-                 ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
-                 : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
+                 ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
+                 : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
         }
 
-        public IDataResult<List<Reference>> GetAllBySubText(string subText)
+        public IDataResult<IList<Reference>> GetAllBySubText(string subText)
         {
-            List<Reference> references = _referenceDal.GetAll(r => r.SubText.Contains(subText) && !r.IsDeleted).ToList();
+            IList<Reference> references = _referenceDal.GetAll(r => r.SubText.Contains(subText) && !r.IsDeleted);
             return references == null
-                 ? new ErrorDataResult<List<Reference>>(ReferenceConstants.DataNotGet)
-                 : new SuccessDataResult<List<Reference>>(references, ReferenceConstants.DataGet);
+                 ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
+                 : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
         }
 
         private IResult CheckRefence(Reference entity)

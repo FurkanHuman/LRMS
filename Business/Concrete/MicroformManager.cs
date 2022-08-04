@@ -68,120 +68,120 @@ namespace Business.Concrete
             return new SuccessResult(MicroformConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Microform>> GetAll()
+        public IDataResult<IList<Microform>> GetAll()
         {
-            return new SuccessDataResult<List<Microform>>(_microformDal.GetAll(m => !m.IsDeleted).ToList(), MicroformConstants.DataGet);
+            return new SuccessDataResult<IList<Microform>>(_microformDal.GetAll(m => !m.IsDeleted), MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Microform>> GetAllByCategories(int[] categoriesId)
         {
 
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Microform>>(categories.Message);
+                return new ErrorDataResult<IList<Microform>>(categories.Message);
 
-            // List<Microform> microforms = _microformDal.GetAll(m => m.Categories == categories && m.IsDeleted).ToList();  // try code line
-            List<Microform> microforms = _microformDal.GetAll(m => categories.Data.Select(c => c.Id).Contains(m.CategoryId) && m.IsDeleted).ToList();
+            // IList<Microform> microforms = _microformDal.GetAll(m => m.Categories == categories && m.IsDeleted);  // try code line
+            IList<Microform> microforms = _microformDal.GetAll(m => categories.Data.Select(c => c.Id).Contains(m.CategoryId) && m.IsDeleted);
             return microforms == null
-               ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-               : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+               ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+               : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Microform>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Microform> microforms = _microformDal.GetAll(m => m.Description.Contains(finderString) && m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.Description.Contains(finderString) && m.IsDeleted);
             return microforms == null
-               ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-               : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+               ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+               : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Microform>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimmension = _dimensionService.GetById(dimensionId);
             if (!dimmension.Success)
-                return new ErrorDataResult<List<Microform>>(dimmension.Message);
+                return new ErrorDataResult<IList<Microform>>(dimmension.Message);
 
-            List<Microform> microforms = _microformDal.GetAll(m => m.DimensionsId == dimensionId && m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.DimensionsId == dimensionId && m.IsDeleted);
             return microforms == null
-               ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-               : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+               ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+               : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Microform>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Microform>>(eMFile.Message);
+                return new ErrorDataResult<IList<Microform>>(eMFile.Message);
 
-            List<Microform> microforms = _microformDal.GetAll(m => m.EMaterialFilesId == eMFileId && m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.EMaterialFilesId == eMFileId && m.IsDeleted);
             return microforms == null
-               ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-               : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+               ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+               : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByFilter(Expression<Func<Microform, bool>>? filter = null)
+        public IDataResult<IList<Microform>> GetAllByFilter(Expression<Func<Microform, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Microform>>(_microformDal.GetAll(filter).ToList(), MicroformConstants.DataGet);
+            return new SuccessDataResult<IList<Microform>>(_microformDal.GetAll(filter), MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Microform>> GetAllByIds(Guid[] ids)
         {
-            List<Microform> microforms = _microformDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted);
             return microforms == null
-                ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-                : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+                ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+                : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByName(string name)
+        public IDataResult<IList<Microform>> GetAllByName(string name)
         {
-            List<Microform> microforms = _microformDal.GetAll(m => m.Name.Contains(name) && !m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.Name.Contains(name) && !m.IsDeleted);
             return microforms.Count > 0
-                ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-                : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+                ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+                : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Microform>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Microform> microforms = maxPrice == null
-                ? _microformDal.GetAll(m => m.Price == minPrice && !m.IsDeleted).ToList()
-                : _microformDal.GetAll(m => m.Price >= minPrice && m.Price <= maxPrice && !m.IsDeleted).ToList();
+            IList<Microform> microforms = maxPrice == null
+                ? _microformDal.GetAll(m => m.Price == minPrice && !m.IsDeleted)
+                : _microformDal.GetAll(m => m.Price >= minPrice && m.Price <= maxPrice && !m.IsDeleted);
 
             return microforms.Count > 0
-                ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-                : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+                ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+                : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByScale(string scale)
+        public IDataResult<IList<Microform>> GetAllByScale(string scale)
         {
-            List<Microform> microforms = _microformDal.GetAll(m => m.Scale.Contains(scale) && !m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.Scale.Contains(scale) && !m.IsDeleted);
             return microforms.Count > 0
-                ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-                : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+                ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+                : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllBySecret()
+        public IDataResult<IList<Microform>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Microform>>(_microformDal.GetAll(m => m.IsDeleted).ToList(), MicroformConstants.DataGet);
+            return new SuccessDataResult<IList<Microform>>(_microformDal.GetAll(m => m.IsDeleted), MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Microform>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlaceHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<Microform>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<Microform>>(techPlaceHolder.Message);
 
-            List<Microform> microforms = _microformDal.GetAll(m => m.TechnicalPlaceholdersId == technicalPlaceholderId && m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.TechnicalPlaceholdersId == technicalPlaceholderId && m.IsDeleted);
             return microforms == null
-               ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-               : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+               ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+               : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
-        public IDataResult<List<Microform>> GetAllByTitle(string title)
+        public IDataResult<IList<Microform>> GetAllByTitle(string title)
         {
-            List<Microform> microforms = _microformDal.GetAll(m => m.Title.Contains(title) && !m.IsDeleted).ToList();
+            IList<Microform> microforms = _microformDal.GetAll(m => m.Title.Contains(title) && !m.IsDeleted);
             return microforms.Count > 0
-                ? new ErrorDataResult<List<Microform>>(MicroformConstants.DataNotGet)
-                : new SuccessDataResult<List<Microform>>(microforms, MicroformConstants.DataGet);
+                ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
+                : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
         }
 
         public IDataResult<Microform> GetById(Guid id)

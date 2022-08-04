@@ -74,282 +74,282 @@ namespace Business.Concrete
             return new SuccessResult(ThesisConstants.AddSuccess);
         }
 
-        public IDataResult<List<Thesis>> GetAll()
+        public IDataResult<IList<Thesis>> GetAll()
         {
-            return new SuccessDataResult<List<Thesis>>(_thesisDal.GetAll(t => !t.IsDeleted).ToList(), ThesisConstants.DataGet);
+            return new SuccessDataResult<IList<Thesis>>(_thesisDal.GetAll(t => !t.IsDeleted), ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByApprovalStatus(bool status)
+        public IDataResult<IList<Thesis>> GetAllByApprovalStatus(bool status)
         {
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.ApprovalStatus == status && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.ApprovalStatus == status && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Thesis>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Thesis>>(categories.Message);
+                return new ErrorDataResult<IList<Thesis>>(categories.Message);
 
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.Categories.ToList() == categories.Data && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Categories == categories.Data && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByCityId(int cityId)
+        public IDataResult<IList<Thesis>> GetAllByCityId(int cityId)
         {
             IDataResult<City> city = _facadeService.CityService().GetById(cityId);
             if (!city.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(city.Message);
+                return new ErrorDataResult<IList<Thesis>>(city.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.City.Id == cityId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.City.Id == cityId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByCityName(string cityName)
+        public IDataResult<IList<Thesis>> GetAllByCityName(string cityName)
         {
-            IDataResult<List<City>> cities = _facadeService.CityService().GetAllByName(cityName);
+            IDataResult<IList<City>> cities = _facadeService.CityService().GetAllByName(cityName);
             if (!cities.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(cities.Message);
+                return new ErrorDataResult<IList<Thesis>>(cities.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => cities.Data.Any(c => t.City.Id == c.Id) && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => cities.Data.Any(c => t.City.Id == c.Id) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByConsultantId(Guid consultantId)
+        public IDataResult<IList<Thesis>> GetAllByConsultantId(Guid consultantId)
         {
             IDataResult<Consultant> consultant = _facadeService.ConsultantService().GetById(consultantId);
             if (!consultant.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(consultant.Message);
+                return new ErrorDataResult<IList<Thesis>>(consultant.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.Consultant.Id == consultantId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Consultant.Id == consultantId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByConsultantIds(Guid[] consultantIds)
+        public IDataResult<IList<Thesis>> GetAllByConsultantIds(Guid[] consultantIds)
         {
-            IDataResult<List<Consultant>> consultants = _facadeService.ConsultantService().GetAllByIds(consultantIds);
+            IDataResult<IList<Consultant>> consultants = _facadeService.ConsultantService().GetAllByIds(consultantIds);
             if (!consultants.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(consultants.Message);
+                return new ErrorDataResult<IList<Thesis>>(consultants.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => consultants.Data.Any(c => t.ConsultantId == c.Id) && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => consultants.Data.Any(c => t.ConsultantId == c.Id) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByCountryCode(string countryCode)
+        public IDataResult<IList<Thesis>> GetAllByCountryCode(string countryCode)
         {
-            IDataResult<List<Country>> countries = _facadeService.CountryService().GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> countries = _facadeService.CountryService().GetAllByCountryCode(countryCode);
             if (!countries.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(countries.Message);
+                return new ErrorDataResult<IList<Thesis>>(countries.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => countries.Data.Any(c => c.Id == t.City.CountryId) && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => countries.Data.Any(c => c.Id == t.City.CountryId) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByCountryId(int countryId)
+        public IDataResult<IList<Thesis>> GetAllByCountryId(int countryId)
         {
             IDataResult<Country> country = _facadeService.CountryService().GetById(countryId);
             if (!country.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(country.Message);
+                return new ErrorDataResult<IList<Thesis>>(country.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.City.CountryId == countryId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.City.CountryId == countryId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByDateTimeYear(ushort year)
+        public IDataResult<IList<Thesis>> GetAllByDateTimeYear(ushort year)
         {
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.DateTimeYear == year && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.DateTimeYear == year && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Thesis>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.Description.Contains(finderString) && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Description.Contains(finderString) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Thesis>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> eMFile = _facadeService.DimensionService().GetById(dimensionId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Thesis>>(eMFile.Message);
+                return new ErrorDataResult<IList<Thesis>>(eMFile.Message);
 
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.DimensionsId == dimensionId && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.DimensionsId == dimensionId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Thesis>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Thesis>>(eMFile.Message);
+                return new ErrorDataResult<IList<Thesis>>(eMFile.Message);
 
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.EMaterialFilesId == eMFileId && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.EMaterialFilesId == eMFileId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByFilter(Expression<Func<Thesis, bool>>? filter = null)
+        public IDataResult<IList<Thesis>> GetAllByFilter(Expression<Func<Thesis, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Thesis>>(_thesisDal.GetAll(filter).ToList(), ThesisConstants.DataGet);
+            return new SuccessDataResult<IList<Thesis>>(_thesisDal.GetAll(filter), ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Thesis>> GetAllByIds(Guid[] ids)
         {
-            List<Thesis> thesises = _thesisDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllBylangaugeId(int langaugeId)
+        public IDataResult<IList<Thesis>> GetAllBylangaugeId(int langaugeId)
         {
             IDataResult<Language> lang = _facadeService.LanguageService().GetById(langaugeId);
             if (!lang.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(lang.Message);
+                return new ErrorDataResult<IList<Thesis>>(lang.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.Language.Id == langaugeId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Language.Id == langaugeId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByName(string name)
+        public IDataResult<IList<Thesis>> GetAllByName(string name)
         {
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.Name.Contains(name) && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Name.Contains(name) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByPermissionStatus(bool status)
+        public IDataResult<IList<Thesis>> GetAllByPermissionStatus(bool status)
         {
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.PermissionStatus == status && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.PermissionStatus == status && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Thesis>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Thesis> thesises = maxPrice == null
-                ? _thesisDal.GetAll(t => t.Price == minPrice && !t.IsDeleted).ToList()
-                : _thesisDal.GetAll(t => t.Price >= minPrice && t.Price <= maxPrice && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = maxPrice == null
+                ? _thesisDal.GetAll(t => t.Price == minPrice && !t.IsDeleted)
+                : _thesisDal.GetAll(t => t.Price >= minPrice && t.Price <= maxPrice && !t.IsDeleted);
 
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByResearcherId(Guid researcherId)
+        public IDataResult<IList<Thesis>> GetAllByResearcherId(Guid researcherId)
         {
             IDataResult<Researcher> researcher = _facadeService.ResearcherService().GetById(researcherId);
             if (!researcher.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(researcher.Message);
+                return new ErrorDataResult<IList<Thesis>>(researcher.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.ResearcherId == researcherId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.ResearcherId == researcherId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByResearcherIds(Guid[] researcherIds)
+        public IDataResult<IList<Thesis>> GetAllByResearcherIds(Guid[] researcherIds)
         {
-            IDataResult<List<Researcher>> researchers = _facadeService.ResearcherService().GetAllByIds(researcherIds);
+            IDataResult<IList<Researcher>> researchers = _facadeService.ResearcherService().GetAllByIds(researcherIds);
             if (!researchers.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(researchers.Message);
+                return new ErrorDataResult<IList<Thesis>>(researchers.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => researchers.Data.Any(r => r.Id == t.ResearcherId) && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => researchers.Data.Any(r => r.Id == t.ResearcherId) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllBySecret()
+        public IDataResult<IList<Thesis>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Thesis>>(_thesisDal.GetAll(t => t.IsDeleted).ToList(), ThesisConstants.DataGet);
+            return new SuccessDataResult<IList<Thesis>>(_thesisDal.GetAll(t => t.IsDeleted), ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Thesis>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             var techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<Thesis>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<Thesis>>(techPlaceHolder.Message);
 
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.TechnicalPlaceholdersId == technicalPlaceholderId && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.TechnicalPlaceholdersId == technicalPlaceholderId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByThesisDegree(byte degree)
+        public IDataResult<IList<Thesis>> GetAllByThesisDegree(byte degree)
         {
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.ThesisDegree == degree && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.ThesisDegree == degree && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByThesisNumber(int thesisNumber)
+        public IDataResult<IList<Thesis>> GetAllByThesisNumber(int thesisNumber)
         {
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.ThesisNumber == thesisNumber && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.ThesisNumber == thesisNumber && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<List<Thesis>> GetAllByTitle(string title)
+        public IDataResult<IList<Thesis>> GetAllByTitle(string title)
         {
-            List<Thesis> thesises = _thesisDal.GetAll(t => t.Title.Contains(title) && !t.IsDeleted).ToList();
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.Title.Contains(title) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<List<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<List<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByUniversityId(Guid universityId)
+        public IDataResult<IList<Thesis>> GetAllByUniversityId(Guid universityId)
         {
             IDataResult<University> university = _facadeService.UniversityService().GetById(universityId);
             if (!university.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(university.Message);
+                return new ErrorDataResult<IList<Thesis>>(university.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => t.UniversityId == universityId && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => t.UniversityId == universityId && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
-        public IDataResult<IEnumerable<Thesis>> GetAllByUniversityId(Guid[] universityIds)
+        public IDataResult<IList<Thesis>> GetAllByUniversityId(Guid[] universityIds)
         {
-            IDataResult<List<University>> universities = _facadeService.UniversityService().GetAllByIds(universityIds);
+            IDataResult<IList<University>> universities = _facadeService.UniversityService().GetAllByIds(universityIds);
             if (!universities.Success)
-                return new ErrorDataResult<IEnumerable<Thesis>>(universities.Message);
+                return new ErrorDataResult<IList<Thesis>>(universities.Message);
 
-            IEnumerable<Thesis> thesises = _thesisDal.GetAll(t => universities.Data.Any(u => u.Id == t.UniversityId) && !t.IsDeleted);
+            IList<Thesis> thesises = _thesisDal.GetAll(t => universities.Data.Any(u => u.Id == t.UniversityId) && !t.IsDeleted);
             return thesises == null
-                ? new ErrorDataResult<IEnumerable<Thesis>>(ThesisConstants.DataNotGet)
-                : new SuccessDataResult<IEnumerable<Thesis>>(thesises, ThesisConstants.DataGet);
+                ? new ErrorDataResult<IList<Thesis>>(ThesisConstants.DataNotGet)
+                : new SuccessDataResult<IList<Thesis>>(thesises, ThesisConstants.DataGet);
         }
 
         public IDataResult<Thesis> GetById(Guid id)

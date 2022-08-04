@@ -73,55 +73,55 @@ namespace Business.Concrete
             return new SuccessResult(EncyclopediaConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAll()
+        public IDataResult<IList<Encyclopedia>> GetAll()
         {
-            return new SuccessDataResult<List<Encyclopedia>>(_encyclopediaDal.GetAll(ep => !ep.IsDeleted).ToList(), EncyclopediaConstants.DataGet);
+            return new SuccessDataResult<IList<Encyclopedia>>(_encyclopediaDal.GetAll(ep => !ep.IsDeleted), EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByFilter(Expression<Func<Encyclopedia, bool>>? filter = null)
+        public IDataResult<IList<Encyclopedia>> GetAllByFilter(Expression<Func<Encyclopedia, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Encyclopedia>>(_encyclopediaDal.GetAll(filter).ToList(), EncyclopediaConstants.DataGet);
+            return new SuccessDataResult<IList<Encyclopedia>>(_encyclopediaDal.GetAll(filter), EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllBySecret()
+        public IDataResult<IList<Encyclopedia>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Encyclopedia>>(_encyclopediaDal.GetAll(ep => ep.IsDeleted).ToList(), EncyclopediaConstants.DataGet);
+            return new SuccessDataResult<IList<Encyclopedia>>(_encyclopediaDal.GetAll(ep => ep.IsDeleted), EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Encyclopedia>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categoaries = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categoaries = _categoryService.GetAllByIds(categoriesId);
             if (!categoaries.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(categoaries.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(categoaries.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Categories.Any(c => categoriesId.Contains(c.Id)) && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Categories.Any(c => categoriesId.Contains(c.Id)) && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByCommunication(Guid communicationId)
+        public IDataResult<IList<Encyclopedia>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(edition.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == edition.Data.Id && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == edition.Data.Id && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByCoverCap(byte coverCapNum)
+        public IDataResult<IList<Encyclopedia>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> coverCap = _coverCapService.GetById(coverCapNum);
             if (!coverCap.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(coverCap.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(coverCap.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.CoverCapId == coverCapNum && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.CoverCapId == coverCapNum && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
         public IDataResult<Encyclopedia> GetByCoverImage(Guid cImageId)
@@ -136,96 +136,96 @@ namespace Business.Concrete
                 : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Encyclopedia>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Description.Contains(finderString) && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Description.Contains(finderString) && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Encyclopedia>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimmension = _dimensionService.GetById(dimensionId);
             if (!dimmension.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(dimmension.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(dimmension.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == dimensionId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == dimensionId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByDirector(Guid directorId)
+        public IDataResult<IList<Encyclopedia>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(director.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(director.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.DirectorId == directorId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.DirectorId == directorId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByEdition(Guid editionId)
+        public IDataResult<IList<Encyclopedia>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(edition.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == editionId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == editionId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByEditor(Guid editorId)
+        public IDataResult<IList<Encyclopedia>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> redaction = _editorService.GetById(editorId);
             if (!redaction.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(redaction.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(redaction.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditorId == editorId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditorId == editorId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Encyclopedia>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(eMFile.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(eMFile.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EMaterialFilesId == eMFileId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EMaterialFilesId == eMFileId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByGraphicDesign(Guid graphicDesignId)
+        public IDataResult<IList<Encyclopedia>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> graphicDesing = _graphicDesignerService.GetById(graphicDesignId);
             if (!graphicDesing.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(graphicDesing.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(graphicDesing.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.GraphicDesignId == graphicDesignId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.GraphicDesignId == graphicDesignId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByGraphicDirector(Guid graphicDirectorId)
+        public IDataResult<IList<Encyclopedia>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> graphicDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!graphicDirector.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(graphicDirector.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(graphicDirector.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.GraphicDirectorId == graphicDirectorId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.GraphicDirectorId == graphicDirectorId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
         public IDataResult<Encyclopedia> GetById(Guid id)
@@ -236,119 +236,119 @@ namespace Business.Concrete
                 : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Encyclopedia>> GetAllByIds(Guid[] ids)
         {
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ids.Contains(ep.Id) && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ids.Contains(ep.Id) && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByInterpreter(Guid interpreterId)
+        public IDataResult<IList<Encyclopedia>> GetAllByInterpreter(Guid interpreterId)
         {
             var interpreter = _interpretersService.GetById(interpreterId);
             if (!interpreter.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(interpreter.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(interpreter.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.InterpretersId == interpreterId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.InterpretersId == interpreterId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByName(string name)
+        public IDataResult<IList<Encyclopedia>> GetAllByName(string name)
         {
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Name.Contains(name) && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Name.Contains(name) && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Encyclopedia>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Encyclopedia> encyclopedias = maxPrice == null
-                ? _encyclopediaDal.GetAll(ep => ep.Price == minPrice && !ep.IsDeleted).ToList()
-                : _encyclopediaDal.GetAll(ep => ep.Price >= minPrice && ep.Price <= maxPrice && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = maxPrice == null
+                ? _encyclopediaDal.GetAll(ep => ep.Price == minPrice && !ep.IsDeleted)
+                : _encyclopediaDal.GetAll(ep => ep.Price >= minPrice && ep.Price <= maxPrice && !ep.IsDeleted);
 
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByPublisher(Guid publisherId)
+        public IDataResult<IList<Encyclopedia>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
             if (!edition.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(edition.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == edition.Data.Id && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.EditionId == edition.Data.Id && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByRedaction(Guid redactionId)
+        public IDataResult<IList<Encyclopedia>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(redaction.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(redaction.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.RedactionId == redactionId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.RedactionId == redactionId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllBySequenceNumber(uint sequenceNumber)
+        public IDataResult<IList<Encyclopedia>> GetAllBySequenceNumber(uint sequenceNumber)
         {
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.SequenceNumber == sequenceNumber && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.SequenceNumber == sequenceNumber && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByTechnicalNumber(Guid technicalNumberId)
+        public IDataResult<IList<Encyclopedia>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!techNumber.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(techNumber.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(techNumber.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.TechnicalNumberId == technicalNumberId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.TechnicalNumberId == technicalNumberId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Encyclopedia>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlaceHol = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlaceHol.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(techPlaceHol.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(techPlaceHol.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.TechnicalPlaceholdersId == technicalPlaceholderId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.TechnicalPlaceholdersId == technicalPlaceholderId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByTitle(string title)
+        public IDataResult<IList<Encyclopedia>> GetAllByTitle(string title)
         {
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Title.Contains(title) && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.Title.Contains(title) && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
-        public IDataResult<List<Encyclopedia>> GetAllByWriter(Guid writerId)
+        public IDataResult<IList<Encyclopedia>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)
-                return new ErrorDataResult<List<Encyclopedia>>(writer.Message);
+                return new ErrorDataResult<IList<Encyclopedia>>(writer.Message);
 
-            List<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.WriterId == writerId && !ep.IsDeleted).ToList();
+            IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ep.WriterId == writerId && !ep.IsDeleted);
             return encyclopedias == null
-                ? new ErrorDataResult<List<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
-                : new SuccessDataResult<List<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
+                ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
+                : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

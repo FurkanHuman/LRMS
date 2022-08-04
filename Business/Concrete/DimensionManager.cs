@@ -74,44 +74,44 @@ namespace Business.Concrete
                 ? new ErrorDataResult<Dimension>(DimensionConstants.DataNotGet)
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
-        public IDataResult<List<Dimension>> GetAllByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm)
+        public IDataResult<IList<Dimension>> GetAllByXYZMinMax(double minXmm, double? maxXmm, double minYmm, double? maxYmm, double minZmm, double? maxZmm)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d =>
+            IList<Dimension> dimensions = _dimensionDal.GetAll(d =>
             d.Width >= minXmm && d.Width <= maxXmm &&
             d.Length >= minYmm && d.Length <= maxYmm &&
             d.Height >= minZmm && d.Height <= maxZmm &&
-            !d.IsDeleted).ToList();
+            !d.IsDeleted);
 
             return dimensions.Count == 0
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByXandY(double xMM, double yMM)
+        public IDataResult<IList<Dimension>> GetAllByXandY(double xMM, double yMM)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Width.Equals(xMM) && d.Length.Equals(yMM) && !d.IsDeleted).ToList();
+            IList<Dimension> dimensions = _dimensionDal.GetAll(d => d.Width.Equals(xMM) && d.Length.Equals(yMM) && !d.IsDeleted);
 
             return dimensions == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByYandZ(double yMM, double zMM)
+        public IDataResult<IList<Dimension>> GetAllByYandZ(double yMM, double zMM)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Length.Equals(yMM) && d.Height.Equals(zMM) && !d.IsDeleted).ToList();
+            IList<Dimension> dimensions = _dimensionDal.GetAll(d => d.Length.Equals(yMM) && d.Height.Equals(zMM) && !d.IsDeleted);
 
             return dimensions == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByZandX(double zMM, double xMM)
+        public IDataResult<IList<Dimension>> GetAllByZandX(double zMM, double xMM)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Height.Equals(zMM) && d.Width.Equals(xMM) && !d.IsDeleted).ToList();
+            IList<Dimension> dimensions = _dimensionDal.GetAll(d => d.Height.Equals(zMM) && d.Width.Equals(xMM) && !d.IsDeleted);
 
             return dimensions == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
         public IDataResult<Dimension> GetById(Guid id)
@@ -122,64 +122,64 @@ namespace Business.Concrete
                 : new SuccessDataResult<Dimension>(dimensionGet, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Dimension>> GetAllByIds(Guid[] ids)
         {
-            List<Dimension> dimension = _dimensionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted).ToList();
+            IList<Dimension> dimension = _dimensionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted);
 
             return dimension == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimension, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimension, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByX(double xMM)
+        public IDataResult<IList<Dimension>> GetAllByX(double xMM)
         {
-            List<Dimension> dimensionXmm = _dimensionDal.GetAll(d => d.Width.Equals(xMM)).ToList();
+            IList<Dimension> dimensionXmm = _dimensionDal.GetAll(d => d.Width.Equals(xMM));
 
             return dimensionXmm == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensionXmm, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensionXmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByY(double yMM)
+        public IDataResult<IList<Dimension>> GetAllByY(double yMM)
         {
-            List<Dimension> dimensionYmm = _dimensionDal.GetAll(d => d.Height.Equals(yMM)).ToList();
+            IList<Dimension> dimensionYmm = _dimensionDal.GetAll(d => d.Height.Equals(yMM));
 
             return dimensionYmm == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensionYmm, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensionYmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByZ(double zMM)
+        public IDataResult<IList<Dimension>> GetAllByZ(double zMM)
         {
-            List<Dimension> dimensionZmm = _dimensionDal.GetAll(d => d.Length.Equals(zMM)).ToList();
+            IList<Dimension> dimensionZmm = _dimensionDal.GetAll(d => d.Length.Equals(zMM));
 
             return dimensionZmm == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensionZmm, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByName(string name)
+        public IDataResult<IList<Dimension>> GetAllByName(string name)
         {
-            List<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name)).ToList();
+            IList<Dimension> dimensions = _dimensionDal.GetAll(d => d.Name.Contains(name));
 
             return dimensions == null
-                ? new ErrorDataResult<List<Dimension>>(DimensionConstants.DataNotGet)
-                : new SuccessDataResult<List<Dimension>>(dimensions, DimensionConstants.DataGet);
+                ? new ErrorDataResult<IList<Dimension>>(DimensionConstants.DataNotGet)
+                : new SuccessDataResult<IList<Dimension>>(dimensions, DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllByFilter(Expression<Func<Dimension, bool>>? filter = null)
+        public IDataResult<IList<Dimension>> GetAllByFilter(Expression<Func<Dimension, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(filter).ToList(), DimensionConstants.DataGet);
+            return new SuccessDataResult<IList<Dimension>>(_dimensionDal.GetAll(filter), DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAllBySecret()
+        public IDataResult<IList<Dimension>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll(d => d.IsDeleted).ToList(), DimensionConstants.DataGet);
+            return new SuccessDataResult<IList<Dimension>>(_dimensionDal.GetAll(d => d.IsDeleted), DimensionConstants.DataGet);
         }
 
-        public IDataResult<List<Dimension>> GetAll()
+        public IDataResult<IList<Dimension>> GetAll()
         {
-            return new SuccessDataResult<List<Dimension>>(_dimensionDal.GetAll().ToList(), DimensionConstants.DataGet);
+            return new SuccessDataResult<IList<Dimension>>(_dimensionDal.GetAll(), DimensionConstants.DataGet);
         }
 
         private IResult DimensionExist(Dimension dimension)

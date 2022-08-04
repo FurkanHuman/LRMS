@@ -62,56 +62,56 @@ namespace Business.Concrete
                 : new SuccessDataResult<TechnicalPlaceholder>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByIds(Guid[] ids)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted).ToList();
+            IList<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => ids.Contains(t.Id) && !t.IsDeleted);
             return technicalPlaceholder == null
-                ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
-                : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
+                : new SuccessDataResult<IList<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllByColumnCode(string columnCode)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByColumnCode(string columnCode)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.ColumnCode.Contains(columnCode) && !t.IsDeleted).ToList();
+            IList<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.ColumnCode.Contains(columnCode) && !t.IsDeleted);
             return technicalPlaceholder == null
-                ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
-                : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
+                : new SuccessDataResult<IList<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllByRowCode(string rowCode)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByRowCode(string rowCode)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.RowCode.Contains(rowCode) && !t.IsDeleted).ToList();
+            IList<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.RowCode.Contains(rowCode) && !t.IsDeleted);
             return technicalPlaceholder == null
-                ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
-                : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
+                : new SuccessDataResult<IList<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllBySpecialLocation(string specialLocation)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllBySpecialLocation(string specialLocation)
         {
-            List<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.SpecialLocation.Contains(specialLocation) && !t.IsDeleted).ToList();
+            IList<TechnicalPlaceholder> technicalPlaceholder = _placeholderDal.GetAll(t => t.SpecialLocation.Contains(specialLocation) && !t.IsDeleted);
             return technicalPlaceholder == null
-                ? new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
-                : new SuccessDataResult<List<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
+                ? new ErrorDataResult<IList<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.DataNotGet)
+                : new SuccessDataResult<IList<TechnicalPlaceholder>>(technicalPlaceholder, TechnicalPlaceholderConstants.DataGet);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllByName(string name)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByName(string name)
         {
-            return new ErrorDataResult<List<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.Disabled);
+            return new ErrorDataResult<IList<TechnicalPlaceholder>>(TechnicalPlaceholderConstants.Disabled);
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllByFilter(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByFilter(Expression<Func<TechnicalPlaceholder, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(filter).ToList());
+            return new SuccessDataResult<IList<TechnicalPlaceholder>>(_placeholderDal.GetAll(filter));
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAllBySecret()
+        public IDataResult<IList<TechnicalPlaceholder>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => ph.IsDeleted).ToList());
+            return new SuccessDataResult<IList<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => ph.IsDeleted));
         }
 
-        public IDataResult<List<TechnicalPlaceholder>> GetAll()
+        public IDataResult<IList<TechnicalPlaceholder>> GetAll()
         {
-            return new SuccessDataResult<List<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => !ph.IsDeleted).ToList());
+            return new SuccessDataResult<IList<TechnicalPlaceholder>>(_placeholderDal.GetAll(ph => !ph.IsDeleted));
         }
     }
 }

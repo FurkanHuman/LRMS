@@ -58,7 +58,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllByIsDeleted")]
+        [HttpGet("DtoGetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
             var result = _researcherService.GetAllByIsDeleted();

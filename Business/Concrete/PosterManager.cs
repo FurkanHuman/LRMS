@@ -70,142 +70,142 @@ namespace Business.Concrete
             return new SuccessResult(PosterConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Poster>> GetAll()
+        public IDataResult<IList<Poster>> GetAll()
         {
-            return new SuccessDataResult<List<Poster>>(_posterDal.GetAll(p => !p.IsDeleted).ToList(), PosterConstants.DataGet);
+            return new SuccessDataResult<IList<Poster>>(_posterDal.GetAll(p => !p.IsDeleted), PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<Poster>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<Poster>>(categories.Message);
+                return new ErrorDataResult<IList<Poster>>(categories.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => p.Categories.ToList() == categories.Data.ToList() && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.Categories == categories.Data && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<Poster>> GetAllByDescriptionFinder(string finderString)
         {
-            List<Poster> Posters = _posterDal.GetAll(p => p.Description.Contains(finderString) && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.Description.Contains(finderString) && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByDestroyState(bool state)
+        public IDataResult<IList<Poster>> GetAllByDestroyState(bool state)
         {
-            List<Poster> Posters = _posterDal.GetAll(p => p.IsDestroyed == state && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.IsDestroyed == state && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<Poster>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<Poster>>(dimension.Message);
+                return new ErrorDataResult<IList<Poster>>(dimension.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => p.DimensionsId == dimensionId && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.DimensionsId == dimensionId && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<Poster>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<Poster>>(eMFile.Message);
+                return new ErrorDataResult<IList<Poster>>(eMFile.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => p.EMaterialFilesId == eMFileId && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.EMaterialFilesId == eMFileId && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByFilter(Expression<Func<Poster, bool>>? filter = null)
+        public IDataResult<IList<Poster>> GetAllByFilter(Expression<Func<Poster, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Poster>>(_posterDal.GetAll(filter).ToList(), PosterConstants.DataGet);
+            return new SuccessDataResult<IList<Poster>>(_posterDal.GetAll(filter), PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Poster>> GetAllByIds(Guid[] ids)
         {
-            List<Poster> Posters = _posterDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByName(string name)
+        public IDataResult<IList<Poster>> GetAllByName(string name)
         {
-            List<Poster> Posters = _posterDal.GetAll(p => p.Name.Contains(name) && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.Name.Contains(name) && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByOwnerId(Guid ownerId)
+        public IDataResult<IList<Poster>> GetAllByOwnerId(Guid ownerId)
         {
             IDataResult<OtherPeople> owner = _facadeService.OtherPeopleService().GetById(ownerId);
             if (!owner.Success)
-                return new ErrorDataResult<List<Poster>>(owner.Message);
+                return new ErrorDataResult<IList<Poster>>(owner.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => p.Owner == owner && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.Owner == owner && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByOwnersId(Guid[] ownerIds)
+        public IDataResult<IList<Poster>> GetAllByOwnersId(Guid[] ownerIds)
         {
-            IDataResult<List<OtherPeople>> owners = _facadeService.OtherPeopleService().GetAllByIds(ownerIds);
+            IDataResult<IList<OtherPeople>> owners = _facadeService.OtherPeopleService().GetAllByIds(ownerIds);
             if (!owners.Success)
-                return new ErrorDataResult<List<Poster>>(owners.Message);
+                return new ErrorDataResult<IList<Poster>>(owners.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => owners.Data.Contains(p.Owner) && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => owners.Data.Contains(p.Owner) && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<Poster>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<Poster> Posters = maxPrice == null
-                ? _posterDal.GetAll(p => p.Price == minPrice && !p.IsDeleted).ToList()
-                : _posterDal.GetAll(p => p.Price >= minPrice && p.Price <= maxPrice && !p.IsDeleted).ToList();
+            IList<Poster> Posters = maxPrice == null
+                ? _posterDal.GetAll(p => p.Price == minPrice && !p.IsDeleted)
+                : _posterDal.GetAll(p => p.Price >= minPrice && p.Price <= maxPrice && !p.IsDeleted);
 
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllBySecret()
+        public IDataResult<IList<Poster>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Poster>>(_posterDal.GetAll(p => p.IsDeleted).ToList(), PosterConstants.DataGet);
+            return new SuccessDataResult<IList<Poster>>(_posterDal.GetAll(p => p.IsDeleted), PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<Poster>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<Poster>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<Poster>>(techPlaceHolder.Message);
 
-            List<Poster> Posters = _posterDal.GetAll(p => p.TechnicalPlaceholdersId == technicalPlaceholderId && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.TechnicalPlaceholdersId == technicalPlaceholderId && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
-        public IDataResult<List<Poster>> GetAllByTitle(string title)
+        public IDataResult<IList<Poster>> GetAllByTitle(string title)
         {
-            List<Poster> Posters = _posterDal.GetAll(p => p.Title.Contains(title) && !p.IsDeleted).ToList();
+            IList<Poster> Posters = _posterDal.GetAll(p => p.Title.Contains(title) && !p.IsDeleted);
             return Posters == null
-                ? new ErrorDataResult<List<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<List<Poster>>(Posters, PosterConstants.DataGet);
+                ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
         }
 
         public IDataResult<Poster> GetById(Guid id)

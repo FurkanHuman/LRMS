@@ -68,43 +68,43 @@ namespace Business.Concrete
                 new SuccessDataResult<Editor>(EditorConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Editor>> GetAllByIds(Guid[] ids)
         {
-            List<Editor> editors = _editorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted).ToList();
+            IList<Editor> editors = _editorDal.GetAll(n => ids.Contains(n.Id) && !n.IsDeleted);
             return editors == null
-                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
-                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<IList<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllByName(string name)
+        public IDataResult<IList<Editor>> GetAllByName(string name)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name) && !n.IsDeleted).ToList();
+            IList<Editor> editors = _editorDal.GetAll(n => n.Name.ToLower().Contains(name) && !n.IsDeleted);
             return editors == null
-                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
-                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<IList<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllBySurname(string surname)
+        public IDataResult<IList<Editor>> GetAllBySurname(string surname)
         {
-            List<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname) && !n.IsDeleted).ToList();
+            IList<Editor> editors = _editorDal.GetAll(n => n.SurName.ToLower().Contains(surname) && !n.IsDeleted);
             return editors == null
-                ? new ErrorDataResult<List<Editor>>(EditorConstants.EditorNull)
-                : new SuccessDataResult<List<Editor>>(editors, EditionConstants.DataGet);
+                ? new ErrorDataResult<IList<Editor>>(EditorConstants.EditorNull)
+                : new SuccessDataResult<IList<Editor>>(editors, EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllByFilter(Expression<Func<Editor, bool>>? filter = null)
+        public IDataResult<IList<Editor>> GetAllByFilter(Expression<Func<Editor, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(filter).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<IList<Editor>>(_editorDal.GetAll(filter), EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAll()
+        public IDataResult<IList<Editor>> GetAll()
         {
-            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => !n.IsDeleted).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<IList<Editor>>(_editorDal.GetAll(n => !n.IsDeleted), EditionConstants.DataGet);
         }
 
-        public IDataResult<List<Editor>> GetAllBySecret()
+        public IDataResult<IList<Editor>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Editor>>(_editorDal.GetAll(n => n.IsDeleted).ToList(), EditionConstants.DataGet);
+            return new SuccessDataResult<IList<Editor>>(_editorDal.GetAll(n => n.IsDeleted), EditionConstants.DataGet);
         }
 
         private IResult EditorNameOrSurnameExist(Editor entity)

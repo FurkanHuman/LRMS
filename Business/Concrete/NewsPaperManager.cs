@@ -79,278 +79,278 @@ namespace Business.Concrete
             return new SuccessResult(NewsPaperConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<NewsPaper>> GetAll()
+        public IDataResult<IList<NewsPaper>> GetAll()
         {
-            return new SuccessDataResult<List<NewsPaper>>(_newsPaperDal.GetAll(np => !np.IsDeleted).ToList(), NewsPaperConstants.DataGet);
+            return new SuccessDataResult<IList<NewsPaper>>(_newsPaperDal.GetAll(np => !np.IsDeleted), NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<NewsPaper>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<NewsPaper>>(categories.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(categories.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Categories.ToList() == categories.Data && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Categories == categories.Data && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByCommunication(Guid communicationId)
+        public IDataResult<IList<NewsPaper>> GetAllByCommunication(Guid communicationId)
         {
             IDataResult<Edition> editionByCommunication = _editionService.GetByCommunicationId(communicationId);
             if (!editionByCommunication.Success)
-                return new ErrorDataResult<List<NewsPaper>>(editionByCommunication.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(editionByCommunication.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionByCommunication.Data.Id && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionByCommunication.Data.Id && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByCoverCap(byte coverCapNum)
+        public IDataResult<IList<NewsPaper>> GetAllByCoverCap(byte coverCapNum)
         {
             IDataResult<CoverCap> CoverCap = _coverCapService.GetById(coverCapNum);
             if (!CoverCap.Success)
-                return new ErrorDataResult<List<NewsPaper>>(CoverCap.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(CoverCap.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.CoverCapId == coverCapNum && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.CoverCapId == coverCapNum && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByDate(DateTime date)
+        public IDataResult<IList<NewsPaper>> GetAllByDate(DateTime date)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Date == date && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Date == date && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<NewsPaper>> GetAllByDescriptionFinder(string finderString)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Description.Contains(finderString) && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Description.Contains(finderString) && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<NewsPaper>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimmension = _dimension.GetById(dimensionId);
             if (!dimmension.Success)
-                return new ErrorDataResult<List<NewsPaper>>(dimmension.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(dimmension.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.DimensionsId == dimensionId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.DimensionsId == dimensionId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByDirector(Guid directorId)
+        public IDataResult<IList<NewsPaper>> GetAllByDirector(Guid directorId)
         {
             IDataResult<Director> director = _directorService.GetById(directorId);
             if (!director.Success)
-                return new ErrorDataResult<List<NewsPaper>>(director.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(director.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.DirectorId == directorId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.DirectorId == directorId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByEdition(Guid editionId)
+        public IDataResult<IList<NewsPaper>> GetAllByEdition(Guid editionId)
         {
             IDataResult<Edition> edition = _editionService.GetById(editionId);
             if (!edition.Success)
-                return new ErrorDataResult<List<NewsPaper>>(edition.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(edition.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByEditor(Guid editorId)
+        public IDataResult<IList<NewsPaper>> GetAllByEditor(Guid editorId)
         {
             IDataResult<Editor> editor = _editorService.GetById(editorId);
             if (!editor.Success)
-                return new ErrorDataResult<List<NewsPaper>>(editor.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(editor.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditorId == editorId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditorId == editorId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByEMFile(Guid eMFileId)
+        public IDataResult<IList<NewsPaper>> GetAllByEMFile(Guid eMFileId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFile.GetById(eMFileId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<NewsPaper>>(eMFile.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(eMFile.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EMaterialFilesId == eMFileId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EMaterialFilesId == eMFileId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByFilter(Expression<Func<NewsPaper, bool>>? filter = null)
+        public IDataResult<IList<NewsPaper>> GetAllByFilter(Expression<Func<NewsPaper, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<NewsPaper>>(_newsPaperDal.GetAll(filter).ToList(), NewsPaperConstants.DataGet);
+            return new SuccessDataResult<IList<NewsPaper>>(_newsPaperDal.GetAll(filter), NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByGraphicDesign(Guid graphicDesignId)
+        public IDataResult<IList<NewsPaper>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
             IDataResult<GraphicDesigner> graphicDesing = _graphicDesignerService.GetById(graphicDesignId);
             if (!graphicDesing.Success)
-                return new ErrorDataResult<List<NewsPaper>>(graphicDesing.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(graphicDesing.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.GraphicDesignId == graphicDesignId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.GraphicDesignId == graphicDesignId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByGraphicDirector(Guid graphicDirectorId)
+        public IDataResult<IList<NewsPaper>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
             IDataResult<GraphicDirector> gDirector = _graphicDirectorService.GetById(graphicDirectorId);
             if (!gDirector.Success)
-                return new ErrorDataResult<List<NewsPaper>>(gDirector.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(gDirector.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.GraphicDirectorId == graphicDirectorId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.GraphicDirectorId == graphicDirectorId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<NewsPaper>> GetAllByIds(Guid[] ids)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => ids.Contains(np.Id) && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => ids.Contains(np.Id) && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByInterpreter(Guid interpreterId)
+        public IDataResult<IList<NewsPaper>> GetAllByInterpreter(Guid interpreterId)
         {
             IDataResult<Interpreters> interpreter = _interpreterService.GetById(interpreterId);
             if (!interpreter.Success)
-                return new ErrorDataResult<List<NewsPaper>>(interpreter.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(interpreter.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.InterpretersId == interpreterId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.InterpretersId == interpreterId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByName(string name)
+        public IDataResult<IList<NewsPaper>> GetAllByName(string name)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Name.Contains(name) && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Name.Contains(name) && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByNewsPaperName(string newPaperName)
+        public IDataResult<IList<NewsPaper>> GetAllByNewsPaperName(string newPaperName)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.NewsPaperName.Contains(newPaperName) && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.NewsPaperName.Contains(newPaperName) && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByNewsPaperNumber(uint number)
+        public IDataResult<IList<NewsPaper>> GetAllByNewsPaperNumber(uint number)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Number == number && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Number == number && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<NewsPaper>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<NewsPaper> newsPapers = maxPrice == null
-                ? _newsPaperDal.GetAll(np => np.Price == minPrice && !np.IsDeleted).ToList()
-                : _newsPaperDal.GetAll(np => np.Price >= minPrice && np.Price <= maxPrice && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = maxPrice == null
+                ? _newsPaperDal.GetAll(np => np.Price == minPrice && !np.IsDeleted)
+                : _newsPaperDal.GetAll(np => np.Price >= minPrice && np.Price <= maxPrice && !np.IsDeleted);
 
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByPublisher(Guid publisherId)
+        public IDataResult<IList<NewsPaper>> GetAllByPublisher(Guid publisherId)
         {
             IDataResult<Edition> editionOfPublisher = _editionService.GetByPublisherId(publisherId);
             if (!editionOfPublisher.Success)
-                return new ErrorDataResult<List<NewsPaper>>(editionOfPublisher.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(editionOfPublisher.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionOfPublisher.Data.Id && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.EditionId == editionOfPublisher.Data.Id && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByRedaction(Guid redactionId)
+        public IDataResult<IList<NewsPaper>> GetAllByRedaction(Guid redactionId)
         {
             IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
             if (!redaction.Success)
-                return new ErrorDataResult<List<NewsPaper>>(redaction.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(redaction.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.RedactionId == redactionId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.RedactionId == redactionId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllBySecret()
+        public IDataResult<IList<NewsPaper>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<NewsPaper>>(_newsPaperDal.GetAll(np => np.IsDeleted).ToList(), NewsPaperConstants.DataGet);
+            return new SuccessDataResult<IList<NewsPaper>>(_newsPaperDal.GetAll(np => np.IsDeleted), NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByTechnicalNumber(Guid technicalNumberId)
+        public IDataResult<IList<NewsPaper>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
             IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(technicalNumberId);
             if (!techNumber.Success)
-                return new ErrorDataResult<List<NewsPaper>>(techNumber.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(techNumber.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.TechnicalNumberId == technicalNumberId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.TechnicalNumberId == technicalNumberId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<NewsPaper>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlaceHolder = _technicalPlaceholder.GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
-                return new ErrorDataResult<List<NewsPaper>>(techPlaceHolder.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(techPlaceHolder.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.TechnicalNumberId == technicalPlaceholderId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.TechnicalNumberId == technicalPlaceholderId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByTitle(string title)
+        public IDataResult<IList<NewsPaper>> GetAllByTitle(string title)
         {
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Title.Contains(title) && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.Title.Contains(title) && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
-        public IDataResult<List<NewsPaper>> GetAllByWriter(Guid writerId)
+        public IDataResult<IList<NewsPaper>> GetAllByWriter(Guid writerId)
         {
             IDataResult<Writer> writer = _writerService.GetById(writerId);
             if (!writer.Success)
-                return new ErrorDataResult<List<NewsPaper>>(writer.Message);
+                return new ErrorDataResult<IList<NewsPaper>>(writer.Message);
 
-            List<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.WriterId == writerId && !np.IsDeleted).ToList();
+            IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => np.WriterId == writerId && !np.IsDeleted);
             return newsPapers == null
-                ? new ErrorDataResult<List<NewsPaper>>(NewsPaperConstants.DataNotGet)
-                : new SuccessDataResult<List<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
+                ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
+                : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
         }
 
         public IDataResult<NewsPaper> GetByCoverImage(Guid cImageId)

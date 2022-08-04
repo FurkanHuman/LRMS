@@ -67,63 +67,63 @@ namespace Business.Concrete
             return new SuccessResult(ElectronicsResourceConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAll()
+        public IDataResult<IList<ElectronicsResource>> GetAll()
         {
-            return new SuccessDataResult<List<ElectronicsResource>>(_electronicsResourceDal.GetAll(er => !er.IsDeleted).ToList(), ElectronicsResourceConstants.DataGet);
+            return new SuccessDataResult<IList<ElectronicsResource>>(_electronicsResourceDal.GetAll(er => !er.IsDeleted), ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByFilter(Expression<Func<ElectronicsResource, bool>>? filter = null)
+        public IDataResult<IList<ElectronicsResource>> GetAllByFilter(Expression<Func<ElectronicsResource, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<ElectronicsResource>>(_electronicsResourceDal.GetAll(filter).ToList(), ElectronicsResourceConstants.DataGet);
+            return new SuccessDataResult<IList<ElectronicsResource>>(_electronicsResourceDal.GetAll(filter), ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllBySecret()
+        public IDataResult<IList<ElectronicsResource>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<ElectronicsResource>>(_electronicsResourceDal.GetAll(er => er.IsDeleted).ToList(), ElectronicsResourceConstants.DataGet);
+            return new SuccessDataResult<IList<ElectronicsResource>>(_electronicsResourceDal.GetAll(er => er.IsDeleted), ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<ElectronicsResource>> GetAllByCategories(int[] categoriesId)
         {
             var categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<ElectronicsResource>>(categories.Message);
+                return new ErrorDataResult<IList<ElectronicsResource>>(categories.Message);
 
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => categoriesId.Contains(er.CategoryId) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => categoriesId.Contains(er.CategoryId) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<ElectronicsResource>> GetAllByDescriptionFinder(string finderString)
         {
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Description.Contains(finderString) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Description.Contains(finderString) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<ElectronicsResource>> GetAllByDimension(Guid dimensionId)
         {
             IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<ElectronicsResource>>(dimension.Message);
+                return new ErrorDataResult<IList<ElectronicsResource>>(dimension.Message);
 
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.DimensionsId == dimensionId && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.DimensionsId == dimensionId && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<ElectronicsResource>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFile.Success)
-                return new ErrorDataResult<List<ElectronicsResource>>(eMFile.Message);
+                return new ErrorDataResult<IList<ElectronicsResource>>(eMFile.Message);
 
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.EMaterialFilesId == eMFilesId && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.EMaterialFilesId == eMFilesId && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
         public IDataResult<ElectronicsResource> GetById(Guid id)
@@ -134,59 +134,59 @@ namespace Business.Concrete
                 : new SuccessDataResult<ElectronicsResource>(electronicsResource, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<ElectronicsResource>> GetAllByIds(Guid[] ids)
         {
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => ids.Contains(er.Id) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => ids.Contains(er.Id) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByName(string name)
+        public IDataResult<IList<ElectronicsResource>> GetAllByName(string name)
         {
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Name.Contains(name) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Name.Contains(name) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<ElectronicsResource>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<ElectronicsResource> electronicsResources = maxPrice == null
-                ? _electronicsResourceDal.GetAll(er => er.Price == minPrice && !er.IsDeleted).ToList()
-                : _electronicsResourceDal.GetAll(er => er.Price >= minPrice && er.Price <= maxPrice && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = maxPrice == null
+                ? _electronicsResourceDal.GetAll(er => er.Price == minPrice && !er.IsDeleted)
+                : _electronicsResourceDal.GetAll(er => er.Price >= minPrice && er.Price <= maxPrice && !er.IsDeleted);
 
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByResourceUrlFinderString(string finderStr)
+        public IDataResult<IList<ElectronicsResource>> GetAllByResourceUrlFinderString(string finderStr)
         {
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.ResourceUrl.Contains(finderStr) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.ResourceUrl.Contains(finderStr) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<ElectronicsResource>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlacHold = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlacHold.Success)
-                return new ErrorDataResult<List<ElectronicsResource>>(techPlacHold.Message);
+                return new ErrorDataResult<IList<ElectronicsResource>>(techPlacHold.Message);
 
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.TechnicalPlaceholdersId == technicalPlaceholderId && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.TechnicalPlaceholdersId == technicalPlaceholderId && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<List<ElectronicsResource>> GetAllByTitle(string title)
+        public IDataResult<IList<ElectronicsResource>> GetAllByTitle(string title)
         {
-            List<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Title.Contains(title) && !er.IsDeleted).ToList();
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.Title.Contains(title) && !er.IsDeleted);
             return electronicsResources == null
-                ? new ErrorDataResult<List<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
-                : new SuccessDataResult<List<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
+                ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
+                : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)

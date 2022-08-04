@@ -73,35 +73,35 @@ namespace Business.Concrete
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetAllByIds(int[] ids)
+        public IDataResult<IList<Branch>> GetAllByIds(int[] ids)
         {
-            List<Branch> branchs = _branchDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted).ToList();
+            IList<Branch> branchs = _branchDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted);
             return branchs != null
-                ? new SuccessDataResult<List<Branch>>(branchs, BranchConstants.DataGet)
-                : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
+                ? new SuccessDataResult<IList<Branch>>(branchs, BranchConstants.DataGet)
+                : new ErrorDataResult<IList<Branch>>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetAllByName(string name)
+        public IDataResult<IList<Branch>> GetAllByName(string name)
         {
-            List<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted).ToList();
+            IList<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted);
             return branchs != null
-                ? new SuccessDataResult<List<Branch>>(branchs, BranchConstants.DataGet)
-                : new ErrorDataResult<List<Branch>>(BranchConstants.DataNotGet);
+                ? new SuccessDataResult<IList<Branch>>(branchs, BranchConstants.DataGet)
+                : new ErrorDataResult<IList<Branch>>(BranchConstants.DataNotGet);
         }
 
-        public IDataResult<List<Branch>> GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
+        public IDataResult<IList<Branch>> GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(filter).ToList(), BranchConstants.DataGet);
+            return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(filter), BranchConstants.DataGet);
         }
 
-        public IDataResult<List<Branch>> GetAll()
+        public IDataResult<IList<Branch>> GetAll()
         {
-            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => !b.IsDeleted).ToList(), BranchConstants.DataGet);
+            return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(b => !b.IsDeleted), BranchConstants.DataGet);
         }
 
-        public IDataResult<List<Branch>> GetAllBySecret()
+        public IDataResult<IList<Branch>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Branch>>(_branchDal.GetAll(b => b.IsDeleted).ToList(), BranchConstants.DataGet);
+            return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(b => b.IsDeleted), BranchConstants.DataGet);
         }
 
         private IResult BranchNameControl(string branchName)

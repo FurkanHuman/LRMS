@@ -60,9 +60,9 @@ namespace Business.Concrete
             return new SuccessResult(ResearcherConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<Researcher>> GetAllByFilter(Expression<Func<Researcher, bool>>? filter = null)
+        public IDataResult<IList<Researcher>> GetAllByFilter(Expression<Func<Researcher, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(filter).ToList(), ResearcherConstants.DataGet);
+            return new SuccessDataResult<IList<Researcher>>(_researcherDal.GetAll(filter), ResearcherConstants.DataGet);
         }
 
         public IDataResult<Researcher> GetById(Guid id)
@@ -74,54 +74,54 @@ namespace Business.Concrete
                 : new SuccessDataResult<Researcher>(researcher, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Researcher>> GetAllByIds(Guid[] ids)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => ids.Contains(n.Id)).ToList();
+            IList<Researcher> researchers = _researcherDal.GetAll(n => ids.Contains(n.Id));
             return researchers == null
-                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
-                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+                ? new ErrorDataResult<IList<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllByName(string name)
+        public IDataResult<IList<Researcher>> GetAllByName(string name)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.Name.Contains(name)).ToList();
+            IList<Researcher> researchers = _researcherDal.GetAll(n => n.Name.Contains(name));
             return researchers == null
-                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
-                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+                ? new ErrorDataResult<IList<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllBySurname(string surname)
+        public IDataResult<IList<Researcher>> GetAllBySurname(string surname)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.SurName.Contains(surname)).ToList();
+            IList<Researcher> researchers = _researcherDal.GetAll(n => n.SurName.Contains(surname));
             return researchers == null
-                ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
-                : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+                ? new ErrorDataResult<IList<Researcher>>(ResearcherConstants.DataNotGet)
+                : new SuccessDataResult<IList<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllNamePreAttachment(string namePreAttachment)
+        public IDataResult<IList<Researcher>> GetAllNamePreAttachment(string namePreAttachment)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment) && !n.IsDeleted).ToList();
+            IList<Researcher> researchers = _researcherDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment) && !n.IsDeleted);
             return researchers == null
-                   ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
-                   : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+                   ? new ErrorDataResult<IList<Researcher>>(ResearcherConstants.DataNotGet)
+                   : new SuccessDataResult<IList<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllSpecialty(string Specialty)
+        public IDataResult<IList<Researcher>> GetAllSpecialty(string Specialty)
         {
-            List<Researcher> researchers = _researcherDal.GetAll(n => n.Specialty.Contains(Specialty) && !n.IsDeleted).ToList();
+            IList<Researcher> researchers = _researcherDal.GetAll(n => n.Specialty.Contains(Specialty) && !n.IsDeleted);
             return researchers == null
-                   ? new ErrorDataResult<List<Researcher>>(ResearcherConstants.DataNotGet)
-                   : new SuccessDataResult<List<Researcher>>(researchers, ResearcherConstants.DataGet);
+                   ? new ErrorDataResult<IList<Researcher>>(ResearcherConstants.DataNotGet)
+                   : new SuccessDataResult<IList<Researcher>>(researchers, ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAllBySecret()
+        public IDataResult<IList<Researcher>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted).ToList(), ResearcherConstants.DataGet);
+            return new SuccessDataResult<IList<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted), ResearcherConstants.DataGet);
         }
 
-        public IDataResult<List<Researcher>> GetAll()
+        public IDataResult<IList<Researcher>> GetAll()
         {
-            return new SuccessDataResult<List<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted).ToList(), ResearcherConstants.DataGet);
+            return new SuccessDataResult<IList<Researcher>>(_researcherDal.GetAll(r => !r.IsDeleted), ResearcherConstants.DataGet);
         }
 
         private IResult ResearcherNameOrSurnameExist(Researcher entity)

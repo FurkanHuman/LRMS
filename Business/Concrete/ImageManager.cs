@@ -93,27 +93,27 @@ namespace Business.Concrete
                 : new SuccessDataResult<Image>(image, ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<Image>> GetAllByIds(Guid[] ids)
         {
-            List<Image> images = _imageDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted).ToList();
+            IList<Image> images = _imageDal.GetAll(i => ids.Contains(i.Id) && !i.IsDeleted);
             return images == null
-                ? new ErrorDataResult<List<Image>>(ImageConstants.IsDeleted)
-                : new SuccessDataResult<List<Image>>(images, ImageConstants.DataGet);
+                ? new ErrorDataResult<IList<Image>>(ImageConstants.IsDeleted)
+                : new SuccessDataResult<IList<Image>>(images, ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null)
+        public IDataResult<IList<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(filter).ToList(), ImageConstants.DataGet);
+            return new SuccessDataResult<IList<Image>>(_imageDal.GetAll(filter), ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetAll()
+        public IDataResult<IList<Image>> GetAll()
         {
-            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => !g.IsDeleted).ToList(), ImageConstants.DataGet);
+            return new SuccessDataResult<IList<Image>>(_imageDal.GetAll(g => !g.IsDeleted), ImageConstants.DataGet);
         }
 
-        public IDataResult<List<Image>> GetAllBySecret()
+        public IDataResult<IList<Image>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<Image>>(_imageDal.GetAll(g => g.IsDeleted).ToList(), ImageConstants.DataGet);
+            return new SuccessDataResult<IList<Image>>(_imageDal.GetAll(g => g.IsDeleted), ImageConstants.DataGet);
         }
 
         private static IResult ImageCheck(IFormFile file)

@@ -70,64 +70,64 @@ namespace Business.Concrete
             return new SuccessResult(GraphicalImageConstants.UpdateSuccess);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAll()
+        public IDataResult<IList<GraphicalImage>> GetAll()
         {
-            return new SuccessDataResult<List<GraphicalImage>>(_graphicalImageDal.GetAll(gi => !gi.IsDeleted).ToList(), GraphicalImageConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicalImage>>(_graphicalImageDal.GetAll(gi => !gi.IsDeleted), GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByFilter(Expression<Func<GraphicalImage, bool>>? filter = null)
+        public IDataResult<IList<GraphicalImage>> GetAllByFilter(Expression<Func<GraphicalImage, bool>>? filter = null)
         {
-            return new SuccessDataResult<List<GraphicalImage>>(_graphicalImageDal.GetAll(filter).ToList(), GraphicalImageConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicalImage>>(_graphicalImageDal.GetAll(filter), GraphicalImageConstants.DataGet);
 
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllBySecret()
+        public IDataResult<IList<GraphicalImage>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<List<GraphicalImage>>(_graphicalImageDal.GetAll(gi => gi.IsDeleted).ToList(), GraphicalImageConstants.DataGet);
+            return new SuccessDataResult<IList<GraphicalImage>>(_graphicalImageDal.GetAll(gi => gi.IsDeleted), GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByCategories(int[] categoriesId)
+        public IDataResult<IList<GraphicalImage>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<List<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
             if (!categories.Success)
-                return new ErrorDataResult<List<GraphicalImage>>(categories.Message);
+                return new ErrorDataResult<IList<GraphicalImage>>(categories.Message);
 
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => categoriesId.Contains(gi.CategoryId) && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => categoriesId.Contains(gi.CategoryId) && !gi.IsDeleted);
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new ErrorDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByDescriptionFinder(string finderString)
+        public IDataResult<IList<GraphicalImage>> GetAllByDescriptionFinder(string finderString)
         {
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Description.Contains(finderString) && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Description.Contains(finderString) && !gi.IsDeleted);
             return graphicalImages == null
-            ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-            : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+            ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+            : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByDimension(Guid dimensionId)
+        public IDataResult<IList<GraphicalImage>> GetAllByDimension(Guid dimensionId)
         {
             var dimension = _dimensionService.GetById(dimensionId);
             if (!dimension.Success)
-                return new ErrorDataResult<List<GraphicalImage>>(dimension.Message);
+                return new ErrorDataResult<IList<GraphicalImage>>(dimension.Message);
 
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.DimensionsId == dimensionId && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.DimensionsId == dimensionId && !gi.IsDeleted);
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new ErrorDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<GraphicalImage>> GetAllByEMFile(Guid eMFilesId)
         {
             IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
             if (!eMFiles.Success)
-                return new ErrorDataResult<List<GraphicalImage>>(eMFiles.Message);
+                return new ErrorDataResult<IList<GraphicalImage>>(eMFiles.Message);
 
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.EMaterialFilesId == eMFilesId && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.EMaterialFilesId == eMFilesId && !gi.IsDeleted);
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new ErrorDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
         public IDataResult<GraphicalImage> GetById(Guid id)
@@ -138,12 +138,12 @@ namespace Business.Concrete
                 : new SuccessDataResult<GraphicalImage>(graphicalImage, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByIds(Guid[] ids)
+        public IDataResult<IList<GraphicalImage>> GetAllByIds(Guid[] ids)
         {
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => ids.Contains(gi.Id) && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => ids.Contains(gi.Id) && !gi.IsDeleted);
             return graphicalImages == null
-            ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-            : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+            ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+            : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
         public IDataResult<GraphicalImage> GetByImage(Guid imageId)
@@ -158,63 +158,63 @@ namespace Business.Concrete
                 : new ErrorDataResult<GraphicalImage>(graphicalImage, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByImageCreatedDate(DateTime dateTime)
+        public IDataResult<IList<GraphicalImage>> GetAllByImageCreatedDate(DateTime dateTime)
         {
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.ImageCreatedDate == dateTime && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.ImageCreatedDate == dateTime && !gi.IsDeleted);
             return graphicalImages == null
-            ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-            : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+            ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+            : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByName(string name)
+        public IDataResult<IList<GraphicalImage>> GetAllByName(string name)
         {
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Name.Contains(name) && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Name.Contains(name) && !gi.IsDeleted);
             return graphicalImages == null
-            ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-            : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+            ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+            : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByOtherPeople(Guid otherPeopleId)
+        public IDataResult<IList<GraphicalImage>> GetAllByOtherPeople(Guid otherPeopleId)
         {
             IDataResult<OtherPeople> otherPeople = _otherPeopleService.GetById(otherPeopleId);
             if (!otherPeople.Success)
-                return new ErrorDataResult<List<GraphicalImage>>(otherPeople.Message);
+                return new ErrorDataResult<IList<GraphicalImage>>(otherPeople.Message);
 
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.OtherPeople == otherPeople && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.OtherPeople == otherPeople && !gi.IsDeleted);
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new ErrorDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
+        public IDataResult<IList<GraphicalImage>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null)
         {
-            List<GraphicalImage> graphicalImages = maxPrice == null
-                ? _graphicalImageDal.GetAll(gi => gi.Price == minPrice && !gi.IsDeleted).ToList()
-                : _graphicalImageDal.GetAll(gi => gi.Price >= minPrice && gi.Price <= maxPrice && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = maxPrice == null
+                ? _graphicalImageDal.GetAll(gi => gi.Price == minPrice && !gi.IsDeleted)
+                : _graphicalImageDal.GetAll(gi => gi.Price >= minPrice && gi.Price <= maxPrice && !gi.IsDeleted);
 
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
+        public IDataResult<IList<GraphicalImage>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
             IDataResult<TechnicalPlaceholder> techPlacehol = _technicalPlaceholderService.GetById(technicalPlaceholderId);
             if (!techPlacehol.Success)
-                return new ErrorDataResult<List<GraphicalImage>>(techPlacehol.Message);
+                return new ErrorDataResult<IList<GraphicalImage>>(techPlacehol.Message);
 
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.TechnicalPlaceholdersId == technicalPlaceholderId && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.TechnicalPlaceholdersId == technicalPlaceholderId && !gi.IsDeleted);
             return graphicalImages == null
-                ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-                : new ErrorDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+                ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+                : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<List<GraphicalImage>> GetAllByTitle(string title)
+        public IDataResult<IList<GraphicalImage>> GetAllByTitle(string title)
         {
-            List<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Title.Contains(title) && !gi.IsDeleted).ToList();
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.Title.Contains(title) && !gi.IsDeleted);
             return graphicalImages == null
-            ? new ErrorDataResult<List<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
-            : new SuccessDataResult<List<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
+            ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
+            : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
