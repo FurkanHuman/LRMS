@@ -65,10 +65,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecret")]
+        [HttpPost("GetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
-            var result = _coverCapService.GetAllBySecret();
+            var result = _coverCapService.GetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

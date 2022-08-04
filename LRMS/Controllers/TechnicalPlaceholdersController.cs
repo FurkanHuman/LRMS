@@ -86,10 +86,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllBySecret")]
+        [HttpGet("GetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
-            var result = _technicalPlaceholderService.GetAllBySecret();
+            var result = _technicalPlaceholderService.GetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

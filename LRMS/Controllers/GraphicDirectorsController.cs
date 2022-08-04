@@ -72,10 +72,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("GetAllBySecret")]
+        [HttpPost("GetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
-            var result = _graphicDirectorService.GetAllBySecret();
+            var result = _graphicDirectorService.GetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

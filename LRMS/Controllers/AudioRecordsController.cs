@@ -170,10 +170,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpGet("GetAllBySecret")]
+        [HttpGet("GetAllByIsDeleted")]
         public IActionResult GetAllBySecret()
         {
-            var result = _audioRecordService.GetAllBySecret();
+            var result = _audioRecordService.GetAllByIsDeleted();
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
