@@ -6,18 +6,18 @@ namespace Business.Abstract
 {
     public interface IAcademicJournalService : IMaterialBaseService<AcademicJournal>
     {
-        IDataResult<List<AcademicJournal>> GetAllByAJNumber(ushort aJNumber);
-        IDataResult<List<AcademicJournal>> GetAllByDateOfYear(ushort dateOfYear);
-        IDataResult<List<AcademicJournal>> GetAllByVolume(ushort volume);
-        IDataResult<List<AcademicJournal>> GetAllByPageRange(ushort startPage, ushort endPage);
-        IDataResult<List<AcademicJournal>> GetAllByEditor(Guid editorId);
-        IDataResult<List<AcademicJournal>> GetAllByEditors(Guid[] editorIds);
-        IDataResult<List<AcademicJournal>> GetAllByReferenceId(Guid referenceId);
-        IDataResult<List<AcademicJournal>> GetAllByReferenceOwner(string owner);
-        IDataResult<List<AcademicJournal>> GetAllByReferenceDate(DateTime referenceDate);
-        IDataResult<List<AcademicJournal>> GetAllByResearcher(Guid researcherId);
-        IDataResult<List<AcademicJournal>> GetAllByResearchers(Guid[] researcherIds);
-        IDataResult<List<AcademicJournal>> GetAllByPublisher(Guid publisherId);
-        IDataResult<List<AcademicJournal>> GetAllByPublisherDateOfPublication(DateTime DateOfPublication);
+        IDataResult<IList<AcademicJournal>> GetAllByAJNumber(ushort aJNumber);
+        IDataResult<IList<AcademicJournal>> GetAllByDateOfYear(ushort dateOfYear);
+        IDataResult<IList<AcademicJournal>> GetAllByVolume(ushort volume);
+        IDataResult<IList<AcademicJournal>> GetAllByPageRange(ushort startPage, ushort endPage);
+        IDataResult<IList<AcademicJournal>> GetAllByEditor(Guid editorId);
+        IDataResult<IList<AcademicJournal>> GetAllByEditors(Guid[] editorIds);
+        IDataResult<IList<AcademicJournal>> GetAllByReferenceId(Guid referenceId);
+        IDataResult<IList<AcademicJournal>> GetAllByReferenceOwner(string owner);
+        IDataResult<IList<AcademicJournal>> GetAllByReferenceDate(DateTime referenceDate);
+        IDataResult<IList<AcademicJournal>> GetAllByResearcher(Guid researcherId);
+        IDataResult<IList<AcademicJournal>> GetAllByResearchers(Guid[] researcherIds);
+        IDataResult<IList<AcademicJournal>> GetAllByPublisher(Guid publisherId);
+        IDataResult<IList<AcademicJournal>> GetAllByPublisherDateOfPublication(DateTime DateOfPublication);
     }
 }

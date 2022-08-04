@@ -12,17 +12,17 @@ namespace Business.Abstract
         IDataResult<Publisher> GetByCommunicationFaxNumber(string commFaxNumber);
         IDataResult<Publisher> GetByCommunicationPhone(string commPhone);
         IDataResult<Publisher> GetByCommunicationWebSite(string commWebSite);
-        IDataResult<List<Publisher>> GetAllByAddressName(string addressName);
-        IDataResult<List<Publisher>> GetAllByAddressLine(string addressLine);
-        IDataResult<List<Publisher>> GetAllByPublisherInCityId(int cityId);
-        IDataResult<List<Publisher>> GetAllByPublisherInCityName(string cityName);
-        IDataResult<List<Publisher>> GetAllByCommunicationName(string commName);
-        IDataResult<List<Publisher>> GetAllByPublisherInCountryId(int countryId);
-        IDataResult<List<Publisher>> GetAllByPublisherInCountryName(string countryName);
-        IDataResult<List<Publisher>> GetAllByPublisherInCountryCode(string countryCode);
-        IDataResult<List<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc);
-        IDataResult<List<Publisher>> GetAllByPublisherInPostalCode(string postalCode);
-        IDataResult<List<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication);
-        IDataResult<List<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
+        IDataResult<IList<Publisher>> GetAllByAddressName(string addressName);
+        IDataResult<IList<Publisher>> GetAllByAddressLine(string addressLine);
+        IDataResult<IList<Publisher>> GetAllByPublisherInCityId(int cityId);
+        IDataResult<IList<Publisher>> GetAllByPublisherInCityName(string cityName);
+        IDataResult<IList<Publisher>> GetAllByCommunicationName(string commName);
+        IDataResult<IList<Publisher>> GetAllByPublisherInCountryId(int countryId);
+        IDataResult<IList<Publisher>> GetAllByPublisherInCountryName(string countryName);
+        IDataResult<IList<Publisher>> GetAllByPublisherInCountryCode(string countryCode);
+        IDataResult<IList<Publisher>> GetAllByPublisherInGeoLocation(string geoLoc);
+        IDataResult<IList<Publisher>> GetAllByPublisherInPostalCode(string postalCode);
+        IDataResult<IList<Publisher>> GetAllByDateOfPublication(DateTime dateOfPublication);
+        IDataResult<IList<Publisher>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
     }
 }

@@ -14,18 +14,18 @@ namespace Business.Abstract
         IDataResult<Edition> GetByCommunicationWebSite(string commWebSite);
         IDataResult<Edition> GetByAdderssId(Guid addressId);
         IDataResult<Edition> GetByPublisherId(Guid publisherId);
-        IDataResult<List<Edition>> GetAllByAddressName(string addressName);
-        IDataResult<List<Edition>> GetAllByAddressLine(string addressLine);
-        IDataResult<List<Edition>> GetAllByCommunicationName(string commName);
-        IDataResult<List<Edition>> GetAllByEditionNumber(int eNumber);
-        IDataResult<List<Edition>> GetAllByEditionInCountryId(int countryId);
-        IDataResult<List<Edition>> GetAllByEditionInCountryName(string countryName);
-        IDataResult<List<Edition>> GetAllByEditionInCountryCode(string countryCode);
-        IDataResult<List<Edition>> GetAllByEditionInCityId(int cityId);
-        IDataResult<List<Edition>> GetAllByEditionInCityName(string cityName);
-        IDataResult<List<Edition>> GetAllByEditionInPostalCode(string postalCode);
-        IDataResult<List<Edition>> GetAllByEditionInGeoLocation(string geoLoc);
-        IDataResult<List<Edition>> GetAllByDateOfPublication(DateTime dateOfPublication);
-        IDataResult<List<Edition>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
+        IDataResult<IList<Edition>> GetAllByAddressName(string addressName);
+        IDataResult<IList<Edition>> GetAllByAddressLine(string addressLine);
+        IDataResult<IList<Edition>> GetAllByCommunicationName(string commName);
+        IDataResult<IList<Edition>> GetAllByEditionNumber(int eNumber);
+        IDataResult<IList<Edition>> GetAllByEditionInCountryId(int countryId);
+        IDataResult<IList<Edition>> GetAllByEditionInCountryName(string countryName);
+        IDataResult<IList<Edition>> GetAllByEditionInCountryCode(string countryCode);
+        IDataResult<IList<Edition>> GetAllByEditionInCityId(int cityId);
+        IDataResult<IList<Edition>> GetAllByEditionInCityName(string cityName);
+        IDataResult<IList<Edition>> GetAllByEditionInPostalCode(string postalCode);
+        IDataResult<IList<Edition>> GetAllByEditionInGeoLocation(string geoLoc);
+        IDataResult<IList<Edition>> GetAllByDateOfPublication(DateTime dateOfPublication);
+        IDataResult<IList<Edition>> GetAllByDateOfPublicationMinMax(DateTime minDate, DateTime maxDate);
     }
 }

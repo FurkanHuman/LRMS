@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IMicroformService : IMaterialBaseService<Microform>
     {
-        IDataResult<List<Microform>> GetAllByScale(string scale);
+        IDataResult<IList<Microform>> GetAllByScale(string scale);
     }
 }

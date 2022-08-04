@@ -7,7 +7,7 @@ namespace Business.Abstract
     public interface IGraphicalImageService : IMaterialBaseService<GraphicalImage>
     {
         IDataResult<GraphicalImage> GetByImage(Guid imageId);
-        IDataResult<List<GraphicalImage>> GetAllByImageCreatedDate(DateTime dateTime);
-        IDataResult<List<GraphicalImage>> GetAllByOtherPeople(Guid otherPeopleId);
+        IDataResult<IList<GraphicalImage>> GetAllByImageCreatedDate(DateTime dateTime);
+        IDataResult<IList<GraphicalImage>> GetAllByOtherPeople(Guid otherPeopleId);
     }
 }

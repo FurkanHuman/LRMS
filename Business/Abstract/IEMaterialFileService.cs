@@ -12,10 +12,10 @@ namespace Business.Abstract
         IResult ShadowDelete(Guid id);
         IResult Update(IFormFile file, EMaterialFile eMaterialFile);
         IDataResult<EMaterialFile> GetById(Guid id);
-        IDataResult<List<EMaterialFile>> GetAllByIds(Guid[] ids);
-        IDataResult<List<EMaterialFile>> GetAllByName(string name);
-        IDataResult<List<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null);
-        IDataResult<List<EMaterialFile>> GetAllBySecret();
-        IDataResult<List<EMaterialFile>> GetAll();
+        IDataResult<IList<EMaterialFile>> GetAllByIds(Guid[] ids);
+        IDataResult<IList<EMaterialFile>> GetAllByName(string name);
+        IDataResult<IList<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null);
+        IDataResult<IList<EMaterialFile>> GetAllBySecret();
+        IDataResult<IList<EMaterialFile>> GetAll();
     }
 }

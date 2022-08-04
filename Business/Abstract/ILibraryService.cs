@@ -12,17 +12,17 @@ namespace Business.Abstract
         IDataResult<Library> GetByCommunicationFaxNumber(string commFaxNumber);
         IDataResult<Library> GetByCommunicationPhone(string commPhone);
         IDataResult<Library> GetByCommunicationWebSite(string commWebSite);
-        IDataResult<List<Library>> GetAllByAddressName(string addressName);
-        IDataResult<List<Library>> GetAllByAddressLine(string addressLine);
-        IDataResult<List<Library>> GetAllByCommunicationName(string commName);
-        IDataResult<List<Library>> GetAllByLibraryType(byte libType);
-        IDataResult<List<Library>> GetAllByLibraryInCountryId(int countryId);
-        IDataResult<List<Library>> GetAllByLibraryInCountryName(string countryName);
-        IDataResult<List<Library>> GetAllByLibraryInCountryCode(string countryCode);
-        IDataResult<List<Library>> GetAllByLibraryInCityId(int cityId);
-        IDataResult<List<Library>> GetAllByLibraryInCityName(string cityName);
-        IDataResult<List<Library>> GetAllByLibraryInPostalCode(string postalCode);
-        IDataResult<List<Library>> GetAllByLibraryInGeoLocation(string geoLoc);
+        IDataResult<IList<Library>> GetAllByAddressName(string addressName);
+        IDataResult<IList<Library>> GetAllByAddressLine(string addressLine);
+        IDataResult<IList<Library>> GetAllByCommunicationName(string commName);
+        IDataResult<IList<Library>> GetAllByLibraryType(byte libType);
+        IDataResult<IList<Library>> GetAllByLibraryInCountryId(int countryId);
+        IDataResult<IList<Library>> GetAllByLibraryInCountryName(string countryName);
+        IDataResult<IList<Library>> GetAllByLibraryInCountryCode(string countryCode);
+        IDataResult<IList<Library>> GetAllByLibraryInCityId(int cityId);
+        IDataResult<IList<Library>> GetAllByLibraryInCityName(string cityName);
+        IDataResult<IList<Library>> GetAllByLibraryInPostalCode(string postalCode);
+        IDataResult<IList<Library>> GetAllByLibraryInGeoLocation(string geoLoc);
         IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryLibraryType();
     }
 }

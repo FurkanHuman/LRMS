@@ -8,10 +8,10 @@ namespace Business.Abstract
     {
         IDataResult<NewsPaper> GetByImage(Guid imageId);
 
-        IDataResult<List<NewsPaper>> GetAllByDate(DateTime date);
+        IDataResult<IList<NewsPaper>> GetAllByDate(DateTime date);
 
-        IDataResult<List<NewsPaper>> GetAllByNewsPaperName(string newPaperName);
+        IDataResult<IList<NewsPaper>> GetAllByNewsPaperName(string newPaperName);
 
-        IDataResult<List<NewsPaper>> GetAllByNewsPaperNumber(uint number);
+        IDataResult<IList<NewsPaper>> GetAllByNewsPaperNumber(uint number);
     }
 }

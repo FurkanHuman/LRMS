@@ -6,10 +6,10 @@ namespace Business.Abstract
 {
     public interface IAddressService : IBaseEntityService<Address, Guid>
     {
-        IDataResult<List<Address>> GetAllByPostalCode(string postalCode);
-        IDataResult<List<Address>> GetAllByCityId(int cityId);
-        IDataResult<List<Address>> GetAllByCountryId(int countryId);
-        IDataResult<List<Address>> GetAllByGeoLocation(string geoLocation);
-        IDataResult<List<Address>> GetAllBySearchString(string searchStr);
+        IDataResult<IList<Address>> GetAllByPostalCode(string postalCode);
+        IDataResult<IList<Address>> GetAllByCityId(int cityId);
+        IDataResult<IList<Address>> GetAllByCountryId(int countryId);
+        IDataResult<IList<Address>> GetAllByGeoLocation(string geoLocation);
+        IDataResult<IList<Address>> GetAllBySearchString(string searchStr);
     }
 }

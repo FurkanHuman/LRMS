@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IElectronicsResourceService : IMaterialBaseService<ElectronicsResource>
     {
-        IDataResult<List<ElectronicsResource>> GetAllByResourceUrlFinderString(string finderStr);
+        IDataResult<IList<ElectronicsResource>> GetAllByResourceUrlFinderString(string finderStr);
     }
 }

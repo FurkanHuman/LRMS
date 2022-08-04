@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface ICountryService : IBaseEntityService<Country, int>
     {
-        IDataResult<List<Country>> GetAllByCountryCode(string countryCode);
+        IDataResult<IList<Country>> GetAllByCountryCode(string countryCode);
     }
 }

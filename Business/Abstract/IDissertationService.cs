@@ -7,11 +7,11 @@ namespace Business.Abstract
     public interface IDissertationService : IMaterialBaseService<Dissertation>
     {
         IDataResult<Dissertation> GetByApprovalStatus(Guid id);
-        IDataResult<List<Dissertation>> GetAllByCity(int cityId);
-        IDataResult<List<Dissertation>> GetAllByCountry(int countryId);
-        IDataResult<List<Dissertation>> GetAllByDateTimeYear(ushort year, ushort? yearMax = null);
-        IDataResult<List<Dissertation>> GetAllByDissertationNumber(int dissertationNumber);
-        IDataResult<List<Dissertation>> GetAllByLanguage(int languageId);
-        IDataResult<List<Dissertation>> GetAllByUniversity(Guid universityId);
+        IDataResult<IList<Dissertation>> GetAllByCity(int cityId);
+        IDataResult<IList<Dissertation>> GetAllByCountry(int countryId);
+        IDataResult<IList<Dissertation>> GetAllByDateTimeYear(ushort year, ushort? yearMax = null);
+        IDataResult<IList<Dissertation>> GetAllByDissertationNumber(int dissertationNumber);
+        IDataResult<IList<Dissertation>> GetAllByLanguage(int languageId);
+        IDataResult<IList<Dissertation>> GetAllByUniversity(Guid universityId);
     }
 }

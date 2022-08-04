@@ -6,9 +6,9 @@ namespace Business.Abstract
 {
     public interface IPosterService : IMaterialBaseService<Poster>
     {
-        IDataResult<List<Poster>> GetAllByOwnerId(Guid ownerId);
-        IDataResult<List<Poster>> GetAllByOwnersId(Guid[] ownerIds);
-        IDataResult<List<Poster>> GetAllByDestroyState(bool state);
+        IDataResult<IList<Poster>> GetAllByOwnerId(Guid ownerId);
+        IDataResult<IList<Poster>> GetAllByOwnersId(Guid[] ownerIds);
+        IDataResult<IList<Poster>> GetAllByDestroyState(bool state);
         IDataResult<Poster> GetByImageId(Guid imageId);
     }
 }

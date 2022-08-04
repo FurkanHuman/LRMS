@@ -6,10 +6,10 @@ namespace Business.Abstract
 {
     public interface IAudioRecordService : IMaterialBaseService<AudioRecord>
     {
-        IDataResult<List<AudioRecord>> GetAllByOwnerName(string name);
-        IDataResult<List<AudioRecord>> GetAllByRecordDate(DateTime recordDate);
-        IDataResult<List<AudioRecord>> GetAllByRecordDate(DateTime recordDate, DateTime recordEndDate);
-        IDataResult<List<AudioRecord>> GetAllByRecordingLength(float recordingLength);
-        IDataResult<List<AudioRecord>> GetAllByRecordingLength(float recordingLengthMin, float recordingLengthMax);
+        IDataResult<IList<AudioRecord>> GetAllByOwnerName(string name);
+        IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate);
+        IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate, DateTime recordEndDate);
+        IDataResult<IList<AudioRecord>> GetAllByRecordingLength(float recordingLength);
+        IDataResult<IList<AudioRecord>> GetAllByRecordingLength(float recordingLengthMin, float recordingLengthMax);
     }
 }

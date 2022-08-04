@@ -6,7 +6,7 @@ namespace Business.Abstract
 {
     public interface IBookService : IBasePaperService<Book>
     {
-        IDataResult<List<Book>> GetAllByOriginalBookName(string originalBookName);
-        IDataResult<List<Book>> GetAllByReference(Guid referenceId);
+        IDataResult<IList<Book>> GetAllByOriginalBookName(string originalBookName);
+        IDataResult<IList<Book>> GetAllByReference(Guid referenceId);
     }
 }

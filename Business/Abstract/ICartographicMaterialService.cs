@@ -7,7 +7,7 @@ namespace Business.Abstract
     public interface ICartographicMaterialService : IMaterialBaseService<CartographicMaterial>
     {
         IDataResult<CartographicMaterial> GetAllByImageId(Guid imageId);
-        IDataResult<List<CartographicMaterial>> GetAllByImageIds(Guid[] imageIds);
-        IDataResult<List<CartographicMaterial>> GetAllByDate(DateTime dateTimeMin, DateTime? dateTimeMax);
+        IDataResult<IList<CartographicMaterial>> GetAllByImageIds(Guid[] imageIds);
+        IDataResult<IList<CartographicMaterial>> GetAllByDate(DateTime dateTimeMin, DateTime? dateTimeMax);
     }
 }

@@ -6,19 +6,18 @@ namespace Business.Abstract.Base
 {
     public interface IBasePaperService<T> : IMaterialBaseService<T> where T : BasePaper, IEntity, new()
     {
-        // list to IEnumrable change after
         IDataResult<T> GetByCoverImage(Guid cImageId);
-        IDataResult<List<T>> GetAllByCoverCap(byte coverCapNum);
-        IDataResult<List<T>> GetAllByCommunication(Guid communicationId);
-        IDataResult<List<T>> GetAllByDirector(Guid directorId);
-        IDataResult<List<T>> GetAllByEditor(Guid editorId);
-        IDataResult<List<T>> GetAllByEdition(Guid editionId);
-        IDataResult<List<T>> GetAllByGraphicDirector(Guid graphicDirectorId);
-        IDataResult<List<T>> GetAllByGraphicDesign(Guid graphicDesignId);
-        IDataResult<List<T>> GetAllByInterpreter(Guid interpreterId);
-        IDataResult<List<T>> GetAllByPublisher(Guid publisherId);
-        IDataResult<List<T>> GetAllByTechnicalNumber(Guid technicalNumberId);
-        IDataResult<List<T>> GetAllByRedaction(Guid redactionId);
-        IDataResult<List<T>> GetAllByWriter(Guid writerId);
+        IDataResult<IList<T>> GetAllByCoverCap(byte coverCapNum);
+        IDataResult<IList<T>> GetAllByCommunication(Guid communicationId);
+        IDataResult<IList<T>> GetAllByDirector(Guid directorId);
+        IDataResult<IList<T>> GetAllByEditor(Guid editorId);
+        IDataResult<IList<T>> GetAllByEdition(Guid editionId);
+        IDataResult<IList<T>> GetAllByGraphicDirector(Guid graphicDirectorId);
+        IDataResult<IList<T>> GetAllByGraphicDesign(Guid graphicDesignId);
+        IDataResult<IList<T>> GetAllByInterpreter(Guid interpreterId);
+        IDataResult<IList<T>> GetAllByPublisher(Guid publisherId);
+        IDataResult<IList<T>> GetAllByTechnicalNumber(Guid technicalNumberId);
+        IDataResult<IList<T>> GetAllByRedaction(Guid redactionId);
+        IDataResult<IList<T>> GetAllByWriter(Guid writerId);
     }
 }

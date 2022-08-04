@@ -7,12 +7,12 @@ namespace Business.Abstract
     public interface IUniversityService : IBaseEntityService<University, Guid>
     {
         IDataResult<University> GetByAddressId(Guid id);
-        IDataResult<List<University>> GetAllByBranchId(int branchId);
-        IDataResult<List<University>> GetAllByBranchName(string branchName);
-        IDataResult<List<University>> GetAllByCityId(int cityId);
-        IDataResult<List<University>> GetAllByCityName(string cityName);
-        IDataResult<List<University>> GetAllByCountryId(int countryId);
-        IDataResult<List<University>> GetAllByCountryName(string countryName);
-        IDataResult<List<University>> GetAllByInstituteName(string instituteName);
+        IDataResult<IList<University>> GetAllByBranchId(int branchId);
+        IDataResult<IList<University>> GetAllByBranchName(string branchName);
+        IDataResult<IList<University>> GetAllByCityId(int cityId);
+        IDataResult<IList<University>> GetAllByCityName(string cityName);
+        IDataResult<IList<University>> GetAllByCountryId(int countryId);
+        IDataResult<IList<University>> GetAllByCountryName(string countryName);
+        IDataResult<IList<University>> GetAllByInstituteName(string instituteName);
     }
 }

@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface IReferenceService : IBaseEntityService<Reference, Guid>
     {
-        IDataResult<List<Reference>> GetAllByOwner(string ownerStr);
-        IDataResult<List<Reference>> GetAllByReferenceDate(DateTime date);
-        IDataResult<List<Reference>> GetAllBySubText(string subText);
+        IDataResult<IList<Reference>> GetAllByOwner(string ownerStr);
+        IDataResult<IList<Reference>> GetAllByReferenceDate(DateTime date);
+        IDataResult<IList<Reference>> GetAllBySubText(string subText);
     }
 }

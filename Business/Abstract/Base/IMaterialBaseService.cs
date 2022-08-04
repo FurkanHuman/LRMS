@@ -9,14 +9,12 @@ namespace Business.Abstract.Base
         IDataResult<byte?> GetSecretLevel(Guid id);
         IDataResult<byte> GetState(Guid id);
         IDataResult<T> GetByStock(Guid stockId);
-
-        // list to IEnumrable change after
-        IDataResult<List<T>> GetAllByCategories(int[] categoriesId);
-        IDataResult<List<T>> GetAllByDescriptionFinder(string finderString);
-        IDataResult<List<T>> GetAllByDimension(Guid dimensionId);
-        IDataResult<List<T>> GetAllByEMFile(Guid eMFileId);
-        IDataResult<List<T>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null);
-        IDataResult<List<T>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId);
-        IDataResult<List<T>> GetAllByTitle(string title);
+        IDataResult<IList<T>> GetAllByCategories(int[] categoriesId);
+        IDataResult<IList<T>> GetAllByDescriptionFinder(string finderString);
+        IDataResult<IList<T>> GetAllByDimension(Guid dimensionId);
+        IDataResult<IList<T>> GetAllByEMFile(Guid eMFileId);
+        IDataResult<IList<T>> GetAllByPrice(decimal minPrice, decimal? maxPrice = null);
+        IDataResult<IList<T>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId);
+        IDataResult<IList<T>> GetAllByTitle(string title);
     }
 }

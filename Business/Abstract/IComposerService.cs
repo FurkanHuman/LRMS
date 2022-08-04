@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IComposerService : IFirstPersonBaseService<Composer>
     {
-        IDataResult<List<Composer>> GetAllByNamePreAttachment(string namePreAttachment);
+        IDataResult<IList<Composer>> GetAllByNamePreAttachment(string namePreAttachment);
     }
 }

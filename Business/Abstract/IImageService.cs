@@ -12,9 +12,9 @@ namespace Business.Abstract
         IResult ShadowDelete(Guid id);
         IDataResult<Image> Update(IFormFile file, Image image);
         IDataResult<Image> GetById(Guid id);
-        IDataResult<List<Image>> GetAllByIds(Guid[] ids);
-        IDataResult<List<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null);
-        IDataResult<List<Image>> GetAllBySecret();
-        IDataResult<List<Image>> GetAll();
+        IDataResult<IList<Image>> GetAllByIds(Guid[] ids);
+        IDataResult<IList<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null);
+        IDataResult<IList<Image>> GetAllBySecret();
+        IDataResult<IList<Image>> GetAll();
     }
 }

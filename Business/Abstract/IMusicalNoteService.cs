@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface IMusicalNoteService : IMaterialBaseService<MusicalNote>
     {
-        IDataResult<List<MusicalNote>> GetAllByComposer(Guid composerId);
-        IDataResult<List<MusicalNote>> GetAllByComposers(Guid[] composerIds);
-        IDataResult<List<MusicalNote>> GetAllByDateOfWriting(DateTime dateOfWriting);
+        IDataResult<IList<MusicalNote>> GetAllByComposer(Guid composerId);
+        IDataResult<IList<MusicalNote>> GetAllByComposers(Guid[] composerIds);
+        IDataResult<IList<MusicalNote>> GetAllByDateOfWriting(DateTime dateOfWriting);
     }
 }

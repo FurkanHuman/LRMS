@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface IStockService : IBaseEntityService<Stock, Guid>
     {
-        IDataResult<List<Stock>> GetAllByLibrary(Guid libraryId);
-        IDataResult<List<Stock>> GetAllByStockCode(string stockCode);
-        IDataResult<List<Stock>> GetAllByQuanty(uint quantity);
+        IDataResult<IList<Stock>> GetAllByLibrary(Guid libraryId);
+        IDataResult<IList<Stock>> GetAllByStockCode(string stockCode);
+        IDataResult<IList<Stock>> GetAllByQuanty(uint quantity);
     }
 }

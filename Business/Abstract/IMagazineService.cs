@@ -6,8 +6,8 @@ namespace Business.Abstract
 {
     public interface IMagazineService : IBasePaperService<Magazine>
     {
-        IDataResult<List<Magazine>> GetAllByMagazineType(byte magazineType);
-        IDataResult<List<Magazine>> GetAllByVolume(uint volume);
+        IDataResult<IList<Magazine>> GetAllByMagazineType(byte magazineType);
+        IDataResult<IList<Magazine>> GetAllByVolume(uint volume);
         IDataResult<Dictionary<byte, string>> GetAllEnumToDictionaryMagazineType();
     }
 }

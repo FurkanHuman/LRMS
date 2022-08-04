@@ -6,8 +6,6 @@ namespace Business.Abstract.Base
 {
     public interface IFirstPersonBaseDtoService<D> : IBaseDtoService<D, Guid> where D : FirstPagePersonBaseDto, IDto, new()
     {
-
-        // list to IEnumrable change after
-        IDataResult<List<D>> DtoGetAllBySurname(string surname);
+        IDataResult<IList<D>> DtoGetAllBySurname(string surname);
     }
 }

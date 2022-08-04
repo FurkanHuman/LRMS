@@ -6,19 +6,18 @@ namespace Business.Abstract.Base
 {
     public interface IBasePaperDtoService<D> : IMaterialBaseDtoService<D> where D : BasePaperDto, IDto, new()
     {
-        // list to IEnumrable change after
         IDataResult<D> DtoGetByCoverImage(Guid CImageId);
-        IDataResult<List<D>> DtoGetAllByWriter(Guid writerId);
-        IDataResult<List<D>> DtoGetAllByEditor(Guid editorId);
-        IDataResult<List<D>> DtoGetAllByDirector(Guid directorId);
-        IDataResult<List<D>> DtoGetAllByGraphicDirector(Guid graphicDirectorId);
-        IDataResult<List<D>> DtoGetAllByGraphicDesign(Guid graphicDesignId);
-        IDataResult<List<D>> DtoGetAllByRedaction(Guid redactionId);
-        IDataResult<List<D>> DtoGetAllByInterpreter(Guid InterpreterId);
-        IDataResult<List<D>> DtoGetAllByTechnicalNumber(Guid technicalNumberId);
-        IDataResult<List<D>> DtoGetAllByCommunication(Guid communicationId);
-        IDataResult<List<D>> DtoGetAllByEdition(Guid editionNum);
-        IDataResult<List<D>> DtoGetAllByPublisher(Guid publisherNum);
-        IDataResult<List<D>> DtoGetAllByCoverCap(int CoverCapNum);
+        IDataResult<IList<D>> DtoGetAllByWriter(Guid writerId);
+        IDataResult<IList<D>> DtoGetAllByEditor(Guid editorId);
+        IDataResult<IList<D>> DtoGetAllByDirector(Guid directorId);
+        IDataResult<IList<D>> DtoGetAllByGraphicDirector(Guid graphicDirectorId);
+        IDataResult<IList<D>> DtoGetAllByGraphicDesign(Guid graphicDesignId);
+        IDataResult<IList<D>> DtoGetAllByRedaction(Guid redactionId);
+        IDataResult<IList<D>> DtoGetAllByInterpreter(Guid InterpreterId);
+        IDataResult<IList<D>> DtoGetAllByTechnicalNumber(Guid technicalNumberId);
+        IDataResult<IList<D>> DtoGetAllByCommunication(Guid communicationId);
+        IDataResult<IList<D>> DtoGetAllByEdition(Guid editionNum);
+        IDataResult<IList<D>> DtoGetAllByPublisher(Guid publisherNum);
+        IDataResult<IList<D>> DtoGetAllByCoverCap(int CoverCapNum);
     }
 }

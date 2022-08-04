@@ -6,9 +6,9 @@ namespace Business.Abstract
 {
     public interface IPaintingService : IMaterialBaseService<Painting>
     {
-        IDataResult<List<Painting>> GetAllByOwnerId(Guid ownerId);
-        IDataResult<List<Painting>> GetAllByOwnersId(Guid[] ownerIds);
-        IDataResult<List<Painting>> GetAllByDestroyState(bool state);
+        IDataResult<IList<Painting>> GetAllByOwnerId(Guid ownerId);
+        IDataResult<IList<Painting>> GetAllByOwnersId(Guid[] ownerIds);
+        IDataResult<IList<Painting>> GetAllByDestroyState(bool state);
         IDataResult<Painting> GetByImageId(Guid imageId);
     }
 }
