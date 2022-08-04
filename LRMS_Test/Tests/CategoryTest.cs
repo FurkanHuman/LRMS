@@ -1,9 +1,4 @@
-﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete;
-using Entities.Concrete.Infos;
-
-namespace LRMS_Test.Tests
+﻿namespace LRMS_Test.Tests
 {
     // [TestClass]
     public class CategoryTest
@@ -91,7 +86,7 @@ namespace LRMS_Test.Tests
         [TestMethod]
         public void GetAllBySecret()
         {
-            var testGetAllBySecrets = _categoryService.GetAllBySecret();
+            var testGetAllBySecrets = _categoryService.GetAllByIsDeleted();
 
             Assert.IsTrue(testGetAllBySecrets.Success, "Get All By Secrets Test Success");
         }
