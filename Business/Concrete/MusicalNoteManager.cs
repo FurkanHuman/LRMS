@@ -70,7 +70,7 @@ namespace Business.Concrete
 
         public IDataResult<List<MusicalNote>> GetAll()
         {
-            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => !mn.IsSecret).ToList(), MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => !mn.IsDeleted).ToList(), MusicalNoteConstants.DataGet);
         }
 
         public IDataResult<List<MusicalNote>> GetAllByCategories(int[] categoriesId)
@@ -183,7 +183,7 @@ namespace Business.Concrete
 
         public IDataResult<List<MusicalNote>> GetAllBySecret()
         {
-            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => mn.IsSecret).ToList(), MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<List<MusicalNote>>(_musicalNoteDal.GetAll(mn => mn.IsDeleted).ToList(), MusicalNoteConstants.DataGet);
         }
 
         public IDataResult<List<MusicalNote>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
@@ -237,7 +237,7 @@ namespace Business.Concrete
 
         public IDataResult<byte> GetState(Guid id)
         {
-            return new SuccessDataResult<byte>(_musicalNoteDal.Get(mn => !mn.IsSecret).State, MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<byte>(_musicalNoteDal.Get(mn =>mn.Id ==id && !mn.IsDeleted).State, MusicalNoteConstants.DataGet);
         }
 
         private IResult MusicalNoteControl(MusicalNote musicalNote)
