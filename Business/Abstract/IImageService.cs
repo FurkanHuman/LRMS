@@ -14,7 +14,7 @@ namespace Business.Abstract
         IDataResult<Image> GetById(Guid id);
         IDataResult<IList<Image>> GetAllByIds(Guid[] ids);
         IDataResult<IList<Image>> GetAllByFilter(Expression<Func<Image, bool>>? filter = null);
-        IDataResult<IList<Image>> GetAllBySecret();
+        IDataResult<IList<Image>> GetAllByIsDeleted();
         IDataResult<IList<Image>> GetAll();
     }
 }

@@ -15,7 +15,7 @@ namespace Business.Abstract
         IDataResult<IList<EMaterialFile>> GetAllByIds(Guid[] ids);
         IDataResult<IList<EMaterialFile>> GetAllByName(string name);
         IDataResult<IList<EMaterialFile>> GetAllByFilter(Expression<Func<EMaterialFile, bool>>? filter = null);
-        IDataResult<IList<EMaterialFile>> GetAllBySecret();
+        IDataResult<IList<EMaterialFile>> GetAllByIsDeleted();
         IDataResult<IList<EMaterialFile>> GetAll();
     }
 }

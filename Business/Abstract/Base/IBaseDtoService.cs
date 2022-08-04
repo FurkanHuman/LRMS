@@ -11,7 +11,7 @@ namespace Business.Abstract.Base
         IDataResult<D> DtoGetById(I id);
         IDataResult<IList<D>> DtoGetAllByIds(I[] ids);
         IDataResult<IList<D>> DtoGetAllByName(string name);
-        IDataResult<IList<D>> DtoGetAllBySecret();
+        IDataResult<IList<D>> DtoGetAllByIsDeleted();
         IDataResult<IList<D>> DtoGetAll();
     }
 }
