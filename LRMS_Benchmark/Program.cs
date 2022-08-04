@@ -9,15 +9,14 @@ using DataAccess.Concrete;
 using Entities.Concrete.Infos;
 using Microsoft.Extensions.Hosting;
 
-namespace LRMS_Benchmark_CLI
+namespace LRMS_Benchmark
 {
     public class Program
     {
-        private readonly EfCategoryDal _efCategoryDal = new();
-        private readonly EfCategoryDal _iefCategoryDal = new();
+        private readonly EfWriterDal _efCategoryDal = new();
 
         [Benchmark]
-        public void IGetAllBechMark() => _iefCategoryDal.IGetAll();
+        public void IGetAllBechMark() => _efCategoryDal.IGetAll();
 
         [Benchmark]
         public void GetAllBechMark() => _efCategoryDal.GetAll();

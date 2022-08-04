@@ -17,6 +17,11 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
+    <ProjectReference Include="..\LRMS\LRMS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Benchmarks\" />
   </ItemGroup>
 
 </Project>
