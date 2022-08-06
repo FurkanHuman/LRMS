@@ -94,7 +94,7 @@ namespace Business.Concrete
             if (!image.Success)
                 return image;
 
-            IResult imageUpdateResult =_facadeService.ImageService().Update(formFile, image.Data);
+            IResult imageUpdateResult = _facadeService.ImageService().Update(formFile, image.Data);
             if (!imageUpdateResult.Success)
                 return imageUpdateResult;
 

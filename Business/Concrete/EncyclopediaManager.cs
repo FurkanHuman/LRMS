@@ -94,7 +94,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByCommunication(Guid communicationId)
         {
-            IDataResult<Edition> edition = _facadeService. EditionService().GetByCommunicationId(communicationId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByCommunicationId(communicationId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
@@ -106,7 +106,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByCoverCap(byte coverCapNum)
         {
-            IDataResult<CoverCap> coverCap = _facadeService. CoverCapService().GetById(coverCapNum);
+            IDataResult<CoverCap> coverCap = _facadeService.CoverCapService().GetById(coverCapNum);
             if (!coverCap.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(coverCap.Message);
 
@@ -118,7 +118,7 @@ namespace Business.Concrete
 
         public IDataResult<Encyclopedia> GetByCoverImage(Guid cImageId)
         {
-            IDataResult<Image> image = _facadeService. ImageService().GetById(cImageId);
+            IDataResult<Image> image = _facadeService.ImageService().GetById(cImageId);
             if (!image.Success)
                 return new ErrorDataResult<Encyclopedia>(image.Message);
 
@@ -150,7 +150,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByDirector(Guid directorId)
         {
-            IDataResult<Director> director = _facadeService. DirectorService().GetById(directorId);
+            IDataResult<Director> director = _facadeService.DirectorService().GetById(directorId);
             if (!director.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(director.Message);
 
@@ -162,7 +162,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByEdition(Guid editionId)
         {
-            IDataResult<Edition> edition = _facadeService. EditionService() .GetById(editionId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetById(editionId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
@@ -174,7 +174,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByEditor(Guid editorId)
         {
-            IDataResult<Editor> redaction = _facadeService. EditorService().GetById(editorId);
+            IDataResult<Editor> redaction = _facadeService.EditorService().GetById(editorId);
             if (!redaction.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(redaction.Message);
 
@@ -210,7 +210,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
-            IDataResult<GraphicDirector> graphicDirector = _facadeService. GraphicDirectorService().GetById(graphicDirectorId);
+            IDataResult<GraphicDirector> graphicDirector = _facadeService.GraphicDirectorService().GetById(graphicDirectorId);
             if (!graphicDirector.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(graphicDirector.Message);
 
@@ -238,7 +238,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByInterpreter(Guid interpreterId)
         {
-            IDataResult<Interpreters> interpreter = _facadeService. InterpretersService().GetById(interpreterId);
+            IDataResult<Interpreters> interpreter = _facadeService.InterpretersService().GetById(interpreterId);
             if (!interpreter.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(interpreter.Message);
 
@@ -269,7 +269,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByPublisher(Guid publisherId)
         {
-            IDataResult<Edition> edition = _facadeService. EditionService().GetByPublisherId(publisherId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByPublisherId(publisherId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(edition.Message);
 
@@ -281,7 +281,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByRedaction(Guid redactionId)
         {
-            IDataResult<Redaction> redaction = _facadeService. RedactionService().GetById(redactionId);
+            IDataResult<Redaction> redaction = _facadeService.RedactionService().GetById(redactionId);
             if (!redaction.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(redaction.Message);
 
@@ -301,7 +301,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
-            IDataResult<TechnicalNumber> techNumber = _facadeService. TechnicalNumberService().GetById(technicalNumberId);
+            IDataResult<TechnicalNumber> techNumber = _facadeService.TechnicalNumberService().GetById(technicalNumberId);
             if (!techNumber.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(techNumber.Message);
 
@@ -313,7 +313,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Encyclopedia>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> techPlaceHol = _facadeService. TechnicalPlaceholderService().GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlaceHol = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHol.Success)
                 return new ErrorDataResult<IList<Encyclopedia>>(techPlaceHol.Message);
 
@@ -358,7 +358,7 @@ namespace Business.Concrete
 
         public IDataResult<Encyclopedia> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _facadeService. StockService().GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Encyclopedia>(stock.Message);
 

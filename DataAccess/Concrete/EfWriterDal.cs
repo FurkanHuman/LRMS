@@ -3,7 +3,6 @@ using DataAccess.Abstract;
 using DataAccess.Contexts;
 using Entities.Concrete.Infos;
 using Entities.DTOs.Infos;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace DataAccess.Concrete
@@ -30,7 +29,7 @@ namespace DataAccess.Concrete
             using PostgreDbContext context = new();
 
             IQueryable<WriterDto> wDto =
-                
+
                 from dw in filter is null
                       ? context.Writers
                       : context.Writers.Where(filter)

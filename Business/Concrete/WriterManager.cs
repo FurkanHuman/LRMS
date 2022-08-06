@@ -97,11 +97,11 @@ namespace Business.Concrete
 
         public IDataResult<WriterDto> DtoGetById(Guid id)
         {
-            WriterDto dtoWriter = _writerDal.DtoGet(dw=>dw.Id==id);
-            return dtoWriter==null
+            WriterDto dtoWriter = _writerDal.DtoGet(dw => dw.Id == id);
+            return dtoWriter == null
                 ? new ErrorDataResult<WriterDto>(WriterConstants.DataNotGet)
-                : new SuccessDataResult<WriterDto>(dtoWriter,WriterConstants.DataGet);
-      
+                : new SuccessDataResult<WriterDto>(dtoWriter, WriterConstants.DataGet);
+
         }
 
         public IDataResult<IList<Writer>> GetAllByIds(Guid[] ids)

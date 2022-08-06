@@ -242,7 +242,7 @@ namespace Business.Concrete
             IDataResult<IList<Address>> addresses = _addressService.GetAllByPostalCode(postalCode);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
-            List<Library> libraries=new();
+            List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
                 Library library = _libraryDal.Get(l => l.Address == address && !l.IsDestroyed);
@@ -260,7 +260,7 @@ namespace Business.Concrete
             IDataResult<IList<Address>> addresses = _addressService.GetAllByGeoLocation(geoLoc);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
-            List<Library> libraries=new();
+            List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
                 Library library = _libraryDal.Get(l => l.Address == address && !l.IsDestroyed);
