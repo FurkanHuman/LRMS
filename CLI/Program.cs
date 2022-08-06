@@ -8,7 +8,22 @@ using Entities.Concrete.Infos;
 
 Console.WriteLine("Hello, World!");
 
-//WriterManager writerManager = new(new EfWriterDal());
+WriterManager writerManager = new(new EfWriterDal());
+int count = 0;
+foreach (var item in writerManager.DtoGetAll().Data)
+{
+    count++;
+}
+Console.WriteLine(count);
+
+
+
+
+
+
+
+
+
 
 //using StreamReader reader = new("random_names_fossbytes.txt");
 //using StreamReader readerdegree = new("degress.txt");
