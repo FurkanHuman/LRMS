@@ -18,7 +18,9 @@ namespace Business.ValidationRules.FluentValidation.Base
             RuleFor(mb => mb.Description).MinimumLength(3).MaximumLength(500).WithMessage(BaseConstants.DescriptionLengthRangeMinMax);
             RuleFor(mb => mb.CategoryId).NotEmpty().NotNull().WithMessage(BaseConstants.CategoryIdRequired);
             RuleFor(mb => mb.TechnicalPlaceholdersId).NotEmpty().NotNull().WithMessage(BaseConstants.TechnicalPlaceholdersIdRequired);
-            RuleFor(mb => mb.Stock).NotEmpty().NotNull().WithMessage(BaseConstants.StockRequired); // todo structure may change in the future
+            RuleFor(mb => mb.StockId).NotEmpty().NotNull().WithMessage(BaseConstants.StockIdRequired);
+            RuleFor(mb => mb.CounterId).NotEmpty().NotNull().WithMessage(BaseConstants.CounterIdRequired);
+
         }
     }
 }

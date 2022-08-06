@@ -16,6 +16,7 @@ namespace Business.DependencyResolvers.Facade
         private readonly ICommunicationService _communicationService;
         private readonly IComposerService _composerService;
         private readonly IConsultantService _consultantService;
+        private readonly ICounterService _counterService;
         private readonly ICountryService _countryService;
         private readonly ICoverCapService _coverCapService;
         private readonly IDepictionService _depictionService;
@@ -68,6 +69,7 @@ namespace Business.DependencyResolvers.Facade
                              ICommunicationService communicationService,
                              IComposerService composerService,
                              IConsultantService consultantService,
+                             ICounterService counterService,
                              ICountryService countryService,
                              ICoverCapService coverCapService,
                              IDepictionService depictionService,
@@ -118,6 +120,7 @@ namespace Business.DependencyResolvers.Facade
             _communicationService = communicationService;
             _composerService = composerService;
             _consultantService = consultantService;
+            _counterService = counterService;
             _countryService = countryService;
             _coverCapService = coverCapService;
             _depictionService = depictionService;
@@ -169,6 +172,7 @@ namespace Business.DependencyResolvers.Facade
         public ICommunicationService CommunicationService() => _communicationService;
         public IComposerService ComposerService() => _composerService;
         public IConsultantService ConsultantService() => _consultantService;
+        public ICounterService CounterService() => _counterService;
         public ICountryService CountryService() => _countryService;
         public ICoverCapService CoverCapService() => _coverCapService;
         public IDepictionService DepictionService() => _depictionService;

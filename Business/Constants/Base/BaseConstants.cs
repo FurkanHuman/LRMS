@@ -60,7 +60,8 @@
         public const string ResearcherIdRequired = "ResearcherId is required";
         public const string OtherPeopleIdRequired = "OtherPeopleId is required";
         public const string PublisherIdRequired = "Publisher Id is Required";
-        public const string StockRequired = "Stock is Required";
+        public const string StockIdRequired = "Stock Id is Required";
         public const string ConsultantIdRequired = "Consultant Id is Required";
+        public const string CounterIdRequired = "Counter Id is Required";
     }
 }

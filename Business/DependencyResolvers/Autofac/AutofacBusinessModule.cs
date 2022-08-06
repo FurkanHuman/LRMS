@@ -49,6 +49,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ConsultantManager>().As<IConsultantService>().SingleInstance();
             builder.RegisterType<EfConsultantDal>().As<IConsultantDal>().SingleInstance();
 
+            builder.RegisterType<CounterManager>().As<ICounterService>().SingleInstance();
+            builder.RegisterType<EfCounterDal>().As<ICounterDal>().SingleInstance();
+
             builder.RegisterType<CountryManager>().As<ICountryService>().SingleInstance();
             builder.RegisterType<EfCountryDal>().As<ICountryDal>().SingleInstance();
 

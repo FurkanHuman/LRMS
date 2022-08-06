@@ -25,6 +25,7 @@ namespace DataAccess.Contexts
         public DbSet<Communication> Communications { get; set; }
         public DbSet<Composer> Composers { get; set; }
         public DbSet<Consultant> Consultants { get; set; }
+        public DbSet<Counter> Counters { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<CoverCap> CoverCaps { get; set; }
         public DbSet<Dimension> Dimensions { get; set; }

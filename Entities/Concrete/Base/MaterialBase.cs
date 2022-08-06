@@ -26,6 +26,9 @@ namespace Entities.Concrete.Base
         [Required]
         public Guid StockId { get; set; }
 
+        [Required]
+        public Guid CounterId { get; set; }
+
         public Guid? DimensionsId { get; set; }
 
         public Guid? EMaterialFilesId { get; set; }
@@ -39,6 +42,8 @@ namespace Entities.Concrete.Base
         public bool IsDeleted { get; set; }
 
         public Stock Stock { get; set; }
+
+        public Counter Counter { get; set; }
 
         public IList<Category> Categories { get; set; }
 

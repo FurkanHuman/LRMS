@@ -28,6 +28,8 @@ namespace Business.DependencyResolvers.Facade
 
         IConsultantService ConsultantService();
 
+        ICounterService CounterService();
+
         ICountryService CountryService();
 
         ICoverCapService CoverCapService();
