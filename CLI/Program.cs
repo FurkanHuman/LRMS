@@ -9,14 +9,13 @@ using Entities.Concrete.Infos;
 Console.WriteLine("Hello, World!");
 
 WriterManager writerManager = new(new EfWriterDal());
-int count = 0;
-foreach (var item in writerManager.DtoGetAll().Data)
+
+IList<Guid> guids = writerManager.GetAll().Data.Select(c => c.Id).ToList();
+
+foreach (Guid item in guids)
 {
-    count++;
+    Console.WriteLine(item.ToString());
 }
-Console.WriteLine(count);
-
-
 
 
 
