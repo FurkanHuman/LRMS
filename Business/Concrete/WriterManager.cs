@@ -97,16 +97,11 @@ namespace Business.Concrete
 
         public IDataResult<WriterDto> DtoGetById(Guid id)
         {
-            IDataResult<Writer> writerResult = GetById(id);
-            return !writerResult.Success
-                ? new ErrorDataResult<WriterDto>(writerResult.Message)
-                : new SuccessDataResult<WriterDto>(new WriterDto
-                {
-                    Id = writerResult.Data.Id,
-                    Name = writerResult.Data.Name,
-                    SurName = writerResult.Data.SurName,
-                    NamePreAttachment = writerResult.Data.NamePreAttachment
-                }, writerResult.Message);
+            WriterDto dtoWriter = _writerDal.DtoGet(dw=>dw.Id==id);
+            return dtoWriter==null
+                ? new ErrorDataResult<WriterDto>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<WriterDto>(dtoWriter,WriterConstants.DataGet);
+      
         }
 
         public IDataResult<IList<Writer>> GetAllByIds(Guid[] ids)
@@ -119,7 +114,10 @@ namespace Business.Concrete
 
         public IDataResult<IList<WriterDto>> DtoGetAllByIds(Guid[] ids)
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            IList<WriterDto> dtoWriters = _writerDal.DtoGetAll(n => ids.Contains(n.Id) && !n.IsDeleted);
+            return dtoWriters == null
+                ? new ErrorDataResult<IList<WriterDto>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<WriterDto>>(dtoWriters, WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAllByName(string name)
@@ -132,12 +130,15 @@ namespace Business.Concrete
 
         public IDataResult<IList<WriterDto>> DtoGetAllByName(string name)
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            IList<WriterDto> dtoWriters = _writerDal.DtoGetAll(n => n.Name.Contains(name) && !n.IsDeleted);
+            return dtoWriters == null
+                ? new ErrorDataResult<IList<WriterDto>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<WriterDto>>(dtoWriters, WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAllBySurname(string surname)
         {
-            IList<Writer> writers = _writerDal.GetAll(n => n.Name.Contains(surname) && !n.IsDeleted);
+            IList<Writer> writers = _writerDal.GetAll(n => n.SurName.Contains(surname) && !n.IsDeleted);
             return writers == null
                 ? new ErrorDataResult<IList<Writer>>(WriterConstants.DataNotGet)
                 : new SuccessDataResult<IList<Writer>>(writers, WriterConstants.DataGet);
@@ -145,18 +146,26 @@ namespace Business.Concrete
 
         public IDataResult<IList<WriterDto>> DtoGetAllBySurname(string surname)
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            IList<WriterDto> dtoWriters = _writerDal.DtoGetAll(n => n.SurName.Contains(surname) && !n.IsDeleted);
+            return dtoWriters == null
+                ? new ErrorDataResult<IList<WriterDto>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<WriterDto>>(dtoWriters, WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAllNamePreAttachment(string namePreAttachment)
         {
-            return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment)
-            && !n.IsDeleted), WriterConstants.DataGet);
+            IList<Writer> writers = _writerDal.GetAll(n => n.NamePreAttachment.Contains(namePreAttachment) && !n.IsDeleted);
+            return writers == null
+                ? new ErrorDataResult<IList<Writer>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<Writer>>(writers, WriterConstants.DataGet);
         }
 
         public IDataResult<IList<WriterDto>> DtoGetAllNamePreAttachment(string namePreAttachment)
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            IList<WriterDto> dtoWriters = _writerDal.DtoGetAll(n => n.NamePreAttachment.Contains(namePreAttachment) && !n.IsDeleted);
+            return dtoWriters == null
+                ? new ErrorDataResult<IList<WriterDto>>(WriterConstants.DataNotGet)
+                : new SuccessDataResult<IList<WriterDto>>(dtoWriters, WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
@@ -171,7 +180,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<WriterDto>> DtoGetAllByIsDeleted()
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            return new SuccessDataResult<IList<WriterDto>>(_writerDal.DtoGetAll(w => w.IsDeleted), WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAll()
@@ -181,7 +190,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<WriterDto>> DtoGetAll()
         {
-            return new ErrorDataResult<IList<WriterDto>>(WriterConstants.Disabled);
+            return new SuccessDataResult<IList<WriterDto>>(_writerDal.DtoGetAll(w => !w.IsDeleted), WriterConstants.DataGet);
         }
 
         private IResult WriterNameOrSurnameExist(Writer entity)
