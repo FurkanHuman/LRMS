@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,16 +16,13 @@ namespace Business.Concrete
     public class GraphicalImageManager : IGraphicalImageService
     {
         private readonly IGraphicalImageDal _graphicalImageDal;
+        private readonly IFacadeService _facadeService;
 
-        private readonly ICategoryService _categoryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IImageService _imageService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IOtherPeopleService _otherPeopleService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IStockService _stockService;
-
-
+        public GraphicalImageManager(IGraphicalImageDal graphicalImageDal, IFacadeService facadeService)
+        {
+            _graphicalImageDal = graphicalImageDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(GraphicalImageValidator))]
         public IResult Add(GraphicalImage entity)
@@ -88,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<GraphicalImage>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<GraphicalImage>>(categories.Message);
 
@@ -108,7 +106,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<GraphicalImage>> GetAllByDimension(Guid dimensionId)
         {
-            var dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<GraphicalImage>>(dimension.Message);
 
@@ -118,13 +116,13 @@ namespace Business.Concrete
                 : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
         }
 
-        public IDataResult<IList<GraphicalImage>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<GraphicalImage>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFiles = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFiles.Success)
                 return new ErrorDataResult<IList<GraphicalImage>>(eMFiles.Message);
 
-            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.EMaterialFilesId == eMFilesId && !gi.IsDeleted);
+            IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => gi.EMaterialFilesId == eMFileId && !gi.IsDeleted);
             return graphicalImages == null
                 ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
                 : new ErrorDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
@@ -148,7 +146,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicalImage> GetByImage(Guid imageId)
         {
-            IDataResult<Image> image = _imageService.GetById(imageId);
+            IDataResult<Image> image = _facadeService.ImageService().GetById(imageId);
             if (!image.Success)
                 return new ErrorDataResult<GraphicalImage>(image.Message);
 
@@ -176,7 +174,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<GraphicalImage>> GetAllByOtherPeople(Guid otherPeopleId)
         {
-            IDataResult<OtherPeople> otherPeople = _otherPeopleService.GetById(otherPeopleId);
+            IDataResult<OtherPeople> otherPeople = _facadeService.OtherPeopleService().GetById(otherPeopleId);
             if (!otherPeople.Success)
                 return new ErrorDataResult<IList<GraphicalImage>>(otherPeople.Message);
 
@@ -199,7 +197,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<GraphicalImage>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> techPlacehol = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlacehol = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlacehol.Success)
                 return new ErrorDataResult<IList<GraphicalImage>>(techPlacehol.Message);
 
@@ -232,7 +230,7 @@ namespace Business.Concrete
 
         public IDataResult<GraphicalImage> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<GraphicalImage>(stock.Message);
 

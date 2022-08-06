@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,24 +16,13 @@ namespace Business.Concrete
     public class MagazineManager : IMagazineService
     {
         private readonly IMagazineDal _magazineDal;
+        private readonly IFacadeService _facadeService;
 
-        private readonly ICategoryService _categoryService;
-        private readonly ICoverCapService _coverCapService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IDirectorService _directorService;
-        private readonly IEditionService _editionService;
-        private readonly IEditorService _editorService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IGraphicDesignerService _graphicDesignerService;
-        private readonly IGraphicDirectorService _graphicDirectorService;
-        private readonly IImageService _imageService;
-        private readonly IInterpretersService _interpretersService;
-        private readonly IRedactionService _redactionService;
-        private readonly IStockService _stockService;
-        private readonly ITechnicalNumberService _technicalNumberService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IWriterService _writerService;
-
+        public MagazineManager(IMagazineDal magazineDal, IFacadeService facadeService)
+        {
+            _magazineDal = magazineDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(MagazineValidator))]
         public IResult Add(Magazine magazine)
@@ -102,7 +92,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<Magazine>>(categories.Message);
 
@@ -114,7 +104,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByCommunication(Guid communicationId)
         {
-            IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByCommunicationId(communicationId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
@@ -126,7 +116,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByCoverCap(byte coverCapNum)
         {
-            IDataResult<CoverCap> coverCap = _coverCapService.GetById(coverCapNum);
+            IDataResult<CoverCap> coverCap = _facadeService.CoverCapService().GetById(coverCapNum);
             if (!coverCap.Success)
                 return new ErrorDataResult<IList<Magazine>>(coverCap.Message);
 
@@ -138,7 +128,7 @@ namespace Business.Concrete
 
         public IDataResult<Magazine> GetByCoverImage(Guid cImageId)
         {
-            IDataResult<Image> image = _imageService.GetById(cImageId);
+            IDataResult<Image> image = _facadeService.ImageService().GetById(cImageId);
             if (!image.Success)
                 return new ErrorDataResult<Magazine>(image.Message);
 
@@ -159,7 +149,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<Magazine>>(dimension.Message);
 
@@ -171,7 +161,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByDirector(Guid directorId)
         {
-            IDataResult<Director> director = _directorService.GetById(directorId);
+            IDataResult<Director> director = _facadeService.DirectorService().GetById(directorId);
             if (!director.Success)
                 return new ErrorDataResult<IList<Magazine>>(director.Message);
 
@@ -183,7 +173,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByEdition(Guid editionId)
         {
-            IDataResult<Edition> edition = _editionService.GetById(editionId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetById(editionId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
@@ -195,7 +185,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByEditor(Guid editorId)
         {
-            IDataResult<Editor> editor = _editorService.GetById(editorId);
+            IDataResult<Editor> editor = _facadeService.EditorService().GetById(editorId);
             if (!editor.Success)
                 return new ErrorDataResult<IList<Magazine>>(editor.Message);
 
@@ -205,9 +195,9 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<Magazine>>(magazines, MagazineConstants.DataGet);
         }
 
-        public IDataResult<IList<Magazine>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<Magazine>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFiles = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFiles.Success)
                 return new ErrorDataResult<IList<Magazine>>(eMFiles.Message);
 
@@ -219,7 +209,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
-            IDataResult<GraphicDesigner> gdesign = _graphicDesignerService.GetById(graphicDesignId);
+            IDataResult<GraphicDesigner> gdesign = _facadeService.GraphicDesignerService().GetById(graphicDesignId);
             if (!gdesign.Success)
                 return new ErrorDataResult<IList<Magazine>>(gdesign.Message);
 
@@ -231,7 +221,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
-            IDataResult<GraphicDirector> gDirector = _graphicDirectorService.GetById(graphicDirectorId);
+            IDataResult<GraphicDirector> gDirector = _facadeService.GraphicDirectorService().GetById(graphicDirectorId);
             if (!gDirector.Success)
                 return new ErrorDataResult<IList<Magazine>>(gDirector.Message);
 
@@ -261,7 +251,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByInterpreter(Guid interpreterId)
         {
-            IDataResult<Interpreters> interpreters = _interpretersService.GetById(interpreterId);
+            IDataResult<Interpreters> interpreters = _facadeService.InterpretersService().GetById(interpreterId);
             if (!interpreters.Success)
                 return new ErrorDataResult<IList<Magazine>>(interpreters.Message);
 
@@ -302,7 +292,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByPublisher(Guid publisherId)
         {
-            IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByPublisherId(publisherId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Magazine>>(edition.Message);
 
@@ -314,7 +304,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByRedaction(Guid redactionId)
         {
-            IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
+            IDataResult<Redaction> redaction = _facadeService.RedactionService().GetById(redactionId);
             if (!redaction.Success)
                 return new ErrorDataResult<IList<Magazine>>(redaction.Message);
 
@@ -326,7 +316,7 @@ namespace Business.Concrete
 
         public IDataResult<Magazine> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Magazine>(stock.Message);
 
@@ -338,7 +328,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
-            IDataResult<TechnicalNumber> tNumber = _technicalNumberService.GetById(technicalNumberId);
+            IDataResult<TechnicalNumber> tNumber = _facadeService.TechnicalNumberService().GetById(technicalNumberId);
             if (!tNumber.Success)
                 return new ErrorDataResult<IList<Magazine>>(tNumber.Message);
 
@@ -350,7 +340,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> tPHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> tPHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!tPHolder.Success)
                 return new ErrorDataResult<IList<Magazine>>(tPHolder.Message);
 
@@ -380,7 +370,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Magazine>> GetAllByWriter(Guid writerId)
         {
-            IDataResult<Writer> writer = _writerService.GetById(writerId);
+            IDataResult<Writer> writer = _facadeService.WriterService().GetById(writerId);
             if (!writer.Success)
                 return new ErrorDataResult<IList<Magazine>>(writer.Message);
 

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,13 +16,13 @@ namespace Business.Concrete
     public class MusicalNoteManager : IMusicalNoteService
     {
         private readonly IMusicalNoteDal _musicalNoteDal;
-        private readonly ICategoryService _categoryService;
-        private readonly IComposerService _composerService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IStockService _stockService;
+        private readonly IFacadeService _facadeService;
 
+        public MusicalNoteManager(IMusicalNoteDal musicalNoteDal, IFacadeService facadeService)
+        {
+            _musicalNoteDal = musicalNoteDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(MusicalNoteValidator), Priority = 1)]
         public IResult Add(MusicalNote musicalNote)
@@ -75,7 +76,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(categories.Message);
 
@@ -87,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByComposer(Guid composerId)
         {
-            IDataResult<Composer> composer = _composerService.GetById(composerId);
+            IDataResult<Composer> composer = _facadeService.ComposerService().GetById(composerId);
             if (!composer.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(composer.Message);
 
@@ -99,7 +100,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByComposers(Guid[] composerIds)
         {
-            IDataResult<IList<Composer>> composers = _composerService.GetAllByIds(composerIds);
+            IDataResult<IList<Composer>> composers = _facadeService.ComposerService().GetAllByIds(composerIds);
             if (!composers.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(composers.Message);
 
@@ -127,7 +128,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimmension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimmension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimmension.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(dimmension.Message);
 
@@ -139,7 +140,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
+            IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(eMFile.Message);
 
@@ -188,7 +189,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<MusicalNote>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            var techPlaceHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
                 return new ErrorDataResult<IList<MusicalNote>>(techPlaceHolder.Message);
 
@@ -216,7 +217,7 @@ namespace Business.Concrete
 
         public IDataResult<MusicalNote> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<MusicalNote>(stock.Message);
 
@@ -237,7 +238,7 @@ namespace Business.Concrete
 
         public IDataResult<byte> GetState(Guid id)
         {
-            return new SuccessDataResult<byte>(_musicalNoteDal.Get(mn =>mn.Id ==id && !mn.IsDeleted).State, MusicalNoteConstants.DataGet);
+            return new SuccessDataResult<byte>(_musicalNoteDal.Get(mn => mn.Id == id && !mn.IsDeleted).State, MusicalNoteConstants.DataGet);
         }
 
         private IResult MusicalNoteControl(MusicalNote musicalNote)

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,24 +15,14 @@ namespace Business.Concrete
 {
     public class BookManager : IBookService
     {
-        private readonly IBookDal _bookDal;//  Todo: constuructor hell fuck
-        private readonly ICategoryService _categoryService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholder;
-        private readonly IEditionService _editionService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFile;
-        private readonly ICoverCapService _coverCapService;
-        private readonly IImageService _imageService;
-        private readonly IWriterService _writerService;
-        private readonly IEditorService _editorService;
-        private readonly IDirectorService _directorService;
-        private readonly IGraphicDesignerService _graphicDesignerService;
-        private readonly IGraphicDirectorService _graphicDirectorService;
-        private readonly IInterpretersService _interpreterService;
-        private readonly IRedactionService _redactionService;
-        private readonly ITechnicalNumberService _technicalNumberService;
-        private readonly IReferenceService _referenceService;
-        private readonly IStockService _stockService;
+        private readonly IBookDal _bookDal;
+        private readonly IFacadeService _facadeService;
+
+        public BookManager(IBookDal bookDal, IFacadeService facadeService)
+        {
+            _bookDal = bookDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(BookValidator))]
         public IResult Add(Book entity) // todo: adding fix later.
@@ -119,7 +110,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByReference(Guid referenceId)
         {
-            IDataResult<Reference> reference = _referenceService.GetById(referenceId);
+            IDataResult<Reference> reference = _facadeService.ReferenceService().GetById(referenceId);
             if (!reference.Success)
                 return new ErrorDataResult<IList<Book>>(reference.Message);
 
@@ -131,7 +122,7 @@ namespace Business.Concrete
 
         public IDataResult<Book> GetByCoverImage(Guid cImageId)
         {
-            IDataResult<Image> coverImage = _imageService.GetById(cImageId);
+            IDataResult<Image> coverImage = _facadeService.ImageService().GetById(cImageId);
             if (!coverImage.Success)
                 return new ErrorDataResult<Book>(coverImage.Message);
 
@@ -143,7 +134,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByCoverCap(byte coverCapNum)
         {
-            IDataResult<CoverCap> covercap = _coverCapService.GetById(coverCapNum);
+            IDataResult<CoverCap> covercap = _facadeService.CoverCapService().GetById(coverCapNum);
             if (!covercap.Success)
                 return new ErrorDataResult<IList<Book>>(covercap.Message);
 
@@ -155,7 +146,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByCommunication(Guid communicationId)
         {
-            IDataResult<Edition> edition = _editionService.GetByCommunicationId(communicationId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByCommunicationId(communicationId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Book>>(edition.Message);
 
@@ -167,7 +158,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByDirector(Guid directorId)
         {
-            IDataResult<Director> director = _directorService.GetById(directorId);
+            IDataResult<Director> director = _facadeService.DirectorService().GetById(directorId);
             if (!director.Success)
                 return new ErrorDataResult<IList<Book>>(director.Message);
 
@@ -179,7 +170,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByEditor(Guid editorId)
         {
-            IDataResult<Editor> editor = _editorService.GetById(editorId);
+            IDataResult<Editor> editor = _facadeService.EditorService().GetById(editorId);
             if (!editor.Success)
                 return new ErrorDataResult<IList<Book>>(editor.Message);
 
@@ -191,7 +182,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByEdition(Guid editionId)
         {
-            IDataResult<Edition> edition = _editionService.GetById(editionId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetById(editionId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Book>>(edition.Message);
 
@@ -203,7 +194,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
-            IDataResult<GraphicDirector> graphicDirector = _graphicDirectorService.GetById(graphicDirectorId);
+            IDataResult<GraphicDirector> graphicDirector = _facadeService.GraphicDirectorService().GetById(graphicDirectorId);
             if (!graphicDirector.Success)
                 return new ErrorDataResult<IList<Book>>(graphicDirector.Message);
 
@@ -215,7 +206,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
-            IDataResult<GraphicDesigner> graphicDesign = _graphicDesignerService.GetById(graphicDesignId);
+            IDataResult<GraphicDesigner> graphicDesign = _facadeService.GraphicDesignerService().GetById(graphicDesignId);
             if (!graphicDesign.Success)
                 return new ErrorDataResult<IList<Book>>(graphicDesign.Message);
 
@@ -227,7 +218,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByInterpreter(Guid interpreterId)
         {
-            IDataResult<Interpreters> interpreter = _interpreterService.GetById(interpreterId);
+            IDataResult<Interpreters> interpreter = _facadeService.InterpretersService().GetById(interpreterId);
             if (!interpreter.Success)
                 return new ErrorDataResult<IList<Book>>(interpreter.Message);
 
@@ -239,7 +230,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByPublisher(Guid publisherId)
         {
-            IDataResult<Edition> edition = _editionService.GetByPublisherId(publisherId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetByPublisherId(publisherId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<Book>>(edition.Message);
 
@@ -251,7 +242,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
-            IDataResult<TechnicalNumber> technicalNumber = _technicalNumberService.GetById(technicalNumberId);
+            IDataResult<TechnicalNumber> technicalNumber = _facadeService.TechnicalNumberService().GetById(technicalNumberId);
             if (!technicalNumber.Success)
                 return new ErrorDataResult<IList<Book>>(technicalNumber.Message);
 
@@ -263,7 +254,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByRedaction(Guid redactionId)
         {
-            IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
+            IDataResult<Redaction> redaction = _facadeService.RedactionService().GetById(redactionId);
             if (!redaction.Success)
                 return new ErrorDataResult<IList<Book>>(redaction.Message);
 
@@ -275,7 +266,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByWriter(Guid writerId)
         {
-            IDataResult<Writer> writer = _writerService.GetById(writerId);
+            IDataResult<Writer> writer = _facadeService.WriterService().GetById(writerId);
             if (!writer.Success)
                 return new ErrorDataResult<IList<Book>>(writer.Message);
 
@@ -300,7 +291,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<Book>>(categories.Message);
 
@@ -320,7 +311,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<Book>>(dimension.Message);
             IList<Book> books = _bookDal.GetAll(b => b.DimensionsId == dimensionId && !b.IsDeleted);
@@ -331,7 +322,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFile.GetById(eMFileId);
+            IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<IList<Book>>(eMFile.Message);
 
@@ -354,7 +345,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Book>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholder.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
                 return new ErrorDataResult<IList<Book>>(technicalPlaceholder.Message);
 
@@ -382,7 +373,7 @@ namespace Business.Concrete
 
         public IDataResult<Book> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Book>(stock.Message);
 

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -12,35 +13,16 @@ using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
-    public class KitManager : IKitService // todo: write all other services and turn here
+    public class KitManager : IKitService
     {
         private readonly IKitDal _kitDal;
+        private readonly IFacadeService _facadeService;
 
-        private readonly IAcademicJournalService _academicJournalService;
-        private readonly IAudioRecordService _audioRecordService;
-        private readonly IBookService _bookService;
-        private readonly IBookSeriesService _bookSeriesService;
-        private readonly ICartographicMaterialService _cartographicMaterialService;
-        private readonly ICategoryService _categoryService;
-        private readonly IDepictionService _depictionService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IDissertationService _dissertationService;
-        private readonly IElectronicsResourceService _electronicsResourceService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IEncyclopediaService _encyclopediaService;
-        private readonly IGraphicalImageService _graphicalImageService;
-        private readonly IImageService _imageService;
-        private readonly IMagazineService _magazineService;
-        private readonly IMicroformService _microformService;
-        private readonly IMusicalNoteService _musicalNoteService;
-        private readonly INewsPaperService _newsPaperService;
-        private readonly IObject3DService _object3DService;
-        private readonly IPaintingService _paintingService;
-        private readonly IPosterService _posterService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IThesisService _thesisService;
-        private readonly IStockService _stockService;
-
+        public KitManager(IKitDal kitDal, IFacadeService facadeService)
+        {
+            _kitDal = kitDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(KitValidator))]
         public IResult Add(Kit entity)
@@ -104,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByAcademicJournal(Guid academicJournalId)
         {
-            IDataResult<AcademicJournal> aJ = _academicJournalService.GetById(academicJournalId);
+            IDataResult<AcademicJournal> aJ = _facadeService.AcademicJournalService().GetById(academicJournalId);
             if (!aJ.Success)
                 return new ErrorDataResult<Kit>(aJ.Message);
 
@@ -116,7 +98,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByAcademicJournals(Guid[] academicJournalIds)
         {
-            IDataResult<IList<AcademicJournal>> aJs = _academicJournalService.GetAllByIds(academicJournalIds);
+            IDataResult<IList<AcademicJournal>> aJs = _facadeService.AcademicJournalService().GetAllByIds(academicJournalIds);
             if (!aJs.Success)
                 return new ErrorDataResult<IList<Kit>>(aJs.Message);
 
@@ -128,7 +110,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByAudioRecord(Guid audioRecordId)
         {
-            IDataResult<AudioRecord> aR = _audioRecordService.GetById(audioRecordId);
+            IDataResult<AudioRecord> aR = _facadeService.AudioRecordService().GetById(audioRecordId);
             if (!aR.Success)
                 return new ErrorDataResult<Kit>(aR.Message);
 
@@ -140,7 +122,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByAudioRecords(Guid[] audioRecordIds)
         {
-            IDataResult<IList<AudioRecord>> aR = _audioRecordService.GetAllByIds(audioRecordIds);
+            IDataResult<IList<AudioRecord>> aR = _facadeService.AudioRecordService().GetAllByIds(audioRecordIds);
             if (!aR.Success)
                 return new ErrorDataResult<IList<Kit>>(aR.Message);
 
@@ -152,7 +134,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByBook(Guid bookId)
         {
-            IDataResult<Book> b = _bookService.GetById(bookId);
+            IDataResult<Book> b = _facadeService.BookService().GetById(bookId);
             if (!b.Success)
                 return new ErrorDataResult<Kit>(b.Message);
 
@@ -164,7 +146,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByBooks(Guid[] bookIds)
         {
-            IDataResult<IList<Book>> bs = _bookService.GetAllByIds(bookIds);
+            IDataResult<IList<Book>> bs = _facadeService.BookService().GetAllByIds(bookIds);
             if (!bs.Success)
                 return new ErrorDataResult<IList<Kit>>(bs.Message);
 
@@ -176,7 +158,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByBookSeries(Guid bookSeriesId)
         {
-            IDataResult<BookSeries> bS = _bookSeriesService.GetById(bookSeriesId);
+            IDataResult<BookSeries> bS = _facadeService.BookSeriesService().GetById(bookSeriesId);
             if (!bS.Success)
                 return new ErrorDataResult<Kit>(bS.Message);
 
@@ -188,7 +170,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByBookSeries(Guid[] bookSeriesIds)
         {
-            IDataResult<IList<BookSeries>> bss = _bookSeriesService.GetAllByIds(bookSeriesIds);
+            IDataResult<IList<BookSeries>> bss = _facadeService.BookSeriesService().GetAllByIds(bookSeriesIds);
             if (!bss.Success)
                 return new ErrorDataResult<IList<Kit>>(bss.Message);
 
@@ -200,7 +182,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByCartographicMaterial(Guid cartographicMaterialId)
         {
-            IDataResult<CartographicMaterial> cM = _cartographicMaterialService.GetById(cartographicMaterialId);
+            IDataResult<CartographicMaterial> cM = _facadeService.CartographicMaterialService().GetById(cartographicMaterialId);
             if (!cM.Success)
                 return new ErrorDataResult<Kit>(cM.Message);
 
@@ -212,7 +194,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByCartographicMaterials(Guid[] cartographicMaterialIds)
         {
-            IDataResult<IList<CartographicMaterial>>? cMs = _cartographicMaterialService.GetAllByIds(cartographicMaterialIds);
+            IDataResult<IList<CartographicMaterial>>? cMs = _facadeService.CartographicMaterialService().GetAllByIds(cartographicMaterialIds);
             if (!cMs.Success)
                 return new ErrorDataResult<IList<Kit>>(cMs.Message);
 
@@ -224,7 +206,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByCategories(int[] categoriesId)
         {
-            var c = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> c = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!c.Success)
                 return new ErrorDataResult<IList<Kit>>(c.Message);
 
@@ -236,7 +218,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByDepiction(Guid depictionId)
         {
-            IDataResult<Depiction> d = _depictionService.GetById(depictionId);
+            IDataResult<Depiction> d = _facadeService.DepictionService().GetById(depictionId);
             if (!d.Success)
                 return new ErrorDataResult<Kit>(d.Message);
 
@@ -248,7 +230,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByDepictions(Guid[] depictionIds)
         {
-            IDataResult<IList<Depiction>> ds = _depictionService.GetAllByIds(depictionIds);
+            IDataResult<IList<Depiction>> ds = _facadeService.DepictionService().GetAllByIds(depictionIds);
             if (!ds.Success)
                 return new ErrorDataResult<IList<Kit>>(ds.Message);
 
@@ -268,7 +250,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<Kit>>(dimension.Message);
 
@@ -280,7 +262,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByDissertation(Guid dissertationId)
         {
-            IDataResult<Dissertation> d = _dissertationService.GetById(dissertationId);
+            IDataResult<Dissertation> d = _facadeService.DissertationService().GetById(dissertationId);
             if (!d.Success)
                 return new ErrorDataResult<Kit>(d.Message);
 
@@ -292,7 +274,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByDissertations(Guid[] dissertationIds)
         {
-            IDataResult<IList<Dissertation>> ds = _dissertationService.GetAllByIds(dissertationIds);
+            IDataResult<IList<Dissertation>> ds = _facadeService.DissertationService().GetAllByIds(dissertationIds);
             if (!ds.Success)
                 return new ErrorDataResult<IList<Kit>>(ds.Message);
 
@@ -304,7 +286,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByElectronicsResource(Guid electronicsResourceId)
         {
-            IDataResult<ElectronicsResource> eR = _electronicsResourceService.GetById(electronicsResourceId);
+            IDataResult<ElectronicsResource> eR = _facadeService.ElectronicsResourceService().GetById(electronicsResourceId);
             if (!eR.Success)
                 return new ErrorDataResult<Kit>(eR.Message);
 
@@ -316,7 +298,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByElectronicsResources(Guid[] electronicsResourceIds)
         {
-            IDataResult<IList<ElectronicsResource>> eRs = _electronicsResourceService.GetAllByIds(electronicsResourceIds);
+            IDataResult<IList<ElectronicsResource>> eRs = _facadeService.ElectronicsResourceService().GetAllByIds(electronicsResourceIds);
             if (!eRs.Success)
                 return new ErrorDataResult<IList<Kit>>(eRs.Message);
 
@@ -328,7 +310,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMF = _eMaterialFileService.GetById(eMFileId);
+            IDataResult<EMaterialFile> eMF = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMF.Success)
                 return new ErrorDataResult<IList<Kit>>(eMF.Message);
 
@@ -340,7 +322,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByEncyclopedia(Guid encyclopediaId)
         {
-            IDataResult<Encyclopedia> eP = _encyclopediaService.GetById(encyclopediaId);
+            IDataResult<Encyclopedia> eP = _facadeService.EncyclopediaService().GetById(encyclopediaId);
             if (!eP.Success)
                 return new ErrorDataResult<Kit>(eP.Message);
 
@@ -352,7 +334,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByEncyclopedias(Guid[] encyclopediaIds)
         {
-            IDataResult<IList<Encyclopedia>> ePs = _encyclopediaService.GetAllByIds(encyclopediaIds);
+            IDataResult<IList<Encyclopedia>> ePs = _facadeService.EncyclopediaService().GetAllByIds(encyclopediaIds);
             if (!ePs.Success)
                 return new ErrorDataResult<IList<Kit>>(ePs.Message);
 
@@ -364,7 +346,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByGraphicalImage(Guid graphicalImageId)
         {
-            IDataResult<GraphicalImage> gI = _graphicalImageService.GetById(graphicalImageId);
+            IDataResult<GraphicalImage> gI = _facadeService.GraphicalImageService().GetById(graphicalImageId);
             if (!gI.Success)
                 return new ErrorDataResult<Kit>(gI.Message);
 
@@ -376,7 +358,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByGraphicalImages(Guid[] graphicalImageIds)
         {
-            IDataResult<IList<GraphicalImage>> gIs = _graphicalImageService.GetAllByIds(graphicalImageIds);
+            IDataResult<IList<GraphicalImage>> gIs = _facadeService.GraphicalImageService().GetAllByIds(graphicalImageIds);
             if (!gIs.Success)
                 return new ErrorDataResult<IList<Kit>>(gIs.Message);
 
@@ -406,7 +388,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByImage(Guid imageId)
         {
-            IDataResult<Image> i = _imageService.GetById(imageId);
+            IDataResult<Image> i = _facadeService.ImageService().GetById(imageId);
             if (!i.Success)
                 return new ErrorDataResult<IList<Kit>>(i.Message);
 
@@ -418,7 +400,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByMagazine(Guid magazineId)
         {
-            IDataResult<Magazine> m = _magazineService.GetById(magazineId);
+            IDataResult<Magazine> m = _facadeService.MagazineService().GetById(magazineId);
             if (!m.Success)
                 return new ErrorDataResult<Kit>(m.Message);
 
@@ -430,7 +412,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByMagazines(Guid[] magazineIds)
         {
-            IDataResult<IList<Magazine>> ms = _magazineService.GetAllByIds(magazineIds);
+            IDataResult<IList<Magazine>> ms = _facadeService.MagazineService().GetAllByIds(magazineIds);
             if (!ms.Success)
                 return new ErrorDataResult<IList<Kit>>(ms.Message);
 
@@ -442,7 +424,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByMicroform(Guid microformId)
         {
-            IDataResult<Microform> mF = _microformService.GetById(microformId);
+            IDataResult<Microform> mF = _facadeService.MicroformService().GetById(microformId);
             if (!mF.Success)
                 return new ErrorDataResult<Kit>(mF.Message);
 
@@ -454,7 +436,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByMicroforms(Guid[] microformIds)
         {
-            IDataResult<IList<Microform>> mFs = _microformService.GetAllByIds(microformIds);
+            IDataResult<IList<Microform>> mFs = _facadeService.MicroformService().GetAllByIds(microformIds);
             if (!mFs.Success)
                 return new ErrorDataResult<IList<Kit>>(mFs.Message);
 
@@ -466,7 +448,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByMusicalNote(Guid musicalNoteId)
         {
-            IDataResult<MusicalNote> mN = _musicalNoteService.GetById(musicalNoteId);
+            IDataResult<MusicalNote> mN = _facadeService.MusicalNoteService().GetById(musicalNoteId);
             if (!mN.Success)
                 return new ErrorDataResult<Kit>(mN.Message);
 
@@ -478,7 +460,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByMusicalNotes(Guid[] musicalNoteIds)
         {
-            IDataResult<IList<MusicalNote>> mNs = _musicalNoteService.GetAllByIds(musicalNoteIds);
+            IDataResult<IList<MusicalNote>> mNs = _facadeService.MusicalNoteService().GetAllByIds(musicalNoteIds);
             if (!mNs.Success)
                 return new ErrorDataResult<IList<Kit>>(mNs.Message);
 
@@ -498,7 +480,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByNewsPaper(Guid newsPaperId)
         {
-            IDataResult<NewsPaper> nP = _newsPaperService.GetById(newsPaperId);
+            IDataResult<NewsPaper> nP = _facadeService.NewsPaperService().GetById(newsPaperId);
             if (!nP.Success)
                 return new ErrorDataResult<Kit>(nP.Message);
 
@@ -510,7 +492,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByNewsPapers(Guid[] newsPaperIds)
         {
-            IDataResult<IList<NewsPaper>> nPs = _newsPaperService.GetAllByIds(newsPaperIds);
+            IDataResult<IList<NewsPaper>> nPs = _facadeService.NewsPaperService().GetAllByIds(newsPaperIds);
             if (!nPs.Success)
                 return new ErrorDataResult<IList<Kit>>(nPs.Message);
 
@@ -522,7 +504,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByObject3D(Guid object3DId)
         {
-            IDataResult<Object3D> o3D = _object3DService.GetById(object3DId);
+            IDataResult<Object3D> o3D = _facadeService.Object3DService().GetById(object3DId);
             if (!o3D.Success)
                 return new ErrorDataResult<Kit>(o3D.Message);
 
@@ -534,7 +516,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByObject3Ds(Guid[] object3DIds)
         {
-            IDataResult<IList<Object3D>> o3Ds = _object3DService.GetAllByIds(object3DIds);
+            IDataResult<IList<Object3D>> o3Ds = _facadeService.Object3DService().GetAllByIds(object3DIds);
             if (!o3Ds.Success)
                 return new ErrorDataResult<IList<Kit>>(o3Ds.Message);
 
@@ -546,7 +528,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByPainting(Guid paintingId)
         {
-            IDataResult<Painting> ps = _paintingService.GetById(paintingId);
+            IDataResult<Painting> ps = _facadeService.PaintingService().GetById(paintingId);
             if (!ps.Success)
                 return new ErrorDataResult<Kit>(ps.Message);
 
@@ -558,7 +540,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByPaintings(Guid[] paintingIds)
         {
-            IDataResult<IList<Painting>> ps = _paintingService.GetAllByIds(paintingIds);
+            IDataResult<IList<Painting>> ps = _facadeService.PaintingService().GetAllByIds(paintingIds);
             if (!ps.Success)
                 return new ErrorDataResult<IList<Kit>>(ps.Message);
 
@@ -570,7 +552,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByPoster(Guid posterId)
         {
-            IDataResult<Poster> ps = _posterService.GetById(posterId);
+            IDataResult<Poster> ps = _facadeService.PosterService().GetById(posterId);
             if (!ps.Success)
                 return new ErrorDataResult<Kit>(ps.Message);
 
@@ -582,7 +564,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByPosters(Guid[] posterIds)
         {
-            IDataResult<IList<Poster>> ps = _posterService.GetAllByIds(posterIds);
+            IDataResult<IList<Poster>> ps = _facadeService.PosterService().GetAllByIds(posterIds);
             if (!ps.Success)
                 return new ErrorDataResult<IList<Kit>>(ps.Message);
 
@@ -605,7 +587,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> placeHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> placeHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!placeHolder.Success)
                 return new ErrorDataResult<IList<Kit>>(placeHolder.Message);
 
@@ -617,7 +599,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByThesis(Guid thesisId)
         {
-            IDataResult<Thesis> t = _thesisService.GetById(thesisId);
+            IDataResult<Thesis> t = _facadeService.ThesisService().GetById(thesisId);
             if (!t.Success)
                 return new ErrorDataResult<Kit>(t.Message);
 
@@ -629,7 +611,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Kit>> GetAllByThesis(Guid[] thesisIds)
         {
-            IDataResult<IList<Thesis>> tS = _thesisService.GetAllByIds(thesisIds);
+            IDataResult<IList<Thesis>> tS = _facadeService.ThesisService().GetAllByIds(thesisIds);
             if (!tS.Success)
                 return new ErrorDataResult<IList<Kit>>(tS.Message);
 
@@ -662,7 +644,7 @@ namespace Business.Concrete
 
         public IDataResult<Kit> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Kit>(stock.Message);
 

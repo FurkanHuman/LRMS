@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -16,16 +17,13 @@ namespace Business.Concrete
     public class DissertationManager : IDissertationService
     {
         private readonly IDissertationDal _dissertationDal;
+        private readonly IFacadeService _facadeService;
 
-        private readonly ICategoryService _categoryService;
-        private readonly ICityService _cityService;
-        private readonly ICountryService _countryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly ILanguageService _languageService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IUniversityService _universityService;
-        private readonly IStockService _stockService;
+        public DissertationManager(IDissertationDal dissertationDal, IFacadeService facadeService)
+        {
+            _dissertationDal = dissertationDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(DissertationValidator))]
         public IResult Add(Dissertation entity)
@@ -96,7 +94,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<Dissertation>>(categories.Message);
 
@@ -108,7 +106,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByCity(int cityId)
         {
-            IDataResult<City> city = _cityService.GetById(cityId);
+            IDataResult<City> city = _facadeService.CityService().GetById(cityId);
             if (city.Success)
                 return new ErrorDataResult<IList<Dissertation>>(city.Message);
 
@@ -120,7 +118,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByCountry(int countryId)
         {
-            IDataResult<Country> country = _countryService.GetById(countryId);
+            IDataResult<Country> country = _facadeService.CountryService().GetById(countryId);
             if (country.Success)
                 return new ErrorDataResult<IList<Dissertation>>(country.Message);
 
@@ -151,7 +149,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<Dissertation>>(dimension.Message);
 
@@ -170,13 +168,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
         }
 
-        public IDataResult<IList<Dissertation>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<Dissertation>> GetAllByEMFile(Guid eMFileId)
         {
-            var eMFiles = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFiles = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFiles.Success)
                 return new ErrorDataResult<IList<Dissertation>>(eMFiles.Message);
 
-            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.EMaterialFilesId == eMFilesId && !d.IsDeleted);
+            IList<Dissertation> dissertations = _dissertationDal.GetAll(d => d.EMaterialFilesId == eMFileId && !d.IsDeleted);
             return dissertations == null
                 ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
                 : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
@@ -200,7 +198,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByLanguage(int languageId)
         {
-            IDataResult<Language> language = _languageService.GetById(languageId);
+            IDataResult<Language> language = _facadeService.LanguageService().GetById(languageId);
             if (!language.Success)
                 return new ErrorDataResult<IList<Dissertation>>(language.Message);
 
@@ -231,7 +229,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> tPH = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> tPH = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!tPH.Success)
                 return new ErrorDataResult<IList<Dissertation>>(tPH.Message);
 
@@ -252,7 +250,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Dissertation>> GetAllByUniversity(Guid universityId)
         {
-            IDataResult<University> universities = _universityService.GetById(universityId);
+            IDataResult<University> universities = _facadeService.UniversityService().GetById(universityId);
             if (!universities.Success)
                 return new ErrorDataResult<IList<Dissertation>>(universities.Message);
 
@@ -277,7 +275,7 @@ namespace Business.Concrete
 
         public IDataResult<Dissertation> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Dissertation>(stock.Message);
 

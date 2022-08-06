@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,13 +16,13 @@ namespace Business.Concrete
     public class MicroformManager : IMicroformService
     {
         private readonly IMicroformDal _microformDal;
-        private readonly ICategoryService _categoryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IStockService _stockService;
+        private readonly IFacadeService _facadeService;
 
-
+        public MicroformManager(IMicroformDal microformDal, IFacadeService facadeService)
+        {
+            _microformDal = microformDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(MicroformValidator))]
         public IResult Add(Microform microform)
@@ -76,7 +77,7 @@ namespace Business.Concrete
         public IDataResult<IList<Microform>> GetAllByCategories(int[] categoriesId)
         {
 
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<Microform>>(categories.Message);
 
@@ -97,7 +98,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Microform>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimmension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimmension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimmension.Success)
                 return new ErrorDataResult<IList<Microform>>(dimmension.Message);
 
@@ -109,7 +110,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Microform>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFileId);
+            IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<IList<Microform>>(eMFile.Message);
 
@@ -166,7 +167,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Microform>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> techPlaceHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
                 return new ErrorDataResult<IList<Microform>>(techPlaceHolder.Message);
 
@@ -194,7 +195,7 @@ namespace Business.Concrete
 
         public IDataResult<Microform> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<Microform>(stock.Message);
 

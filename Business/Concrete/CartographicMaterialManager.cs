@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,13 +15,14 @@ namespace Business.Concrete
 {
     public class CartographicMaterialManager : ICartographicMaterialService
     {
-        private readonly ICartographicMaterialDal _cartographicMaterialDal; // Todo I know hell is here
-        private readonly ICategoryService _categoryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IImageService _imageService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IStockService _stockService;
+        private readonly ICartographicMaterialDal _cartographicMaterialDal;
+        private readonly IFacadeService _facadeService;
+
+        public CartographicMaterialManager(ICartographicMaterialDal cartographicMaterialDal, IFacadeService facadeService)
+        {
+            _cartographicMaterialDal = cartographicMaterialDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(CartographicMaterialValidator))]
         public IResult Add(CartographicMaterial entity)
@@ -70,7 +72,7 @@ namespace Business.Concrete
         public IDataResult<IList<CartographicMaterial>> GetAllByCategories(int[] categoriesId)
         {
 
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<CartographicMaterial>>(categories.Message);
 
@@ -117,7 +119,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<CartographicMaterial>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new SuccessDataResult<IList<CartographicMaterial>>(dimension.Message);
 
@@ -127,13 +129,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
         }
 
-        public IDataResult<IList<CartographicMaterial>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<CartographicMaterial>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMaterialFile = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMaterialFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMaterialFile.Success)
                 return new ErrorDataResult<IList<CartographicMaterial>>(eMaterialFile.Message);
 
-            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.EMaterialFilesId == eMFilesId && cm.IsDeleted);
+            IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => cm.EMaterialFilesId == eMFileId && cm.IsDeleted);
             return cartographicMaterials == null
                 ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
                 : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
@@ -157,7 +159,7 @@ namespace Business.Concrete
 
         public IDataResult<CartographicMaterial> GetAllByImageId(Guid imageId)
         {
-            IDataResult<Image> image = _imageService.GetById(imageId);
+            IDataResult<Image> image = _facadeService.ImageService().GetById(imageId);
             if (!image.Success)
                 return new ErrorDataResult<CartographicMaterial>(image.Message);
 
@@ -194,7 +196,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<CartographicMaterial>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> tPHolder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> tPHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!tPHolder.Success)
                 return new ErrorDataResult<IList<CartographicMaterial>>(tPHolder.Message);
 
@@ -228,7 +230,7 @@ namespace Business.Concrete
 
         public IDataResult<CartographicMaterial> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<CartographicMaterial>(stock.Message);
 

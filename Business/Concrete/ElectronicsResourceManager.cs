@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,12 +16,13 @@ namespace Business.Concrete
     public class ElectronicsResourceManager : IElectronicsResourceService
     {
         private readonly IElectronicsResourceDal _electronicsResourceDal;
+        private readonly IFacadeService _facadeService;
 
-        private readonly ICategoryService _categoryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IStockService _stockService;
+        public ElectronicsResourceManager(IElectronicsResourceDal electronicsResourceDal, IFacadeService facadeService)
+        {
+            _electronicsResourceDal = electronicsResourceDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(ElectronicsResourceValidator))]
         public IResult Add(ElectronicsResource electronicsResource)
@@ -84,7 +86,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<ElectronicsResource>> GetAllByCategories(int[] categoriesId)
         {
-            var categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<ElectronicsResource>>(categories.Message);
 
@@ -104,7 +106,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<ElectronicsResource>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<ElectronicsResource>>(dimension.Message);
 
@@ -114,13 +116,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
         }
 
-        public IDataResult<IList<ElectronicsResource>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<ElectronicsResource>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<IList<ElectronicsResource>>(eMFile.Message);
 
-            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.EMaterialFilesId == eMFilesId && !er.IsDeleted);
+            IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => er.EMaterialFilesId == eMFileId && !er.IsDeleted);
             return electronicsResources == null
                 ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
                 : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
@@ -171,7 +173,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<ElectronicsResource>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> techPlacHold = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlacHold = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlacHold.Success)
                 return new ErrorDataResult<IList<ElectronicsResource>>(techPlacHold.Message);
 
@@ -204,7 +206,7 @@ namespace Business.Concrete
 
         public IDataResult<ElectronicsResource> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<ElectronicsResource>(stock.Message);
 

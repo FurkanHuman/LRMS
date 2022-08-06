@@ -141,12 +141,14 @@ namespace Business.Concrete
 
         private IResult OtherPeopleExits(OtherPeople otherPeople)
         {
-            bool res = _otherPeopleDal.GetAll(op =>
-            op.Name.Contains(otherPeople.Name)
-            && op.SurName.Contains(otherPeople.SurName)
-            && op.Title.Contains(otherPeople.Title)
-            && op.NamePreAttachment.Contains(otherPeople.NamePreAttachment)
-            ).Any();
+            bool res = _otherPeopleDal.Get(op =>
+
+               op.Name == otherPeople.Name
+            && op.SurName == otherPeople.SurName
+            && op.Title == otherPeople.Title
+            && op.NamePreAttachment == otherPeople.NamePreAttachment
+
+            ) != null;
 
             if (res)
                 return new ErrorResult(OtherPeopleConstants.OtherPAlreadyExists);

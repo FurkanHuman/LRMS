@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,15 +16,13 @@ namespace Business.Concrete
     public class AcademicJournalManager : IAcademicJournalService
     {
         private readonly IAcademicJournalDal _academicJournalDal;
-        private readonly ICategoryService _categoryService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IReferenceService _referenceService;
-        private readonly IPublisherService _publisherService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IEditorService _editorService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IResearcherService _researcherService;
-        private readonly IStockService _stockService;
+        private readonly IFacadeService _facadeService;
+
+        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, IFacadeService facadeService)
+        {
+            _academicJournalDal = academicJournalDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]
         public IResult Add(AcademicJournal entity) // Todo: control
@@ -78,7 +77,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(categories.Message);
 
@@ -106,7 +105,8 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
+
             if (!dimension.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(dimension.Message);
 
@@ -118,7 +118,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByEditor(Guid editorId)
         {
-            IDataResult<Editor> editor = _editorService.GetById(editorId);
+            IDataResult<Editor> editor = _facadeService.EditorService().GetById(editorId);
             if (!editor.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(editor.Message);
 
@@ -130,7 +130,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByEditors(Guid[] editorIds)
         {
-            IDataResult<IList<Editor>> editors = _editorService.GetAllByFilter(e => editorIds.Contains(e.Id));
+            IDataResult<IList<Editor>> editors = _facadeService.EditorService().GetAllByIds(editorIds);
             if (!editors.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
 
@@ -140,13 +140,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
         }
 
-        public IDataResult<IList<AcademicJournal>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<AcademicJournal>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFiles = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMFiles = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFiles.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(eMFiles.Message);
 
-            IList<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EMaterialFilesId == eMFilesId && !aj.IsDeleted);
+            IList<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => aj.EMaterialFilesId == eMFileId && !aj.IsDeleted);
             return academicJournals == null
                 ? new ErrorDataResult<IList<AcademicJournal>>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<IList<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -197,7 +197,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByPublisher(Guid publisherId)
         {
-            IDataResult<Publisher> publisher = _publisherService.GetById(publisherId);
+            IDataResult<Publisher> publisher = _facadeService.PublisherService().GetById(publisherId);
             if (!publisher.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(publisher.Message);
 
@@ -209,7 +209,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByPublisherDateOfPublication(DateTime DateOfPublication)
         {
-            IDataResult<IList<Publisher>> publishers = _publisherService.GetAllByDateOfPublication(DateOfPublication);
+            IDataResult<IList<Publisher>> publishers = _facadeService.PublisherService().GetAllByDateOfPublication(DateOfPublication);
             if (!publishers.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(publishers.Message);
 
@@ -221,7 +221,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByReferenceDate(DateTime referenceDate)
         {
-            IDataResult<IList<Reference>> references = _referenceService.GetAllByReferenceDate(referenceDate);
+            IDataResult<IList<Reference>> references = _facadeService.ReferenceService().GetAllByReferenceDate(referenceDate);
             if (!references.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(references.Message);
 
@@ -233,7 +233,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByReferenceId(Guid referenceId)
         {
-            IDataResult<Reference> reference = _referenceService.GetById(referenceId);
+            IDataResult<Reference> reference = _facadeService.ReferenceService().GetById(referenceId);
             if (!reference.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(reference.Message);
 
@@ -245,7 +245,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByReferenceOwner(string owner)
         {
-            IDataResult<IList<Reference>> references = _referenceService.GetAllByOwner(owner);
+            IDataResult<IList<Reference>> references = _facadeService.ReferenceService().GetAllByOwner(owner);
             if (!references.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(references.Message);
 
@@ -257,7 +257,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByResearcher(Guid researcherId)
         {
-            IDataResult<Researcher> researcher = _researcherService.GetById(researcherId);
+            IDataResult<Researcher> researcher = _facadeService.ResearcherService().GetById(researcherId);
             if (!researcher.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(researcher.Message);
 
@@ -269,7 +269,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByResearchers(Guid[] researcherIds)
         {
-            IDataResult<IList<Researcher>> researchers = _researcherService.GetAllByFilter(r => researcherIds.Contains(r.Id));
+            IDataResult<IList<Researcher>> researchers = _facadeService.ResearcherService().GetAllByIds(researcherIds);
             if (!researchers.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>("Researcher not found");
 
@@ -281,7 +281,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AcademicJournal>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(technicalPlaceholder.Message);
 
@@ -337,7 +337,7 @@ namespace Business.Concrete
 
         public IDataResult<AcademicJournal> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<AcademicJournal>(stock.Message);
 

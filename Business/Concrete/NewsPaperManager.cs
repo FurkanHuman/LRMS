@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,24 +16,13 @@ namespace Business.Concrete
     public class NewsPaperManager : INewsPaperService
     {
         private readonly INewsPaperDal _newsPaperDal;
-        private readonly ICategoryService _categoryService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholder;
-        private readonly IDimensionService _dimension;
-        private readonly IEMaterialFileService _eMaterialFile;
-        private readonly ICoverCapService _coverCapService;
-        private readonly IEditionService _editionService;
-        private readonly IImageService _imageService;
-        private readonly IWriterService _writerService;
-        private readonly IEditorService _editorService;
-        private readonly IDirectorService _directorService;
-        private readonly IGraphicDesignerService _graphicDesignerService;
-        private readonly IGraphicDirectorService _graphicDirectorService;
-        private readonly IInterpretersService _interpreterService;
-        private readonly IRedactionService _redactionService;
-        private readonly ITechnicalNumberService _technicalNumberService;
-        private readonly IStockService _stockService;
+        private readonly IFacadeService _facadeService;
 
-
+        public NewsPaperManager(INewsPaperDal newsPaperDal, IFacadeService facadeService)
+        {
+            _newsPaperDal = newsPaperDal;
+            _facadeService = facadeService;
+        }
 
         [ValidationAspect(typeof(NewsPaperValidator))]
         public IResult Add(NewsPaper newsPaper)
@@ -86,7 +76,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByIds(categoriesId);
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(categories.Message);
 
@@ -98,7 +88,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByCommunication(Guid communicationId)
         {
-            IDataResult<Edition> editionByCommunication = _editionService.GetByCommunicationId(communicationId);
+            IDataResult<Edition> editionByCommunication = _facadeService.EditionService().GetByCommunicationId(communicationId);
             if (!editionByCommunication.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(editionByCommunication.Message);
 
@@ -110,7 +100,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByCoverCap(byte coverCapNum)
         {
-            IDataResult<CoverCap> CoverCap = _coverCapService.GetById(coverCapNum);
+            IDataResult<CoverCap> CoverCap = _facadeService.CoverCapService().GetById(coverCapNum);
             if (!CoverCap.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(CoverCap.Message);
 
@@ -138,7 +128,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimmension = _dimension.GetById(dimensionId);
+            IDataResult<Dimension> dimmension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimmension.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(dimmension.Message);
 
@@ -150,7 +140,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByDirector(Guid directorId)
         {
-            IDataResult<Director> director = _directorService.GetById(directorId);
+            IDataResult<Director> director = _facadeService.DirectorService().GetById(directorId);
             if (!director.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(director.Message);
 
@@ -162,7 +152,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByEdition(Guid editionId)
         {
-            IDataResult<Edition> edition = _editionService.GetById(editionId);
+            IDataResult<Edition> edition = _facadeService.EditionService().GetById(editionId);
             if (!edition.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(edition.Message);
 
@@ -174,7 +164,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByEditor(Guid editorId)
         {
-            IDataResult<Editor> editor = _editorService.GetById(editorId);
+            IDataResult<Editor> editor = _facadeService.EditorService().GetById(editorId);
             if (!editor.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(editor.Message);
 
@@ -186,7 +176,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMFile = _eMaterialFile.GetById(eMFileId);
+            IDataResult<EMaterialFile> eMFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMFile.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(eMFile.Message);
 
@@ -203,7 +193,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByGraphicDesign(Guid graphicDesignId)
         {
-            IDataResult<GraphicDesigner> graphicDesing = _graphicDesignerService.GetById(graphicDesignId);
+            IDataResult<GraphicDesigner> graphicDesing = _facadeService.GraphicDesignerService().GetById(graphicDesignId);
             if (!graphicDesing.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(graphicDesing.Message);
 
@@ -215,7 +205,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByGraphicDirector(Guid graphicDirectorId)
         {
-            IDataResult<GraphicDirector> gDirector = _graphicDirectorService.GetById(graphicDirectorId);
+            IDataResult<GraphicDirector> gDirector = _facadeService.GraphicDirectorService().GetById(graphicDirectorId);
             if (!gDirector.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(gDirector.Message);
 
@@ -235,7 +225,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByInterpreter(Guid interpreterId)
         {
-            IDataResult<Interpreters> interpreter = _interpreterService.GetById(interpreterId);
+            IDataResult<Interpreters> interpreter = _facadeService.InterpretersService().GetById(interpreterId);
             if (!interpreter.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(interpreter.Message);
 
@@ -282,7 +272,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByPublisher(Guid publisherId)
         {
-            IDataResult<Edition> editionOfPublisher = _editionService.GetByPublisherId(publisherId);
+            IDataResult<Edition> editionOfPublisher = _facadeService.EditionService().GetByPublisherId(publisherId);
             if (!editionOfPublisher.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(editionOfPublisher.Message);
 
@@ -294,7 +284,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByRedaction(Guid redactionId)
         {
-            IDataResult<Redaction> redaction = _redactionService.GetById(redactionId);
+            IDataResult<Redaction> redaction = _facadeService.RedactionService().GetById(redactionId);
             if (!redaction.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(redaction.Message);
 
@@ -311,7 +301,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByTechnicalNumber(Guid technicalNumberId)
         {
-            IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(technicalNumberId);
+            IDataResult<TechnicalNumber> techNumber = _facadeService.TechnicalNumberService().GetById(technicalNumberId);
             if (!techNumber.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(techNumber.Message);
 
@@ -323,7 +313,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> techPlaceHolder = _technicalPlaceholder.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> techPlaceHolder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!techPlaceHolder.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(techPlaceHolder.Message);
 
@@ -343,7 +333,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<NewsPaper>> GetAllByWriter(Guid writerId)
         {
-            IDataResult<Writer> writer = _writerService.GetById(writerId);
+            IDataResult<Writer> writer = _facadeService.WriterService().GetById(writerId);
             if (!writer.Success)
                 return new ErrorDataResult<IList<NewsPaper>>(writer.Message);
 
@@ -355,7 +345,7 @@ namespace Business.Concrete
 
         public IDataResult<NewsPaper> GetByCoverImage(Guid cImageId)
         {
-            IDataResult<Image> coverImage = _imageService.GetById(cImageId);
+            IDataResult<Image> coverImage = _facadeService.ImageService().GetById(cImageId);
             if (!coverImage.Success)
                 return new ErrorDataResult<NewsPaper>(coverImage.Message);
 
@@ -375,7 +365,7 @@ namespace Business.Concrete
 
         public IDataResult<NewsPaper> GetByImage(Guid imageId)
         {
-            IDataResult<Image> image = _imageService.GetById(imageId);
+            IDataResult<Image> image = _facadeService.ImageService().GetById(imageId);
             if (!image.Success)
                 return new ErrorDataResult<NewsPaper>(image.Message);
 
@@ -387,7 +377,7 @@ namespace Business.Concrete
 
         public IDataResult<NewsPaper> GetByStock(Guid stockId)
         {
-            var stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (stock.Success)
                 return new ErrorDataResult<NewsPaper>(stock.Message);
 
