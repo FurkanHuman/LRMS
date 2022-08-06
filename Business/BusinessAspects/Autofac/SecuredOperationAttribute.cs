@@ -9,8 +9,8 @@ namespace Business.BusinessAspects.Autofac
 {
     public class SecuredOperationAttribute : MethodInterceptionAttribute
     {
-        private string[] _roles;
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly string[] _roles;
+        private readonly IHttpContextAccessor? _httpContextAccessor;
 
         public SecuredOperationAttribute(string roles)
         {
@@ -22,6 +22,7 @@ namespace Business.BusinessAspects.Autofac
         protected override void OnBefore(IInvocation invocation)
         {
             List<string>? roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+
             foreach (string role in _roles)
                 if (roleClaims.Contains(role))
                     return;
