@@ -9,7 +9,7 @@ namespace Entities.Concrete.Infos
         public Guid Id { get; set; }
 
         [Required]
-        public long Count { get; set; }
+        public ulong Count { get; set; }
 
         public bool IsDeleted { get; set; }
     }
