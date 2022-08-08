@@ -19,7 +19,7 @@ namespace Core.Utilities.FileHelper
                 file.CopyTo(filestream);
                 filestream.Flush();
             });
-            return !task.IsFaulted
+            return !task.IsCompletedSuccessfully
                 ? new ErrorDataResult<string>(CoreConstants.FileAddTaskFault)
                 : new SuccessDataResult<string>(halfPath);
         }
@@ -34,7 +34,7 @@ namespace Core.Utilities.FileHelper
                  stream.Flush();
                  DeleteAsync(sourcePath);
              });
-            return !task.IsFaulted
+            return !task.IsCompletedSuccessfully
                 ? new ErrorDataResult<string>(CoreConstants.FileUpdatedTaskFault)
                 : new SuccessDataResult<string>(halfPath);
         }
@@ -42,7 +42,7 @@ namespace Core.Utilities.FileHelper
         public IResult DeleteAsync(string path)
         {
             Task task = Task.Run(() => File.Delete(Environment.CurrentDirectory + path));
-            return !task.IsFaulted
+            return !task.IsCompletedSuccessfully
                 ? new ErrorResult(CoreConstants.FileDeleteTaskFault)
                 : new SuccessResult();
         }
