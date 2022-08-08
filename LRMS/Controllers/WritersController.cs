@@ -25,9 +25,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("DtoAdd")]
-        public IActionResult Add(WriterDto writer)
+        public IActionResult DtoAdd(WriterDto writer)
         {
-            var result = _writerService.Add(writer);
+            var result = _writerService.DtoAdd(writer);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -55,7 +55,7 @@ namespace LRMS.Controllers
         [HttpPost("DtoUpdate")]
         public IActionResult Update(WriterDto writer)
         {
-            var result = _writerService.Update(writer);
+            var result = _writerService.DtoUpdate(writer);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
