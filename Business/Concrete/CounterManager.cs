@@ -114,6 +114,9 @@ namespace Business.Concrete
         {
             Task task = Task.Run(() =>
                 {
+                    if (ts == null)
+                        return;
+
                     IList<Guid> guidList = ts.Select(c => c.Id).ToList();
                     if (guidList.Count > 0)
                         CountPlus(guidList);
