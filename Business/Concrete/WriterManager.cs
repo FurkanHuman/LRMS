@@ -33,7 +33,8 @@ namespace Business.Concrete
             return new SuccessResult(WriterConstants.AddSuccess);
         }
 
-        public IResult Add(WriterDto entity)
+        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
+        public IResult DtoAdd(WriterDto entity)
         {
             return Add(new Writer
             {
@@ -76,7 +77,8 @@ namespace Business.Concrete
             return new SuccessResult(WriterConstants.UpdateSuccess);
         }
 
-        public IResult Update(WriterDto entity)
+        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
+        public IResult DtoUpdate(WriterDto entity)
         {
             return Update(new Writer
             {
