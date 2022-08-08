@@ -1,7 +1,10 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
 using Business.DependencyResolvers.Facade;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 
@@ -174,13 +177,13 @@ namespace Business.DependencyResolvers.Autofac
             //  Last to open it, running autofac modules that don't want it.
 
 
-            //var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-            //builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-            //   .EnableInterfaceInterceptors(new ProxyGenerationOptions()
-            //   {
-            //       Selector = new AspectInterceptorSelector()
-            //   }).SingleInstance();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+               .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+               {
+                   Selector = new AspectInterceptorSelector()
+               }).SingleInstance();
         }
     }
 }
