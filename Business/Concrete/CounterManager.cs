@@ -100,16 +100,26 @@ namespace Business.Concrete
                 : new SuccessDataResult<Counter>(counter, CounterConstants.DataGet);
         }
 
-        public async Task Count<T>(T t) where T : MaterialBase, IEntity, new()
+        public Task Count<T>(T? t) where T : MaterialBase, IEntity, new()
         {
-            CountPlus(t.CounterId);
+            Task task = Task.Run(() =>
+                {
+                    CountPlus(t.CounterId);
+                });
+
+            return task;
         }
 
-        public async Task Count<T>(IList<T> ts) where T : MaterialBase, IEntity, new()
+        public Task Count<T>(IList<T>? ts) where T : MaterialBase, IEntity, new()
         {
-            IList<Guid> guidList = ts.Select(c => c.Id).ToList();
-            if (guidList.Count > 0)
-                CountPlus(guidList);
+            Task task = Task.Run(() =>
+                {
+                    IList<Guid> guidList = ts.Select(c => c.Id).ToList();
+                    if (guidList.Count > 0)
+                        CountPlus(guidList);
+                });
+
+            return task;
         }
 
         private void CountPlus(Guid id)
