@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -15,20 +16,12 @@ namespace Business.Concrete
     public class AudioRecordManager : IAudioRecordService
     {
         private readonly IAudioRecordDal _audioRecordDal;
-        private readonly ICategoryService _categoryService;
-        private readonly ITechnicalPlaceholderService _technicalPlaceholderService;
-        private readonly IDimensionService _dimensionService;
-        private readonly IEMaterialFileService _eMaterialFileService;
-        private readonly IStockService _stockService;
+        private readonly IFacadeService _facadeService;
 
-        public AudioRecordManager(IAudioRecordDal audioRecordDal, ICategoryService categoryService, ITechnicalPlaceholderService technicalPlaceholderService, IDimensionService dimensionService, IEMaterialFileService eMaterialFileService, IStockService stockService)
+        public AudioRecordManager(IAudioRecordDal audioRecordDal, IFacadeService facadeService)
         {
             _audioRecordDal = audioRecordDal;
-            _categoryService = categoryService;
-            _technicalPlaceholderService = technicalPlaceholderService;
-            _dimensionService = dimensionService;
-            _eMaterialFileService = eMaterialFileService;
-            _stockService = stockService;
+            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]
@@ -78,7 +71,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AudioRecord>> GetAllByCategories(int[] categoriesId)
         {
-            IDataResult<IList<Category>> categories = _categoryService.GetAllByFilter(c => categoriesId.Contains(c.Id));
+            IDataResult<IList<Category>> categories = _facadeService.CategoryService().GetAllByIds(categoriesId);
             if (!categories.Success)
                 return new ErrorDataResult<IList<AudioRecord>>(categories.Message);
 
@@ -98,7 +91,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AudioRecord>> GetAllByDimension(Guid dimensionId)
         {
-            IDataResult<Dimension> dimension = _dimensionService.GetById(dimensionId);
+            IDataResult<Dimension> dimension = _facadeService.DimensionService().GetById(dimensionId);
             if (!dimension.Success)
                 return new ErrorDataResult<IList<AudioRecord>>(dimension.Message);
 
@@ -108,13 +101,13 @@ namespace Business.Concrete
                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<IList<AudioRecord>> GetAllByEMFile(Guid eMFilesId)
+        public IDataResult<IList<AudioRecord>> GetAllByEMFile(Guid eMFileId)
         {
-            IDataResult<EMaterialFile> eMaterialFile = _eMaterialFileService.GetById(eMFilesId);
+            IDataResult<EMaterialFile> eMaterialFile = _facadeService.EMaterialFileService().GetById(eMFileId);
             if (!eMaterialFile.Success)
                 return new ErrorDataResult<IList<AudioRecord>>(eMaterialFile.Message);
 
-            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.EMaterialFilesId == eMFilesId && !ar.IsDeleted);
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.EMaterialFilesId == eMFileId && !ar.IsDeleted);
             return audioRecords == null
                 ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
@@ -123,6 +116,7 @@ namespace Business.Concrete
         public IDataResult<AudioRecord> GetById(Guid id)
         {
             AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Id == id);
+            _facadeService.CounterService().Count(audioRecord);
             return audioRecord == null
                 ? new ErrorDataResult<AudioRecord>(AudioRecordConstants.NotMatch)
                 : new SuccessDataResult<AudioRecord>(audioRecord, AudioRecordConstants.DataGet);
@@ -131,6 +125,7 @@ namespace Business.Concrete
         public IDataResult<IList<AudioRecord>> GetAllByIds(Guid[] ids)
         {
             IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ids.Contains(ar.Id) && !ar.IsDeleted);
+            _facadeService.CounterService().Count(audioRecords);
             return audioRecords == null
                 ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
@@ -206,7 +201,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<AudioRecord>> GetAllByTechnicalPlaceholder(Guid technicalPlaceholderId)
         {
-            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _technicalPlaceholderService.GetById(technicalPlaceholderId);
+            IDataResult<TechnicalPlaceholder> technicalPlaceholder = _facadeService.TechnicalPlaceholderService().GetById(technicalPlaceholderId);
             if (!technicalPlaceholder.Success)
                 return new ErrorDataResult<IList<AudioRecord>>(technicalPlaceholder.Message);
 
@@ -246,7 +241,7 @@ namespace Business.Concrete
 
         public IDataResult<AudioRecord> GetByStock(Guid stockId)
         {
-            IDataResult<Stock> stock = _stockService.GetById(stockId);
+            IDataResult<Stock> stock = _facadeService.StockService().GetById(stockId);
             if (!stock.Success)
                 return new ErrorDataResult<AudioRecord>(stock.Message);
 
