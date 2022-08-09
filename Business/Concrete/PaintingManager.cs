@@ -134,6 +134,7 @@ namespace Business.Concrete
         public IDataResult<IList<Painting>> GetAllByIds(Guid[] ids)
         {
             IList<Painting> paintings = _paintingDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
+            _facadeService.CounterService().Count(paintings);
             return paintings == null
                 ? new ErrorDataResult<IList<Painting>>(PaintingConstants.DataNotGet)
                 : new SuccessDataResult<IList<Painting>>(paintings, PaintingConstants.DataGet);
@@ -210,6 +211,7 @@ namespace Business.Concrete
         public IDataResult<Painting> GetById(Guid id)
         {
             Painting painting = _paintingDal.Get(p => p.Id == id);
+            _facadeService.CounterService().Count(painting);
             return painting == null
                 ? new ErrorDataResult<Painting>(PaintingConstants.DataNotGet)
                 : new SuccessDataResult<Painting>(painting, PaintingConstants.DataGet);
@@ -222,6 +224,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Painting>(image.Message);
 
             Painting painting = _paintingDal.Get(p => p.ImageId == imageId && !p.IsDeleted);
+            _facadeService.CounterService().Count(painting);
             return painting == null
                 ? new ErrorDataResult<Painting>(PaintingConstants.DataNotGet)
                 : new SuccessDataResult<Painting>(painting, PaintingConstants.DataGet);
@@ -234,6 +237,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Painting>(stock.Message);
 
             Painting painting = _paintingDal.Get(p => p.StockId == stockId && !p.IsDeleted);
+            _facadeService.CounterService().Count(painting);
             return painting == null
                 ? new ErrorDataResult<Painting>(PaintingConstants.DataNotGet)
                 : new SuccessDataResult<Painting>(painting, PaintingConstants.DataGet);

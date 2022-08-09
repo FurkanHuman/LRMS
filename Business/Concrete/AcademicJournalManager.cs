@@ -155,6 +155,7 @@ namespace Business.Concrete
         public IDataResult<AcademicJournal> GetById(Guid id)
         {
             AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Id == id);
+            _facadeService.CounterService().Count(academicJournal);
             return academicJournal == null
                 ? new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet)
                 : new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet);
@@ -163,6 +164,7 @@ namespace Business.Concrete
         public IDataResult<IList<AcademicJournal>> GetAllByIds(Guid[] ids)
         {
             IList<AcademicJournal> academicJournals = _academicJournalDal.GetAll(aj => ids.Contains(aj.Id) && !aj.IsDeleted);
+            _facadeService.CounterService().Count(academicJournals);
             return academicJournals.Count == 0
                 ? new ErrorDataResult<IList<AcademicJournal>>(AcademicJournalConstants.NotMatch)
                 : new SuccessDataResult<IList<AcademicJournal>>(academicJournals, AcademicJournalConstants.DataGet);
@@ -341,9 +343,10 @@ namespace Business.Concrete
             if (!stock.Success)
                 return new ErrorDataResult<AcademicJournal>(stock.Message);
 
-            AcademicJournal academicJournals = _academicJournalDal.Get(aj => aj.Stock == stock.Data && !aj.IsDeleted);
-            return academicJournals != null
-                ? new SuccessDataResult<AcademicJournal>(academicJournals, AcademicJournalConstants.DataGet)
+            AcademicJournal academicJournal = _academicJournalDal.Get(aj => aj.Stock == stock.Data && !aj.IsDeleted);
+            _facadeService.CounterService().Count(academicJournal);
+            return academicJournal != null
+                ? new SuccessDataResult<AcademicJournal>(academicJournal, AcademicJournalConstants.DataGet)
                 : new ErrorDataResult<AcademicJournal>(AcademicJournalConstants.DataNotGet);
         }
 

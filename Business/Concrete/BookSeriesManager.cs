@@ -72,6 +72,7 @@ namespace Business.Concrete
         public IDataResult<BookSeries> GetById(Guid id)
         {
             BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.Id == id);
+            _facadeService.CounterService().Count(bookSeries);
             return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.NotMatch)
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
@@ -80,6 +81,7 @@ namespace Business.Concrete
         public IDataResult<IList<BookSeries>> GetAllByIds(Guid[] ids)
         {
             IList<BookSeries> bookSeries = _bookSeriesDal.GetAll(bs => ids.Contains(bs.Id) && !bs.IsDeleted);
+            _facadeService.CounterService().Count(bookSeries);
             return bookSeries == null
                 ? new ErrorDataResult<IList<BookSeries>>(BookSeriesConstants.NotMatch)
                 : new SuccessDataResult<IList<BookSeries>>(bookSeries, BookSeriesConstants.DataGet);
@@ -92,6 +94,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<BookSeries>(book.Message);
 
             BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.BooksIds == bookId && !bs.IsDeleted);
+            _facadeService.CounterService().Count(bookSeries);
             return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.DataNotGet)
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
@@ -104,6 +107,7 @@ namespace Business.Concrete
                 return new SuccessDataResult<BookSeries>(cImage.Message);
 
             BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.CoverImageId == cImageId && !bs.IsDeleted);
+            _facadeService.CounterService().Count(bookSeries);
             return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.DataNotGet)
                 : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
@@ -370,10 +374,11 @@ namespace Business.Concrete
             if (!stock.Success)
                 return new ErrorDataResult<BookSeries>(stock.Message);
 
-            BookSeries audioRecord = _bookSeriesDal.Get(ar => ar.Stock == stock.Data && !ar.IsDeleted);
-            return audioRecord == null
+            BookSeries bookSeries = _bookSeriesDal.Get(ar => ar.Stock == stock.Data && !ar.IsDeleted);
+            _facadeService.CounterService().Count(bookSeries);
+            return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.NotMatch)
-                : new SuccessDataResult<BookSeries>(audioRecord, BookSeriesConstants.DataGet);
+                : new SuccessDataResult<BookSeries>(bookSeries, BookSeriesConstants.DataGet);
         }
 
         private IResult CheckBookSeriess(BookSeries bookSeries)

@@ -183,6 +183,7 @@ namespace Business.Concrete
         public IDataResult<Dissertation> GetById(Guid id)
         {
             Dissertation dissertation = _dissertationDal.Get(d => id == d.Id && !d.IsDeleted);
+            _facadeService.CounterService().Count(dissertation);
             return dissertation == null
                 ? new ErrorDataResult<Dissertation>(DissertationConstants.DataNotGet)
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);
@@ -191,6 +192,7 @@ namespace Business.Concrete
         public IDataResult<IList<Dissertation>> GetAllByIds(Guid[] ids)
         {
             IList<Dissertation> dissertations = _dissertationDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted);
+            _facadeService.CounterService().Count(dissertations);
             return dissertations == null
                 ? new ErrorDataResult<IList<Dissertation>>(DissertationConstants.DataNotGet)
                 : new SuccessDataResult<IList<Dissertation>>(dissertations, DissertationConstants.DataGet);
@@ -280,6 +282,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Dissertation>(stock.Message);
 
             Dissertation dissertation = _dissertationDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
+            _facadeService.CounterService().Count(dissertation);
             return dissertation == null
                 ? new ErrorDataResult<Dissertation>(DissertationConstants.NotMatch)
                 : new SuccessDataResult<Dissertation>(dissertation, DissertationConstants.DataGet);

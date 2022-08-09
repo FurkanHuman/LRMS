@@ -128,6 +128,7 @@ namespace Business.Concrete
         public IDataResult<IList<Microform>> GetAllByIds(Guid[] ids)
         {
             IList<Microform> microforms = _microformDal.GetAll(m => ids.Contains(m.Id) && m.IsDeleted);
+            _facadeService.CounterService().Count(microforms);
             return microforms == null
                 ? new ErrorDataResult<IList<Microform>>(MicroformConstants.DataNotGet)
                 : new SuccessDataResult<IList<Microform>>(microforms, MicroformConstants.DataGet);
@@ -188,6 +189,7 @@ namespace Business.Concrete
         public IDataResult<Microform> GetById(Guid id)
         {
             Microform microform = _microformDal.Get(m => m.Id == id);
+            _facadeService.CounterService().Count(microform);
             return microform == null
                 ? new ErrorDataResult<Microform>(MicroformConstants.NotMatch)
                 : new SuccessDataResult<Microform>(microform, MicroformConstants.DataGet);
@@ -200,6 +202,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Microform>(stock.Message);
 
             Microform microform = _microformDal.Get(m => m.StockId == stockId && m.IsDeleted);
+            _facadeService.CounterService().Count(microform);
             return microform == null
                ? new ErrorDataResult<Microform>(MicroformConstants.DataNotGet)
                : new SuccessDataResult<Microform>(microform, MicroformConstants.DataGet);

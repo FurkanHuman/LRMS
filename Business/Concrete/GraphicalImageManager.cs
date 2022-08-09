@@ -131,6 +131,7 @@ namespace Business.Concrete
         public IDataResult<GraphicalImage> GetById(Guid id)
         {
             GraphicalImage graphicalImage = _graphicalImageDal.Get(gi => gi.Id == id);
+            _facadeService.CounterService().Count(graphicalImage);
             return graphicalImage == null
                 ? new ErrorDataResult<GraphicalImage>(GraphicalImageConstants.NotMatch)
                 : new SuccessDataResult<GraphicalImage>(graphicalImage, GraphicalImageConstants.DataGet);
@@ -139,6 +140,7 @@ namespace Business.Concrete
         public IDataResult<IList<GraphicalImage>> GetAllByIds(Guid[] ids)
         {
             IList<GraphicalImage> graphicalImages = _graphicalImageDal.GetAll(gi => ids.Contains(gi.Id) && !gi.IsDeleted);
+            _facadeService.CounterService().Count(graphicalImages);
             return graphicalImages == null
             ? new ErrorDataResult<IList<GraphicalImage>>(GraphicalImageConstants.DataNotGet)
             : new SuccessDataResult<IList<GraphicalImage>>(graphicalImages, GraphicalImageConstants.DataGet);
@@ -235,6 +237,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<GraphicalImage>(stock.Message);
 
             GraphicalImage graphicalImage = _graphicalImageDal.Get(gi => gi.Stock == stock.Data && !gi.IsDeleted);
+            _facadeService.CounterService().Count(graphicalImage);
             return graphicalImage == null
                 ? new ErrorDataResult<GraphicalImage>(GraphicalImageConstants.NotMatch)
                 : new SuccessDataResult<GraphicalImage>(graphicalImage, GraphicalImageConstants.DataGet);

@@ -131,6 +131,7 @@ namespace Business.Concrete
         public IDataResult<ElectronicsResource> GetById(Guid id)
         {
             ElectronicsResource electronicsResource = _electronicsResourceDal.Get(er => er.Id == id);
+            _facadeService.CounterService().Count(electronicsResource);
             return electronicsResource == null
                 ? new ErrorDataResult<ElectronicsResource>(ElectronicsResourceConstants.NotMatch)
                 : new SuccessDataResult<ElectronicsResource>(electronicsResource, ElectronicsResourceConstants.DataGet);
@@ -139,6 +140,7 @@ namespace Business.Concrete
         public IDataResult<IList<ElectronicsResource>> GetAllByIds(Guid[] ids)
         {
             IList<ElectronicsResource> electronicsResources = _electronicsResourceDal.GetAll(er => ids.Contains(er.Id) && !er.IsDeleted);
+            _facadeService.CounterService().Count(electronicsResources);
             return electronicsResources == null
                 ? new ErrorDataResult<IList<ElectronicsResource>>(ElectronicsResourceConstants.DataNotGet)
                 : new SuccessDataResult<IList<ElectronicsResource>>(electronicsResources, ElectronicsResourceConstants.DataGet);
@@ -211,6 +213,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<ElectronicsResource>(stock.Message);
 
             ElectronicsResource eResource = _electronicsResourceDal.Get(er => er.Stock == stock.Data && !er.IsDeleted);
+            _facadeService.CounterService().Count(eResource);
             return eResource == null
                 ? new ErrorDataResult<ElectronicsResource>(ElectronicsResourceConstants.NotMatch)
                 : new SuccessDataResult<ElectronicsResource>(eResource, ElectronicsResourceConstants.DataGet);

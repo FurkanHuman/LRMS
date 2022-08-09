@@ -134,10 +134,11 @@ namespace Business.Concrete
 
         public IDataResult<IList<Poster>> GetAllByIds(Guid[] ids)
         {
-            IList<Poster> Posters = _posterDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
-            return Posters == null
+            IList<Poster> posters = _posterDal.GetAll(p => ids.Contains(p.Id) && !p.IsDeleted);
+            _facadeService.CounterService().Count(posters);
+            return posters == null
                 ? new ErrorDataResult<IList<Poster>>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<IList<Poster>>(Posters, PosterConstants.DataGet);
+                : new SuccessDataResult<IList<Poster>>(posters, PosterConstants.DataGet);
         }
 
         public IDataResult<IList<Poster>> GetAllByName(string name)
@@ -210,10 +211,11 @@ namespace Business.Concrete
 
         public IDataResult<Poster> GetById(Guid id)
         {
-            Poster Poster = _posterDal.Get(p => p.Id == id);
-            return Poster == null
+            Poster poster = _posterDal.Get(p => p.Id == id);
+            _facadeService.CounterService().Count(poster);
+            return poster == null
                 ? new ErrorDataResult<Poster>(PosterConstants.DataNotGet)
-                : new SuccessDataResult<Poster>(Poster, PosterConstants.DataGet);
+                : new SuccessDataResult<Poster>(poster, PosterConstants.DataGet);
         }
 
         public IDataResult<Poster> GetByImageId(Guid imageId)
@@ -223,6 +225,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Poster>(image.Message);
 
             Poster Poster = _posterDal.Get(p => p.ImageId == imageId && !p.IsDeleted);
+            _facadeService.CounterService().Count(Poster);
             return Poster == null
                 ? new ErrorDataResult<Poster>(PosterConstants.DataNotGet)
                 : new SuccessDataResult<Poster>(Poster, PosterConstants.DataGet);
@@ -235,6 +238,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Poster>(stock.Message);
 
             Poster Poster = _posterDal.Get(p => p.StockId == stockId && !p.IsDeleted);
+            _facadeService.CounterService().Count(Poster);
             return Poster == null
                 ? new ErrorDataResult<Poster>(PosterConstants.DataNotGet)
                 : new SuccessDataResult<Poster>(Poster, PosterConstants.DataGet);

@@ -72,6 +72,7 @@ namespace Business.Concrete
         public IDataResult<Book> GetById(Guid id)
         {
             Book book = _bookDal.Get(b => b.Id == id);
+            _facadeService.CounterService().Count(book);
             return book == null
                 ? new ErrorDataResult<Book>(BookConstants.BookNotFound)
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);
@@ -80,6 +81,7 @@ namespace Business.Concrete
         public IDataResult<IList<Book>> GetAllByIds(Guid[] ids)
         {
             IList<Book> books = _bookDal.GetAll(b => ids.Contains(b.Id) && !b.IsDeleted);
+            _facadeService.CounterService().Count(books);
             return books == null
                 ? new ErrorDataResult<IList<Book>>(BookConstants.DataNotGet)
                 : new SuccessDataResult<IList<Book>>(books, BookConstants.DataGet);
@@ -127,6 +129,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Book>(coverImage.Message);
 
             Book book = _bookDal.Get(b => b.CoverImageId == cImageId && !b.IsDeleted);
+            _facadeService.CounterService().Count(book);
             return book == null
                 ? new ErrorDataResult<Book>(BookConstants.DataNotGet)
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);
@@ -378,6 +381,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Book>(stock.Message);
 
             Book book = _bookDal.Get(b => b.Stock == stock.Data && !b.IsDeleted);
+            _facadeService.CounterService().Count(book);
             return book == null
                 ? new ErrorDataResult<Book>(BookConstants.NotMatch)
                 : new SuccessDataResult<Book>(book, BookConstants.DataGet);

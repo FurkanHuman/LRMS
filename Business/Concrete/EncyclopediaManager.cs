@@ -123,6 +123,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Encyclopedia>(image.Message);
 
             Encyclopedia encyclopedia = _encyclopediaDal.Get(ep => ep.CoverImageId == cImageId && !ep.IsDeleted);
+            _facadeService.CounterService().Count(encyclopedia);
             return encyclopedia == null
                 ? new ErrorDataResult<Encyclopedia>(EncyclopediaConstants.DataNotGet)
                 : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);
@@ -223,6 +224,7 @@ namespace Business.Concrete
         public IDataResult<Encyclopedia> GetById(Guid id)
         {
             Encyclopedia encyclopedia = _encyclopediaDal.Get(ep => ep.Id == id);
+            _facadeService.CounterService().Count(encyclopedia);
             return encyclopedia == null
                 ? new ErrorDataResult<Encyclopedia>(EncyclopediaConstants.DataNotGet)
                 : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);
@@ -231,6 +233,7 @@ namespace Business.Concrete
         public IDataResult<IList<Encyclopedia>> GetAllByIds(Guid[] ids)
         {
             IList<Encyclopedia> encyclopedias = _encyclopediaDal.GetAll(ep => ids.Contains(ep.Id) && !ep.IsDeleted);
+            _facadeService.CounterService().Count(encyclopedias);
             return encyclopedias == null
                 ? new ErrorDataResult<IList<Encyclopedia>>(EncyclopediaConstants.DataNotGet)
                 : new SuccessDataResult<IList<Encyclopedia>>(encyclopedias, EncyclopediaConstants.DataGet);
@@ -363,6 +366,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Encyclopedia>(stock.Message);
 
             Encyclopedia encyclopedia = _encyclopediaDal.Get(e => e.Stock == stock.Data && !e.IsDeleted);
+            _facadeService.CounterService().Count(encyclopedia);
             return encyclopedia == null
                 ? new ErrorDataResult<Encyclopedia>(EncyclopediaConstants.NotMatch)
                 : new SuccessDataResult<Encyclopedia>(encyclopedia, EncyclopediaConstants.DataGet);

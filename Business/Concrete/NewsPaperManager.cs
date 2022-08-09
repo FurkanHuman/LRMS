@@ -218,6 +218,7 @@ namespace Business.Concrete
         public IDataResult<IList<NewsPaper>> GetAllByIds(Guid[] ids)
         {
             IList<NewsPaper> newsPapers = _newsPaperDal.GetAll(np => ids.Contains(np.Id) && !np.IsDeleted);
+            _facadeService.CounterService().Count(newsPapers);
             return newsPapers == null
                 ? new ErrorDataResult<IList<NewsPaper>>(NewsPaperConstants.DataNotGet)
                 : new SuccessDataResult<IList<NewsPaper>>(newsPapers, NewsPaperConstants.DataGet);
@@ -358,6 +359,7 @@ namespace Business.Concrete
         public IDataResult<NewsPaper> GetById(Guid id)
         {
             NewsPaper newsPaper = _newsPaperDal.Get(np => np.Id == id && !np.IsDeleted);
+            _facadeService.CounterService().Count(newsPaper);
             return newsPaper == null
                 ? new ErrorDataResult<NewsPaper>(NewsPaperConstants.DataNotGet)
                 : new SuccessDataResult<NewsPaper>(newsPaper, NewsPaperConstants.DataGet);
@@ -382,6 +384,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<NewsPaper>(stock.Message);
 
             NewsPaper newsPaper = _newsPaperDal.Get(np => np.StockId == stockId && !np.IsDeleted);
+            _facadeService.CounterService().Count(newsPaper);
             return newsPaper == null
                 ? new ErrorDataResult<NewsPaper>(NewsPaperConstants.DataNotGet)
                 : new SuccessDataResult<NewsPaper>(newsPaper, NewsPaperConstants.DataGet);

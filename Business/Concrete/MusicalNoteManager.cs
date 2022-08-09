@@ -158,6 +158,7 @@ namespace Business.Concrete
         public IDataResult<IList<MusicalNote>> GetAllByIds(Guid[] ids)
         {
             IList<MusicalNote> musicalNotes = _musicalNoteDal.GetAll(mn => ids.Contains(mn.Id) && !mn.IsDeleted);
+            _facadeService.CounterService().Count(musicalNotes);
             return musicalNotes == null
                 ? new ErrorDataResult<IList<MusicalNote>>(MusicalNoteConstants.DataNotGet)
                 : new SuccessDataResult<IList<MusicalNote>>(musicalNotes, MusicalNoteConstants.DataGet);
@@ -210,6 +211,7 @@ namespace Business.Concrete
         public IDataResult<MusicalNote> GetById(Guid id)
         {
             MusicalNote musicalNote = _musicalNoteDal.Get(mn => mn.Id == id);
+            _facadeService.CounterService().Count(musicalNote);
             return musicalNote == null
                 ? new ErrorDataResult<MusicalNote>(MusicalNoteConstants.NotMatch)
                 : new SuccessDataResult<MusicalNote>(musicalNote, MusicalNoteConstants.DataGet);
@@ -222,6 +224,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<MusicalNote>(stock.Message);
 
             MusicalNote musicalNote = _musicalNoteDal.Get(mn => mn.StockId == stockId && !mn.IsDeleted);
+            _facadeService.CounterService().Count(musicalNote);
             return musicalNote == null
                 ? new ErrorDataResult<MusicalNote>(MusicalNoteConstants.DataNotGet)
                 : new SuccessDataResult<MusicalNote>(musicalNote, MusicalNoteConstants.DataGet);

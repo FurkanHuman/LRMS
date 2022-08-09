@@ -135,6 +135,7 @@ namespace Business.Concrete
         public IDataResult<IList<Object3D>> GetAllByIds(Guid[] ids)
         {
             IList<Object3D> object3Ds = _object3DDal.GetAll(o => ids.Contains(o.Id) && !o.IsDeleted);
+            _facadeService.CounterService().Count(object3Ds);
             return object3Ds == null
                 ? new ErrorDataResult<IList<Object3D>>(Object3DConstants.DataNotGet)
                 : new SuccessDataResult<IList<Object3D>>(object3Ds, Object3DConstants.DataGet);
@@ -211,6 +212,7 @@ namespace Business.Concrete
         public IDataResult<Object3D> GetById(Guid id)
         {
             Object3D object3D = _object3DDal.Get(o => o.Id == id);
+            _facadeService.CounterService().Count(object3D);
             return object3D == null
                 ? new ErrorDataResult<Object3D>(Object3DConstants.DataNotGet)
                 : new SuccessDataResult<Object3D>(object3D, Object3DConstants.DataGet);
@@ -235,6 +237,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Object3D>(stock.Message);
 
             Object3D object3D = _object3DDal.Get(o => o.StockId == stockId && !o.IsDeleted);
+            _facadeService.CounterService().Count(object3D);
             return object3D == null
                 ? new ErrorDataResult<Object3D>(Object3DConstants.DataNotGet)
                 : new SuccessDataResult<Object3D>(object3D, Object3DConstants.DataGet);

@@ -162,17 +162,19 @@ namespace Business.Concrete
 
         public IDataResult<Depiction> GetById(Guid id)
         {
-            Depiction result = _depictionDal.Get(d => d.Id == id && !d.IsDeleted);
-            return result != null
-                ? new SuccessDataResult<Depiction>(result, DepictionConstants.DataGet)
+            Depiction depiction = _depictionDal.Get(d => d.Id == id);
+            _facadeService.CounterService().Count(depiction);
+            return depiction != null
+                ? new SuccessDataResult<Depiction>(depiction, DepictionConstants.DataGet)
                 : new ErrorDataResult<Depiction>(DepictionConstants.NotMatch);
         }
 
         public IDataResult<IList<Depiction>> GetAllByIds(Guid[] ids)
         {
-            IList<Depiction> titles = _depictionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted);
-            return titles != null
-                ? new SuccessDataResult<IList<Depiction>>(titles, DepictionConstants.DataGet)
+            IList<Depiction> depictions = _depictionDal.GetAll(d => ids.Contains(d.Id) && !d.IsDeleted);
+            _facadeService.CounterService().Count(depictions);
+            return depictions != null
+                ? new SuccessDataResult<IList<Depiction>>(depictions, DepictionConstants.DataGet)
                 : new ErrorDataResult<IList<Depiction>>(DepictionConstants.DataNotGet);
         }
 
@@ -243,6 +245,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Depiction>(stock.Message);
 
             Depiction depiction = _depictionDal.Get(d => d.Stock == stock.Data && !d.IsDeleted);
+            _facadeService.CounterService().Count(depiction);
             return depiction == null
                 ? new ErrorDataResult<Depiction>(DepictionConstants.NotMatch)
                 : new SuccessDataResult<Depiction>(depiction, DepictionConstants.DataGet);

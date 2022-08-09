@@ -213,10 +213,10 @@ namespace Business.Concrete
 
         public IDataResult<byte?> GetSecretLevel(Guid id)
         {
-            AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted);
-            return audioRecord == null
+            byte? sLevel = _audioRecordDal.Get(ar => ar.Id == id && !ar.IsDeleted).SecretLevel;
+            return sLevel == null
                 ? new ErrorDataResult<byte?>(AudioRecordConstants.NotMatch)
-                : new SuccessDataResult<byte?>(audioRecord.SecretLevel, AudioRecordConstants.DataGet);
+                : new SuccessDataResult<byte?>(sLevel, AudioRecordConstants.DataGet);
         }
 
         public IDataResult<byte> GetState(Guid id)
@@ -246,6 +246,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<AudioRecord>(stock.Message);
 
             AudioRecord audioRecord = _audioRecordDal.Get(ar => ar.Stock == stock.Data && !ar.IsDeleted);
+            _facadeService.CounterService().Count(audioRecord);
             return audioRecord == null
                 ? new ErrorDataResult<AudioRecord>(AudioRecordConstants.NotMatch)
                 : new SuccessDataResult<AudioRecord>(audioRecord, AudioRecordConstants.DataGet);

@@ -144,6 +144,7 @@ namespace Business.Concrete
         public IDataResult<CartographicMaterial> GetById(Guid id)
         {
             CartographicMaterial cartographicMaterial = _cartographicMaterialDal.Get(cm => cm.Id == id);
+            _facadeService.CounterService().Count(cartographicMaterial);
             return cartographicMaterial == null
                ? new ErrorDataResult<CartographicMaterial>(CartographicMaterialConstants.DataNotGet)
                : new ErrorDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);
@@ -152,6 +153,7 @@ namespace Business.Concrete
         public IDataResult<IList<CartographicMaterial>> GetAllByIds(Guid[] ids)
         {
             IList<CartographicMaterial> cartographicMaterials = _cartographicMaterialDal.GetAll(cm => ids.Contains(cm.Id) && cm.IsDeleted);
+            _facadeService.CounterService().Count(cartographicMaterials);
             return cartographicMaterials == null
                 ? new ErrorDataResult<IList<CartographicMaterial>>(CartographicMaterialConstants.DataNotGet)
                 : new SuccessDataResult<IList<CartographicMaterial>>(cartographicMaterials, CartographicMaterialConstants.DataGet);
@@ -235,6 +237,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<CartographicMaterial>(stock.Message);
 
             CartographicMaterial cartographicMaterial = _cartographicMaterialDal.Get(cm => cm.Stock == stock.Data && !cm.IsDeleted);
+            _facadeService.CounterService().Count(cartographicMaterial);
             return cartographicMaterial == null
                 ? new ErrorDataResult<CartographicMaterial>(CartographicMaterialConstants.NotMatch)
                 : new SuccessDataResult<CartographicMaterial>(cartographicMaterial, CartographicMaterialConstants.DataGet);

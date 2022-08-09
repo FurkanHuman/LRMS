@@ -371,7 +371,7 @@ namespace Business.Concrete
         public IDataResult<Kit> GetById(Guid id)
         {
             Kit kit = _kitDal.Get(k => k.Id == id);
-
+            _facadeService.CounterService().Count(kit);
             return kit == null
                 ? new ErrorDataResult<Kit>(KitConstants.DataNotGet)
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
@@ -380,7 +380,7 @@ namespace Business.Concrete
         public IDataResult<IList<Kit>> GetAllByIds(Guid[] ids)
         {
             IList<Kit> kits = _kitDal.GetAll(k => ids.Contains(k.Id));
-
+            _facadeService.CounterService().Count(kits);
             return kits == null
                 ? new ErrorDataResult<IList<Kit>>(KitConstants.DataNotGet)
                 : new SuccessDataResult<IList<Kit>>(kits, KitConstants.DataGet);
@@ -649,6 +649,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<Kit>(stock.Message);
 
             Kit kit = _kitDal.Get(k => k.Stock == stock.Data && !k.IsDeleted);
+            _facadeService.CounterService().Count(kit);
             return kit == null
                 ? new ErrorDataResult<Kit>(KitConstants.NotMatch)
                 : new SuccessDataResult<Kit>(kit, KitConstants.DataGet);
