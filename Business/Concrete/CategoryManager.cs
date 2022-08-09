@@ -86,17 +86,17 @@ namespace Business.Concrete
 
         public IDataResult<IList<Category>> GetAllByFilter(Expression<Func<Category, bool>>? filter = null)
         {
-            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(filter), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>(_categoryDal.GetAll(filter), CategoryConstants.DataGet);
         }
 
         public IDataResult<IList<Category>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>(_categoryDal.GetAll(c => c.IsDeleted), CategoryConstants.DataGet);
         }
 
         public IDataResult<IList<Category>> GetAll()
         {
-            return new SuccessDataResult<IList<Category>>((IList<Category>)_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
+            return new SuccessDataResult<IList<Category>>(_categoryDal.GetAll(c => !c.IsDeleted), CategoryConstants.DataGet);
         }
 
         private IResult CategoryNameChecker(Category category)
