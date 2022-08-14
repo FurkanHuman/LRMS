@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Concrete\Base\README.md" />
+    <None Remove="Concrete\Infos\README.md" />
+    <None Remove="Concrete\README.md" />
+    <None Remove="DTOs\Base\README.md" />
+    <None Remove="DTOs\Concrete\README.md" />
+    <None Remove="DTOs\Infos\README.md" />
+    <None Remove="DTOs\README.md" />
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
