@@ -7,7 +7,6 @@ using Core.Entities.Abstract;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Concrete.Base;
 using Entities.Concrete.Infos;
 using System.Linq.Expressions;
@@ -17,7 +16,6 @@ namespace Business.Concrete
     public class CounterManager : ICounterService
     {
         private readonly ICounterDal _counterDal;
-        private readonly IFacadeService _facadeService;
 
         public CounterManager(ICounterDal counterDal)
         {
