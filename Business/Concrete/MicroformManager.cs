@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IMicroformDal _microformDal;
         private readonly IFacadeService _facadeService;
 
-        public MicroformManager(IMicroformDal microformDal, IFacadeService facadeService)
+        public MicroformManager(IMicroformDal microformDal)
         {
             _microformDal = microformDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(MicroformValidator))]

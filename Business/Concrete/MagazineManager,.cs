@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IMagazineDal _magazineDal;
         private readonly IFacadeService _facadeService;
 
-        public MagazineManager(IMagazineDal magazineDal, IFacadeService facadeService)
+        public MagazineManager(IMagazineDal magazineDal)
         {
             _magazineDal = magazineDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(MagazineValidator))]

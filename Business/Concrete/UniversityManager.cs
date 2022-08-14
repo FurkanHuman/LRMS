@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
@@ -13,20 +14,17 @@ namespace Business.Concrete
     public class UniversityManager : IUniversityService
     {
         private readonly IUniversityDal _universityDal;
-        private readonly IAddressService _addressService;
-        private readonly IBranchService _branchService;
+        private readonly IFacadeService _facadeService;
 
-        public UniversityManager(IUniversityDal universityDal, IAddressService addressService, IBranchService branchService)
+        public UniversityManager(IUniversityDal universityDal)
         {
             _universityDal = universityDal;
-            _addressService = addressService;
-            _branchService = branchService;
         }
 
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Add(University university)
         {
-            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.GetById(university.Branch.Id), UniversityChecker(university));
+            IResult result = BusinessRules.Run(_facadeService.AddressService().GetById(university.Address.Id), _facadeService.BranchService().GetById(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
@@ -59,7 +57,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(University), Priority = 1)]
         public IResult Update(University university)
         {
-            IResult result = BusinessRules.Run(_addressService.GetById(university.Address.Id), _branchService.GetById(university.Branch.Id), UniversityChecker(university));
+            IResult result = BusinessRules.Run(_facadeService.AddressService().GetById(university.Address.Id), _facadeService.BranchService().GetById(university.Branch.Id), UniversityChecker(university));
             if (result != null)
                 return result;
 
@@ -87,7 +85,7 @@ namespace Business.Concrete
 
         public IDataResult<University> GetByAddressId(Guid id)
         {
-            IDataResult<Address> address = _addressService.GetById(id);
+            IDataResult<Address> address = _facadeService.AddressService().GetById(id);
             if (!address.Success)
                 return new ErrorDataResult<University>(address.Message);
 
@@ -126,7 +124,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<University>> GetAllByBranchId(int branchId)
         {
-            IDataResult<Branch> branch = _branchService.GetById(branchId);
+            IDataResult<Branch> branch = _facadeService.BranchService().GetById(branchId);
             if (!branch.Success)
                 return new ErrorDataResult<IList<University>>(branch.Message);
 

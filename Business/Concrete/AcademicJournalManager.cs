@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IAcademicJournalDal _academicJournalDal;
         private readonly IFacadeService _facadeService;
 
-        public AcademicJournalManager(IAcademicJournalDal academicJournalDal, IFacadeService facadeService)
+        public AcademicJournalManager(IAcademicJournalDal academicJournalDal)
         {
             _academicJournalDal = academicJournalDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(AcademicJournalValidator), Priority = 1)]

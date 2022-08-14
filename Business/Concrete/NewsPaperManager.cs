@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly INewsPaperDal _newsPaperDal;
         private readonly IFacadeService _facadeService;
 
-        public NewsPaperManager(INewsPaperDal newsPaperDal, IFacadeService facadeService)
+        public NewsPaperManager(INewsPaperDal newsPaperDal)
         {
             _newsPaperDal = newsPaperDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(NewsPaperValidator))]

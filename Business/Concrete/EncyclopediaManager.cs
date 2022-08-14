@@ -16,10 +16,9 @@ namespace Business.Concrete
         private readonly IEncyclopediaDal _encyclopediaDal;
         private readonly IFacadeService _facadeService;
 
-        public EncyclopediaManager(IEncyclopediaDal encyclopediaDal, IFacadeService facadeService)
+        public EncyclopediaManager(IEncyclopediaDal encyclopediaDal)
         {
             _encyclopediaDal = encyclopediaDal;
-            _facadeService = facadeService;
         }
 
         public IResult Add(Encyclopedia entity)

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,24 +15,16 @@ namespace Business.Concrete
     public class PublisherManager : IPublisherService // todo reWrite
     {
         private readonly IPublisherDal _publisherDal;
+        private readonly IFacadeService _facadeService;
+
+        public PublisherManager(IPublisherDal publisherDal)
+        {
+            _publisherDal = publisherDal;
+        }
 
         // ı solve then   http://www.canertosuner.com/post/constructor-injection-hell-ioc     ınjection ile constructor injection yapılır.
         // https://www.linkedin.com/pulse/yaz%C4%B1l%C4%B1mc%C4%B1n%C4%B1n-gizli-kabusu-constructor-injection-cehennemi-kerem-varis/?originalSubdomain=tr - Kerem Varış
 
-        private readonly IAddressService _addressService;
-        private readonly ICountryService _countryService;
-        private readonly ICityService _cityService;
-        private readonly ICommunicationService _communicationService;
-
-
-        public PublisherManager(IPublisherDal publisherDal, IAddressService addressService, ICountryService countryService, ICityService cityService, ICommunicationService communicationService)
-        {
-            _publisherDal = publisherDal;
-            _addressService = addressService;
-            _countryService = countryService;
-            _cityService = cityService;
-            _communicationService = communicationService;
-        }
 
         [ValidationAspect(typeof(PublisherValidator), Priority = 1)]
         public IResult Add(Publisher publisher)
@@ -97,7 +90,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByAddressId(Guid addressId)
         {
-            IDataResult<Address> address = _addressService.GetById(addressId);
+            IDataResult<Address> address = _facadeService.AddressService().GetById(addressId);
             if (!address.Success)
                 return new ErrorDataResult<Publisher>(address.Message);
 
@@ -109,7 +102,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByPublisherInCountryId(int countryId)
         {   // third way.todo
-            IDataResult<Country> country = _countryService.GetById(countryId);
+            IDataResult<Country> country = _facadeService.CountryService().GetById(countryId);
             if (!country.Success)
                 return new ErrorDataResult<IList<Publisher>>(country.Message);
 
@@ -121,7 +114,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByAddressName(string addressName)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllByName(addressName);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllByName(addressName);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Publisher>>(addresses.Message);
 
@@ -133,7 +126,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByAddressLine(string addressLine)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllBySearchString(addressLine);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Publisher>>(addresses.Message);
 
@@ -145,7 +138,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByPublisherInCountryName(string countryName)
         {
-            IDataResult<IList<Country>> countrys = _countryService.GetAllByName(countryName);
+            IDataResult<IList<Country>> countrys = _facadeService.CountryService().GetAllByName(countryName);
             if (!countrys.Success)
                 return new ErrorDataResult<IList<Publisher>>(countrys.Message);
 
@@ -157,7 +150,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByPublisherInCountryCode(string countryCode)
         {
-            IDataResult<IList<Country>> countrys = _countryService.GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> countrys = _facadeService.CountryService().GetAllByCountryCode(countryCode);
             if (!countrys.Success)
                 return new ErrorDataResult<IList<Publisher>>(countrys.Message);
 
@@ -169,7 +162,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByPublisherInCityId(int cityId)
         {
-            IDataResult<City> city = _cityService.GetById(cityId);
+            IDataResult<City> city = _facadeService.CityService().GetById(cityId);
             if (!city.Success)
                 return new ErrorDataResult<IList<Publisher>>(city.Message);
 
@@ -181,7 +174,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByPublisherInCityName(string cityName)
         {
-            IDataResult<IList<City>> cities = _cityService.GetAllByName(cityName);
+            IDataResult<IList<City>> cities = _facadeService.CityService().GetAllByName(cityName);
             if (!cities.Success)
                 return new ErrorDataResult<IList<Publisher>>(cities.Message);
 
@@ -211,7 +204,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationId(Guid commId)
         {
-            IDataResult<Communication> comm = _communicationService.GetById(commId);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetById(commId);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 
@@ -224,7 +217,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Publisher>> GetAllByCommunicationName(string commName)
         {
-            IDataResult<IList<Communication>> commNames = _communicationService.GetAllByName(commName);
+            IDataResult<IList<Communication>> commNames = _facadeService.CommunicationService().GetAllByName(commName);
             if (!commNames.Success)
                 return new ErrorDataResult<IList<Publisher>>(commNames.Message);
 
@@ -244,7 +237,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationPhone(string commPhone)
         {
-            IDataResult<Communication> comm = _communicationService.GetByPhoneNumber(commPhone);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByPhoneNumber(commPhone);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 
@@ -256,7 +249,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationFaxNumber(string commFaxNumber)
         {
-            IDataResult<Communication> comm = _communicationService.GetByFaxNumber(commFaxNumber);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByFaxNumber(commFaxNumber);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 
@@ -268,7 +261,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationEmail(string commEmail)
         {
-            IDataResult<Communication> comm = _communicationService.GetByEmail(commEmail);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByEmail(commEmail);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 
@@ -280,7 +273,7 @@ namespace Business.Concrete
 
         public IDataResult<Publisher> GetByCommunicationWebSite(string commWebSite)
         {
-            IDataResult<Communication> comm = _communicationService.GetByWebSite(commWebSite);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByWebSite(commWebSite);
             if (!comm.Success)
                 return new ErrorDataResult<Publisher>(comm.Message);
 

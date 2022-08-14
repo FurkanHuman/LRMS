@@ -19,10 +19,9 @@ namespace Business.Concrete
         private readonly IDepictionDal _depictionDal;
         private readonly IFacadeService _facadeService;
 
-        public DepictionManager(IDepictionDal depictionDal, IFacadeService facadeService)
+        public DepictionManager(IDepictionDal depictionDal)
         {
             _depictionDal = depictionDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(DepictionValidator))]

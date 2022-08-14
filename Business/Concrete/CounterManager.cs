@@ -19,10 +19,9 @@ namespace Business.Concrete
         private readonly ICounterDal _counterDal;
         private readonly IFacadeService _facadeService;
 
-        public CounterManager(ICounterDal counterDal, IFacadeService facadeService)
+        public CounterManager(ICounterDal counterDal)
         {
             _counterDal = counterDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(CounterValidator), Priority = 1)]

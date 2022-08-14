@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,16 +15,11 @@ namespace Business.Concrete
     public class EditionManager : IEditionService // todo rewrite
     {
         private readonly IEditionDal _editionDal;
-        private readonly IAddressService _addressService;
-        private readonly ICountryService _countryService;
-        private readonly ICityService _cityService;
+        private readonly IFacadeService _facadeService;
 
-        public EditionManager(IEditionDal editionDal, IAddressService addressService, ICountryService countryService, ICityService cityService)
+        public EditionManager(IEditionDal editionDal)
         {
             _editionDal = editionDal;
-            _addressService = addressService;
-            _countryService = countryService;
-            _cityService = cityService;
         }
 
         [ValidationAspect(typeof(EditionValidator), Priority = 1)]
@@ -85,7 +81,7 @@ namespace Business.Concrete
 
         public IDataResult<Edition> GetByAdderssId(Guid addressId)
         {
-            IDataResult<Address> address = _addressService.GetById(addressId);
+            IDataResult<Address> address = _facadeService.AddressService().GetById(addressId);
             if (!address.Success)
                 return new ErrorDataResult<Edition>(address.Message);
 
@@ -124,7 +120,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Edition>> GetAllByEditionInCountryName(string countryName)
         {
-            IDataResult<IList<Country>> country = _countryService.GetAllByName(countryName);
+            IDataResult<IList<Country>> country = _facadeService.CountryService().GetAllByName(countryName);
             if (!country.Success)
                 return new ErrorDataResult<IList<Edition>>(country.Message);
 
@@ -136,7 +132,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Edition>> GetAllByEditionInCountryCode(string countryCode)
         {
-            IDataResult<IList<Country>> country = _countryService.GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> country = _facadeService.CountryService().GetAllByCountryCode(countryCode);
             if (!country.Success)
                 return new ErrorDataResult<IList<Edition>>(country.Message);
 
@@ -148,7 +144,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Edition>> GetAllByEditionInCityId(int cityId)
         {
-            IDataResult<City> result = _cityService.GetById(cityId);
+            IDataResult<City> result = _facadeService.CityService().GetById(cityId);
             if (!result.Success)
                 return new ErrorDataResult<IList<Edition>>(result.Message);
 
@@ -160,7 +156,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Edition>> GetAllByEditionInCityName(string cityName)
         {
-            IDataResult<IList<City>> result = _cityService.GetAllByName(cityName);
+            IDataResult<IList<City>> result = _facadeService.CityService().GetAllByName(cityName);
             if (!result.Success)
                 return new ErrorDataResult<IList<Edition>>(result.Message);
 

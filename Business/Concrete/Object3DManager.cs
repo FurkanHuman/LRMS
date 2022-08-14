@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IObject3DDal _object3DDal;
         private readonly IFacadeService _facadeService;
 
-        public Object3DManager(IObject3DDal object3DDal, IFacadeService facadeService)
+        public Object3DManager(IObject3DDal object3DDal)
         {
             _object3DDal = object3DDal;
-            _facadeService = facadeService;
         }
 
 

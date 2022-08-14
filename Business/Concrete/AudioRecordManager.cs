@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IAudioRecordDal _audioRecordDal;
         private readonly IFacadeService _facadeService;
 
-        public AudioRecordManager(IAudioRecordDal audioRecordDal, IFacadeService facadeService)
+        public AudioRecordManager(IAudioRecordDal audioRecordDal)
         {
             _audioRecordDal = audioRecordDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(AudioRecordValidator), Priority = 1)]

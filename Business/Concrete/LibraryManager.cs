@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,18 +15,11 @@ namespace Business.Concrete
     public class LibraryManager : ILibraryService
     {
         private readonly ILibraryDal _libraryDal;
-        private readonly IAddressService _addressService;
-        private readonly ICommunicationService _communicationService;
-        private readonly ICountryService _countryService;
-        private readonly ICityService _cityService;
+        private readonly IFacadeService _facadeService;
 
-        public LibraryManager(ILibraryDal libraryDal, IAddressService addressService, ICommunicationService communicationService, ICountryService countryService, ICityService cityService)
+        public LibraryManager(ILibraryDal libraryDal)
         {
             _libraryDal = libraryDal;
-            _addressService = addressService;
-            _communicationService = communicationService;
-            _countryService = countryService;
-            _cityService = cityService;
         }
 
         [ValidationAspect(typeof(LibraryValidator), Priority = 1)]
@@ -107,7 +101,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByAddressId(Guid addressId)
         {
-            IDataResult<Address> address = _addressService.GetById(addressId);
+            IDataResult<Address> address = _facadeService.AddressService().GetById(addressId);
             if (!address.Success)
                 return new ErrorDataResult<Library>(address.Message);
 
@@ -120,7 +114,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInCountryId(int countryId)
         {
-            IDataResult<Country> country = _countryService.GetById(countryId);
+            IDataResult<Country> country = _facadeService.CountryService().GetById(countryId);
             if (!country.Success)
                 return new ErrorDataResult<IList<Library>>(country.Message);
 
@@ -133,7 +127,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByAddressName(string addressName)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllByName(addressName);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllByName(addressName);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
 
@@ -152,7 +146,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByAddressLine(string addressLine)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllBySearchString(addressLine);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllBySearchString(addressLine);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
 
@@ -171,7 +165,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInCountryName(string countryName)
         {
-            IDataResult<IList<Country>> countyries = _countryService.GetAllByName(countryName);
+            IDataResult<IList<Country>> countyries = _facadeService.CountryService().GetAllByName(countryName);
             if (!countyries.Success)
                 return new ErrorDataResult<IList<Library>>(countyries.Message);
 
@@ -190,7 +184,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInCountryCode(string countryCode)
         {
-            IDataResult<IList<Country>> countyries = _countryService.GetAllByCountryCode(countryCode);
+            IDataResult<IList<Country>> countyries = _facadeService.CountryService().GetAllByCountryCode(countryCode);
             if (!countyries.Success)
                 return new ErrorDataResult<IList<Library>>(countyries.Message);
 
@@ -209,7 +203,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInCityId(int cityId)
         {
-            IDataResult<City> city = _cityService.GetById(cityId);
+            IDataResult<City> city = _facadeService.CityService().GetById(cityId);
             if (!city.Success)
                 return new ErrorDataResult<IList<Library>>(city.Message);
             IList<Library> libraries = _libraryDal.GetAll(l => l.Address.City == city && !l.IsDestroyed);
@@ -220,7 +214,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInCityName(string cityName)
         {
-            IDataResult<IList<City>> cities = _cityService.GetAllByName(cityName);
+            IDataResult<IList<City>> cities = _facadeService.CityService().GetAllByName(cityName);
             if (!cities.Success)
                 return new ErrorDataResult<IList<Library>>(cities.Message);
 
@@ -239,7 +233,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInPostalCode(string postalCode)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllByPostalCode(postalCode);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllByPostalCode(postalCode);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
             List<Library> libraries = new();
@@ -257,7 +251,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByLibraryInGeoLocation(string geoLoc)
         {
-            IDataResult<IList<Address>> addresses = _addressService.GetAllByGeoLocation(geoLoc);
+            IDataResult<IList<Address>> addresses = _facadeService.AddressService().GetAllByGeoLocation(geoLoc);
             if (!addresses.Success)
                 return new ErrorDataResult<IList<Library>>(addresses.Message);
             List<Library> libraries = new();
@@ -275,7 +269,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationId(Guid commId)
         {
-            IDataResult<Communication> comm = _communicationService.GetById(commId);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetById(commId);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
@@ -287,7 +281,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Library>> GetAllByCommunicationName(string commName)
         {
-            IDataResult<IList<Communication>> comms = _communicationService.GetAllByName(commName);
+            IDataResult<IList<Communication>> comms = _facadeService.CommunicationService().GetAllByName(commName);
             if (!comms.Success)
                 return new ErrorDataResult<IList<Library>>(comms.Message);
             List<Library> libraries = new();
@@ -305,7 +299,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationPhone(string commPhone)
         {
-            IDataResult<Communication> comm = _communicationService.GetByPhoneNumber(commPhone);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByPhoneNumber(commPhone);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
@@ -317,7 +311,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationFaxNumber(string commFaxNumber)
         {
-            IDataResult<Communication> comm = _communicationService.GetByFaxNumber(commFaxNumber);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByFaxNumber(commFaxNumber);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
@@ -329,7 +323,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationEmail(string commEmail)
         {
-            IDataResult<Communication> comm = _communicationService.GetByEmail(commEmail);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByEmail(commEmail);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
@@ -341,7 +335,7 @@ namespace Business.Concrete
 
         public IDataResult<Library> GetByCommunicationWebSite(string commWebSite)
         {
-            IDataResult<Communication> comm = _communicationService.GetByPhoneNumber(commWebSite);
+            IDataResult<Communication> comm = _facadeService.CommunicationService().GetByPhoneNumber(commWebSite);
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 

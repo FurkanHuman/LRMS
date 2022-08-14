@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IPaintingDal _paintingDal;
         private readonly IFacadeService _facadeService;
 
-        public PaintingManager(IPaintingDal paintingDal, IFacadeService facadeService)
+        public PaintingManager(IPaintingDal paintingDal)
         {
             _paintingDal = paintingDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(PaintingValidator))]

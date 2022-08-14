@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly ICartographicMaterialDal _cartographicMaterialDal;
         private readonly IFacadeService _facadeService;
 
-        public CartographicMaterialManager(ICartographicMaterialDal cartographicMaterialDal, IFacadeService facadeService)
+        public CartographicMaterialManager(ICartographicMaterialDal cartographicMaterialDal)
         {
             _cartographicMaterialDal = cartographicMaterialDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(CartographicMaterialValidator))]

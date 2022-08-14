@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,21 +15,18 @@ namespace Business.Concrete
     public class AddressManager : IAddressService
     {
         private readonly IAddressDal _addressDal;
-        private readonly ICityService _cityService;
-        private readonly ICountryService _countryService;
+        private readonly IFacadeService _facadeService;
 
-        public AddressManager(IAddressDal addressDal, ICityService cityService, ICountryService countryService)
+        public AddressManager(IAddressDal addressDal)
         {
             _addressDal = addressDal;
-            _cityService = cityService;
-            _countryService = countryService;
         }
 
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Add(Address address)
         {
-            var city = _cityService.GetById(address.City.Id);
-            var country = _countryService.GetById(address.Country.Id);
+            var city = _facadeService.CityService().GetById(address.City.Id);
+            var country = _facadeService.CountryService().GetById(address.Country.Id);
 
             IResult result = BusinessRules.Run(city, country);
             if (result != null)
@@ -66,7 +64,10 @@ namespace Business.Concrete
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Update(Address address)
         {
-            IResult result = BusinessRules.Run(_cityService.GetById(address.City.Id), _countryService.GetById(address.Country.Id));
+            var city = _facadeService.CityService().GetById(address.City.Id);
+            var country = _facadeService.CountryService().GetById(address.Country.Id);
+
+            IResult result = BusinessRules.Run(city, country);
             if (result != null)
                 return result;
 

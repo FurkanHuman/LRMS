@@ -19,10 +19,9 @@ namespace Business.Concrete
         private readonly IPosterDal _posterDal;
         private readonly IFacadeService _facadeService;
 
-        public PosterManager(IPosterDal posterDal, IFacadeService facadeService)
+        public PosterManager(IPosterDal posterDal)
         {
             _posterDal = posterDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(PosterValidator))]

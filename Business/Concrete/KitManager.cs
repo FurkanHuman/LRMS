@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IKitDal _kitDal;
         private readonly IFacadeService _facadeService;
 
-        public KitManager(IKitDal kitDal, IFacadeService facadeService)
+        public KitManager(IKitDal kitDal)
         {
             _kitDal = kitDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(KitValidator))]

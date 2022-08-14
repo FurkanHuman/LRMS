@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IElectronicsResourceDal _electronicsResourceDal;
         private readonly IFacadeService _facadeService;
 
-        public ElectronicsResourceManager(IElectronicsResourceDal electronicsResourceDal, IFacadeService facadeService)
+        public ElectronicsResourceManager(IElectronicsResourceDal electronicsResourceDal)
         {
             _electronicsResourceDal = electronicsResourceDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(ElectronicsResourceValidator))]

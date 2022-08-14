@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IMusicalNoteDal _musicalNoteDal;
         private readonly IFacadeService _facadeService;
 
-        public MusicalNoteManager(IMusicalNoteDal musicalNoteDal, IFacadeService facadeService)
+        public MusicalNoteManager(IMusicalNoteDal musicalNoteDal)
         {
             _musicalNoteDal = musicalNoteDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(MusicalNoteValidator), Priority = 1)]

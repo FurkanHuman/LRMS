@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,12 +15,11 @@ namespace Business.Concrete
     public class StockManager : IStockService
     {
         private readonly IStockDal _stockDal;
-        private readonly ILibraryService _libraryService;
+        private readonly IFacadeService _facadeService;
 
-        public StockManager(IStockDal stockDal, ILibraryService libraryService)
+        public StockManager(IStockDal stockDal)
         {
             _stockDal = stockDal;
-            _libraryService = libraryService;
         }
 
         [ValidationAspect(typeof(StockValidator), Priority = 1)]
@@ -29,7 +29,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            stock.Library = _libraryService.GetById(stock.Library.Id).Data;
+            stock.Library = _facadeService.LibraryService().GetById(stock.Library.Id).Data;
             stock.IsDeleted = false;
 
             _stockDal.Add(stock);
@@ -64,7 +64,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            stock.Library = _libraryService.GetById(stock.Library.Id).Data;
+            stock.Library = _facadeService.LibraryService().GetById(stock.Library.Id).Data;
             stock.IsDeleted = false;
 
             _stockDal.Update(stock);
@@ -104,7 +104,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Stock>> GetAllByLibrary(Guid libraryId)
         {
-            IDataResult<Library> lib = _libraryService.GetById(libraryId);
+            IDataResult<Library> lib = _facadeService.LibraryService().GetById(libraryId);
             if (!lib.Success)
                 return new ErrorDataResult<IList<Stock>>(lib.Message);
 
@@ -137,7 +137,7 @@ namespace Business.Concrete
 
         private IResult StockControl(Stock stock)
         {
-            IDataResult<Library> library = _libraryService.GetById(stock.Library.Id);
+            IDataResult<Library> library = _facadeService.LibraryService().GetById(stock.Library.Id);
             if (!library.Success)
                 return new ErrorResult(library.Message);
 

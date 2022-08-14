@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IBookSeriesDal _bookSeriesDal;
         private readonly IFacadeService _facadeService;
 
-        public BookSeriesManager(IBookSeriesDal bookSeriesDal, IFacadeService facadeService)
+        public BookSeriesManager(IBookSeriesDal bookSeriesDal)
         {
             _bookSeriesDal = bookSeriesDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(BookSeriesValidator))]

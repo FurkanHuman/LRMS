@@ -19,10 +19,9 @@ namespace Business.Concrete
         private readonly IDissertationDal _dissertationDal;
         private readonly IFacadeService _facadeService;
 
-        public DissertationManager(IDissertationDal dissertationDal, IFacadeService facadeService)
+        public DissertationManager(IDissertationDal dissertationDal)
         {
             _dissertationDal = dissertationDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(DissertationValidator))]

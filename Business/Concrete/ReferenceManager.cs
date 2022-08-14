@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,12 +15,11 @@ namespace Business.Concrete
     public class ReferenceManager : IReferenceService   //reference Todo
     {
         private readonly IReferenceDal _referenceDal;
-        private readonly ITechnicalNumberService _technicalNumberService;
+        private readonly IFacadeService _facadeService;
 
-        public ReferenceManager(IReferenceDal referenceDal, ITechnicalNumberService technicalNumberService)
+        public ReferenceManager(IReferenceDal referenceDal)
         {
             _referenceDal = referenceDal;
-            _technicalNumberService = technicalNumberService;
         }
 
         [ValidationAspect(typeof(ReferenceValidator), Priority = 1)]
@@ -29,7 +29,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(entity.TechnicalNumber.Id);
+            IDataResult<TechnicalNumber> techNumber = _facadeService.TechnicalNumberService().GetById(entity.TechnicalNumber.Id);
             if (!techNumber.Success)
                 return techNumber;
 
@@ -66,7 +66,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            IDataResult<TechnicalNumber> techNumber = _technicalNumberService.GetById(entity.TechnicalNumber.Id);
+            IDataResult<TechnicalNumber> techNumber = _facadeService.TechnicalNumberService().GetById(entity.TechnicalNumber.Id);
             if (!techNumber.Success)
                 return techNumber;
 

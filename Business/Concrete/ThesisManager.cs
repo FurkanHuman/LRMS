@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IThesisDal _thesisDal;
         private readonly IFacadeService _facadeService;
 
-        public ThesisManager(IThesisDal thesisDal, IFacadeService facadeService)
+        public ThesisManager(IThesisDal thesisDal)
         {
             _thesisDal = thesisDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(ThesisValidator))]

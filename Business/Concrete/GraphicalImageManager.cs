@@ -18,10 +18,9 @@ namespace Business.Concrete
         private readonly IGraphicalImageDal _graphicalImageDal;
         private readonly IFacadeService _facadeService;
 
-        public GraphicalImageManager(IGraphicalImageDal graphicalImageDal, IFacadeService facadeService)
+        public GraphicalImageManager(IGraphicalImageDal graphicalImageDal)
         {
             _graphicalImageDal = graphicalImageDal;
-            _facadeService = facadeService;
         }
 
         [ValidationAspect(typeof(GraphicalImageValidator))]
