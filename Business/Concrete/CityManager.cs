@@ -104,7 +104,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<City>> GetAll()
         {
-            return new SuccessDataResult<IList<City>>(result, CityConstants.DataGet);
+            return new SuccessDataResult<IList<City>>(_cityDal.GetAll(c => !c.IsDeleted), CityConstants.DataGet);
         }
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
