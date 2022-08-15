@@ -19,6 +19,8 @@ namespace Entities.Concrete.Infos
         public ushort EndPageNumber { get; set; }
 
         [Required]
+        public Guid TechnicalNumberId { get; set; }
+
         public TechnicalNumber TechnicalNumber { get; set; }
 
         [Required]

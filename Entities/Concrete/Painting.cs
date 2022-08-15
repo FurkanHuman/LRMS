@@ -8,6 +8,8 @@ namespace Entities.Concrete
     public class Painting : MaterialBase, IEntity
     {
         [Required]
+        public Guid OtherPeopleId { get; set; }
+
         public OtherPeople Owner { get; set; }
 
         [Required]

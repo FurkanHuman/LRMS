@@ -13,6 +13,8 @@ namespace Entities.Concrete.Infos
         public string Specialty { get; set; }
 
         [Required]
+        public Guid UniversityId { get; set; }
+
         public University University { get; set; }
 
         public IList<AcademicJournal> AcademicJournals { get; set; }

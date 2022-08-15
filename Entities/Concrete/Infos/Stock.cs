@@ -8,6 +8,8 @@ namespace Entities.Concrete.Infos
         [Key]
         public Guid Id { get; set; }
 
+        public Guid LibraryId { get; set; }
+
         public Library Library { get; set; }
 
         [Required]

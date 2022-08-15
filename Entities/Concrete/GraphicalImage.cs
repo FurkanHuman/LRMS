@@ -11,7 +11,11 @@ namespace Entities.Concrete
         public DateTime ImageCreatedDate { get; set; }
 
         [Required]
+        public Guid ImageId { get; set; }
+
         public Image Image { get; set; }
+
+        public Guid OtherPeopleId { get; set; }
 
         public OtherPeople OtherPeople { get; set; }
 

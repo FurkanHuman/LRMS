@@ -3,7 +3,7 @@ using Entities.Concrete.Base;
 
 namespace Entities.Concrete
 {
-    public class ElectronicsResource : MaterialBase, IEntity
+    public class ElectronicsResource : MaterialBase, IEntity // elec res type cahnge a structre
     {
         public string ResourceUrl { get; set; }
 

@@ -11,6 +11,8 @@ namespace Entities.Concrete.Infos
         public string Name { get; set; }
 
         [Required]
+        public Guid PublisherId { get; set; }
+
         public Publisher Publisher { get; set; }
 
         [Required]

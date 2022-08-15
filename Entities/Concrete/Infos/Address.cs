@@ -12,9 +12,13 @@ namespace Entities.Concrete.Infos
         public string AddressName { get; set; }
 
         [Required]
+        public int CountryId { get; set; }
+
         public Country Country { get; set; }
 
         [Required]
+        public int CityId { get; set; }
+
         public City City { get; set; }
 
         [Required]

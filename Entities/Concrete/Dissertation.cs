@@ -14,9 +14,13 @@ namespace Entities.Concrete
         public Guid ResearcherId { get; set; }
 
         [Required]
+        public int LanguageId { get; set; }
+
         public Language Language { get; set; }
 
         [Required]
+        public int CityId { get; set; }
+
         public City City { get; set; }
 
         [Required]

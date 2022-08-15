@@ -8,6 +8,8 @@ namespace Entities.Concrete
     public class Object3D : MaterialBase, IEntity
     {
         [Required]
+        public Guid OwnerId { get; set; }
+
         public OtherPeople Owner { get; set; }
 
         [Required]

@@ -8,6 +8,8 @@ namespace Entities.Concrete
     public class Poster : MaterialBase, IEntity
     {
         [Required]
+        public Guid OtherPeopleId { get; set; }
+
         public OtherPeople Owner { get; set; }
 
         [Required]

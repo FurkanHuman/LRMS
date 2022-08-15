@@ -7,7 +7,7 @@ namespace Entities.Concrete
     public class AudioRecord : MaterialBase, IEntity
     {
         [Required]
-        public string Owner { get; set; } // change a otherPeople class todo
+        public string Owner { get; set; } // change a otherPeople class todo. rebuid database table
 
         [Required]
         public DateTime RecordDate { get; set; }
