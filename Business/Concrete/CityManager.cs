@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.Facade;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -14,7 +15,7 @@ namespace Business.Concrete
     public class CityManager : ICityService
     {
         private readonly ICityDal _cityDal;
-
+        private readonly IFacadeService _facadeService;
         public CityManager(ICityDal cityDal)
         {
             _cityDal = cityDal;
@@ -103,7 +104,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<City>> GetAll()
         {
-            return new SuccessDataResult<IList<City>>(_cityDal.GetAll(c => !c.IsDeleted), CityConstants.DataGet);
+            return new SuccessDataResult<IList<City>>(result, CityConstants.DataGet);
         }
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
