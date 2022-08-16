@@ -50,7 +50,7 @@ namespace Core.DataAccess.PostgreDb
 
     }
 
-    public class EfEntityRepositoryBase<TEntity, TDto, TContext> : IEntityRepository<TEntity>, IDtoRepository<TEntity>, IDtoRepository<TDto, TEntity>
+    public class EfEntityRepositoryBase<TEntity, TDto, TContext> : IEntityRepository<TEntity>, IDtoRepository<TEntity>, IDtoRepository<TEntity,TDto>
            where TEntity : class, IEntity, new()
            where TDto : class, IDto, new()
            where TContext : DbContext, new()

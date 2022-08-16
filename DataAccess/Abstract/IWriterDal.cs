@@ -4,7 +4,7 @@ using Entities.DTOs.Infos;
 
 namespace DataAccess.Abstract
 {
-    public interface IWriterDal : IEntityRepository<Writer>, IDtoRepository<Writer>, IDtoRepository<WriterDto, Writer>
+    public interface IWriterDal : IEntityRepository<Writer>, IDtoRepository<Writer>, IDtoRepository<Writer, WriterDto>
     {
     }
 }

@@ -3,14 +3,15 @@ using System.Linq.Expressions;
 
 namespace Core.DataAccess
 {
-    public interface IDtoRepository<D, E> where D : class, IDto, new()
-                                          where E : class, IEntity, new()
+    public interface IDtoRepository<E, D> where E : class, IEntity, new()
+                                          where D : class, IDto, new()
+
     {
         D? DtoGet(Expression<Func<E, bool>> filter);
 
         IList<D> DtoGetAll(Expression<Func<E, bool>>? filter = null);
-
     }
+
     public interface IDtoRepository<E> where E : class, IEntity, new()
     {
         C? CDtoGet<C>(Expression<Func<E, bool>> filter) where C : class, IDto, new();
