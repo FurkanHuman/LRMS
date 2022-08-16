@@ -1,11 +1,13 @@
 ﻿using Business.Abstract.Base;
 using Core.Utilities.Result.Abstract;
 using Entities.Concrete.Infos;
+using Entities.DTOs.Infos;
 
 namespace Business.Abstract
 {
     public interface IAddressService : IBaseEntityService<Address, Guid>
     {
+        IDataResult<IList<AddressDto>> GetAlladdressDtos();
         IDataResult<IList<Address>> GetAllByPostalCode(string postalCode);
         IDataResult<IList<Address>> GetAllByCityId(int cityId);
         IDataResult<IList<Address>> GetAllByCountryId(int countryId);

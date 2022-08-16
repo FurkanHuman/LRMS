@@ -8,6 +8,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete.Infos;
+using Entities.DTOs.Infos;
 using System.Linq.Expressions;
 
 namespace Business.Concrete
@@ -152,6 +153,11 @@ namespace Business.Concrete
         public IDataResult<IList<Address>> GetAllByIsDeleted()
         {
             return new SuccessDataResult<IList<Address>>(_addressDal.GetAll(a => a.IsDeleted), AddressConstants.DataGet);
+        }
+
+        public IDataResult< IList<AddressDto>> GetAlladdressDtos()
+        {
+            return new SuccessDataResult<IList<AddressDto>>(_addressDal.DtoGetAll());
         }
     }
 }
