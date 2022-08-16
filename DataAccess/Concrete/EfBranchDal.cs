@@ -2,10 +2,11 @@
 using DataAccess.Abstract;
 using DataAccess.Contexts;
 using Entities.Concrete.Infos;
+using Entities.DTOs.Infos;
 
 namespace DataAccess.Concrete
 {
-    public class EfBranchDal : EfEntityRepositoryBase<Branch, PostgreDbContext>, IBranchDal
+    public class EfBranchDal : EfEntityRepositoryBase<Branch, BranchDto, PostgreDbContext>, IBranchDal
     {
     }
 }
