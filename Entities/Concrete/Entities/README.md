@@ -10,8 +10,5 @@ Folder structure:
 └───Infos
 
 ```
-
-<!-- (file comments will be made after.) -->
-
 <!-- First write date: 01:14 18.08.2022 -->
 <!-- Update date: Null -->
