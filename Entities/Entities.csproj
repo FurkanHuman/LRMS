@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,13 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Concrete\Base\README.md" />
-    <None Remove="Concrete\Infos\README.md" />
+    <None Remove="Concrete\DTOs\Mains\README.md" />
+    <None Remove="Concrete\Entities\Bases\README.md" />
+    <None Remove="Concrete\Entities\Infos\README.md" />
+    <None Remove="Concrete\Entities\Mains\README.md" />
     <None Remove="Concrete\README.md" />
-    <None Remove="DTOs\Base\README.md" />
-    <None Remove="DTOs\Concrete\README.md" />
-    <None Remove="DTOs\Infos\README.md" />
-    <None Remove="DTOs\README.md" />
+    <None Remove="Concrete\DTOs\Bases\README.md" />
+    <None Remove="Concrete\DTOs\Infos\README.md" />
+    <None Remove="Concrete\DTOs\README.md" />
     <None Remove="README.md" />
   </ItemGroup>
 
@@ -25,7 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="DTOs\Concrete\" />
+    <Folder Include="Concrete\DTOs\Mains\" />
   </ItemGroup>
 
 </Project>
