@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Abstract\README.md" />
     <None Remove="Concrete\DTOs\Mains\README.md" />
     <None Remove="Concrete\Entities\Bases\README.md" />
     <None Remove="Concrete\Entities\Infos\README.md" />
     <None Remove="Concrete\Entities\Mains\README.md" />
+    <None Remove="Concrete\Entities\README.md" />
     <None Remove="Concrete\README.md" />
     <None Remove="Concrete\DTOs\Bases\README.md" />
     <None Remove="Concrete\DTOs\Infos\README.md" />
