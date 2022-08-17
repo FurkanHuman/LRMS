@@ -1,7 +1,4 @@
-﻿using Business.Constants;
-using Entities.Concrete.Infos;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class TechnicalNumberValidator : AbstractValidator<TechnicalNumber>
     {

@@ -1,6 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Entities.Concrete.Entities.Mains;
-using System.ComponentModel.DataAnnotations;
+﻿using Entities.Concrete.Entities.Mains;
 
 
 namespace Entities.Concrete.Entities.Infos

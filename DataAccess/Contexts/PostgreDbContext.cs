@@ -1,6 +1,4 @@
-﻿using Entities.Concrete;
-using Entities.Concrete.Infos;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Contexts
 {

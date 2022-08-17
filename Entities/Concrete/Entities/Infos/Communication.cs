@@ -1,7 +1,4 @@
-﻿using Core.Entities.Abstract;
-using System.ComponentModel.DataAnnotations;
-
-namespace Entities.Concrete.Entities.Infos
+﻿namespace Entities.Concrete.Entities.Infos
 {
     public class Communication : IEntity
     {

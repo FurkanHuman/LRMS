@@ -1,7 +1,4 @@
-﻿using Business.Constants;
-using Entities.Concrete.Infos;
-
-namespace Business.ValidationRules.FluentValidation
+﻿namespace Business.ValidationRules.FluentValidation
 {
     public class ConsultantValidator : AbstractValidator<Consultant>
     {

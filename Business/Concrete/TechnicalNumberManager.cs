@@ -1,13 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class TechnicalNumberManager : ITechnicalNumberService
     {

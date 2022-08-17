@@ -1,6 +1,4 @@
-﻿using Core.Entities.Abstract;
-
-namespace Entities.Concrete.DTOs.Infos
+﻿namespace Entities.Concrete.DTOs.Infos
 {
     public class BranchDto : IDto
     {

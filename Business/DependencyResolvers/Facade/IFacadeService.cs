@@ -1,6 +1,4 @@
-﻿using Business.Abstract;
-
-namespace Business.DependencyResolvers.Facade
+﻿namespace Business.DependencyResolvers.Facade
 {
     public interface IFacadeService
     {

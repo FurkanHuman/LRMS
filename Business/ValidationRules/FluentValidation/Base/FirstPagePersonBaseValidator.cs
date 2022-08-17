@@ -1,8 +1,4 @@
-﻿using Business.Constants.Base;
-using Core.Entities.Abstract;
-using Entities.Concrete.Base;
-
-namespace Business.ValidationRules.FluentValidation.Base
+﻿namespace Business.ValidationRules.FluentValidation.Base
 {
     public class FirstPagePersonBaseValidator<T> : AbstractValidator<T> where T : FirstPagePersonBase, IEntity, new()
     {

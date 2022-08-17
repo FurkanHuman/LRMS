@@ -1,8 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Core.Utilities.Result.Abstract;
-using System.Linq.Expressions;
-
-namespace Business.Abstract.Base
+﻿namespace Business.Abstract.Base
 {
     public interface IBaseEntityService<T, I> where T : IEntity, new()
                                               where I : struct

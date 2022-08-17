@@ -1,17 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class MagazineManager : IMagazineService
     {
@@ -131,7 +118,7 @@ namespace Business.Concrete
             if (!image.Success)
                 return new ErrorDataResult<Magazine>(image.Message);
 
-            Magazine magazine = _magazineDal.Get(m => m.CoverImageId == image.Data.Id && m.IsDeleted);
+            Magazine magazine = _magazineDal.Get(m => m.ImageId == image.Data.Id && m.IsDeleted);
             return magazine == null
                 ? new ErrorDataResult<Magazine>(MagazineConstants.DataNotGet)
                 : new SuccessDataResult<Magazine>(magazine, MagazineConstants.DataGet);
@@ -406,7 +393,7 @@ namespace Business.Concrete
              && m.EMaterialFilesId == magazine.EMaterialFilesId
              && m.State == magazine.State
              && m.CoverCapId == magazine.CoverCapId
-             && m.CoverImageId == magazine.CoverImageId
+             && m.ImageId == magazine.ImageId
              && m.WriterId == magazine.WriterId
              && m.DirectorId == magazine.DirectorId
              && m.EditorId == magazine.EditorId

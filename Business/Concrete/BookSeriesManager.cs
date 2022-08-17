@@ -1,17 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class BookSeriesManager : IBookSeriesService
     {
@@ -105,7 +92,7 @@ namespace Business.Concrete
             if (!cImage.Success)
                 return new SuccessDataResult<BookSeries>(cImage.Message);
 
-            BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.CoverImageId == cImageId && !bs.IsDeleted);
+            BookSeries bookSeries = _bookSeriesDal.Get(bs => bs.ImageId == cImageId && !bs.IsDeleted);
             _facadeService.CounterService().Count(bookSeries);
             return bookSeries == null
                 ? new ErrorDataResult<BookSeries>(BookSeriesConstants.DataNotGet)
@@ -394,7 +381,7 @@ namespace Business.Concrete
              && bs.EMaterialFilesId == bookSeries.EMaterialFilesId
              && bs.State == bookSeries.State
              && bs.CoverCapId == bookSeries.CoverCapId
-             && bs.CoverImageId == bookSeries.CoverImageId
+             && bs.ImageId == bookSeries.ImageId
              && bs.WriterId == bookSeries.WriterId
              && bs.EditorId == bookSeries.EditorId
              && bs.TechnicalNumberId == bookSeries.TechnicalNumberId

@@ -1,8 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Entities.Concrete.Entities.Bases;
-using System.ComponentModel.DataAnnotations;
-
-namespace Entities.Concrete.Entities.Mains
+﻿namespace Entities.Concrete.Entities.Mains
 {
     public class Microform : MaterialBase, IEntity
     {

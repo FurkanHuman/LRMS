@@ -1,9 +1,4 @@
-﻿
-using Business.Constants;
-using Business.ValidationRules.FluentValidation.Base;
-using Entities.Concrete;
-
-namespace Business.ValidationRules.FluentValidation
+﻿namespace Business.ValidationRules.FluentValidation
 {
     public class Object3DValidator : MaterialBaseValidator<Object3D>
     {

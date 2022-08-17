@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Entities.Concrete.Entities.Bases
+﻿namespace Entities.Concrete.Entities.Bases
 {
     public class FirstPagePersonBase
     {

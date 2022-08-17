@@ -1,15 +1,5 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.FileHelper;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete.Infos;
+﻿using Core.Utilities.FileHelper;
 using Microsoft.AspNetCore.Http;
-using System.Linq.Expressions;
 
 namespace Business.Concrete
 {

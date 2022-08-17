@@ -1,17 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class NewsPaperManager : INewsPaperService
     {
@@ -349,7 +336,7 @@ namespace Business.Concrete
             if (!coverImage.Success)
                 return new ErrorDataResult<NewsPaper>(coverImage.Message);
 
-            NewsPaper newsPaper = _newsPaperDal.Get(np => np.CoverImageId == cImageId && !np.IsDeleted);
+            NewsPaper newsPaper = _newsPaperDal.Get(np => np.ImageId == cImageId && !np.IsDeleted);
             return newsPaper == null
                 ? new ErrorDataResult<NewsPaper>(NewsPaperConstants.DataNotGet)
                 : new SuccessDataResult<NewsPaper>(newsPaper, NewsPaperConstants.DataGet);
@@ -415,7 +402,7 @@ namespace Business.Concrete
              && np.EMaterialFilesId == newsPaper.EMaterialFilesId
              && np.State == newsPaper.State
              && np.CoverCapId == newsPaper.CoverCapId
-             && np.CoverImageId == newsPaper.CoverImageId
+             && np.ImageId == newsPaper.ImageId
              && np.WriterId == newsPaper.WriterId
              && np.EditorId == newsPaper.EditorId
              && np.TechnicalNumberId == newsPaper.TechnicalNumberId

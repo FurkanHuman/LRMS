@@ -1,9 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Entities.Concrete.Entities.Bases;
-using Entities.Concrete.Entities.Infos;
-using System.ComponentModel.DataAnnotations;
-
-namespace Entities.Concrete.Entities.Mains
+﻿namespace Entities.Concrete.Entities.Mains
 {
     public class Painting : MaterialBase, IEntity
     {

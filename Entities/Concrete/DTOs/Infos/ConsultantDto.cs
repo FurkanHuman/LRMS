@@ -1,7 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Entities.Concrete.DTOs.Bases;
-
-namespace Entities.Concrete.DTOs.Infos
+﻿namespace Entities.Concrete.DTOs.Infos
 {
     public class ConsultantDto : FirstPagePersonBaseDto, IDto
     {

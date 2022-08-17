@@ -1,9 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Entities.Abstract;
-using Entities.Concrete.Base;
-using Entities.Concrete.Infos;
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface ICounterService : IBaseEntityService<Counter, Guid>
     {

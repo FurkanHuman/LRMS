@@ -1,17 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class GraphicalImageManager : IGraphicalImageService
     {

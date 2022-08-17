@@ -1,7 +1,5 @@
-﻿using Core.Entities.Abstract;
-using Entities.Concrete.Entities.Mains;
+﻿using Entities.Concrete.Entities.Mains;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Concrete.Entities.Infos
 {

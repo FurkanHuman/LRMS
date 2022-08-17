@@ -1,6 +1,4 @@
 ﻿using Business.Abstract;
-using Entities.Concrete.Infos;
-using Entities.DTOs.Infos;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 

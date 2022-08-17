@@ -1,8 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Core.Utilities.Result.Abstract;
-using Entities.DTOs.Base;
-
-namespace Business.Abstract.Base
+﻿namespace Business.Abstract.Base
 {
     public interface IMaterialBaseDtoService<G> : IBaseDtoService<G, Guid> where G : MaterialBaseDto, IDto, new()
     {

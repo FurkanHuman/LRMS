@@ -1,7 +1,4 @@
-﻿using Core.Entities.Abstract;
-using Core.Utilities.Result.Abstract;
-
-namespace Business.Abstract.Base
+﻿namespace Business.Abstract.Base
 {
     public interface IBaseDtoService<D, I> where D : IDto, new()
                                            where I : struct

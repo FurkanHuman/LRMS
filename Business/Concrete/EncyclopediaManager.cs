@@ -1,15 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class EncyclopediaManager : IEncyclopediaService
     {
@@ -121,7 +110,7 @@ namespace Business.Concrete
             if (!image.Success)
                 return new ErrorDataResult<Encyclopedia>(image.Message);
 
-            Encyclopedia encyclopedia = _encyclopediaDal.Get(ep => ep.CoverImageId == cImageId && !ep.IsDeleted);
+            Encyclopedia encyclopedia = _encyclopediaDal.Get(ep => ep.ImageId == cImageId && !ep.IsDeleted);
             _facadeService.CounterService().Count(encyclopedia);
             return encyclopedia == null
                 ? new ErrorDataResult<Encyclopedia>(EncyclopediaConstants.DataNotGet)
@@ -385,7 +374,7 @@ namespace Business.Concrete
              && ep.EMaterialFilesId == encyclopedia.EMaterialFilesId
              && ep.State == encyclopedia.State
              && ep.CoverCapId == encyclopedia.CoverCapId
-             && ep.CoverImageId == encyclopedia.CoverImageId
+             && ep.ImageId == encyclopedia.ImageId
              && ep.WriterId == encyclopedia.WriterId
              && ep.EditorId == encyclopedia.EditorId
              && ep.TechnicalNumberId == encyclopedia.TechnicalNumberId

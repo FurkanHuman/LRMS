@@ -1,9 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
-using Entities.Concrete.Infos;
-using Entities.DTOs.Infos;
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface IAddressService : IBaseEntityService<Address, Guid>
     {

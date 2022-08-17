@@ -1,8 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
-using Entities.Concrete;
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface IObject3DService : IMaterialBaseService<Object3D>
     {

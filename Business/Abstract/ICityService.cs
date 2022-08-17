@@ -1,7 +1,4 @@
-﻿using Business.Abstract.Base;
-using Entities.Concrete.Infos;
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface ICityService : IBaseEntityService<City, int>
     {

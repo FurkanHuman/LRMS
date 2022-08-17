@@ -1,8 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
-using Entities.Concrete;
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface IKitService : IMaterialBaseService<Kit>
     {

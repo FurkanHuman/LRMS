@@ -1,17 +1,4 @@
-﻿using Business.Abstract;
-using Business.Constants;
-using Business.DependencyResolvers.Facade;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
-using Core.Utilities.Business;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
-using DataAccess.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.Infos;
-using System.Linq.Expressions;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class BookManager : IBookService
     {
@@ -127,7 +114,7 @@ namespace Business.Concrete
             if (!coverImage.Success)
                 return new ErrorDataResult<Book>(coverImage.Message);
 
-            Book book = _bookDal.Get(b => b.CoverImageId == cImageId && !b.IsDeleted);
+            Book book = _bookDal.Get(b => b.ImageId == cImageId && !b.IsDeleted);
             _facadeService.CounterService().Count(book);
             return book == null
                 ? new ErrorDataResult<Book>(BookConstants.DataNotGet)
@@ -400,7 +387,7 @@ namespace Business.Concrete
              && b.EMaterialFilesId == book.EMaterialFilesId
              && b.State == book.State
              && b.CoverCapId == book.CoverCapId
-             && b.CoverImageId == book.CoverImageId
+             && b.ImageId == book.ImageId
              && b.WriterId == book.WriterId
              && b.EditorId == book.EditorId
              && b.TechnicalNumberId == book.TechnicalNumberId

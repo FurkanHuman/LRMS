@@ -1,7 +1,4 @@
-﻿using Business.Abstract.Base;
-using Core.Utilities.Result.Abstract;
-using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Business.Abstract
 {

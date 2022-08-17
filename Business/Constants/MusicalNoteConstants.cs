@@ -1,6 +1,4 @@
-﻿using Business.Constants.Base;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public class MusicalNoteConstants : BaseConstants
     {

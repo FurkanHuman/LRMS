@@ -1,10 +1,4 @@
-﻿global using FluentValidation;
-using Business.Constants.Base;
-using Core.Entities.Abstract;
-using Entities.Concrete.Base;
-
-
-namespace Business.ValidationRules.FluentValidation.Base
+﻿namespace Business.ValidationRules.FluentValidation.Base
 {
     public class MaterialBaseValidator<T> : AbstractValidator<T> where T : MaterialBase, IEntity, new()
     {
