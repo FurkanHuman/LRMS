@@ -11,13 +11,16 @@
 Folder structure: 
 
 ├───Abstract
+│
 ├───Concrete
-│   ├───Base
-│   └───Infos
-├───DTOs
-│   ├───Base
-│   ├───Concrete
-│   └───Infos 
+│   ├───DTOs
+│   │   ├───Bases
+│   │   ├───Infos
+│   │   └───Mains
+│   └───Entities
+│       ├───Bases
+│       ├───Infos
+│       └───Mains
 
 ```
 
