@@ -1,10 +1,8 @@
-﻿using Entities.Concrete.Infos;
-
-namespace Business.ValidationRules.FluentValidation
+﻿namespace Business.ValidationRules.FluentValidation
 {
     public class ImageValidator : AbstractValidator<Image>
     {
-        public ImageValidator()
+        public ImageValidator() //  todo: remember this here
         {
         }
     }
