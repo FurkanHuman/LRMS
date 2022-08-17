@@ -14,9 +14,8 @@ namespace Core.DataAccess
 
     public interface IDtoRepository<E> where E : class, IEntity, new()
     {
-        C? CDtoGet<C>(Expression<Func<E, bool>> filter) where C : class, IDto, new();
-
         // custom IDto type. C is special. if more dto is needed it can be used with the help of methot
+        C? CDtoGet<C>(Expression<Func<E, bool>> filter) where C : class, IDto, new();
 
         IList<C> CDtoGetAll<C>(Expression<Func<E, bool>>? filter = null) where C : class, IDto, new();
     }
