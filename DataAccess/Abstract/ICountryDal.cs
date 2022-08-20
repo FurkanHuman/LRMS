@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Abstract
 {
-    public interface ICountryDal : IEntityRepository<Country>
+    public interface ICountryDal : IEntityRepository<Country>,IDtoRepository<Country,CountryDto>
     {
     }
 }

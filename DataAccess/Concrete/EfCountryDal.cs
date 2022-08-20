@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Concrete
 {
-    public class EfCountryDal : EfEntityRepositoryBase<Country, PostgreDbContext>, ICountryDal
+    public class EfCountryDal : EfEntityRepositoryBase<Country, CountryDto, PostgreDbContext>, ICountryDal
     {
     }
 }
