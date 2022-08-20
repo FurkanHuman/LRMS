@@ -1,6 +1,4 @@
-﻿using Business.Abstract;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LRMS.Controllers
 {
@@ -10,7 +8,7 @@ namespace LRMS.Controllers
     {
         private readonly IWriterService _writerService;
 
-        public WritersController([FromForm] IWriterService writerService)
+        public WritersController(IWriterService writerService)
         {
             _writerService = writerService;
         }
@@ -19,13 +17,6 @@ namespace LRMS.Controllers
         public IActionResult Add(Writer writer)
         {
             var result = _writerService.Add(writer);
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
-        [HttpPost("DtoAdd")]
-        public IActionResult DtoAdd(WriterDto writer)
-        {
-            var result = _writerService.DtoAdd(writer);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -47,13 +38,6 @@ namespace LRMS.Controllers
         public IActionResult Update(Writer writer)
         {
             var result = _writerService.Update(writer);
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
-        [HttpPost("DtoUpdate")]
-        public IActionResult Update(WriterDto writer)
-        {
-            var result = _writerService.DtoUpdate(writer);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -131,6 +115,13 @@ namespace LRMS.Controllers
         public IActionResult GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
             var result = _writerService.GetAllByFilter(filter);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetAllByFilter")]
+        public IActionResult DtoGetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
+        {
+            var result = _writerService.DtoGetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

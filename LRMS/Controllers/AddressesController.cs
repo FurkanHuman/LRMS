@@ -109,7 +109,7 @@ namespace LRMS.Controllers
         [HttpGet("DtoGetAll")]
         public IActionResult DtoGetAll()
         {
-            var result = _addressService.GetAlladdressDtos();
+            var result = _addressService.DtoGetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }
