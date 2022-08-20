@@ -1,6 +1,7 @@
 ﻿namespace Business.Abstract.Base
 {
-    public interface IBasePaperDtoService<D> : IMaterialBaseDtoService<D> where D : BasePaperDto, IDto, new()
+    public interface IBasePaperDtoService<E, D> : IMaterialBaseDtoService<E, D> where E : IEntity, new()
+                                                                                where D : BasePaperDto, IDto, new()
     {
         IDataResult<D> DtoGetByCoverImage(Guid CImageId);
         IDataResult<IList<D>> DtoGetAllByWriter(Guid writerId);
