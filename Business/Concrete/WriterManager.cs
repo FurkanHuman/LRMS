@@ -21,17 +21,6 @@
             return new SuccessResult(WriterConstants.AddSuccess);
         }
 
-        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
-        public IResult DtoAdd(WriterDto entity)
-        {
-            return Add(new Writer
-            {
-                Name = entity.Name,
-                SurName = entity.SurName,
-                NamePreAttachment = entity.NamePreAttachment
-            });
-        }
-
         public IResult Delete(Guid id)
         {
             Writer writer = _writerDal.Get(w => w.Id == id && !w.IsDeleted);
@@ -65,18 +54,6 @@
             return new SuccessResult(WriterConstants.UpdateSuccess);
         }
 
-        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
-        public IResult DtoUpdate(WriterDto entity)
-        {
-            return Update(new Writer
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                SurName = entity.SurName,
-                NamePreAttachment = entity.NamePreAttachment
-            });
-        }
-
         public IDataResult<Writer> GetById(Guid id)
         {
             Writer writer = _writerDal.Get(w => w.Id == id);
@@ -91,7 +68,6 @@
             return dtoWriter == null
                 ? new ErrorDataResult<WriterDto>(WriterConstants.DataNotGet)
                 : new SuccessDataResult<WriterDto>(dtoWriter, WriterConstants.DataGet);
-
         }
 
         public IDataResult<IList<Writer>> GetAllByIds(Guid[] ids)
@@ -161,6 +137,11 @@
         public IDataResult<IList<Writer>> GetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
         {
             return new SuccessDataResult<IList<Writer>>(_writerDal.GetAll(filter), WriterConstants.DataGet);
+        }
+
+        public IDataResult<IList<WriterDto>> DtoGetAllByFilter(Expression<Func<Writer, bool>>? filter = null)
+        {
+            return new SuccessDataResult<IList<WriterDto>>(_writerDal.DtoGetAll(filter), WriterConstants.DataGet);
         }
 
         public IDataResult<IList<Writer>> GetAllByIsDeleted()
