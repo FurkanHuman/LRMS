@@ -4,7 +4,6 @@ using Business.DependencyResolvers;
 using Core.Utilities.Result.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
-using Entities.Concrete.Infos;
 
 Console.WriteLine("Hello, World!");
 
@@ -12,11 +11,7 @@ WriterManager writerManager = new(new EfWriterDal());
 
 IList<Guid> guids = writerManager.GetAll().Data.Select(c => c.Id).ToList();
 
-foreach (Guid item in guids)
-{
-    Console.WriteLine(item.ToString());
-}
-
+Console.WriteLine(guids.Count());
 
 
 
