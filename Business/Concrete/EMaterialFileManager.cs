@@ -13,6 +13,7 @@ namespace Business.Concrete
             _eMaterialFileDal = eMaterialFileDal;
             _fileHelper = fileHelper;
             _fileHelper.FullPath = Environment.CurrentDirectory + @"\wwwroot\Files\";
+            _fileHelper.SubFolder = "E_Material_Files";
         }
 
         [ValidationAspect(typeof(EMaterialFileValidator), Priority = 1)]

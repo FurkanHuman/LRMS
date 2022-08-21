@@ -13,6 +13,7 @@ namespace Business.Concrete
             _imageDal = image;
             _fileHelper = fileHelper;
             _fileHelper.FullPath = Environment.CurrentDirectory + @"\wwwroot\Images\";
+            _fileHelper.SubFolder = "Images";
         }
 
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]

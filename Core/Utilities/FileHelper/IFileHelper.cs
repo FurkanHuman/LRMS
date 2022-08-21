@@ -6,6 +6,7 @@ namespace Core.Utilities.FileHelper
     public interface IFileHelper
     {
         public string FullPath { get; set; }
+        public string SubFolder { get; set; }
         IDataResult<string> AddAsync(IFormFile file);
         IDataResult<string> UpdateAsync(string sourcePath, IFormFile file);
         IResult DeleteAsync(string path);

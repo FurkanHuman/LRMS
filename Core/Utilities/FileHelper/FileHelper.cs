@@ -8,6 +8,7 @@ namespace Core.Utilities.FileHelper
     public class FileHelper : IFileHelper
     {
         public string FullPath { get; set; }
+        public string SubFolder { get; set; }
 
         public IDataResult<string> AddAsync(IFormFile file)
         {
@@ -58,7 +59,7 @@ namespace Core.Utilities.FileHelper
             if (!Directory.Exists(FullPath))
                 Directory.CreateDirectory(FullPath);
 
-            return (result, @"\Images\" + creatingUniqueFilename);
+            return (result, @$"\{SubFolder}\" + creatingUniqueFilename);
         }
     }
 }
