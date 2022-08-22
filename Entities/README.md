@@ -11,7 +11,7 @@
 Folder structure: 
 
 ├───Abstract
-│├───Concrete
+├───Concrete
 │   ├───DTOs
 │   │   ├───Gets
 │   │   │   ├───Bases
