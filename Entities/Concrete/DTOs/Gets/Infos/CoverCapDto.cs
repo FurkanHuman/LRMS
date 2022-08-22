@@ -1,4 +1,4 @@
-﻿namespace Entities.Concrete.DTOs.Infos
+﻿namespace Entities.Concrete.DTOs.Gets.Infos
 {
     public class CoverCapDto : IDto
     {

@@ -10,14 +10,18 @@
 
   <ItemGroup>
     <None Remove="Abstract\README.md" />
-    <None Remove="Concrete\DTOs\Mains\README.md" />
+    <None Remove="Concrete\DTOs\Gets\Mains\README.md" />
+    <None Remove="Concrete\DTOs\Gets\README.md" />
+    <None Remove="Concrete\DTOs\Posts\Adds\README.md" />
+    <None Remove="Concrete\DTOs\Posts\README.md" />
+    <None Remove="Concrete\DTOs\Posts\Updates\README.md" />
     <None Remove="Concrete\Entities\Bases\README.md" />
     <None Remove="Concrete\Entities\Infos\README.md" />
     <None Remove="Concrete\Entities\Mains\README.md" />
     <None Remove="Concrete\Entities\README.md" />
     <None Remove="Concrete\README.md" />
-    <None Remove="Concrete\DTOs\Bases\README.md" />
-    <None Remove="Concrete\DTOs\Infos\README.md" />
+    <None Remove="Concrete\DTOs\Gets\Bases\README.md" />
+    <None Remove="Concrete\DTOs\Gets\Infos\README.md" />
     <None Remove="Concrete\DTOs\README.md" />
     <None Remove="README.md" />
   </ItemGroup>
@@ -27,8 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Concrete\DTOs\Mains\" />
+    <Folder Include="Concrete\DTOs\Gets\Mains\" />
+    <Folder Include="Concrete\DTOs\Posts\Adds\" />
+    <Folder Include="Concrete\DTOs\Posts\Updates\" />
   </ItemGroup>
 
 </Project>

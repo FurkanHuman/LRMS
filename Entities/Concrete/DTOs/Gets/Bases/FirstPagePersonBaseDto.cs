@@ -1,4 +1,4 @@
-﻿namespace Entities.Concrete.DTOs.Bases
+﻿namespace Entities.Concrete.DTOs.Gets.Bases
 {
     public class FirstPagePersonBaseDto
     {

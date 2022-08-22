@@ -1,6 +1,6 @@
-﻿namespace Entities.Concrete.DTOs.Infos
+﻿namespace Entities.Concrete.DTOs.Gets.Infos
 {
-    public class BranchDto : IDto
+    public class CategoryDto : IDto
     {
         public int Id { get; set; }
 
