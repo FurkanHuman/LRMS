@@ -6,7 +6,7 @@
 
 ## Ready for the Future
 
-    Web 3.0 is being developed ready for AR/VR and future technologies.
+    it is being developed ready for future technologies.
     The future library is ready.
 
 ## Why multi-layered architecture
