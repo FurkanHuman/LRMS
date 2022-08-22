@@ -6,9 +6,13 @@
 Folder structure:
 
 ├───DTOs
-│   ├───Bases
-│   ├───Infos
-│   └───Mains
+│   ├───Gets
+│   │   ├───Bases
+│   │   ├───Infos
+│   │   └───Mains
+│   └───Posts
+│       ├───Adds
+│       └───Updates
 └───Entities
     ├───Bases
     ├───Infos
@@ -17,4 +21,4 @@ Folder structure:
 ```
 
 <!-- First write date: 01:50 13.08.2022 -->
-<!-- Update date: Null -->
+<!-- Update date: 03:45 22.08.2022 -->
