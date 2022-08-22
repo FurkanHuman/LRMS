@@ -11,12 +11,15 @@
 Folder structure: 
 
 ├───Abstract
-│
-├───Concrete
+│├───Concrete
 │   ├───DTOs
-│   │   ├───Bases
-│   │   ├───Infos
-│   │   └───Mains
+│   │   ├───Gets
+│   │   │   ├───Bases
+│   │   │   ├───Infos
+│   │   │   └───Mains
+│   │   └───Posts
+│   │       ├───Adds
+│   │       └───Updates
 │   └───Entities
 │       ├───Bases
 │       ├───Infos
@@ -26,5 +29,5 @@ Folder structure:
 
 The folders have their own Readme description file inside.
 
-<!-- First write date: 01:05 13.08.2022 -->
+<!-- First write date: 03:45 22.08.2022 -->
 <!-- Update date: Null -->
