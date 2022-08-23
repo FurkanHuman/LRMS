@@ -182,7 +182,7 @@
         {
             bool cControl = _countryDal.GetAll(c => c.CountryName.Contains(country.CountryName) && c.CountryCode.Contains(country.CountryCode)).Any();
             if (cControl)
-                return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
+                return new ErrorResult(CountryConstants.CountryNameAndCodeMatch);
 
             return new SuccessResult();
         }
