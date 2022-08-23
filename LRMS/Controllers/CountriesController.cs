@@ -22,6 +22,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoAdd")]
+        public IActionResult DtoAdd(CountryAddDto addDto)
+        {
+            var result = _countryService.DtoAdd(addDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("Delete")]
         public IActionResult Delete(int id)
         {
@@ -43,13 +50,20 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoUpdate")]
+        public IActionResult DtoUpdate(CountryUpdateDto updateDto)
+        {
+            var result = _countryService.DtoUpdate(updateDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetById")]
         public IActionResult GetById(int id)
         {
             var result = _countryService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
-        
+
         [HttpPost("DtoGetById")]
         public IActionResult DtoGetById(int id)
         {
@@ -77,7 +91,7 @@ namespace LRMS.Controllers
             var result = _countryService.GetAllByCountryCode(countryCode);
             return result.Success ? Ok(result) : BadRequest(result);
         }
-        
+
         [HttpPost("DtoGetAllByCountryCode")]
         public IActionResult DtoGetAllByCountryCodes(string countryCode)
         {

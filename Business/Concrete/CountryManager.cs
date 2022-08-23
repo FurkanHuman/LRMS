@@ -21,6 +21,21 @@
             return new SuccessResult(CountryConstants.AddSuccess);
         }
 
+        [ValidationAspect(typeof(CountryValidator), Priority = 1)]
+        public IDataResult<CountryAddDto> DtoAdd(CountryAddDto addDto)
+        {
+            Country country = new MapperConfiguration(cfg => cfg.CreateMap<CountryAddDto, Country>()).CreateMapper().Map<Country>(addDto);
+
+            IResult result = BusinessRules.Run(CountryControl(country));
+            if (result != null)
+                return new ErrorDataResult<CountryAddDto>(result.Message);
+
+            Country returnCountry = _countryDal.Add(country);
+            return returnCountry != null
+                ? new SuccessDataResult<CountryAddDto>(addDto, CountryConstants.AddSuccess)
+                : new SuccessDataResult<CountryAddDto>(addDto, CountryConstants.AddFailed);
+        }
+
         public IResult Delete(int id)
         {
             Country country = _countryDal.Get(c => c.Id == id);
@@ -55,14 +70,18 @@
         }
 
         [ValidationAspect(typeof(CountryValidator), Priority = 1)]
-        public IResult DtoUpdate(CountryDto entity)
+        public IDataResult<CountryUpdateDto> DtoUpdate(CountryUpdateDto updateDto)
         {
-            return Update(new()
-            {
-                Id = entity.Id,
-                CountryName = entity.CountryName,
-                CountryCode = entity.CountryCode
-            });
+            Country country = new MapperConfiguration(cfg => cfg.CreateMap<CountryUpdateDto, Country>()).CreateMapper().Map<Country>(updateDto);
+
+            IResult result = BusinessRules.Run(CountryControl(country));
+            if (result != null)
+                return new ErrorDataResult<CountryUpdateDto>(result.Message);
+
+            Country returnCountry = _countryDal.Add(country);
+            return returnCountry != null
+                ? new SuccessDataResult<CountryUpdateDto>(updateDto, CountryConstants.UpdateSuccess)
+                : new SuccessDataResult<CountryUpdateDto>(updateDto, CountryConstants.UpdateFailed);
         }
 
         public IDataResult<Country> GetById(int id)
@@ -161,11 +180,9 @@
 
         private IResult CountryControl(Country country)
         {
-            //    int? countryNameId = _countryDal.Get(c => c.CountryName.Contains(country.CountryName) && !c.IsDeleted).Id;
-            //    int? countryCodeId = _countryDal.Get(c => c.CountryCode.Contains(country.CountryCode) && !c.IsDeleted).Id;
-
-            //    if (countryCodeId != countryNameId)
-            //        return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
+            bool cControl = _countryDal.GetAll(c => c.CountryName.Contains(country.CountryName) && c.CountryCode.Contains(country.CountryCode)).Any();
+            if (cControl)
+                return new ErrorResult(CountryConstants.CountryNameAndCodeNotMatch);
 
             return new SuccessResult();
         }
