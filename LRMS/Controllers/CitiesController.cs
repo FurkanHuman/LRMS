@@ -16,9 +16,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add([FromForm] City city)
+        public IActionResult Add(City city)
         {
             var result = _cityService.Add(city);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoAdd")]
+        public IActionResult DtoAdd(CityAddDto cityAdd)
+        {
+            var result = _cityService.DtoAdd(cityAdd);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -37,9 +44,16 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update([FromForm] City city)
+        public IActionResult Update(City city)
         {
             var result = _cityService.Update(city);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult DtoUpdate(CityUpdateDto updateDto)
+        {
+            var result = _cityService.DtoUpdate(updateDto);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -49,7 +63,7 @@ namespace LRMS.Controllers
             var result = _cityService.GetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
-        
+
         [HttpPost("DtoGetById")]
         public IActionResult DtoGetById(int id)
         {
@@ -77,6 +91,7 @@ namespace LRMS.Controllers
             var result = _cityService.GetAllByFilter(filter);
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
         [HttpPost("DtoGetAllByFilter")]
         public IActionResult DtoGetAllByFilter(Expression<Func<City, bool>>? filter = null)
         {

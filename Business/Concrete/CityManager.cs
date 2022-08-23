@@ -1,24 +1,50 @@
-﻿namespace Business.Concrete
+﻿using Entities.Concrete.Entities.Infos;
+
+namespace Business.Concrete
 {
     public class CityManager : ICityService
     {
         private readonly ICityDal _cityDal;
+        private readonly ICityFacadeService _cityFacadeService;
 
-        public CityManager(ICityDal cityDal)
+        public CityManager(ICityDal cityDal, ICityFacadeService cityFacadeService)
         {
             _cityDal = cityDal;
+            _cityFacadeService = cityFacadeService;
         }
 
         [ValidationAspect(typeof(CityValidator), Priority = 1)]
         public IResult Add(City city)
         {
-            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName));
+            IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
+
+            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
             if (result != null)
                 return result;
 
+            city.Country = country.Data;
             city.IsDeleted = false;
             _cityDal.Add(city);
             return new SuccessResult(CityConstants.AddSuccess);
+        }
+
+        [ValidationAspect(typeof(CityValidator), Priority = 1)]
+        public IDataResult<CityAddDto> DtoAdd(CityAddDto addDto)
+        {
+            City city = new MapperConfiguration(cfg => cfg.CreateMap<CityAddDto, City>()).CreateMapper().Map<City>(addDto);
+
+            IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
+
+            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
+            if (result != null)
+                return new ErrorDataResult<CityAddDto>(result.Message);
+
+            city.Country=country.Data;
+
+            City returnCity = _cityDal.Add(city);
+            return returnCity != null
+                ? new SuccessDataResult<CityAddDto>(addDto, CityConstants.AddSuccess)
+                : new ErrorDataResult<CityAddDto>(addDto, CityConstants.AddFailed);
         }
 
         public IResult Delete(int id)
@@ -46,12 +72,34 @@
         [ValidationAspect(typeof(CityValidator), Priority = 1)]
         public IResult Update(City city)
         {
-            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(city.CountryId, city.CityName));
+            IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
+
+            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(city.CountryId, city.CityName), country);
             if (result != null)
                 return result;
 
+            city.Country = country.Data;
             _cityDal.Update(city);
             return new SuccessResult(CityConstants.UpdateSuccess);
+        }
+
+        [ValidationAspect(typeof(CityValidator), Priority = 1)]
+        public IDataResult<CityUpdateDto> DtoUpdate(CityUpdateDto updateDto)
+        {
+            City city = new MapperConfiguration(cfg => cfg.CreateMap<CityAddDto, City>()).CreateMapper().Map<City>(updateDto);
+
+            IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
+
+            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
+            if (result != null)
+                return new ErrorDataResult<CityUpdateDto>(result.Message);
+
+            city.Country = country.Data;
+
+            City returnCity = _cityDal.Add(city);
+            return returnCity != null
+                ? new SuccessDataResult<CityUpdateDto>(updateDto, CityConstants.UpdateSuccess)
+                : new ErrorDataResult<CityUpdateDto>(updateDto, CityConstants.UpdateFailed);
         }
 
         public IDataResult<City> GetById(int id)
