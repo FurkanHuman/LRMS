@@ -20,7 +20,9 @@
 
         public const string AlreadyExists = "Data already exists";
         public const string AddSuccess = "Adding succeeded.";
+        public const string AddFailed = "Adding failed.";
         public const string UpdateSuccess = "Update succeeded.";
+        public const string UpdateFailed = "Update failed.";
         public const string DeleteSuccess = "Delete succeeded.";
         public const string ShadowDeleteSuccess = "Shadow delete succeeded.";
         public const string NameOrSurnameExists = "Name or Surname conflicts.";
