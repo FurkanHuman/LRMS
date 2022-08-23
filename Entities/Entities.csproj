@@ -32,8 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Concrete\DTOs\Gets\Mains\" />
-    <Folder Include="Concrete\DTOs\Posts\Adds\" />
-    <Folder Include="Concrete\DTOs\Posts\Updates\" />
   </ItemGroup>
 
 </Project>
