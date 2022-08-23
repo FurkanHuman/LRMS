@@ -18,6 +18,7 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AddressManager>().As<IAddressService>().SingleInstance();
             builder.RegisterType<EfAddressDal>().As<IAddressDal>().SingleInstance();
+            builder.RegisterType<AddressFacadeManager>().As<IAddressFacadeService>().SingleInstance();
 
             builder.RegisterType<AudioRecordManager>().As<IAudioRecordService>().SingleInstance();
             builder.RegisterType<EfAudioRecordDal>().As<IAudioRecordDal>().SingleInstance();
@@ -39,6 +40,7 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<CityManager>().As<ICityService>().SingleInstance();
             builder.RegisterType<EfCityDal>().As<ICityDal>().SingleInstance();
+            builder.RegisterType<CityFacadeManager>().As<ICityFacadeService>().SingleInstance();
 
             builder.RegisterType<CommunicationManager>().As<ICommunicationService>().SingleInstance();
             builder.RegisterType<EfCommunicationDal>().As<ICommunicationDal>().SingleInstance();
