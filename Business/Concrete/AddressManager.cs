@@ -3,18 +3,21 @@
     public class AddressManager : IAddressService
     {
         private readonly IAddressDal _addressDal;
-        public AddressManager(IAddressDal addressDal)
+        private readonly IAddressFacadeService _addressFacadeService;
+
+        public AddressManager(IAddressDal addressDal, IAddressFacadeService addressFacadeService)
         {
             _addressDal = addressDal;
+            _addressFacadeService = addressFacadeService;
         }
 
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Add(Address address)
         {
-            //var city = _facadeService.CityService().GetById(address.City.Id);
-            //var country = _facadeService.CountryService().GetById(address.Country.Id);
+            var city = _addressFacadeService.CityService().GetById(address.CityId);
+            var country = _addressFacadeService.CountryService().GetById(address.CountryId);
 
-            IResult result = BusinessRules.Run(/*city, country*/);
+            IResult result = BusinessRules.Run(city, country, CityInCountryControl(city.Data, country.Data.Id));
             if (result != null)
                 return result;
 
@@ -22,8 +25,27 @@
 
             _addressDal.Add(address);
             return new SuccessResult(AddressConstants.AddSuccess);
-        }        
+        }
 
+        [ValidationAspect(typeof(AddressValidator), Priority = 1)]
+        public IDataResult<AddressAddDto> DtoAdd(AddressAddDto addDto)
+        {
+            Address address = new MapperConfiguration(cfg => cfg.CreateMap<AddressAddDto, Address>()).CreateMapper().Map<Address>(addDto);
+
+            var city = _addressFacadeService.CityService().GetById(address.CityId);
+            var country = _addressFacadeService.CountryService().GetById(address.CountryId);
+
+            IResult result = BusinessRules.Run(city, country);
+            if (result != null)
+                return new ErrorDataResult<AddressAddDto>(result.Message);
+
+            address.IsDeleted = false;
+
+            Address returnAddress = _addressDal.Add(address);
+            return returnAddress != null
+                ? new SuccessDataResult<AddressAddDto>(addDto, AddressConstants.AddSuccess)
+                : new ErrorDataResult<AddressAddDto>(addDto, AddressConstants.AddFailed);
+        }
         public IResult Delete(Guid id)
         {
             Address address = _addressDal.Get(a => a.Id == id);
@@ -48,15 +70,35 @@
         [ValidationAspect(typeof(AddressValidator), Priority = 1)]
         public IResult Update(Address address)
         {
-            //var city = _facadeService.CityService().GetById(address.City.Id);
-            //var country = _facadeService.CountryService().GetById(address.Country.Id);
+            var city = _addressFacadeService.CityService().GetById(address.CityId);
+            var country = _addressFacadeService.CountryService().GetById(address.CountryId);
 
-            IResult result = BusinessRules.Run(/*city, country*/);
+            IResult result = BusinessRules.Run(city, country);// add cross control 
             if (result != null)
                 return result;
 
             _addressDal.Update(address);
             return new SuccessResult(AddressConstants.UpdateSuccess);
+        }
+
+        [ValidationAspect(typeof(AddressValidator), Priority = 1)]
+        public IDataResult<AddressUpdateDto> DtoUpdate(AddressUpdateDto updateDto)
+        {
+            Address address = new MapperConfiguration(cfg => cfg.CreateMap<AddressUpdateDto, Address>()).CreateMapper().Map<Address>(updateDto);
+
+            var city = _addressFacadeService.CityService().GetById(address.CityId);
+            var country = _addressFacadeService.CountryService().GetById(address.CountryId);
+
+            IResult result = BusinessRules.Run(city, country);
+            if (result != null)
+                return new ErrorDataResult<AddressUpdateDto>(result.Message);
+
+            address.IsDeleted = false;
+
+            Address returnAddress = _addressDal.Add(address);
+            return returnAddress != null
+                ? new SuccessDataResult<AddressUpdateDto>(updateDto, AddressConstants.AddSuccess)
+                : new ErrorDataResult<AddressUpdateDto>(updateDto, AddressConstants.AddFailed);
         }
 
         public IDataResult<Address> GetById(Guid id)
@@ -193,7 +235,7 @@
 
         public IDataResult<IList<AddressDto>> DtoGetAllByFilter(Expression<Func<Address, bool>>? filter = null)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<IList<AddressDto>>(_addressDal.DtoGetAll(filter), AddressConstants.DataGet);
         }
 
         public IDataResult<IList<Address>> GetAll()
@@ -214,6 +256,17 @@
         public IDataResult<IList<AddressDto>> DtoGetAllByIsDeleted()
         {
             return new SuccessDataResult<IList<AddressDto>>(_addressDal.DtoGetAll(a => a.IsDeleted), AddressConstants.DataGet);
+        }
+
+        private IResult CityInCountryControl(City city, int id)
+        {
+            if (city.CountryId != id)
+            {
+                return new ErrorResult(AddressConstants.CityInCountry);
+            }
+
+            return new SuccessResult();
+
         }
     }
 }

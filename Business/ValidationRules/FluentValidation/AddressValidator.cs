@@ -4,8 +4,8 @@
     {
         public AddressValidator()
         {
-            RuleFor(a => a.Country.Id).NotEmpty().NotNull().WithMessage(AddressConstants.CountryIdNull);
-            RuleFor(a => a.City.Id).NotEmpty().NotNull().WithMessage(AddressConstants.CityIdNull);
+            RuleFor(a => a.CountryId).NotEmpty().NotNull().WithMessage(AddressConstants.CountryIdNull);
+            RuleFor(a => a.CityId).NotEmpty().NotNull().WithMessage(AddressConstants.CityIdNull);
 
             RuleFor(a => a.PostalCode).NotEmpty().NotNull().WithMessage(AddressConstants.PostalCodeNull);
             RuleFor(a => a.PostalCode).MinimumLength(3).MaximumLength(10).WithMessage(AddressConstants.PostalCodeLength);

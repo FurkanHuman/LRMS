@@ -1,6 +1,6 @@
 ﻿namespace Business.Abstract
 {
-    public interface IAddressService : IBaseEntityService<Address, Guid>, IBaseDtoService<Address, AddressDto, Guid>
+    public interface IAddressService : IBaseEntityService<Address, Guid>, IBaseDtoService<Address, AddressDto, AddressAddDto, AddressUpdateDto, Guid>
     {
         IDataResult<IList<Address>> GetAllByPostalCode(string postalCode);
         IDataResult<IList<AddressDto>> DtoGetAllByPostalCode(string postalCode);

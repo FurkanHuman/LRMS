@@ -3,7 +3,7 @@
     public class AddressConstants : BaseConstants
     {
         protected AddressConstants() { }
-
+        public const string CityInCountry = "the country and the city do not correspond to each other.";
         public const string PostalCodeNull = "Postal code is null.";
         public const string PostalCodeLength = "the Postal code length must be between 3 and 10. ";
         public const string AddressLengthNull = "Address null.";

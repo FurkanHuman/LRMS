@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete.DTOs.Posts.Updates;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
@@ -19,6 +20,13 @@ namespace LRMS.Controllers
         public IActionResult Add(Address address)
         {
             var result = _addressService.Add(address);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoAdd")]
+        public IActionResult DtoAdd(AddressAddDto addressAddDto)
+        {
+            var result = _addressService.DtoAdd(addressAddDto);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -43,6 +51,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoUpdate")]
+        public IActionResult DtoUpdate(AddressUpdateDto addressUpdateDto)
+        {
+            var result = _addressService.DtoUpdate(addressUpdateDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetById")]
         public IActionResult GetById(Guid id)
         {
@@ -50,10 +65,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetById")]
+        public IActionResult DtoGetById(Guid id)
+        {
+            var result = _addressService.DtoGetById(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetAllByName")]
         public IActionResult GetByName(string name)
         {
             var result = _addressService.GetAllByName(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+        
+        [HttpPost("DtoGetAllByName")]
+        public IActionResult DtoGetByName(string name)
+        {
+            var result = _addressService.DtoGetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -64,10 +93,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetAllByPostalCode")]
+        public IActionResult DtoGetAllByPostalCode(string postalCode)
+        {
+            var result = _addressService.DtoGetAllByPostalCode(postalCode);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetAllByCityId")]
         public IActionResult GetAllByCityId(int cityId)
         {
             var result = _addressService.GetAllByCityId(cityId);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetAllByCityId")]
+        public IActionResult DtoGetAllByCityId(int cityId)
+        {
+            var result = _addressService.DtoGetAllByCityId(cityId);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -78,10 +121,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetAllByGeoLocation")]
+        public IActionResult DtoGetAllByGeoLocation(string geoLocation)
+        {
+            var result = _addressService.DtoGetAllByGeoLocation(geoLocation);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetAllBySearchString")]
         public IActionResult GetAllBySearchString(string searchString)
         {
             var result = _addressService.GetAllBySearchString(searchString);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetAllBySearchString")]
+        public IActionResult DtoGetAllBySearchString(string searchString)
+        {
+            var result = _addressService.DtoGetAllBySearchString(searchString);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -92,10 +149,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("DtoGetAllByIsDeleted")]
-        public IActionResult GetAllBySecret()
+        [HttpPost("DtoGetAllByFilter")]
+        public IActionResult DtoGetAllByFilter(Expression<Func<Address, bool>>? filter = null)
+        {
+            var result = _addressService.DtoGetAllByFilter(filter);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("GetAllByIsDeleted")]
+        public IActionResult GetAllByIsDeleted()
         {
             var result = _addressService.GetAllByIsDeleted();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("DtoGetAllByIsDeleted")]
+        public IActionResult DtoGetAllByIsDeleted()
+        {
+            var result = _addressService.DtoGetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
