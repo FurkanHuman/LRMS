@@ -1,5 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+using Business.Concrete;
+using DataAccess.Concrete;
 
 namespace LRMS_Benchmark
 {
