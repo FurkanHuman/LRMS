@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Concrete\Base\" />
-    <Folder Include="DependencyResolvers\Facade\SubFacades\" />
   </ItemGroup>
 
 </Project>
