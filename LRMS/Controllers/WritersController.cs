@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Concrete.DTOs.Posts.Updates;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LRMS.Controllers
 {
@@ -20,6 +21,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoAdd")]
+        public IActionResult DtoAdd(WriterAddDto writerAdd)
+        {
+            var result = _writerService.DtoAdd(writerAdd);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("Delete")]
         public IActionResult Delete([FromForm] Guid id)
         {
@@ -38,6 +46,13 @@ namespace LRMS.Controllers
         public IActionResult Update(Writer writer)
         {
             var result = _writerService.Update(writer);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoUpdate")]
+        public IActionResult DtoUpdate(WriterUpdateDto UpdateDto)
+        {
+            var result = _writerService.DtoUpdate(UpdateDto);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

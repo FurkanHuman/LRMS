@@ -21,6 +21,23 @@
             return new SuccessResult(WriterConstants.AddSuccess);
         }
 
+        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
+        public IDataResult<WriterAddDto> DtoAdd(WriterAddDto addDto)
+        {
+            Writer writer = new MapperConfiguration(cfg => cfg.CreateMap<WriterAddDto, Writer>()).CreateMapper().Map<Writer>(addDto);
+
+            IResult result = BusinessRules.Run(WriterNameOrSurnameExist(writer));
+            if (result != null)
+                return new ErrorDataResult<WriterAddDto>(result.Message);
+
+            writer.IsDeleted = false;
+            Writer wrAdd = _writerDal.Add(writer);
+
+            return wrAdd != null
+                ? new SuccessDataResult<WriterAddDto>(addDto, WriterConstants.AddSuccess)
+                : new ErrorDataResult<WriterAddDto>(addDto, WriterConstants.AddFailed);
+        }
+
         public IResult Delete(Guid id)
         {
             Writer writer = _writerDal.Get(w => w.Id == id && !w.IsDeleted);
@@ -52,6 +69,22 @@
             entity.IsDeleted = false;
             _writerDal.Update(entity);
             return new SuccessResult(WriterConstants.UpdateSuccess);
+        }
+
+        [ValidationAspect(typeof(WriterValidator), Priority = 1)]
+        public IDataResult<WriterUpdateDto> DtoUpdate(WriterUpdateDto updateDto)
+        {
+            Writer entity = new MapperConfiguration(cfg => cfg.CreateMap<WriterUpdateDto, Writer>()).CreateMapper().Map<Writer>(updateDto);
+
+            IResult result = BusinessRules.Run(WriterNameOrSurnameExist(entity));
+            if (result != null)
+                return new ErrorDataResult<WriterUpdateDto>(result.Message);
+
+
+            Writer wrAdd = _writerDal.Add(entity);
+            return wrAdd != null
+                ? new SuccessDataResult<WriterUpdateDto>(updateDto, WriterConstants.AddSuccess)
+                : new ErrorDataResult<WriterUpdateDto>(updateDto, WriterConstants.AddFailed);
         }
 
         public IDataResult<Writer> GetById(Guid id)
@@ -173,6 +206,19 @@
             return result
                 ? new ErrorResult(WriterConstants.WriterNameOrSurnameExist)
                 : new SuccessResult(WriterConstants.DataGet);
+        }
+
+        private Writer WriterDtoUpdateToWriter(WriterUpdateDto updateDto)
+        {
+            return new()
+            {
+                Id = updateDto.Id,
+                Name = updateDto.Name,
+                SurName = updateDto.SurName,
+                NamePreAttachment = updateDto.NamePreAttachment,
+                IsDeleted = updateDto.IsDeleted,
+                // to be countune
+            };
         }
     }
 }
