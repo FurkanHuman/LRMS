@@ -1,6 +1,4 @@
-﻿using Entities.Concrete.Entities.Infos;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class CityManager : ICityService
     {
@@ -39,7 +37,7 @@ namespace Business.Concrete
             if (result != null)
                 return new ErrorDataResult<CityAddDto>(result.Message);
 
-            city.Country=country.Data;
+            city.Country = country.Data;
 
             City returnCity = _cityDal.Add(city);
             return returnCity != null

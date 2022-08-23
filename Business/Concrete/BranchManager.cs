@@ -1,7 +1,4 @@
-﻿using Entities.Abstract;
-using Entities.Concrete.Entities.Infos;
-
-namespace Business.Concrete
+﻿namespace Business.Concrete
 {
     public class BranchManager : IBranchService
     {
