@@ -22,6 +22,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoAdd")]
+        public IActionResult DtoAdd(BranchAddDto addDto)
+        {
+            var result = _branchService.DtoAdd(addDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("Delete")]
         public IActionResult Delete(int id)
         {
@@ -43,10 +50,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoUpdate")]
+        public IActionResult DtoUpdate(BranchUpdateDto updateDto)
+        {
+            var result = _branchService.DtoUpdate(updateDto);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetById")]
         public IActionResult GetById(int id)
         {
             var result = _branchService.GetById(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetById")]
+        public IActionResult DtoGetById(int id)
+        {
+            var result = _branchService.DtoGetById(id);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -57,6 +78,13 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetAllByName")]
+        public IActionResult DtoGetAllByName(string name)
+        {
+            var result = _branchService.DtoGetAllByName(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetAllByFilter")]
         public IActionResult GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
         {
@@ -64,10 +92,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("DtoGetAllByIsDeleted")]
-        public IActionResult GetAllBySecret()
+        [HttpPost("DtoGetAllByFilter")]
+        public IActionResult DtoGetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
+        {
+            var result = _branchService.DtoGetAllByFilter(filter);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("GetAllByIsDeleted")]
+        public IActionResult GetAllByIsDeleted()
         {
             var result = _branchService.GetAllByIsDeleted();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("DtoGetAllByIsDeleted")]
+        public IActionResult DtoGetAllByIsDeleted()
+        {
+            var result = _branchService.DtoGetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -75,6 +117,13 @@ namespace LRMS.Controllers
         public IActionResult GetAll()
         {
             var result = _branchService.GetAll();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("DtoGetAll")]
+        public IActionResult DtoGetAll()
+        {
+            var result = _branchService.DtoGetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

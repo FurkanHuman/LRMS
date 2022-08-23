@@ -1,4 +1,7 @@
-﻿namespace Business.Concrete
+﻿using Entities.Abstract;
+using Entities.Concrete.Entities.Infos;
+
+namespace Business.Concrete
 {
     public class BranchManager : IBranchService
     {
@@ -20,6 +23,19 @@
             _branchDal.Add(branch);
 
             return new SuccessResult(BranchConstants.AddSuccess);
+        }
+        public IDataResult<BranchAddDto> DtoAdd(BranchAddDto addDto)
+        {
+            Branch branch = new MapperConfiguration(cfg => cfg.CreateMap<BranchAddDto, Branch>()).CreateMapper().Map<Branch>(addDto);
+
+            IResult result = BusinessRules.Run(BranchNameControl(branch.Name));
+            if (result != null)
+                return new ErrorDataResult<BranchAddDto>(result.Message);
+
+            Branch returnBranch = _branchDal.Add(branch);
+            return returnBranch != null
+                ? new SuccessDataResult<BranchAddDto>(addDto, BranchConstants.UpdateSuccess)
+                : new ErrorDataResult<BranchAddDto>(addDto, BranchConstants.UpdateFailed);
         }
 
         public IResult Delete(int id)
@@ -54,12 +70,34 @@
             return new SuccessResult(BranchConstants.UpdateSuccess);
         }
 
+        public IDataResult<BranchUpdateDto> DtoUpdate(BranchUpdateDto updateDto)
+        {
+            Branch branch = new MapperConfiguration(cfg => cfg.CreateMap<BranchUpdateDto, Branch>()).CreateMapper().Map<Branch>(updateDto);
+
+            IResult result = BusinessRules.Run(BranchNameControl(branch.Name));
+            if (result != null)
+                return new ErrorDataResult<BranchUpdateDto>(result.Message);
+
+            Branch returnBranch = _branchDal.Add(branch);
+            return returnBranch != null
+                ? new SuccessDataResult<BranchUpdateDto>(updateDto, BranchConstants.UpdateSuccess)
+                : new ErrorDataResult<BranchUpdateDto>(updateDto, BranchConstants.UpdateFailed);
+        }
+
         public IDataResult<Branch> GetById(int id)
         {
             Branch branch = _branchDal.Get(i => i.Id == id);
             return branch != null
                 ? new SuccessDataResult<Branch>(branch, BranchConstants.DataGet)
                 : new ErrorDataResult<Branch>(BranchConstants.DataNotGet);
+        }
+
+        public IDataResult<BranchDto> DtoGetById(int id)
+        {
+            BranchDto branchDto = _branchDal.DtoGet(i => i.Id == id);
+            return branchDto != null
+                ? new SuccessDataResult<BranchDto>(branchDto, BranchConstants.DataGet)
+                : new ErrorDataResult<BranchDto>(BranchConstants.DataNotGet);
         }
 
         public IDataResult<IList<Branch>> GetAllByIds(int[] ids)
@@ -70,6 +108,14 @@
                 : new ErrorDataResult<IList<Branch>>(BranchConstants.DataNotGet);
         }
 
+        public IDataResult<IList<BranchDto>> DtoGetAllByIds(int[] ids)
+        {
+            IList<BranchDto> branchDtos = _branchDal.DtoGetAll(b => ids.Contains(b.Id) && !b.IsDeleted);
+            return branchDtos != null
+                ? new SuccessDataResult<IList<BranchDto>>(branchDtos, BranchConstants.DataGet)
+                : new ErrorDataResult<IList<BranchDto>>(BranchConstants.DataNotGet);
+        }
+
         public IDataResult<IList<Branch>> GetAllByName(string name)
         {
             IList<Branch> branchs = _branchDal.GetAll(b => b.Name.Contains(name) && !b.IsDeleted);
@@ -78,9 +124,22 @@
                 : new ErrorDataResult<IList<Branch>>(BranchConstants.DataNotGet);
         }
 
+        public IDataResult<IList<BranchDto>> DtoGetAllByName(string name)
+        {
+            IList<BranchDto> branchDtos = _branchDal.DtoGetAll(b => b.Name.Contains(name) && !b.IsDeleted);
+            return branchDtos != null
+                ? new SuccessDataResult<IList<BranchDto>>(branchDtos, BranchConstants.DataGet)
+                : new ErrorDataResult<IList<BranchDto>>(BranchConstants.DataNotGet);
+        }
+
         public IDataResult<IList<Branch>> GetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
         {
             return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(filter), BranchConstants.DataGet);
+        }
+
+        public IDataResult<IList<BranchDto>> DtoGetAllByFilter(Expression<Func<Branch, bool>>? filter = null)
+        {
+            return new SuccessDataResult<IList<BranchDto>>(_branchDal.DtoGetAll(filter), BranchConstants.DataGet);
         }
 
         public IDataResult<IList<Branch>> GetAll()
@@ -88,9 +147,19 @@
             return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(b => !b.IsDeleted), BranchConstants.DataGet);
         }
 
+        public IDataResult<IList<BranchDto>> DtoGetAll()
+        {
+            return new SuccessDataResult<IList<BranchDto>>(_branchDal.DtoGetAll(b => !b.IsDeleted), BranchConstants.DataGet);
+        }
+
         public IDataResult<IList<Branch>> GetAllByIsDeleted()
         {
             return new SuccessDataResult<IList<Branch>>(_branchDal.GetAll(b => b.IsDeleted), BranchConstants.DataGet);
+        }
+
+        public IDataResult<IList<BranchDto>> DtoGetAllByIsDeleted()
+        {
+            return new SuccessDataResult<IList<BranchDto>>(_branchDal.DtoGetAll(b => b.IsDeleted), BranchConstants.DataGet);
         }
 
         private IResult BranchNameControl(string branchName)
