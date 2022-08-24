@@ -9,9 +9,9 @@ Console.WriteLine("Hello, World!");
 
 WriterManager writerManager = new(new EfWriterDal());
 
-IList<Guid> guids = writerManager.GetAll().Data.Select(c => c.Id).ToList();
+int counts = writerManager.GetAll().Data.Count();
 
-Console.WriteLine(guids.Count());
+Console.WriteLine(counts);
 
 
 
