@@ -50,7 +50,7 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("DtoUpdate")]
         public IActionResult DtoUpdate(CityUpdateDto updateDto)
         {
             var result = _cityService.DtoUpdate(updateDto);
