@@ -3,7 +3,7 @@
     // [TestClass]
     public class CityTest
     {
-        private readonly ICityService _cityService = new CityManager(new EfCityDal());
+        private readonly ICityService _cityService;// = new CityManager(new EfCityDal());
 
         [TestMethod]
         public void AddTest()
