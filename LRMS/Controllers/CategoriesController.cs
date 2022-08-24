@@ -52,10 +52,38 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        [HttpPost("DtoGetById")]
+        public IActionResult DtoGetById(int id)
+        {
+            var result = _categoryService.DtoGetById(id);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("GetAllByIds")]
+        public IActionResult GetAllByIds(int[] ids)
+        {
+            var result = _categoryService.GetAllByIds(ids);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetAllByIds")]
+        public IActionResult DtoGetAllByIds(int[] ids)
+        {
+            var result = _categoryService.DtoGetAllByIds(ids);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("GetAllByName")]
         public IActionResult GetAllByName(string name)
         {
             var result = _categoryService.GetAllByName(name);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("DtoGetAllByName")]
+        public IActionResult DtoGetAllByName(string name)
+        {
+            var result = _categoryService.DtoGetAllByName(name);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -66,10 +94,24 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("DtoGetAllByIsDeleted")]
-        public IActionResult GetAllBySecret()
+        [HttpPost("DtoGetAllByFilter")]
+        public IActionResult DtoGetByFilter(Expression<Func<Category, bool>>? filter = null)
+        {
+            var result = _categoryService.DtoGetAllByFilter(filter);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("GetAllByIsDeleted")]
+        public IActionResult GetAllByIsDeleted()
         {
             var result = _categoryService.GetAllByIsDeleted();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+        
+        [HttpGet("DtoGetAllByIsDeleted")]
+        public IActionResult DtoGetAllByIsDeleted()
+        {
+            var result = _categoryService.DtoGetAllByIsDeleted();
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -77,6 +119,12 @@ namespace LRMS.Controllers
         public IActionResult GetAll()
         {
             var result = _categoryService.GetAll();
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+        [HttpGet("DtoGetAll")]
+        public IActionResult DtoGetAll()
+        {
+            var result = _categoryService.DtoGetAll();
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }
