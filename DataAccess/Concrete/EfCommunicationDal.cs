@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Concrete
 {
-    public class EfCommunicationDal : EfEntityRepositoryBase<Communication, PostgreDbContext>, ICommunicationDal
+    public class EfCommunicationDal : EfEntityRepositoryBase<Communication, CommunicationDto, PostgreDbContext>, ICommunicationDal
     {
     }
 }
