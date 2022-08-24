@@ -38,6 +38,7 @@
                 return new ErrorDataResult<CityAddDto>(result.Message);
 
             city.Country = country.Data;
+            city.IsDeleted = false;
 
             City returnCity = _cityDal.Add(city);
             return returnCity != null

@@ -66,7 +66,6 @@
             if (result != null)
                 return result;
 
-            entity.IsDeleted = false;
             _writerDal.Update(entity);
             return new SuccessResult(WriterConstants.UpdateSuccess);
         }
@@ -79,7 +78,6 @@
             IResult result = BusinessRules.Run(WriterNameOrSurnameExist(entity));
             if (result != null)
                 return new ErrorDataResult<WriterUpdateDto>(result.Message);
-
 
             Writer wrAdd = _writerDal.Add(entity);
             return wrAdd != null

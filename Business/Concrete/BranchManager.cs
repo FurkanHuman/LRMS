@@ -21,6 +21,9 @@
 
             return new SuccessResult(BranchConstants.AddSuccess);
         }
+
+
+        [ValidationAspect(typeof(BranchValidator), Priority = 1)]
         public IDataResult<BranchAddDto> DtoAdd(BranchAddDto addDto)
         {
             Branch branch = new MapperConfiguration(cfg => cfg.CreateMap<BranchAddDto, Branch>()).CreateMapper().Map<Branch>(addDto);
@@ -28,6 +31,8 @@
             IResult result = BusinessRules.Run(BranchNameControl(branch.Name));
             if (result != null)
                 return new ErrorDataResult<BranchAddDto>(result.Message);
+            
+            branch.IsDeleted = false;
 
             Branch returnBranch = _branchDal.Add(branch);
             return returnBranch != null
@@ -62,11 +67,12 @@
             if (result != null)
                 return result;
 
-            branch.IsDeleted = false;
             _branchDal.Update(branch);
             return new SuccessResult(BranchConstants.UpdateSuccess);
         }
 
+
+        [ValidationAspect(typeof(BranchValidator), Priority = 1)]
         public IDataResult<BranchUpdateDto> DtoUpdate(BranchUpdateDto updateDto)
         {
             Branch branch = new MapperConfiguration(cfg => cfg.CreateMap<BranchUpdateDto, Branch>()).CreateMapper().Map<Branch>(updateDto);

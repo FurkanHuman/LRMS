@@ -30,6 +30,8 @@
             if (result != null)
                 return new ErrorDataResult<CountryAddDto>(result.Message);
 
+            country.IsDeleted = false;
+
             Country returnCountry = _countryDal.Add(country);
             return returnCountry != null
                 ? new SuccessDataResult<CountryAddDto>(addDto, CountryConstants.AddSuccess)

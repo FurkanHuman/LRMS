@@ -93,8 +93,6 @@
             if (result != null)
                 return new ErrorDataResult<AddressUpdateDto>(result.Message);
 
-            address.IsDeleted = false;
-
             Address returnAddress = _addressDal.Add(address);
             return returnAddress != null
                 ? new SuccessDataResult<AddressUpdateDto>(updateDto, AddressConstants.AddSuccess)
