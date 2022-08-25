@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Concrete
 {
-    public class EfComposerDal : EfEntityRepositoryBase<Composer, PostgreDbContext>, IComposerDal
+    public class EfComposerDal : EfEntityRepositoryBase<Composer, ComposerDto, PostgreDbContext>, IComposerDal
     {
     }
 }
