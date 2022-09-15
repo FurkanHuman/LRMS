@@ -1,13 +1,7 @@
 ﻿namespace Entities.Concrete.Entities.Infos
 {
-    public class Communication : IEntity
+    public class Communication : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string CommunicationName { get; set; }
-
         [Required]
         public string PhoneNumber { get; set; }
 
@@ -18,7 +12,5 @@
 
         [Required]
         public string WebSite { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

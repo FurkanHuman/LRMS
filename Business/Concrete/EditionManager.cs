@@ -91,7 +91,7 @@
 
         public IDataResult<IList<Edition>> GetAllByAddressName(string addressName)
         {
-            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.AddressName.Contains(addressName) && !e.IsDeleted);
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Name.Contains(addressName) && !e.IsDeleted);
 
             return editions == null
                 ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
@@ -112,7 +112,7 @@
             if (!country.Success)
                 return new ErrorDataResult<IList<Edition>>(country.Message);
 
-            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.CountryName.Contains(countryName) && !e.IsDeleted);
+            IList<Edition> editions = _editionDal.GetAll(e => e.Publisher.Address.Country.Name.Contains(countryName) && !e.IsDeleted);
             return editions == null
                 ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
                 : new SuccessDataResult<IList<Edition>>(editions, EditionConstants.AddressFound);
@@ -148,7 +148,7 @@
             if (!result.Success)
                 return new ErrorDataResult<IList<Edition>>(result.Message);
 
-            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Address.City.CityName.Contains(cityName) && !c.IsDeleted);
+            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Address.City.Name.Contains(cityName) && !c.IsDeleted);
 
             return editions == null
                 ? new ErrorDataResult<IList<Edition>>(EditionConstants.AddressNotFound)
@@ -182,7 +182,7 @@
 
         public IDataResult<IList<Edition>> GetAllByCommunicationName(string commName)
         {
-            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.CommunicationName.Contains(commName) && !c.IsDeleted);
+            IList<Edition> editions = _editionDal.GetAll(c => c.Publisher.Communication.Name.Contains(commName) && !c.IsDeleted);
             return editions == null
                 ? new ErrorDataResult<IList<Edition>>(EditionConstants.DataNotGet)
                 : new SuccessDataResult<IList<Edition>>(editions, EditorConstants.DataGet);

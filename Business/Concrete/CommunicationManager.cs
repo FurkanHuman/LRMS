@@ -133,7 +133,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<Communication>> GetAllByName(string name)
         {
-            IList<Communication> communications = _communicationDal.GetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted);
+            IList<Communication> communications = _communicationDal.GetAll(c => c.Name.Contains(name) && !c.IsDeleted);
             return communications == null
                 ? new ErrorDataResult<IList<Communication>>(CommunicationConstants.NotMatch)
                 : new SuccessDataResult<IList<Communication>>(communications, CommunicationConstants.DataGet);
@@ -141,7 +141,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<CommunicationDto>> DtoGetAllByName(string name)
         {
-            IList<CommunicationDto> communicationDto = _communicationDal.DtoGetAll(c => c.CommunicationName.Contains(name) && !c.IsDeleted);
+            IList<CommunicationDto> communicationDto = _communicationDal.DtoGetAll(c => c.Name.Contains(name) && !c.IsDeleted);
             return communicationDto == null
                  ? new ErrorDataResult<IList<CommunicationDto>>(CommunicationConstants.DataNotGet)
                  : new SuccessDataResult<IList<CommunicationDto>>(communicationDto, CommunicationConstants.DataGet);

@@ -86,7 +86,7 @@
 
         public IDataResult<IList<University>> GetAllByName(string name)
         {
-            IList<University> universities = _universityDal.GetAll(u => u.UniversityName.Contains(name) && !u.IsDeleted);
+            IList<University> universities = _universityDal.GetAll(u => u.Name.Contains(name) && !u.IsDeleted);
 
             return universities == null
                 ? new ErrorDataResult<IList<University>>(UniversityConstants.DataNotGet)
@@ -126,8 +126,7 @@
 
         public IDataResult<IList<University>> GetAllByCityName(string cityName)
         {
-            IList<University> universities = _universityDal.GetAll(u => u.Address.City.CityName.Contains(cityName) && !u.IsDeleted);
-
+            IList<University> universities = _universityDal.GetAll(u => u.Address.City.Name.Contains(cityName) && !u.IsDeleted);
             return universities == null
                 ? new ErrorDataResult<IList<University>>(UniversityConstants.DataNotGet)
                 : new SuccessDataResult<IList<University>>(universities, UniversityConstants.DataGet);
@@ -143,7 +142,7 @@
 
         public IDataResult<IList<University>> GetAllByCountryName(string countryName)
         {
-            IList<University> universities = _universityDal.GetAll(u => u.Address.Country.CountryName.Contains(countryName) && !u.IsDeleted);
+            IList<University> universities = _universityDal.GetAll(u => u.Address.Country.Name.Contains(countryName) && !u.IsDeleted);
 
             return universities == null
                 ? new ErrorDataResult<IList<University>>(UniversityConstants.DataNotGet)
@@ -176,7 +175,7 @@
         private IResult UniversityChecker(University university)
         {
             bool findUni = _universityDal.GetAll(u =>
-               u.UniversityName.Contains(university.UniversityName)
+               u.Name.Contains(university.Name)
            && u.Institute.Contains(university.Institute)
            && u.Address.Id == university.Address.Id
            && u.Branch.Id == university.Branch.Id

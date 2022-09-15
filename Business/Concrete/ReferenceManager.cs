@@ -117,7 +117,7 @@
 
         public IDataResult<IList<Reference>> GetAllBySubText(string subText)
         {
-            IList<Reference> references = _referenceDal.GetAll(r => r.SubText.Contains(subText) && !r.IsDeleted);
+            IList<Reference> references = _referenceDal.GetAll(r => r.Name.Contains(subText) && !r.IsDeleted);
             return references == null
                  ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
                  : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
@@ -126,7 +126,7 @@
         private IResult CheckRefence(Reference entity)
         {
             bool refControl = _referenceDal.GetAll(r =>
-               r.SubText.Contains(entity.SubText)
+               r.Name.Contains(entity.Name)
             && r.Owner.Contains(entity.Owner)
             && r.ReferenceDate == entity.ReferenceDate
             && r.TechnicalNumber == entity.TechnicalNumber).Any();

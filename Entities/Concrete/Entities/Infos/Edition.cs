@@ -2,13 +2,8 @@
 
 namespace Entities.Concrete.Entities.Infos
 {
-    public class Edition : IEntity
+    public class Edition : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
-
         [Required]
         public Guid PublisherId { get; set; }
 
@@ -16,8 +11,6 @@ namespace Entities.Concrete.Entities.Infos
 
         [Required]
         public int EditionNumber { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public IList<Book> Books { get; set; }
         public IList<BookSeries> BookSeries { get; set; }

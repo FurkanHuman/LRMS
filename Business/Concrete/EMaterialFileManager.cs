@@ -26,7 +26,7 @@ namespace Business.Concrete
                 return result;
 
             eMaterialFile.FileSizeMB = ((file.Length / 1024) / 1024);
-            eMaterialFile.IsSecret = false;
+            eMaterialFile.IsDeleted = false;
             _eMaterialFileDal.Add(eMaterialFile);
 
             return new SuccessResult(EMaterialFileConstants.AddSuccess);
@@ -44,12 +44,12 @@ namespace Business.Concrete
 
         public IResult ShadowDelete(Guid id)
         {
-            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id == id && !e.IsSecret);
+            EMaterialFile eMaterialFile = _eMaterialFileDal.Get(e => e.Id == id && !e.IsDeleted);
 
             if (eMaterialFile == null)
                 return new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.NotMatch);
 
-            eMaterialFile.IsSecret = true;
+            eMaterialFile.IsDeleted = true;
 
             _eMaterialFileDal.Update(eMaterialFile);
 
@@ -65,7 +65,7 @@ namespace Business.Concrete
             if (result != null)
                 return result;
 
-            EMaterialFile oldEMaterialFile = _eMaterialFileDal.Get(o => o.Id.Equals(eMaterialFile.Id) && !o.IsSecret);
+            EMaterialFile oldEMaterialFile = _eMaterialFileDal.Get(o => o.Id.Equals(eMaterialFile.Id) && !o.IsDeleted);
 
             if (oldEMaterialFile == null)
                 return new ErrorDataResult<EMaterialFile>(EMaterialFileConstants.DataNotGet);
@@ -90,7 +90,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<EMaterialFile>> GetAllByIds(Guid[] ids)
         {
-            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => ids.Contains(e.Id) && !e.IsSecret);
+            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => ids.Contains(e.Id) && !e.IsDeleted);
 
             return eMaterialFiles == null
                 ? new ErrorDataResult<IList<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
@@ -99,7 +99,7 @@ namespace Business.Concrete
 
         public IDataResult<IList<EMaterialFile>> GetAllByName(string name)
         {
-            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.FileName.Contains(name) && !e.IsSecret);
+            IList<EMaterialFile> eMaterialFiles = _eMaterialFileDal.GetAll(e => e.Name.Contains(name) && !e.IsDeleted);
 
             return eMaterialFiles == null
                 ? new ErrorDataResult<IList<EMaterialFile>>(EMaterialFileConstants.DataNotGet)
@@ -113,12 +113,12 @@ namespace Business.Concrete
 
         public IDataResult<IList<EMaterialFile>> GetAll()
         {
-            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsSecret), EMaterialFileConstants.DataGet);
+            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => !e.IsDeleted), EMaterialFileConstants.DataGet);
         }
 
         public IDataResult<IList<EMaterialFile>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => e.IsSecret), EMaterialFileConstants.DataGet);
+            return new SuccessDataResult<IList<EMaterialFile>>(_eMaterialFileDal.GetAll(e => e.IsDeleted), EMaterialFileConstants.DataGet);
         }
 
         private static IResult FileCheck(IFormFile file)
@@ -138,7 +138,7 @@ namespace Business.Concrete
         private static IResult EMaterialFileCheck(EMaterialFile eMaterialFile)
         {
             // fix it todo
-            if (eMaterialFile.IsSecret)
+            if (eMaterialFile.IsDeleted)
                 return new ErrorResult(EMaterialFileConstants.BuildedTime);
             return new SuccessResult(EMaterialFileConstants.BuildedTime);
         }

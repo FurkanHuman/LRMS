@@ -2,21 +2,13 @@
 
 namespace Entities.Concrete.Entities.Infos
 {
-    public class EMaterialFile : IEntity
+    public class EMaterialFile : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string FileName { get; set; }
-
         public string Title { get; set; }
 
         public string FilePath { get; set; }
 
         public double FileSizeMB { get; set; }
-
-        public bool IsSecret { get; set; }
 
         public IList<AcademicJournal> AcademicJournals { get; set; }
         public IList<AudioRecord> AudioRecords { get; set; }

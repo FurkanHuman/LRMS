@@ -3,14 +3,8 @@ using Newtonsoft.Json;
 
 namespace Entities.Concrete.Entities.Infos
 {
-    public class University : IEntity
+    public class University : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string UniversityName { get; set; }
-
         public string Institute { get; set; }
 
         [Required]
@@ -22,8 +16,6 @@ namespace Entities.Concrete.Entities.Infos
         public int BranchId { get; set; }
 
         public Branch Branch { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public IList<Dissertation> Dissertations { get; set; }
     }

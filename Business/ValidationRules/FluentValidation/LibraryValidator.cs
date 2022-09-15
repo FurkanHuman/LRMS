@@ -4,7 +4,7 @@
     {       // todo look at later
         public LibraryValidator()
         {
-            RuleFor(l => l.LibraryName).NotEmpty().NotNull().WithMessage(LibraryConstants.NameNull);
+            RuleFor(l => l.Name).NotEmpty().NotNull().WithMessage(LibraryConstants.NameNull);
             RuleFor(l => l.LibraryType).NotEmpty().NotNull().WithMessage(LibraryConstants.LibraryTypeNull);
         }
     }

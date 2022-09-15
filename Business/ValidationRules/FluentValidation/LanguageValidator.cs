@@ -4,7 +4,7 @@
     {
         public LanguageValidator()
         {
-            RuleFor(l => l.LanguageName).NotEmpty().NotNull().WithMessage(LanguageConstants.LanguageNameNull);
+            RuleFor(l => l.Name).NotEmpty().NotNull().WithMessage(LanguageConstants.LanguageNameNull);
         }
     }
 }

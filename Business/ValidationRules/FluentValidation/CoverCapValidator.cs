@@ -4,8 +4,8 @@
     {
         public CoverCapValidator()
         {
-            RuleFor(cc => cc.BookSkinType).NotEmpty().NotNull().WithMessage(CoverCapConstants.CoverCapNameNull);
-            RuleFor(cc => cc.BookSkinType).MinimumLength(2).WithMessage(CoverCapConstants.KeywordNumberCounter);
+            RuleFor(cc => cc.Name).NotEmpty().NotNull().WithMessage(CoverCapConstants.CoverCapNameNull);
+            RuleFor(cc => cc.Name).MinimumLength(2).WithMessage(CoverCapConstants.KeywordNumberCounter);
         }
     }
 }

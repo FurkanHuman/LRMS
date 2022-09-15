@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Concrete\DTOs\Gets\Mains\" />
+    <Folder Include="Concrete\DTOs\Posts\Returns\" />
   </ItemGroup>
 
 </Project>

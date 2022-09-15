@@ -1,13 +1,8 @@
 ﻿namespace Entities.Concrete.Entities.Infos
 {
-    public class Counter : IEntity
+    public class Counter : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         public ulong Count { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

@@ -1,16 +1,8 @@
 ﻿namespace Entities.Concrete.Entities.Bases
 {
-    public class FirstPagePersonBase
+    public class FirstPagePersonBase : BaseEntity<Guid>
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
         [Required]
         public string SurName { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

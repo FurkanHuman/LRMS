@@ -1,13 +1,7 @@
 ﻿namespace Entities.Concrete.Entities.Infos
 {
-    public class Library : IEntity
+    public class Library : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string LibraryName { get; set; }
-
         public byte LibraryType { get; set; }
 
         [Required]
@@ -18,7 +12,5 @@
         [Required]
         public Guid CommunicationId { get; set; }
         public Communication Communication { get; set; }
-
-        public bool IsDestroyed { get; set; }
     }
 }

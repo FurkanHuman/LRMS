@@ -8,7 +8,7 @@
         [TestMethod]
         public void AddTest()
         {
-            City city = new() { CityName = "Afyon Karahisar", CountryId = 1 };
+            City city = new() { Name = "Afyon Karahisar", CountryId = 1 };
 
             var testAdd = _cityService.Add(city);
 
@@ -39,7 +39,7 @@
         [TestMethod]
         public void UpdateTest()
         {
-            City city = new() { CityName = "real net human", Id = 8, CountryId = 1 };
+            City city = new() { Name = "real net human", Id = 8, CountryId = 1 };
 
             var testUpdate = _cityService.Update(city);
 

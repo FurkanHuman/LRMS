@@ -32,11 +32,11 @@
 
         public IResult ShadowDelete(Guid id)
         {
-            Library library = _libraryDal.Get(l => l.Id == id && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Id == id && !l.IsDeleted);
             if (library == null)
                 return new SuccessResult(LibraryConstants.NotMatch);
 
-            library.IsDestroyed = true;
+            library.IsDeleted = true;
             _libraryDal.Update(library);
             return new SuccessResult(LibraryConstants.DeleteSuccess);
         }
@@ -63,7 +63,7 @@
 
         public IDataResult<IList<Library>> GetAllByIds(Guid[] ids)
         {
-            IList<Library> libraries = _libraryDal.GetAll(l => ids.Contains(l.Id) && !l.IsDestroyed);
+            IList<Library> libraries = _libraryDal.GetAll(l => ids.Contains(l.Id) && !l.IsDeleted);
             return libraries == null
                 ? new ErrorDataResult<IList<Library>>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<IList<Library>>(libraries, LibraryConstants.DataGet);
@@ -71,7 +71,7 @@
 
         public IDataResult<IList<Library>> GetAllByName(string name)
         {
-            IList<Library> libraries = _libraryDal.GetAll(l => l.LibraryName.Contains(name) && !l.IsDestroyed);
+            IList<Library> libraries = _libraryDal.GetAll(l => l.Name.Contains(name) && !l.IsDeleted);
             return libraries == null
                 ? new ErrorDataResult<IList<Library>>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<IList<Library>>(libraries, LibraryConstants.DataGet);
@@ -84,7 +84,7 @@
 
         public IDataResult<IList<Library>> GetAllByLibraryType(byte libType)
         {
-            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => l.LibraryType == libType && !l.IsDestroyed), LibraryConstants.DataGet);
+            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => l.LibraryType == libType && !l.IsDeleted), LibraryConstants.DataGet);
         }
 
         public IDataResult<Library> GetByAddressId(Guid addressId)
@@ -93,7 +93,7 @@
             if (!address.Success)
                 return new ErrorDataResult<Library>(address.Message);
 
-            Library library = _libraryDal.Get(l => l.Address == address.Data && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Address == address.Data && !l.IsDeleted);
 
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.NotMatch)
@@ -106,7 +106,7 @@
             if (!country.Success)
                 return new ErrorDataResult<IList<Library>>(country.Message);
 
-            IList<Library> libraries = _libraryDal.GetAll(l => l.Address.Country == country && !l.IsDestroyed);
+            IList<Library> libraries = _libraryDal.GetAll(l => l.Address.Country == country && !l.IsDeleted);
 
             return libraries == null
                 ? new ErrorDataResult<IList<Library>>(LibraryConstants.NotMatch)
@@ -122,7 +122,7 @@
             List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address == address && l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address == address && l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -141,7 +141,7 @@
             List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -160,7 +160,7 @@
             List<Library> libraries = new();
             foreach (Country country in countyries.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address.Country == country && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address.Country == country && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -179,7 +179,7 @@
             List<Library> libraries = new();
             foreach (Country country in countyries.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address.Country == country && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address.Country == country && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -194,7 +194,7 @@
             IDataResult<City> city = _facadeService.CityService().GetById(cityId);
             if (!city.Success)
                 return new ErrorDataResult<IList<Library>>(city.Message);
-            IList<Library> libraries = _libraryDal.GetAll(l => l.Address.City == city && !l.IsDestroyed);
+            IList<Library> libraries = _libraryDal.GetAll(l => l.Address.City == city && !l.IsDeleted);
             return libraries == null
                 ? new ErrorDataResult<IList<Library>>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<IList<Library>>(libraries, LibraryConstants.DataGet);
@@ -209,7 +209,7 @@
             List<Library> libraries = new();
             foreach (City city in cities.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address.City == city && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address.City == city && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -227,7 +227,7 @@
             List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -245,7 +245,7 @@
             List<Library> libraries = new();
             foreach (Address address in addresses.Data)
             {
-                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Address == address && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -261,7 +261,7 @@
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
-            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
@@ -276,7 +276,7 @@
 
             foreach (Communication comm in comms.Data)
             {
-                Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+                Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
                 if (library != null)
                     libraries.Add(library);
             }
@@ -291,7 +291,7 @@
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
-            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
@@ -303,7 +303,7 @@
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
-            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
@@ -315,7 +315,7 @@
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
-            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
@@ -327,7 +327,7 @@
             if (!comm.Success)
                 return new ErrorDataResult<Library>(comm.Message);
 
-            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDestroyed);
+            Library library = _libraryDal.Get(l => l.Communication == comm && !l.IsDeleted);
             return library == null
                 ? new ErrorDataResult<Library>(LibraryConstants.DataNotGet)
                 : new SuccessDataResult<Library>(library, LibraryConstants.DataGet);
@@ -341,19 +341,19 @@
 
         public IDataResult<IList<Library>> GetAllByIsDeleted()
         {
-            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => l.IsDestroyed), LibraryConstants.DataGet);
+            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => l.IsDeleted), LibraryConstants.DataGet);
         }
 
         public IDataResult<IList<Library>> GetAll()
         {
-            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => !l.IsDestroyed), LibraryConstants.DataGet);
+            return new SuccessDataResult<IList<Library>>(_libraryDal.GetAll(l => !l.IsDeleted), LibraryConstants.DataGet);
         }
 
         private IResult LibraryExistControl(Library library)
         {
             // fixme
             bool resul = _libraryDal.GetAll(l =>
-            l.LibraryName.Contains(library.LibraryName)
+            l.Name.Contains(library.Name)
             && l.LibraryType == library.LibraryType
             && l.Address == library.Address
             && l.Communication == library.Communication

@@ -1,13 +1,7 @@
 ﻿namespace Entities.Concrete.Entities.Infos
 {
-    public class Address : IEntity
+    public class Address : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string AddressName { get; set; }
-
         [Required]
         public int CountryId { get; set; }
 
@@ -28,7 +22,5 @@
         public string AddressLine2 { get; set; }
 
         public string? GeoLocation { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

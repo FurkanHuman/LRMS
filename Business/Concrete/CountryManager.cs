@@ -121,7 +121,7 @@
 
         public IDataResult<IList<Country>> GetAllByName(string name)
         {
-            IList<Country> countries = _countryDal.GetAll(c => c.CountryName.Contains(name));
+            IList<Country> countries = _countryDal.GetAll(c => c.Name.Contains(name));
 
             return countries == null
                 ? new ErrorDataResult<IList<Country>>(CountryConstants.NotMatch)
@@ -130,7 +130,7 @@
 
         public IDataResult<IList<CountryDto>> DtoGetAllByName(string name)
         {
-            IList<CountryDto> countryDtos = _countryDal.DtoGetAll(c => c.CountryName.Contains(name) && !c.IsDeleted);
+            IList<CountryDto> countryDtos = _countryDal.DtoGetAll(c => c.Name.Contains(name) && !c.IsDeleted);
             return countryDtos == null
                 ? new ErrorDataResult<IList<CountryDto>>(CountryConstants.DataNotGet)
                 : new SuccessDataResult<IList<CountryDto>>(countryDtos, CountryConstants.DataGet);
@@ -182,7 +182,7 @@
 
         private IResult CountryControl(Country country)
         {
-            bool cControl = _countryDal.GetAll(c => c.CountryName.Contains(country.CountryName) && c.CountryCode.Contains(country.CountryCode)).Any();
+            bool cControl = _countryDal.GetAll(c => c.Name.Contains(country.Name) && c.CountryCode.Contains(country.CountryCode)).Any();
             if (cControl)
                 return new ErrorResult(CountryConstants.CountryNameAndCodeMatch);
 

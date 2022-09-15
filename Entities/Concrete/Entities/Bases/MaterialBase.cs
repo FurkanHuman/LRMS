@@ -1,13 +1,7 @@
 ﻿namespace Entities.Concrete.Entities.Bases
 {
-    public class MaterialBase
+    public class MaterialBase : BaseEntity<Guid>
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
         [Required]
         public string Title { get; set; }
 
@@ -35,8 +29,6 @@
         public byte State { get; set; } // indicates the state level of the material.
 
         public byte? SecretLevel { get; set; } // indicates the level of secrecy.
-
-        public bool IsDeleted { get; set; }
 
         public Stock Stock { get; set; }
 

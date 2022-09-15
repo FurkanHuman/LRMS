@@ -212,7 +212,7 @@
 
         public IDataResult<IList<Address>> GetAllByName(string name)
         {
-            IList<Address> addresses = _addressDal.GetAll(a => a.AddressName.Contains(name));
+            IList<Address> addresses = _addressDal.GetAll(a => a.Name.Contains(name));
             return addresses == null
                 ? new ErrorDataResult<IList<Address>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<IList<Address>>(addresses, AddressConstants.DataGet);
@@ -220,7 +220,7 @@
 
         public IDataResult<IList<AddressDto>> DtoGetAllByName(string name)
         {
-            IList<AddressDto> addressDtos = _addressDal.DtoGetAll(a => a.AddressName.Contains(name) && !a.IsDeleted);
+            IList<AddressDto> addressDtos = _addressDal.DtoGetAll(a => a.Name.Contains(name) && !a.IsDeleted);
             return addressDtos == null
                 ? new ErrorDataResult<IList<AddressDto>>(AddressConstants.NotMatch)
                 : new SuccessDataResult<IList<AddressDto>>(addressDtos, AddressConstants.DataGet);

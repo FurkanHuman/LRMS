@@ -67,7 +67,7 @@
 
         public IDataResult<IList<CoverCap>> GetAllByName(string name)
         {
-            IList<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.BookSkinType.Contains(name));
+            IList<CoverCap> coverCaps = _coverCapDal.GetAll(u => u.Name.Contains(name));
             return coverCaps == null
                 ? new ErrorDataResult<IList<CoverCap>>(CoverCapConstants.DataNotGet)
                 : new SuccessDataResult<IList<CoverCap>>(coverCaps, CategoryConstants.DataGet);
@@ -90,7 +90,7 @@
 
         private IResult CoverCapChecker(CoverCap coverCap)
         {
-            bool r = _coverCapDal.GetAll(cc => cc.BookSkinType.Contains(coverCap.BookSkinType)).Any();
+            bool r = _coverCapDal.GetAll(cc => cc.Name.Contains(coverCap.Name)).Any();
             return r
                 ? new ErrorResult(CoverCapConstants.CoverCapNameExist)
                 : new SuccessResult();

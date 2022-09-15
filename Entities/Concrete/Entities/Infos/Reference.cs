@@ -2,14 +2,8 @@
 
 namespace Entities.Concrete.Entities.Infos
 {
-    public class Reference : IEntity // kaynakça 
+    public class Reference : BaseEntity<Guid>, IEntity // kaynakça 
     {
-        [Key]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string SubText { get; set; }
-
         [Required]
         public string Owner { get; set; }
 
@@ -24,8 +18,6 @@ namespace Entities.Concrete.Entities.Infos
 
         [Required]
         public DateTime ReferenceDate { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public IList<AcademicJournal> AcademicJournals { get; set; }
 

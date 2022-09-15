@@ -67,7 +67,7 @@
 
         public IDataResult<IList<Language>> GetAllByName(string name)
         {
-            IList<Language> languages = _languageDal.GetAll(l => l.LanguageName.Contains(name) && !l.IsDeleted);
+            IList<Language> languages = _languageDal.GetAll(l => l.Name.Contains(name) && !l.IsDeleted);
             return languages == null
                 ? new ErrorDataResult<IList<Language>>(LanguageConstants.DataNotGet)
                 : new SuccessDataResult<IList<Language>>(languages, LanguageConstants.DataGet);
@@ -90,7 +90,7 @@
 
         private IResult CheckLanguageByExists(Language language)
         {
-            Language languageExist = _languageDal.Get(l => l.LanguageName.Contains(language.LanguageName));
+            Language languageExist = _languageDal.Get(l => l.Name.Contains(language.Name));
             return languageExist == null
                 ? new SuccessResult()
                 : new ErrorResult(LanguageConstants.LanguageExist);

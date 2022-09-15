@@ -16,7 +16,7 @@
         {
             IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
 
-            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
+            IResult result = BusinessRules.Run(CheckCityByExists(city.Name), country);
             if (result != null)
                 return result;
 
@@ -33,7 +33,7 @@
 
             IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
 
-            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
+            IResult result = BusinessRules.Run(CheckCityByExists(city.Name), country);
             if (result != null)
                 return new ErrorDataResult<CityAddDto>(result.Message);
 
@@ -73,7 +73,7 @@
         {
             IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
 
-            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(city.CountryId, city.CityName), country);
+            IResult result = BusinessRules.Run(CheckCityIdAndNameByExists(city.CountryId, city.Name), country);
             if (result != null)
                 return result;
 
@@ -89,7 +89,7 @@
 
             IDataResult<Country> country = _cityFacadeService.CountryService().GetById(city.CountryId);
 
-            IResult result = BusinessRules.Run(CheckCityByExists(city.CityName), country);
+            IResult result = BusinessRules.Run(CheckCityByExists(city.Name), country);
             if (result != null)
                 return new ErrorDataResult<CityUpdateDto>(result.Message);
 
@@ -147,7 +147,7 @@
 
         public IDataResult<IList<City>> GetAllByName(string name)
         {
-            IList<City> cities = _cityDal.GetAll(c => c.CityName.Contains(name));
+            IList<City> cities = _cityDal.GetAll(c => c.Name.Contains(name));
 
             return cities == null
                 ? new ErrorDataResult<IList<City>>(CityConstants.NotMatch)
@@ -156,7 +156,7 @@
 
         public IDataResult<IList<CityDto>> DtoGetAllByName(string name)
         {
-            IList<CityDto> cityDtos = _cityDal.DtoGetAll(c => c.CityName.Contains(name));
+            IList<CityDto> cityDtos = _cityDal.DtoGetAll(c => c.Name.Contains(name));
             return cityDtos == null
                 ? new ErrorDataResult<IList<CityDto>>(CityConstants.NotMatch)
                 : new SuccessDataResult<IList<CityDto>>(cityDtos, CityConstants.DataGet);
@@ -184,7 +184,7 @@
 
         private IResult CheckCityIdAndNameByExists(int cityId, string cityName)
         {
-            bool cityExist = _cityDal.GetAll(c => c.CityName.Contains(cityName)
+            bool cityExist = _cityDal.GetAll(c => c.Name.Contains(cityName)
             && c.Id.Equals(cityId)).Any();
             return !cityExist
                 ? new SuccessResult()
@@ -193,7 +193,7 @@
 
         private IResult CheckCityByExists(string cityName)
         {
-            City cityExist = _cityDal.Get(c => c.CityName.Contains(cityName));
+            City cityExist = _cityDal.Get(c => c.Name.Contains(cityName));
             return cityExist == null
                 ? new SuccessResult()
                 : new ErrorResult(CityConstants.CityExist);
