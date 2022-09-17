@@ -2,13 +2,10 @@
 {
     public class NewsPaper : BasePaper, IEntity
     {
-        [Required]
         public string NewsPaperName { get; set; }
 
-        [Required]
         public uint Number { get; set; }
 
-        [Required]
         public DateTime Date { get; set; }
 
         public bool IsDestroyed { get; set; }

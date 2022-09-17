@@ -2,10 +2,8 @@
 {
     public class CartographicMaterial : MaterialBase, IEntity
     {
-        [Required]
         public Guid ImageId { get; set; }
 
-        [Required]
         public DateTime Date { get; set; }
 
         public IList<Image> Images { get; set; }

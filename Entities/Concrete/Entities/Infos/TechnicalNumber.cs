@@ -4,7 +4,6 @@ namespace Entities.Concrete.Entities.Infos
 {
     public class TechnicalNumber : IEntity
     {
-        [Key]
         public Guid Id { get; set; }
 
         public long Barcode { get; set; }
@@ -13,7 +12,6 @@ namespace Entities.Concrete.Entities.Infos
 
         public ulong? ISSN { get; set; }
 
-        [MaxLength(64)]
         public string? CertificateCode { get; set; }
 
         public bool IsDeleted { get; set; }

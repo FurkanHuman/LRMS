@@ -2,7 +2,6 @@
 {
     public class Depiction : MaterialBase, IEntity
     {
-        [Required]
         public Guid ImageId { get; set; }
 
         public Image Image { get; set; }

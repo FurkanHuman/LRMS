@@ -2,7 +2,6 @@
 {
     public class BookSeries : BasePaper, IEntity
     {
-        [Required]
         public Guid BooksIds { get; set; }
 
         public IList<Book> Books { get; set; }

@@ -3,21 +3,17 @@
 namespace Entities.Concrete.Entities.Infos
 {
     public class TechnicalPlaceholder : IEntity
-    {
-        [Key]
+    {        
         public Guid Id { get; set; }
 
         public Guid LibraryId { get; set; }
 
         public Library Library { get; set; }
 
-        [Required, MaxLength(12)]
         public string ColumnCode { get; set; }
 
-        [Required, MaxLength(12)]
         public string RowCode { get; set; }
 
-        [MaxLength(56)]
         public string? SpecialLocation { get; set; }
 
         public bool IsDeleted { get; set; }

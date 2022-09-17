@@ -2,29 +2,22 @@
 {
     public class Dissertation : MaterialBase, IEntity //  akedemik araştırma... tezin bir üstü
     {
-        [Required]
         public Guid UniversityId { get; set; }
 
-        [Required]
         public Guid ResearcherId { get; set; }
 
-        [Required]
         public int LanguageId { get; set; }
 
         public Language Language { get; set; }
 
-        [Required]
         public int CityId { get; set; }
 
         public City City { get; set; }
 
-        [Required]
         public ushort DateTimeYear { get; set; }
 
-        [Required]
         public int DissertationNumber { get; set; }
 
-        [Required]
         public bool ApprovalStatus { get; set; }
 
         public IList<University> University { get; set; }

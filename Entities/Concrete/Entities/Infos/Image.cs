@@ -2,16 +2,11 @@
 
 namespace Entities.Concrete.Entities.Infos
 {
-    public class Image : IEntity
+    public class Image : BaseEntity<Guid>, IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         public string ImagePath { get; set; }
 
         public DateTime Date { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public IList<Book> Books { get; set; }
         public IList<BookSeries> BookSeries { get; set; }

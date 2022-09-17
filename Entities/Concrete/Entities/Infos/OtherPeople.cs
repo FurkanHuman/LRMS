@@ -4,7 +4,6 @@ namespace Entities.Concrete.Entities.Infos
 {
     public class OtherPeople : FirstPagePersonBase, IEntity
     {
-        [Required]
         public string Title { get; set; }
 
         public string? NamePreAttachment { get; set; }

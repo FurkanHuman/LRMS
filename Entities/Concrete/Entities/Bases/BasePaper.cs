@@ -2,16 +2,12 @@
 {
     public class BasePaper : MaterialBase
     {
-        [Required]
         public byte CoverCapId { get; set; }
 
-        [Required]
         public Guid ImageId { get; set; }
 
-        [Required]
         public Guid WriterId { get; set; }
 
-        [Required]
         public Guid EditorId { get; set; }
 
         public Guid? DirectorId { get; set; }
@@ -26,10 +22,8 @@
 
         public Guid? OtherPeopleId { get; set; }
 
-        [Required]
         public Guid TechnicalNumberId { get; set; }
 
-        [Required]
         public Guid EditionId { get; set; }
 
         public IList<CoverCap> CoverCaps { get; set; }

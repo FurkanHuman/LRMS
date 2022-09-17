@@ -4,12 +4,10 @@ namespace Entities.Concrete.Entities.Infos
 {
     public class Edition : BaseEntity<Guid>, IEntity
     {
-        [Required]
         public Guid PublisherId { get; set; }
 
         public Publisher Publisher { get; set; }
 
-        [Required]
         public int EditionNumber { get; set; }
 
         public IList<Book> Books { get; set; }

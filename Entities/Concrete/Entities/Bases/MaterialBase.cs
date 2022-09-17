@@ -2,22 +2,16 @@
 {
     public class MaterialBase : BaseEntity<Guid>
     {
-        [Required]
         public string Title { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
-        [Required]
         public int CategoryId { get; set; }
 
-        [Required]
         public Guid TechnicalPlaceholdersId { get; set; }
 
-        [Required]
         public Guid StockId { get; set; }
 
-        [Required]
         public Guid CounterId { get; set; }
 
         public Guid? DimensionsId { get; set; }

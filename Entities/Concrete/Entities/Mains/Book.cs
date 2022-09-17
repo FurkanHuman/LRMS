@@ -4,7 +4,6 @@
     {
         public string? OriginalBookName { get; set; }
 
-        [Required]
         public Guid ReferenceId { get; set; }
 
         public IList<Reference> References { get; set; }

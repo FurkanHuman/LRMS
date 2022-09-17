@@ -2,12 +2,10 @@
 {
     public class Object3D : MaterialBase, IEntity
     {
-        [Required]
         public Guid OwnerId { get; set; }
 
         public OtherPeople Owner { get; set; }
 
-        [Required]
         public Guid ImageId { get; set; }
 
         public bool IsDestroyed { get; set; }

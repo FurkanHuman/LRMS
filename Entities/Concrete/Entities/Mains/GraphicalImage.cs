@@ -2,10 +2,8 @@
 {
     public class GraphicalImage : MaterialBase, IEntity
     {
-        [Required]
         public DateTime ImageCreatedDate { get; set; }
 
-        [Required]
         public Guid ImageId { get; set; }
 
         public Image Image { get; set; }

@@ -3,8 +3,7 @@
 namespace Entities.Concrete.Entities.Infos
 {
     public class Interpreters : FirstPagePersonBase, IEntity
-    {// çevirenler hangi dilden cevirdi
-        [MaxLength(32)]
+    {   // çevirenler hangi dilden cevirdi
         public string WhichToLanguage { get; set; }
 
         public IList<Book> Books { get; set; }
