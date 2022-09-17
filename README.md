@@ -1,5 +1,17 @@
 # Library Resources Management System (LRMS)
 
+## Important Notice:
+
+    I'm paused the project because I'm currently taking a course.
+    perhaps according to the course result,
+    the project can be changed architecturally (most likely). 
+    however, the entity structure may not change.
+
+    The main purpose of the project was to highlight the layers of
+    "Watcher",
+    "Actionist",
+    "Platform Resource Manager (PRM)".
+
 ## What is LRMS
     
     Library Resources Management System. A huge library that allows libraries everywhere to be used together.
