@@ -57,10 +57,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetAllByOwner")]
-        public IActionResult GetAllByOwner(string ownerStr)
+        [HttpPost("GetAllByOwnerId")]
+        public IActionResult GetAllByOwnerId(Guid[] ids)
         {
-            var result = _referenceService.GetAllByOwner(ownerStr);
+            var result = _referenceService.GetAllByOwnerId(ids);
             return result.Success ? Ok(result.Data) : BadRequest(result.Message);
         }
 

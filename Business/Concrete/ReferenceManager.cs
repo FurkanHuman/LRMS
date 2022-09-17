@@ -99,9 +99,9 @@
             return new ErrorDataResult<IList<Reference>>(ReferenceConstants.Disabled);
         }
 
-        public IDataResult<IList<Reference>> GetAllByOwner(string ownerStr)
+        public IDataResult<IList<Reference>> GetAllByOwnerId(Guid[] ids)
         {
-            IList<Reference> references = _referenceDal.GetAll(r => r.Owner.Contains(ownerStr) && !r.IsDeleted);
+            IList<Reference> references = _referenceDal.GetAll(r => ids.Contains(r.OwnerId) && !r.IsDeleted);
             return references == null
                  ? new ErrorDataResult<IList<Reference>>(ReferenceConstants.DataNotGet)
                  : new SuccessDataResult<IList<Reference>>(references, ReferenceConstants.DataGet);
@@ -127,7 +127,7 @@
         {
             bool refControl = _referenceDal.GetAll(r =>
                r.Name.Contains(entity.Name)
-            && r.Owner.Contains(entity.Owner)
+            && r.OwnerId == entity.OwnerId
             && r.ReferenceDate == entity.ReferenceDate
             && r.TechnicalNumber == entity.TechnicalNumber).Any();
 

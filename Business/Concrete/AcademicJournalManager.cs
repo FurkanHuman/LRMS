@@ -231,9 +231,9 @@
                 : new ErrorDataResult<IList<AcademicJournal>>(AcademicJournalConstants.DataNotGet);
         }
 
-        public IDataResult<IList<AcademicJournal>> GetAllByReferenceOwner(string owner)
+        public IDataResult<IList<AcademicJournal>> GetAllByReferenceOwnerId(Guid[] ids)
         {
-            IDataResult<IList<Reference>> references = _facadeService.ReferenceService().GetAllByOwner(owner);
+            IDataResult<IList<Reference>> references = _facadeService.ReferenceService().GetAllByOwnerId(ids);
             if (!references.Success)
                 return new ErrorDataResult<IList<AcademicJournal>>(references.Message);
 

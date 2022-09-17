@@ -9,7 +9,7 @@
         IDataResult<IList<AcademicJournal>> GetAllByEditor(Guid editorId);
         IDataResult<IList<AcademicJournal>> GetAllByEditors(Guid[] editorIds);
         IDataResult<IList<AcademicJournal>> GetAllByReferenceId(Guid referenceId);
-        IDataResult<IList<AcademicJournal>> GetAllByReferenceOwner(string owner);
+        IDataResult<IList<AcademicJournal>> GetAllByReferenceOwnerId(Guid[] ids);
         IDataResult<IList<AcademicJournal>> GetAllByReferenceDate(DateTime referenceDate);
         IDataResult<IList<AcademicJournal>> GetAllByResearcher(Guid researcherId);
         IDataResult<IList<AcademicJournal>> GetAllByResearchers(Guid[] researcherIds);

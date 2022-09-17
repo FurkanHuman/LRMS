@@ -125,9 +125,9 @@
                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);
         }
 
-        public IDataResult<IList<AudioRecord>> GetAllByOwnerName(string name)
+        public IDataResult<IList<AudioRecord>> GetAllByOwnerId(Guid[] ids)
         {
-            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ar.Owner.Contains(name) && !ar.IsDeleted);
+            IList<AudioRecord> audioRecords = _audioRecordDal.GetAll(ar => ids.Contains(ar.OwnerId) && !ar.IsDeleted);
             return audioRecords == null
                 ? new ErrorDataResult<IList<AudioRecord>>(AudioRecordConstants.DataNotGet)
                 : new SuccessDataResult<IList<AudioRecord>>(audioRecords, AudioRecordConstants.DataGet);

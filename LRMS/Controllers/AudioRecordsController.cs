@@ -85,10 +85,10 @@ namespace LRMS.Controllers
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
-        [HttpPost("GetAllByOwnerName")]
-        public IActionResult GetAllByOwnerName([FromForm] string names)
+        [HttpPost("GetAllByOwnerId")]
+        public IActionResult GetAllByOwnerId([FromForm] Guid[] ids)
         {
-            var result = _audioRecordService.GetAllByOwnerName(names);
+            var result = _audioRecordService.GetAllByOwnerId(ids);
             return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 

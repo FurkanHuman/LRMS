@@ -2,7 +2,7 @@
 {
     public interface IAudioRecordService : IMaterialBaseService<AudioRecord>
     {
-        IDataResult<IList<AudioRecord>> GetAllByOwnerName(string name);
+        IDataResult<IList<AudioRecord>> GetAllByOwnerId(Guid[] ids);
         IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate);
         IDataResult<IList<AudioRecord>> GetAllByRecordDate(DateTime recordDate, DateTime recordEndDate);
         IDataResult<IList<AudioRecord>> GetAllByRecordingLength(float recordingLength);

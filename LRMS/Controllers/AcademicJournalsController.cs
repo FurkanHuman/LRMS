@@ -149,9 +149,9 @@ namespace LRMS.Controllers
         }
 
         [HttpPost("GetAllByReferenceOwner")]
-        public IActionResult GetAllByReferenceOwner(string owner)
+        public IActionResult GetAllByReferenceOwner(Guid[] owner)
         {
-            var result = _academicJournalService.GetAllByReferenceOwner(owner);
+            var result = _academicJournalService.GetAllByReferenceOwnerId(owner);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
