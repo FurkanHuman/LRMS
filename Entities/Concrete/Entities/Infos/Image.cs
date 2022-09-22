@@ -16,6 +16,7 @@ namespace Entities.Concrete.Entities.Infos
         public IList<Magazine> Magazines { get; set; }
         public IList<NewsPaper> NewsPapers { get; set; }
         public IList<Object3D> Object3Ds { get; set; }
+        public IList<Painting> Paintings { get; set; }
         public IList<Poster> Posters { get; set; }
 
     }
