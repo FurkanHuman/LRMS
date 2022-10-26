@@ -10,6 +10,9 @@ namespace Entities.Concrete.Entities.Infos
 
         public double FileSizeMB { get; set; }
 
+        public uint CloudStorageServiceId { get; set; }
+
+        public IList<CloudStorageService> CloudStorageServices { get; set; }
         public IList<AcademicJournal> AcademicJournals { get; set; }
         public IList<AudioRecord> AudioRecords { get; set; }
         public IList<Book> Books { get; set; }
