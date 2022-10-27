@@ -27,7 +27,7 @@ namespace Business.Concrete
 
             Image image = new()
             {
-                ImagePath = fileResult.Data,
+                Url = fileResult.Data,
                 Date = DateTime.Now,
                 IsDeleted = false
             };
@@ -54,7 +54,7 @@ namespace Business.Concrete
             if (image == null)
                 return new ErrorResult(ImageConstants.NotMatch);
 
-            _fileHelper.DeleteAsync(image.ImagePath);
+            _fileHelper.DeleteAsync(image.Url);
             _imageDal.Delete(image);
 
             return new SuccessResult(ImageConstants.FileDeleted);
@@ -63,12 +63,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ImageValidator), Priority = 1)]
         public IDataResult<Image> Update(IFormFile file, Image image)
         {
-            string oldPath = GetById(image.Id).Data.ImagePath;
+            string oldPath = GetById(image.Id).Data.Url;
             IDataResult<string> fileHelper = _fileHelper.UpdateAsync(oldPath, file);
             if (!fileHelper.Success)
                 return new ErrorDataResult<Image>(fileHelper.Message);
 
-            image.ImagePath = fileHelper.Data;
+            image.Url = fileHelper.Data;
             image.Date = DateTime.Now;
             image.IsDeleted = false;
 
