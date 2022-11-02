@@ -362,6 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# .editorconfig inogre files
+# .editorconfig inogre file
 *.editorconfig
-/DataAccess/Migrations
