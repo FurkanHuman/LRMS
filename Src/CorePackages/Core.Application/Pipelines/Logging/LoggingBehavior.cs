@@ -21,13 +21,16 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
     public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        List<LogParameter> logParameters = new();
-        logParameters.Add(new LogParameter
+        List<LogParameter> logParameters = new()
         {
-            Type = request.GetType().Name,
-            Value = request
-        });
+            new LogParameter
+            {
+                Type = request.GetType().Name,
+                Value = request
+            }
+        };
 
+#pragma warning disable CS8601 // Possible null reference assignment.
         LogDetail logDetail = new()
         {
             MethodName = next.Method.Name,
@@ -37,6 +40,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
                        ? "?"
                        : _httpContextAccessor.HttpContext.User.Identity.Name
         };
+#pragma warning restore CS8601 // Possible null reference assignment.
 
         _loggerServiceBase.Info(JsonConvert.SerializeObject(logDetail));
 

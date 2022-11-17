@@ -1,9 +1,9 @@
-﻿using System.Linq.Expressions;
-using Core.Domain.Abstract;
+﻿using Core.Domain.Abstract;
 using Core.Persistence.Paging;
 using Core.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Query;
 using Moq;
+using System.Linq.Expressions;
 
 namespace Core.Test.Helpers
 {
@@ -98,12 +98,14 @@ namespace Core.Test.Helpers
             where TEntity : class, IEntity, new()
             where TRepository : class, IAsyncRepository<TEntity>, IRepository<TEntity>
         {
+#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             mockRepo.Setup(r => r.UpdateAsync(It.IsAny<TEntity>())).ReturnsAsync((TEntity entity) =>
             {
                 TEntity? result = entityList.FirstOrDefault(x => x == entity);
                 if (result != null) result = entity;
-                return result;
+                    return result;                
             });
+#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
         }
 
         static void SetupDeleteAsync<TRepository, TEntity>(Mock<TRepository> mockRepo, List<TEntity> entityList)

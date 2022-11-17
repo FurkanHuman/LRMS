@@ -1,13 +1,13 @@
-﻿using System.Linq.Expressions;
-using Core.Domain.Abstract;
+﻿using Core.Domain.Abstract;
 using Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace Core.Persistence.Repositories;
 
 public interface IRepository<T> : IQuery<T> where T : class, IEntity, new()
 {
-    T Get(Expression<Func<T, bool>> predicate, Func<IQueryable<T>,
+    T? Get(Expression<Func<T, bool>> predicate, Func<IQueryable<T>,
           IIncludableQueryable<T, object>>? include = null, bool enableTracking = true);
 
     IPaginate<T> GetList(Expression<Func<T, bool>>? predicate = null,

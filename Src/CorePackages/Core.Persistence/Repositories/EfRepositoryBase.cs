@@ -1,14 +1,14 @@
-﻿using System.Linq.Expressions;
-using Core.Domain.Abstract;
+﻿using Core.Domain.Abstract;
 using Core.Persistence.Dynamic;
 using Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace Core.Persistence.Repositories;
 
 public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IRepository<TEntity>
-    where TEntity : class, IEntity ,new()
+    where TEntity : class, IEntity, new()
     where TContext : DbContext
 {
     protected TContext Context { get; }
@@ -85,7 +85,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         return entity;
     }
 
-    public TEntity Get(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
+    public TEntity? Get(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
                        IIncludableQueryable<TEntity, object>>? include = null, bool enableTracking = true)
     {
         IQueryable<TEntity> queryable = Query().AsQueryable();
@@ -138,5 +138,5 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context.Entry(entity).State = EntityState.Deleted;
         Context.SaveChanges();
         return entity;
-    }    
+    }
 }
