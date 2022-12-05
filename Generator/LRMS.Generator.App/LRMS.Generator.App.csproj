@@ -9,11 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="17.4.0" />
     <PackageReference Include="PluralizeService.Core" Version="1.2.21147.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\ProjectPackages\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\Src\ProjectPackages\WebAPI\WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
