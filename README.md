@@ -2,7 +2,7 @@
 
 ## [branch will merge with the following branch](https://github.com/FurkanHuman/LRMS/tree/LRMS_Clean_Architecture)
 
-    ### 3/1 of the merging work has been completed.
+    3/1 of the merging work has been completed.
 
 
 
