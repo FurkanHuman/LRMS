@@ -1,3 +1,13 @@
+# Very important note:
+
+## [branch will merge with the following branch](https://github.com/FurkanHuman/LRMS/tree/LRMS_Clean_Architecture)
+
+    ### 3/1 of the merging work has been completed.
+
+
+
+
+
 # Library Resources Management System (LRMS)
 
 ## Important Notice:
