@@ -1,26 +1,13 @@
-# Very important note:
+# This Branch Is Deprecated.
 
-## [branch will merge with the following branch](https://github.com/FurkanHuman/LRMS/tree/LRMS_Clean_Architecture)
+## Important Notice:
 
-    3/1 of the merging work has been completed.
-
-
-
+    the reason this branch hasn't been deleted is to be able to look back and see my progress.    
+   [branch will merge with the following branch](https://github.com/FurkanHuman/LRMS/tree/LRMS_Clean_Architecture)
 
 
 # Library Resources Management System (LRMS)
 
-## Important Notice:
-
-    I'm paused the project because I'm currently taking a course.
-    perhaps according to the course result,
-    the project can be changed architecturally (most likely). 
-    however, the entity structure may not change.
-
-    The main purpose of the project was to highlight the layers of
-    "Watcher",
-    "Actionist",
-    "Platform Resource Manager (PRM)".
 
 ## What is LRMS
     
