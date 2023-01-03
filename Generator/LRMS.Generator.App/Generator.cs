@@ -154,7 +154,23 @@ public partial class Generator : Form
 
     private async Task LoadEntitiesPaths()
     {
-        this.EntitiesPathsListBoxForApplication.DataSource = PathGenerate.PathGenerator(SelectedEntityTypes).Distinct().ToList();
-        PahtsCountLabel.Text = EntitiesPathsListBoxForApplication.Items.Count.ToString();        
+        this.EntitiesPathsListBoxForApplication.DataSource = GenerateEngine.Generator(SelectedEntityTypes).Distinct().ToList();
+        PahtsCountLabel.Text = EntitiesPathsListBoxForApplication.Items.Count.ToString();
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        RepositoryCreator repositoryCreator = new();
+
+        foreach (Type typeFor in SelectedEntityTypes)
+        {
+            using FileStream fs = new($@"{typeFor.Name}Repository.cs", FileMode.Create, FileAccess.ReadWrite);
+            
+            using TextWriter tw = new StreamWriter(fs);
+
+            tw.Write(repositoryCreator.NormalRepository(typeFor));
+
+            tw.Flush();
+        }
     }
 }
