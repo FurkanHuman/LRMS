@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class OtherPeopleRepository : EfRepositoryBase<OtherPeople, PostgreLRMSDbContext>, IOtherPeopleRepository
+public class OtherPeopleRepository : EfRepositoryBase<OtherPeople, PostgreLrmsDbContext>, IOtherPeopleRepository
 {
-    public OtherPeopleRepository(PostgreLRMSDbContext context) : base(context) { }
+    public OtherPeopleRepository(PostgreLrmsDbContext context) : base(context) { }
 }

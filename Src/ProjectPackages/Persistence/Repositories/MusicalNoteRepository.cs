@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class MusicalNoteRepository : EfRepositoryBase<MusicalNote, PostgreLRMSDbContext>, IMusicalNoteRepository
+public class MusicalNoteRepository : EfRepositoryBase<MusicalNote, PostgreLrmsDbContext>, IMusicalNoteRepository
 {
-    public MusicalNoteRepository(PostgreLRMSDbContext context) : base(context) { }
+    public MusicalNoteRepository(PostgreLrmsDbContext context) : base(context) { }
 }

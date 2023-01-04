@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class EncyclopediaRepository : EfRepositoryBase<Encyclopedia, PostgreLRMSDbContext>, IEncyclopediaRepository
+public class EncyclopediaRepository : EfRepositoryBase<Encyclopedia, PostgreLrmsDbContext>, IEncyclopediaRepository
 {
-    public EncyclopediaRepository(PostgreLRMSDbContext context) : base(context) { }
+    public EncyclopediaRepository(PostgreLrmsDbContext context) : base(context) { }
 }

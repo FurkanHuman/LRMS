@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CoverCapRepository : EfRepositoryBase<CoverCap, PostgreLRMSDbContext>, ICoverCapRepository
+public class CoverCapRepository : EfRepositoryBase<CoverCap, PostgreLrmsDbContext>, ICoverCapRepository
 {
-    public CoverCapRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CoverCapRepository(PostgreLrmsDbContext context) : base(context) { }
 }

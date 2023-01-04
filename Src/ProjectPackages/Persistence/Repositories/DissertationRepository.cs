@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class DissertationRepository : EfRepositoryBase<Dissertation, PostgreLRMSDbContext>, IDissertationRepository
+public class DissertationRepository : EfRepositoryBase<Dissertation, PostgreLrmsDbContext>, IDissertationRepository
 {
-    public DissertationRepository(PostgreLRMSDbContext context) : base(context) { }
+    public DissertationRepository(PostgreLrmsDbContext context) : base(context) { }
 }

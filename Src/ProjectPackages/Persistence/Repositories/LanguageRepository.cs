@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class LanguageRepository : EfRepositoryBase<Language, PostgreLRMSDbContext>, ILanguageRepository
+public class LanguageRepository : EfRepositoryBase<Language, PostgreLrmsDbContext>, ILanguageRepository
 {
-    public LanguageRepository(PostgreLRMSDbContext context) : base(context) { }
+    public LanguageRepository(PostgreLrmsDbContext context) : base(context) { }
 }

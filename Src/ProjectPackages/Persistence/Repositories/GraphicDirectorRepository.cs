@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class GraphicDirectorRepository : EfRepositoryBase<GraphicDirector, PostgreLRMSDbContext>, IGraphicDirectorRepository
+public class GraphicDirectorRepository : EfRepositoryBase<GraphicDirector, PostgreLrmsDbContext>, IGraphicDirectorRepository
 {
-    public GraphicDirectorRepository(PostgreLRMSDbContext context) : base(context) { }
+    public GraphicDirectorRepository(PostgreLrmsDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class NewsPaperRepository : EfRepositoryBase<NewsPaper, PostgreLRMSDbContext>, INewsPaperRepository
+public class NewsPaperRepository : EfRepositoryBase<NewsPaper, PostgreLrmsDbContext>, INewsPaperRepository
 {
-    public NewsPaperRepository(PostgreLRMSDbContext context) : base(context) { }
+    public NewsPaperRepository(PostgreLrmsDbContext context) : base(context) { }
 }

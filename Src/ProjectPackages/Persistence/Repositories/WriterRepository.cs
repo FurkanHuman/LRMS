@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class WriterRepository : EfRepositoryBase<Writer, PostgreLRMSDbContext>, IWriterRepository
+public class WriterRepository : EfRepositoryBase<Writer, PostgreLrmsDbContext>, IWriterRepository
 {
-    public WriterRepository(PostgreLRMSDbContext context) : base(context) { }
+    public WriterRepository(PostgreLrmsDbContext context) : base(context) { }
 }

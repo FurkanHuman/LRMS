@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class PosterRepository : EfRepositoryBase<Poster, PostgreLRMSDbContext>, IPosterRepository
+public class PosterRepository : EfRepositoryBase<Poster, PostgreLrmsDbContext>, IPosterRepository
 {
-    public PosterRepository(PostgreLRMSDbContext context) : base(context) { }
+    public PosterRepository(PostgreLrmsDbContext context) : base(context) { }
 }

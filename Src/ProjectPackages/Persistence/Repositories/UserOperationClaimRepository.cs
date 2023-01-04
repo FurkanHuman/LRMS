@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class UserOperationClaimRepository : EfRepositoryBase<UserOperationClaim, PostgreLRMSUserDbContext>, IUserOperationClaimRepository
+public class UserOperationClaimRepository : EfRepositoryBase<UserOperationClaim, PostgreLrmsUserDbContext>, IUserOperationClaimRepository
 {
-    public UserOperationClaimRepository(PostgreLRMSUserDbContext context) : base(context) { }
+    public UserOperationClaimRepository(PostgreLrmsUserDbContext context) : base(context) { }
 }

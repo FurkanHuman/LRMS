@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class ConsultantRepository : EfRepositoryBase<Consultant, PostgreLRMSDbContext>, IConsultantRepository
+public class ConsultantRepository : EfRepositoryBase<Consultant, PostgreLrmsDbContext>, IConsultantRepository
 {
-    public ConsultantRepository(PostgreLRMSDbContext context) : base(context) { }
+    public ConsultantRepository(PostgreLrmsDbContext context) : base(context) { }
 }

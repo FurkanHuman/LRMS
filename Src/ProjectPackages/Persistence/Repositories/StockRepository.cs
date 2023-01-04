@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class StockRepository : EfRepositoryBase<Stock, PostgreLRMSDbContext>, IStockRepository
+public class StockRepository : EfRepositoryBase<Stock, PostgreLrmsDbContext>, IStockRepository
 {
-    public StockRepository(PostgreLRMSDbContext context) : base(context) { }
+    public StockRepository(PostgreLrmsDbContext context) : base(context) { }
 }

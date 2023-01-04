@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class AcademicJournalRepository : EfRepositoryBase<AcademicJournal, PostgreLRMSDbContext>, IAcademicJournalRepository
+public class AcademicJournalRepository : EfRepositoryBase<AcademicJournal, PostgreLrmsDbContext>, IAcademicJournalRepository
 {
-    public AcademicJournalRepository(PostgreLRMSDbContext context) : base(context) { }
+    public AcademicJournalRepository(PostgreLrmsDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class DimensionRepository : EfRepositoryBase<Dimension, PostgreLRMSDbContext>, IDimensionRepository
+public class DimensionRepository : EfRepositoryBase<Dimension, PostgreLrmsDbContext>, IDimensionRepository
 {
-    public DimensionRepository(PostgreLRMSDbContext context) : base(context) { }
+    public DimensionRepository(PostgreLrmsDbContext context) : base(context) { }
 }

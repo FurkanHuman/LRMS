@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class DirectorRepository : EfRepositoryBase<Director, PostgreLRMSDbContext>, IDirectorRepository
+public class DirectorRepository : EfRepositoryBase<Director, PostgreLrmsDbContext>, IDirectorRepository
 {
-    public DirectorRepository(PostgreLRMSDbContext context) : base(context) { }
+    public DirectorRepository(PostgreLrmsDbContext context) : base(context) { }
 }

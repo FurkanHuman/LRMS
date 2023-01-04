@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CategoryRepository : EfRepositoryBase<Category, PostgreLRMSDbContext>, ICategoryRepository
+public class CategoryRepository : EfRepositoryBase<Category, PostgreLrmsDbContext>, ICategoryRepository
 {
-    public CategoryRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CategoryRepository(PostgreLrmsDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class ElectronicsResourceRepository : EfRepositoryBase<ElectronicsResource, PostgreLRMSDbContext>, IElectronicsResourceRepository
+public class ElectronicsResourceRepository : EfRepositoryBase<ElectronicsResource, PostgreLrmsDbContext>, IElectronicsResourceRepository
 {
-    public ElectronicsResourceRepository(PostgreLRMSDbContext context) : base(context) { }
+    public ElectronicsResourceRepository(PostgreLrmsDbContext context) : base(context) { }
 }

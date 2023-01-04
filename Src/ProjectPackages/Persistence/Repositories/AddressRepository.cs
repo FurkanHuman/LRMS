@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class AddressRepository : EfRepositoryBase<Address, PostgreLRMSDbContext>, IAddressRepository
+public class AddressRepository : EfRepositoryBase<Address, PostgreLrmsDbContext>, IAddressRepository
 {
-    public AddressRepository(PostgreLRMSDbContext context) : base(context) { }
+    public AddressRepository(PostgreLrmsDbContext context) : base(context) { }
 }

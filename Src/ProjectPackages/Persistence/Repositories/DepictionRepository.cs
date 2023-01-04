@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class DepictionRepository : EfRepositoryBase<Depiction, PostgreLRMSDbContext>, IDepictionRepository
+public class DepictionRepository : EfRepositoryBase<Depiction, PostgreLrmsDbContext>, IDepictionRepository
 {
-    public DepictionRepository(PostgreLRMSDbContext context) : base(context) { }
+    public DepictionRepository(PostgreLrmsDbContext context) : base(context) { }
 }

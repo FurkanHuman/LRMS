@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class AudioRecordRepository : EfRepositoryBase<AudioRecord, PostgreLRMSDbContext>, IAudioRecordRepository
+public class AudioRecordRepository : EfRepositoryBase<AudioRecord, PostgreLrmsDbContext>, IAudioRecordRepository
 {
-    public AudioRecordRepository(PostgreLRMSDbContext context) : base(context) { }
+    public AudioRecordRepository(PostgreLrmsDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class PasswordRepository : EfRepositoryBase<Password, PostgreLRMSUserDbContext>, IPasswordRepository
+public class PasswordRepository : EfRepositoryBase<Password, PostgreLrmsUserDbContext>, IPasswordRepository
 {
-    public PasswordRepository(PostgreLRMSUserDbContext context) : base(context) { }
+    public PasswordRepository(PostgreLrmsUserDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class OtpAuthenticatorRepository : EfRepositoryBase<OtpAuthenticator, PostgreLRMSUserDbContext>, IOtpAuthenticatorRepository
+public class OtpAuthenticatorRepository : EfRepositoryBase<OtpAuthenticator, PostgreLrmsUserDbContext>, IOtpAuthenticatorRepository
 {
-    public OtpAuthenticatorRepository(PostgreLRMSUserDbContext context) : base(context) { }
+    public OtpAuthenticatorRepository(PostgreLrmsUserDbContext context) : base(context) { }
 }

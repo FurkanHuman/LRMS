@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class EMaterialFileRepository : EfRepositoryBase<EMaterialFile, PostgreLRMSDbContext>, IEMaterialFileRepository
+public class EMaterialFileRepository : EfRepositoryBase<EMaterialFile, PostgreLrmsDbContext>, IEMaterialFileRepository
 {
-    public EMaterialFileRepository(PostgreLRMSDbContext context) : base(context) { }
+    public EMaterialFileRepository(PostgreLrmsDbContext context) : base(context) { }
 }

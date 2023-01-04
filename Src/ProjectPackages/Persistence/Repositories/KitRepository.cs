@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class KitRepository : EfRepositoryBase<Kit, PostgreLRMSDbContext>, IKitRepository
+public class KitRepository : EfRepositoryBase<Kit, PostgreLrmsDbContext>, IKitRepository
 {
-    public KitRepository(PostgreLRMSDbContext context) : base(context) { }
+    public KitRepository(PostgreLrmsDbContext context) : base(context) { }
 }

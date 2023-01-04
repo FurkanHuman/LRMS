@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CityRepository : EfRepositoryBase<City, PostgreLRMSDbContext>, ICityRepository
+public class CityRepository : EfRepositoryBase<City, PostgreLrmsDbContext>, ICityRepository
 {
-    public CityRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CityRepository(PostgreLrmsDbContext context) : base(context) { }
 }

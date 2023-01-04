@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class BranchRepository : EfRepositoryBase<Branch, PostgreLRMSDbContext>, IBranchRepository
+public class BranchRepository : EfRepositoryBase<Branch, PostgreLrmsDbContext>, IBranchRepository
 {
-    public BranchRepository(PostgreLRMSDbContext context) : base(context) { }
+    public BranchRepository(PostgreLrmsDbContext context) : base(context) { }
 }

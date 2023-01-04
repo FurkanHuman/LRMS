@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class MicroformRepository : EfRepositoryBase<Microform, PostgreLRMSDbContext>, IMicroformRepository
+public class MicroformRepository : EfRepositoryBase<Microform, PostgreLrmsDbContext>, IMicroformRepository
 {
-    public MicroformRepository(PostgreLRMSDbContext context) : base(context) { }
+    public MicroformRepository(PostgreLrmsDbContext context) : base(context) { }
 }

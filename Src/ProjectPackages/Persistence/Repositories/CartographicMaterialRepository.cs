@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CartographicMaterialRepository : EfRepositoryBase<CartographicMaterial, PostgreLRMSDbContext>, ICartographicMaterialRepository
+public class CartographicMaterialRepository : EfRepositoryBase<CartographicMaterial, PostgreLrmsDbContext>, ICartographicMaterialRepository
 {
-    public CartographicMaterialRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CartographicMaterialRepository(PostgreLrmsDbContext context) : base(context) { }
 }

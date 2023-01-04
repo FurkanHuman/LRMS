@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class MagazineRepository : EfRepositoryBase<Magazine, PostgreLRMSDbContext>, IMagazineRepository
+public class MagazineRepository : EfRepositoryBase<Magazine, PostgreLrmsDbContext>, IMagazineRepository
 {
-    public MagazineRepository(PostgreLRMSDbContext context) : base(context) { }
+    public MagazineRepository(PostgreLrmsDbContext context) : base(context) { }
 }

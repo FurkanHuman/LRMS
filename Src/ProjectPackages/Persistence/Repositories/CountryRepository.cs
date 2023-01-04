@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CountryRepository : EfRepositoryBase<Country, PostgreLRMSDbContext>, ICountryRepository
+public class CountryRepository : EfRepositoryBase<Country, PostgreLrmsDbContext>, ICountryRepository
 {
-    public CountryRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CountryRepository(PostgreLrmsDbContext context) : base(context) { }
 }

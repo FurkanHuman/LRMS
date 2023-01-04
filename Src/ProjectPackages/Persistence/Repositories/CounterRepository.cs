@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CounterRepository : EfRepositoryBase<Counter, PostgreLRMSDbContext>, ICounterRepository
+public class CounterRepository : EfRepositoryBase<Counter, PostgreLrmsDbContext>, ICounterRepository
 {
-    public CounterRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CounterRepository(PostgreLrmsDbContext context) : base(context) { }
 }

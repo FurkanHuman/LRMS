@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CloudStorageRepository : EfRepositoryBase<CloudStorage, PostgreLRMSDbContext>, ICloudStorageRepository
+public class CloudStorageRepository : EfRepositoryBase<CloudStorage, PostgreLrmsDbContext>, ICloudStorageRepository
 {
-    public CloudStorageRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CloudStorageRepository(PostgreLrmsDbContext context) : base(context) { }
 }

@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class TechnicalNumberRepository : EfRepositoryBase<TechnicalNumber, PostgreLRMSDbContext>, ITechnicalNumberRepository
+public class TechnicalNumberRepository : EfRepositoryBase<TechnicalNumber, PostgreLrmsDbContext>, ITechnicalNumberRepository
 {
-    public TechnicalNumberRepository(PostgreLRMSDbContext context) : base(context) { }
+    public TechnicalNumberRepository(PostgreLrmsDbContext context) : base(context) { }
 }

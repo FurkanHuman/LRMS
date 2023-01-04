@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, PostgreLRMSUserDbContext>, IRefreshTokenRepository
+public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, PostgreLrmsUserDbContext>, IRefreshTokenRepository
 {
-    public RefreshTokenRepository(PostgreLRMSUserDbContext context) : base(context) { }
+    public RefreshTokenRepository(PostgreLrmsUserDbContext context) : base(context) { }
 }

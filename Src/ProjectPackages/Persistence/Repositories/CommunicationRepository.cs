@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class CommunicationRepository : EfRepositoryBase<Communication, PostgreLRMSDbContext>, ICommunicationRepository
+public class CommunicationRepository : EfRepositoryBase<Communication, PostgreLrmsDbContext>, ICommunicationRepository
 {
-    public CommunicationRepository(PostgreLRMSDbContext context) : base(context) { }
+    public CommunicationRepository(PostgreLrmsDbContext context) : base(context) { }
 }

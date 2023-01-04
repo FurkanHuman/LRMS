@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class InterpretersRepository : EfRepositoryBase<Interpreters, PostgreLRMSDbContext>, IInterpretersRepository
+public class InterpretersRepository : EfRepositoryBase<Interpreters, PostgreLrmsDbContext>, IInterpretersRepository
 {
-    public InterpretersRepository(PostgreLRMSDbContext context) : base(context) { }
+    public InterpretersRepository(PostgreLrmsDbContext context) : base(context) { }
 }

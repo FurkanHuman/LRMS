@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class BookSeriesRepository : EfRepositoryBase<BookSeries, PostgreLRMSDbContext>, IBookSeriesRepository
+public class BookSeriesRepository : EfRepositoryBase<BookSeries, PostgreLrmsDbContext>, IBookSeriesRepository
 {
-    public BookSeriesRepository(PostgreLRMSDbContext context) : base(context) { }
+    public BookSeriesRepository(PostgreLrmsDbContext context) : base(context) { }
 }

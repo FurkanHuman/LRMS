@@ -6,7 +6,7 @@ using Application.Repositories;
 
 namespace Persistence.Repositories;
 
-public class ComposerRepository : EfRepositoryBase<Composer, PostgreLRMSDbContext>, IComposerRepository
+public class ComposerRepository : EfRepositoryBase<Composer, PostgreLrmsDbContext>, IComposerRepository
 {
-    public ComposerRepository(PostgreLRMSDbContext context) : base(context) { }
+    public ComposerRepository(PostgreLrmsDbContext context) : base(context) { }
 }
