@@ -110,34 +110,4 @@ public class PathGenerate
         return commandsPaths.ToArray();
     }
 
-
-    //    public static string IRepositoriesCreate(Type type)
-    //    {
-    //        return $@"using Core.Persistence.Repositories;
-    //using {type.Namespace};
-
-    //namespace Application.Repositories;
-
-    //public interface I{type.Name}Repository : IAsyncRepository<{type.Name}>, IRepository<{type.Name}>
-    //{{
-    //}}";
-    //    }
-
-    //    public static string RepositoriesCreate(Type type, string contextName)
-    //    {
-    //        return $@"using Application.Repositories;
-    //using Core.Persistence.Repositories;
-    //using {type.Namespace};
-    //using Persistence.Contexts;
-
-    //namespace Persistence.Repositories;
-
-    //public class {type.Name}Repository : EfRepositoryBase<{type.Name}, {contextName}>, I{type.Name}Repository
-    //{{
-    //    public {type.Name}Repository({contextName} context) : base(context)
-    //    {{
-    //    }}
-    //}}";
-    //    }
-
 }

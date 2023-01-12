@@ -2,5 +2,5 @@
 
 public static class OperationClaims
 {
-    public const string Admin = "admin";
+    public static readonly string Admin = "admin";
 }

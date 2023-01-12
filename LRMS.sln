@@ -29,6 +29,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{939BA041-0CB0-4D4C-A338-007BDB2018D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LRMS.Generator.App", "Generator\LRMS.Generator.App\LRMS.Generator.App.csproj", "{77158011-51AE-498C-84A3-08A39AF931FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D1D7151-BCA6-479D-9E28-43D0EA27FF84} = {6D1D7151-BCA6-479D-9E28-43D0EA27FF84}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.CLI", "Test\Test.CLI\Test.CLI.csproj", "{975A9B52-6795-4C43-9B3D-DCAF65B377CD}"
 EndProject

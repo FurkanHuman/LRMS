@@ -13,12 +13,12 @@ public static class PersistenceServiceRegistration
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
                                                             IConfiguration configuration)
     {
-        services.AddDbContext<PostgreLRMSDbContext>(options => {
+        services.AddDbContext<PostgreLrmsDbContext>(options => {
             options.UseNpgsql(
                 configuration.GetConnectionString("PostgreLRMSConnectionString")).UseSnakeCaseNamingConvention();
         });
 
-        services.AddDbContext<PostgreLRMSUserDbContext>(options =>
+        services.AddDbContext<PostgreLrmsUserDbContext>(options =>
         {
             options.UseNpgsql(
                 configuration.GetConnectionString("PostgreLRMSUserConnectionString")).UseSnakeCaseNamingConvention();
@@ -27,12 +27,6 @@ public static class PersistenceServiceRegistration
         services.AddLRMSUserRegistration();
         services.AddLRMSMainRegistration();
         
-        // LRMS Info
-
-
-
-
-
         return services;
     }
 }

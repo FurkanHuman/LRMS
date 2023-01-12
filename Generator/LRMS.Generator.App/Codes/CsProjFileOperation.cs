@@ -1,26 +1,19 @@
-﻿using Microsoft.Build.Evaluation;
+﻿namespace LRMS.Generator.App.Codes;
 
-namespace LRMS.Generator.App.Codes;
-
-internal class CsProjFileOperation
+internal static class CsProjFileOperation
 {
-
     public static (Stream, string) CsProjOpenFileDialog()
     {
-        OpenFileDialog fileDialog = new();
-        fileDialog.InitialDirectory = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Personal)).FullName;
-        fileDialog.Multiselect = false;
-        fileDialog.Filter = "C# Project File |*.csproj";
+        OpenFileDialog fileDialog = new()
+        {
+            InitialDirectory = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Personal)).FullName,
+            Multiselect = false,
+            Filter = "C# Project File |*.csproj"
+        };
 
         MessageBox.Show("Please select the layer \".csproj\" file within your project.", "Warning");
         fileDialog.ShowDialog();
 
         return (fileDialog.OpenFile(), fileDialog.SafeFileName);
     }
-
-    void Modify()
-    {
-        ProjectCollection projectCollection = new();
-    }
-
 }

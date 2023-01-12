@@ -1,5 +1,7 @@
 ﻿using System.Linq.Dynamic.Core;
 using LRMS.Generator.App.Codes;
+using LRMS.Generator.App.Codes.CreatorCodes;
+using LRMS.Generator.App.Codes.CreatorCodes.Repository;
 
 namespace LRMS.Generator.App;
 
@@ -18,6 +20,7 @@ public partial class Generator : Form
 
     private void Generator_Load(object sender, EventArgs e)
     {
+
         LoadDbContext();
         CoreEntitiesCheckBox.Checked = true;
         EntitiesCheckBox.Checked = true;
@@ -158,19 +161,34 @@ public partial class Generator : Form
         PahtsCountLabel.Text = EntitiesPathsListBoxForApplication.Items.Count.ToString();
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private string SelectedDbContextName()
     {
-        RepositoryCreator repositoryCreator = new();
+        object obj = DbContextListBox.SelectedItem;
+        Type type = (Type)obj;
 
-        foreach (Type typeFor in SelectedEntityTypes)
+        return type.Name;
+    }
+
+    private void GenerateButton_Click(object sender, EventArgs e)
+    {
+
+        CsFile[] result = CsFileOperation.CsFilesEngine(SelectedEntityTypes, SelectedDbContextName());
+
+        foreach (CsFile csFile in result)
         {
-            using FileStream fs = new($@"{typeFor.Name}Repository.cs", FileMode.Create, FileAccess.ReadWrite);
-            
+            string path = $@"{csFile.Path}";
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            using FileStream fs = File.Create(path + "\\" + csFile.FileName + ".cs");
+
             using TextWriter tw = new StreamWriter(fs);
 
-            tw.Write(repositoryCreator.NormalRepository(typeFor));
+            tw.Write(csFile.FileContent);
 
             tw.Flush();
+
         }
     }
 }

@@ -52,7 +52,7 @@
             this.PahtsCountLabel = new System.Windows.Forms.Label();
             this.CountOfPathsTextLabel = new System.Windows.Forms.Label();
             this.EntitiesPathsListBoxForApplication = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.GenerateButton = new System.Windows.Forms.Button();
             this.EntitiesGroupBox.SuspendLayout();
             this.DbContextGroupBox.SuspendLayout();
             this.FileSeletionGroupBox.SuspendLayout();
@@ -312,22 +312,22 @@
             this.EntitiesPathsListBoxForApplication.Size = new System.Drawing.Size(291, 124);
             this.EntitiesPathsListBoxForApplication.TabIndex = 0;
             // 
-            // button1
+            // GenerateButton
             // 
-            this.button1.Location = new System.Drawing.Point(500, 262);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.GenerateButton.Location = new System.Drawing.Point(1053, 15);
+            this.GenerateButton.Name = "GenerateButton";
+            this.GenerateButton.Size = new System.Drawing.Size(169, 71);
+            this.GenerateButton.TabIndex = 4;
+            this.GenerateButton.Text = "Generate !!!";
+            this.GenerateButton.UseVisualStyleBackColor = true;
+            this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
             // 
             // Generator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1234, 461);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.GenerateButton);
             this.Controls.Add(this.PathGroupBox);
             this.Controls.Add(this.FileSeletionGroupBox);
             this.Controls.Add(this.DbContextGroupBox);
@@ -375,6 +375,6 @@
         private ListBox EntitiesPathsListBoxForApplication;
         private Label PahtsCountLabel;
         private Label CountOfPathsTextLabel;
-        private Button button1;
+        private Button GenerateButton;
     }
 }
