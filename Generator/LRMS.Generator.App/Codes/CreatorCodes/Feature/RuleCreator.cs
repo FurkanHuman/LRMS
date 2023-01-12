@@ -2,29 +2,36 @@
 
 namespace LRMS.Generator.App.Codes.CreatorCodes.Feature;
 
-internal class RuleCreator
+internal class RuleCreator : ICreatorCode
 {
-    public static string RuleCreate(Type type)
+    public RuleCreator(Type type)
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        Type = type;
+    }
+
+    public Type Type { get; set; }
+
+    public string RuleCreate()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
             $@"// this file was created automatically.
 using Application.Repositories;
 using Application.Features.{plural}.Constants;
 using Core.Application.Rules;
 
-using {type.Namespace};
+using {Type.Namespace};
 
 namespace Application.Features.{plural}.Rules;
 
-public class {type.Name}BusinessRules : BaseBusinessRules
+public class {Type.Name}BusinessRules : BaseBusinessRules
 {{
 
-    private readonly I{type.Name}Repository _{type.Name.ToLower()}Repository;
+    private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
 
-    public {type.Name}BusinessRules(I{type.Name}Repository {type.Name.ToLower()}Repository)
+    public {Type.Name}BusinessRules(I{Type.Name}Repository {Type.Name.ToLower()}Repository)
     {{
-        _{type.Name.ToLower()}Repository = {type.Name.ToLower()}Repository;
+        _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
     }}
 }}
 ";

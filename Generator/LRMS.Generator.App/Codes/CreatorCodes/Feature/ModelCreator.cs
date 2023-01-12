@@ -2,11 +2,18 @@
 
 namespace LRMS.Generator.App.Codes.CreatorCodes.Feature;
 
-internal class ModelCreator
+internal class ModelCreator: ICreatorCode
 {
-    public static string ListModelCreate(Type type)
+    public ModelCreator(Type type)
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        Type = type;
+    }
+
+    public Type Type { get; set; }
+
+    public string ListModelCreate()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
 
         return
             @$"// this file was created automatically.
@@ -15,9 +22,9 @@ using Core.Persistence.Paging;
 
 namespace Application.Features.{plural}.Models;
 
-public class {type.Name}ListModel : BasePageableModel
+public class {Type.Name}ListModel : BasePageableModel
 {{
-    public IList<{type.Name}ListDto> Items {{ get; set; }}
+    public IList<{Type.Name}ListDto> Items {{ get; set; }}
 }}
 ";
     }

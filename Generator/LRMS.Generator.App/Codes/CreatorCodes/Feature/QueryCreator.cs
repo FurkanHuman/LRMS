@@ -1,13 +1,79 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using PluralizeService.Core;
+﻿using PluralizeService.Core;
 
 namespace LRMS.Generator.App.Codes.CreatorCodes.Feature;
 
-internal  class QueryCreator
+internal class QueryCreator : ICreatorCode
 {
-    public static string GetListEntityQuery(Type type)
+    public QueryCreator(Type type)
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        Type = type;
+    }
+
+    public Type Type { get; set; }
+
+    public string GetByIdEntityQuery()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
+
+        return
+            $@"// this file was created automatically.
+using Application.Features.{plural}.Dtos;
+using MediatR;
+
+namespace Application.Features.{plural}.Queries.GetById{Type.Name};
+
+public class GetById{Type.Name}Query : IRequest<{Type.Name}Dto>
+{{
+
+}}
+";
+    }
+
+    public string GetByIdEntityQueryHandler()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
+
+        string letter = Type.Name[0].ToString().ToLower();
+        return
+            $@"// this file was created automatically.
+using Application.Features.{plural}.Models;
+using Application.Repositories;
+using AutoMapper;
+using {Type.Namespace};
+using Core.Persistence.Paging;
+using MediatR;
+
+namespace Application.Features.{plural}.Queries.GetById{Type.Name};
+
+public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}Query, {Type.Name}Dto>
+    {{
+        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
+        private readonly IMapper _mapper;
+        private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
+
+        public GetById{Type.Name}QueryHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository,{Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules, IMapper mapper)
+        {{
+            _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
+            _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
+            _mapper = mapper;
+        }}
+
+        public async Task<{Type.Name}Dto> Handle(GetById{Type.Name}Query request, CancellationToken cancellationToken)
+        {{
+            // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}IdShouldExistWhenSelected(request.Id);
+
+            {Type.Name}? {Type.Name.ToLower()} = await _{Type.Name.ToLower()}Repository.GetAsync({letter} => {letter} == {letter} );
+            
+            {Type.Name}Dto {Type.Name.ToLower()}Dto = _mapper.Map<{Type.Name}Dto>({Type.Name.ToLower()});
+            return {Type.Name.ToLower()}Dto;
+        }}
+    }}
+";
+    }
+
+    public string GetListEntityQuery()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
 
         return
             $@"// this file was created automatically.
@@ -15,111 +81,55 @@ using Application.Features.{plural}.Models;
 using Core.Application.Requests;
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{type.Name};
+namespace Application.Features.{plural}.Queries.GetList{Type.Name};
 
-public class GetList{type.Name}Query : IRequest<{type.Name}ListModel>
+public class GetList{Type.Name}Query : IRequest<{Type.Name}ListModel>
 {{
     public PageRequest PageRequest {{ get; set; }}
 }}
 ";
     }
-    public static string GetListEntityQueryHandler(Type type)
+
+    public string GetListEntityQueryHandler()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
 
         return
             $@"// this file was created automatically.
-
 using Application.Features.{plural}.Models;
+using Application.Repositories;
 using AutoMapper;
-using Core.Application.Requests;
+using {Type.Namespace};
 using Core.Persistence.Paging;
-using {type.Namespace};
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{type.Name};
+namespace Application.Features.{plural}.Queries.GetList{Type.Name};
 
-public class GetList{type.Name}QueryHandler : IRequestHandler<GetList{type.Name}Query, {type.Name}ListModel>
+public class GetList{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}Query, {Type.Name}ListModel>
     {{
-        private readonly I{type.Name}Repository _{type.Name.ToLower()}Repository;
+        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
         private readonly IMapper _mapper;
 
-        public GetList{type.Name}QueryHandler(I{type.Name}Repository {type.Name.ToLower()}Repository, IMapper mapper)
+        public GetList{Type.Name}QueryHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper)
         {{
-            _{type.Name.ToLower()}Repository = {type.Name.ToLower()}Repository;
+            _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
             _mapper = mapper;
         }}
 
-        public async Task<{type.Name}ListModel> Handle(GetList{type.Name}Query request, CancellationToken cancellationToken)
+        public async Task<{Type.Name}ListModel> Handle(GetList{Type.Name}Query request, CancellationToken cancellationToken)
         {{
-            IPaginate<{type.Name}> {plural.ToLower()} = await _{type.Name.ToLower()}Repository.GetListAsync(index: request.PageRequest.Page,
+            IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListAsync(index: request.PageRequest.Page,
                                                                           size: request.PageRequest.PageSize);
-            {type.Name}ListModel mapped{type.Name}ListModel = _mapper.Map<{type.Name}ListModel>({plural.ToLower()});
-            return mapped{type.Name}ListModel;
+            {Type.Name}ListModel mapped{Type.Name}ListModel = _mapper.Map<{Type.Name}ListModel>({plural.ToLower()});
+            return mapped{Type.Name}ListModel;
         }}
     }}
 ";
     }
-    public static string GetByIdEntityQuery(Type type)
+
+    public string GetListEntityByDynamicQuery()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
-
-        return
-            $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
-using MediatR;
-
-namespace Application.Features.{plural}.Queries.GetById{type.Name};
-
-public class GetById{type.Name}Query : IRequest<{type.Name}Dto>
-{{
-
-}}
-";
-    }
-    public static string GetByIdEntityQueryHandler(Type type)
-    {
-        string plural = PluralizationProvider.Pluralize(type.Name);
-
-        return
-            $@"// this file was created automatically.
-
-using Application.Features.{plural}.Dtos;
-using Application.Features.{plural}.Rules;
-using Application.Repositories;
-using AutoMapper;
-using {type.Namespace};
-using MediatR;
-
-namespace Application.Features.{plural}.Queries.GetById{type.Name};
-
-public class GetById{type.Name}QueryHandler : IRequestHandler<GetById{type.Name}Query, {type.Name}Dto>
-    {{
-        private readonly I{type.Name}Repository _{type.Name.ToLower()}Repository;
-        private readonly IMapper _mapper;
-        private readonly {type.Name}BusinessRules _{type.Name.ToLower()}BusinessRules;
-
-        public GetById{type.Name}QueryHandler(I{type.Name}Repository {type.Name.ToLower()}Repository,{type.Name}BusinessRules {type.Name.ToLower()}BusinessRules, IMapper mapper)
-        {{
-            _{type.Name.ToLower()}Repository = {type.Name.ToLower()}Repository;
-            _{type.Name.ToLower()}BusinessRules = {type.Name.ToLower()}BusinessRules;
-            _mapper = mapper;
-        }}
-
-        public async Task<{type.Name}Dto> Handle(GetById{type.Name}Query request, CancellationToken cancellationToken)
-        {{
-            // await _{type.Name.ToLower()}BusinessRules.{type.Name}IdShouldExistWhenSelected(request.Id);
-
-            {type.Name}? {type.Name.ToLower()} = await _{type.Name.ToLower()}Repository.GetAsync({type.Name[0]} => {type.Name[0]}.Id == request.Id);
-            
-            {type.Name}Dto {type.Name.ToLower()}Dto = _mapper.Map<{type.Name}Dto>({type.Name.ToLower()});
-            return {type.Name.ToLower()}Dto;
-        }}
-";
-    }
-    public static string GetListEntityByDynamicQuery(Type type)
-    {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
 
         return
             $@"// this file was created automatically.
@@ -128,53 +138,52 @@ using Core.Application.Requests;
 using Core.Persistence.Dynamic;
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{type.Name}ByDynamic;
+namespace Application.Features.{plural}.Queries.GetList{Type.Name}ByDynamic;
 
-public class GetList{type.Name}ByDynamicQuery : IRequest<{type.Name}ListModel>
+public class GetList{Type.Name}ByDynamicQuery : IRequest<{Type.Name}ListModel>
 {{
     public PageRequest PageRequest {{ get; set; }}
     public Dynamic Dynamic {{ get; set; }}
 }}
 ";
     }
-    public static string GetListEntityByDynamicQueryHandler(Type type)
-    {
-        string plural = PluralizationProvider.Pluralize(type.Name);
 
+    public string GetListEntityByDynamicQueryHandler()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
+
+        string letter = Type.Name[0].ToString().ToLower();
         return
             $@"// this file was created automatically.
-
 using Application.Features.{plural}.Models;
+using Application.Repositories;
 using AutoMapper;
-using Core.Application.Requests;
-using Core.Persistence.Dynamic;
+using {Type.Namespace};
 using Core.Persistence.Paging;
-using {type.Namespace};
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.{plural}.Queries.GetList{type.Name}ByDynamic;
 
-public class GetList{type.Name}ByDynamicQueryHandler : IRequestHandler<GetList{type.Name}ByDynamicQuery request, {type.Name}ListModel>
+namespace Application.Features.{plural}.Queries.GetList{Type.Name}ByDynamic;
+
+public class GetList{Type.Name}ByDynamicQueryHandler : IRequestHandler<GetList{Type.Name}ByDynamicQuery, {Type.Name}ListModel>
     {{
-        private readonly I{type.Name}Repository _{type.Name.ToLower()}Repository;
+        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
         private readonly IMapper _mapper;
 
- public async Task<CarListModel> Handle(GetListCarByDynamicQuery request, CancellationToken cancellationToken)
+        public async Task<{Type.Name}ListModel> Handle(GetList{Type.Name}ByDynamicQuery request, CancellationToken cancellationToken)
         {{
-            IPaginate<{type.Name}> {plural.ToLower()} = await _{type.Name.ToLower()}Repository.GetListByDynamicAsync(
+            IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListByDynamicAsync(
                                       request.Dynamic,
-                                      {type.Name[0].ToString().ToLower()} => // c.Include(c => c.Model)
-                                   //         .Include(c => c.Model.Brand)
-                                   //         .Include(c => c.Color),
+                                      {letter} => {letter}.Include({letter} => {letter})
+                                                 .Include({letter} => {letter}),                                   
                                       request.PageRequest.Page,
                                       request.PageRequest.PageSize);
-            {type.Name}ListModel mapped{type.Name}ListModel = _mapper.Map<{type.Name}ListModel>({plural.ToLower()});
-            return mapped{type.Name}ListModel;
+            {Type.Name}ListModel mapped{Type.Name}ListModel = _mapper.Map<{Type.Name}ListModel>({plural.ToLower()});
+            return mapped{Type.Name}ListModel;
         }}
     }}
 ";
     }
-
-
 
 }

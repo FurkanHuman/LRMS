@@ -2,74 +2,81 @@
 
 namespace LRMS.Generator.App.Codes.CreatorCodes.Feature;
 
-internal class DtoCreator
+internal class DtoCreator : ICreatorCode
 {
-    public string DtoCreate(Type type)
+    public DtoCreator(Type type)
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        Type = type;
+    }
+
+    public Type Type { get; set; }
+
+    public string DtoCreate()
+    {
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
 
 $@"// this file was created automatically.
 
 namespace Application.Features.{plural}.Dtos;
 
-public class {type.Name}Dto
+public class {Type.Name}Dto
 {{
 }}
 ";
     }
-    public string ListDtoCreate(Type type)
+    public string ListDtoCreate()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
 
 $@"// this file was created automatically.
 
 namespace Application.Features.{plural}.Dtos;
 
-public class {type.Name}ListDto
+public class {Type.Name}ListDto
 {{
 }}
 ";
     }
-    public string CreatedDtoCreate(Type type)
+    public string CreatedDtoCreate()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
 
 $@"// this file was created automatically.
 
 namespace Application.Features.{plural}.Dtos;
 
-public class {type.Name}CraetedDto
+public class Created{Type.Name}Dto
 {{
 }}
 ";
     }
-    public string DeletedDtoCreate(Type type)
+    public string DeletedDtoCreate()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
 
 $@"// this file was created automatically.
 
 namespace Application.Features.{plural}.Dtos;
 
-public class {type.Name}DeletedDto
+public class Deleted{Type.Name}Dto
 {{
 }}
 ";
     }
-    public string UpdatedDtoCreate(Type type)
+    public string UpdatedDtoCreate()
     {
-        string plural = PluralizationProvider.Pluralize(type.Name);
+        string plural = PluralizationProvider.Pluralize(Type.Name);
         return
 
 $@"// this file was created automatically.
 
 namespace Application.Features.{plural}.Dtos;
 
-public class {type.Name}UpdatedDto
+public class Updated{Type.Name}Dto
 {{
 }}
 ";

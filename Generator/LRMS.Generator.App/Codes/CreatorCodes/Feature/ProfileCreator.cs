@@ -2,16 +2,23 @@
 
 namespace LRMS.Generator.App.Codes.CreatorCodes.Feature;
 
-internal class ProfileCreator
+internal class ProfileCreator : ICreatorCode
 {
-    public static string MappingProfileCreator(Type type)
+    public ProfileCreator(Type type)
+    {
+        Type = type;
+    }
+
+    public Type Type { get; set; }
+
+    public string MappingProfileCreator()
     {
         return
             $@"// this file was created automatically.
 using AutoMapper;
-using {type.Namespace};
+using {Type.Namespace};
 
-namespace Application.Features.{PluralizationProvider.Pluralize(type.Name)}.Profiles;
+namespace Application.Features.{PluralizationProvider.Pluralize(Type.Name)}.Profiles;
 
 public class MappingProfiles : Profile
 {{
