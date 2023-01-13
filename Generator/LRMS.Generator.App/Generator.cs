@@ -20,8 +20,8 @@ public partial class Generator : Form
 
     private void Generator_Load(object sender, EventArgs e)
     {
-
         LoadDbContext();
+        SimpleRepoRadioButton.Checked = true;
         CoreEntitiesCheckBox.Checked = true;
         EntitiesCheckBox.Checked = true;
 
@@ -48,8 +48,7 @@ public partial class Generator : Form
     {
         foreach (object item in EntityListBox.CheckedItems)
             SelectedEntityTypes.Add((Type)item);
-
-        LoadEntitiesPaths();
+    
     }
 
 
@@ -152,15 +151,9 @@ public partial class Generator : Form
         AllDbContextTypes.AddRange(PacketLoader.GetLoadedPacketDbContexts());
 
         this.DbContextListBox.DataSource = AllDbContextTypes;
-        this.DbContextListBox.DisplayMember = "Name";
+        this.DbContextListBox.DisplayMember = "Name";       
     }
-
-    private async Task LoadEntitiesPaths()
-    {
-        this.EntitiesPathsListBoxForApplication.DataSource = GenerateEngine.Generator(SelectedEntityTypes).Distinct().ToList();
-        PahtsCountLabel.Text = EntitiesPathsListBoxForApplication.Items.Count.ToString();
-    }
-
+        
     private string SelectedDbContextName()
     {
         object obj = DbContextListBox.SelectedItem;
@@ -173,7 +166,7 @@ public partial class Generator : Form
     {
 
         CsFile[] result = CsFileOperation.CsFilesEngine(SelectedEntityTypes, SelectedDbContextName());
-
+        
         CodeGeneratorHelpers.WriteCsFiles(result);
     }
 }

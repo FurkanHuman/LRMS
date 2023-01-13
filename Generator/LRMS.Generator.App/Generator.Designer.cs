@@ -48,15 +48,22 @@
             this.SetDbLayerLabel = new System.Windows.Forms.Label();
             this.NoticeOfFileSelection = new System.Windows.Forms.Label();
             this.DbLayerConfigSetButton = new System.Windows.Forms.Button();
-            this.PathGroupBox = new System.Windows.Forms.GroupBox();
+            this.NumberGroupBox = new System.Windows.Forms.GroupBox();
             this.PahtsCountLabel = new System.Windows.Forms.Label();
             this.CountOfPathsTextLabel = new System.Windows.Forms.Label();
-            this.EntitiesPathsListBoxForApplication = new System.Windows.Forms.ListBox();
             this.GenerateButton = new System.Windows.Forms.Button();
+            this.SyncAndAsyncRepoRadioButton = new System.Windows.Forms.RadioButton();
+            this.SyncRepoRadioButton = new System.Windows.Forms.RadioButton();
+            this.AsyncRepoRadioButton = new System.Windows.Forms.RadioButton();
+            this.SimpleRepoRadioButton = new System.Windows.Forms.RadioButton();
+            this.RepositorySelectorGroupBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.EntitiesGroupBox.SuspendLayout();
             this.DbContextGroupBox.SuspendLayout();
             this.FileSeletionGroupBox.SuspendLayout();
-            this.PathGroupBox.SuspendLayout();
+            this.NumberGroupBox.SuspendLayout();
+            this.RepositorySelectorGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // EntityListBox
@@ -219,7 +226,7 @@
             this.FileSeletionGroupBox.Controls.Add(this.SetDbLayerLabel);
             this.FileSeletionGroupBox.Controls.Add(this.NoticeOfFileSelection);
             this.FileSeletionGroupBox.Controls.Add(this.DbLayerConfigSetButton);
-            this.FileSeletionGroupBox.Location = new System.Drawing.Point(255, 116);
+            this.FileSeletionGroupBox.Location = new System.Drawing.Point(255, 223);
             this.FileSeletionGroupBox.Name = "FileSeletionGroupBox";
             this.FileSeletionGroupBox.Size = new System.Drawing.Size(200, 185);
             this.FileSeletionGroupBox.TabIndex = 2;
@@ -273,22 +280,21 @@
             this.DbLayerConfigSetButton.UseVisualStyleBackColor = true;
             this.DbLayerConfigSetButton.Click += new System.EventHandler(this.DbLayerConfigSetButton_Click);
             // 
-            // PathGroupBox
+            // NumberGroupBox
             // 
-            this.PathGroupBox.Controls.Add(this.PahtsCountLabel);
-            this.PathGroupBox.Controls.Add(this.CountOfPathsTextLabel);
-            this.PathGroupBox.Controls.Add(this.EntitiesPathsListBoxForApplication);
-            this.PathGroupBox.Location = new System.Drawing.Point(475, 15);
-            this.PathGroupBox.Name = "PathGroupBox";
-            this.PathGroupBox.Size = new System.Drawing.Size(303, 195);
-            this.PathGroupBox.TabIndex = 3;
-            this.PathGroupBox.TabStop = false;
-            this.PathGroupBox.Text = "Application Paths";
+            this.NumberGroupBox.Controls.Add(this.PahtsCountLabel);
+            this.NumberGroupBox.Controls.Add(this.CountOfPathsTextLabel);
+            this.NumberGroupBox.Location = new System.Drawing.Point(475, 15);
+            this.NumberGroupBox.Name = "NumberGroupBox";
+            this.NumberGroupBox.Size = new System.Drawing.Size(145, 195);
+            this.NumberGroupBox.TabIndex = 3;
+            this.NumberGroupBox.TabStop = false;
+            this.NumberGroupBox.Text = "Numbers";
             // 
             // PahtsCountLabel
             // 
             this.PahtsCountLabel.AutoSize = true;
-            this.PahtsCountLabel.Location = new System.Drawing.Point(90, 159);
+            this.PahtsCountLabel.Location = new System.Drawing.Point(90, 24);
             this.PahtsCountLabel.Name = "PahtsCountLabel";
             this.PahtsCountLabel.Size = new System.Drawing.Size(36, 15);
             this.PahtsCountLabel.TabIndex = 2;
@@ -297,38 +303,107 @@
             // CountOfPathsTextLabel
             // 
             this.CountOfPathsTextLabel.AutoSize = true;
-            this.CountOfPathsTextLabel.Location = new System.Drawing.Point(6, 159);
+            this.CountOfPathsTextLabel.Location = new System.Drawing.Point(6, 24);
             this.CountOfPathsTextLabel.Name = "CountOfPathsTextLabel";
             this.CountOfPathsTextLabel.Size = new System.Drawing.Size(78, 15);
             this.CountOfPathsTextLabel.TabIndex = 1;
             this.CountOfPathsTextLabel.Text = "Paths Count :";
             // 
-            // EntitiesPathsListBoxForApplication
-            // 
-            this.EntitiesPathsListBoxForApplication.FormattingEnabled = true;
-            this.EntitiesPathsListBoxForApplication.ItemHeight = 15;
-            this.EntitiesPathsListBoxForApplication.Location = new System.Drawing.Point(6, 22);
-            this.EntitiesPathsListBoxForApplication.Name = "EntitiesPathsListBoxForApplication";
-            this.EntitiesPathsListBoxForApplication.Size = new System.Drawing.Size(291, 124);
-            this.EntitiesPathsListBoxForApplication.TabIndex = 0;
-            // 
             // GenerateButton
             // 
-            this.GenerateButton.Location = new System.Drawing.Point(1053, 15);
+            this.GenerateButton.Location = new System.Drawing.Point(475, 223);
             this.GenerateButton.Name = "GenerateButton";
-            this.GenerateButton.Size = new System.Drawing.Size(169, 71);
+            this.GenerateButton.Size = new System.Drawing.Size(145, 71);
             this.GenerateButton.TabIndex = 4;
             this.GenerateButton.Text = "Generate !!!";
             this.GenerateButton.UseVisualStyleBackColor = true;
             this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
             // 
+            // SyncAndAsyncRepoRadioButton
+            // 
+            this.SyncAndAsyncRepoRadioButton.AutoSize = true;
+            this.SyncAndAsyncRepoRadioButton.Location = new System.Drawing.Point(23, 31);
+            this.SyncAndAsyncRepoRadioButton.Name = "SyncAndAsyncRepoRadioButton";
+            this.SyncAndAsyncRepoRadioButton.Size = new System.Drawing.Size(82, 19);
+            this.SyncAndAsyncRepoRadioButton.TabIndex = 5;
+            this.SyncAndAsyncRepoRadioButton.TabStop = true;
+            this.SyncAndAsyncRepoRadioButton.Text = "SyncAsync";
+            this.SyncAndAsyncRepoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // SyncRepoRadioButton
+            // 
+            this.SyncRepoRadioButton.AutoSize = true;
+            this.SyncRepoRadioButton.Location = new System.Drawing.Point(121, 31);
+            this.SyncRepoRadioButton.Name = "SyncRepoRadioButton";
+            this.SyncRepoRadioButton.Size = new System.Drawing.Size(50, 19);
+            this.SyncRepoRadioButton.TabIndex = 6;
+            this.SyncRepoRadioButton.TabStop = true;
+            this.SyncRepoRadioButton.Text = "Sync";
+            this.SyncRepoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // AsyncRepoRadioButton
+            // 
+            this.AsyncRepoRadioButton.AutoSize = true;
+            this.AsyncRepoRadioButton.Location = new System.Drawing.Point(23, 66);
+            this.AsyncRepoRadioButton.Name = "AsyncRepoRadioButton";
+            this.AsyncRepoRadioButton.Size = new System.Drawing.Size(57, 19);
+            this.AsyncRepoRadioButton.TabIndex = 7;
+            this.AsyncRepoRadioButton.TabStop = true;
+            this.AsyncRepoRadioButton.Text = "Async";
+            this.AsyncRepoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // SimpleRepoRadioButton
+            // 
+            this.SimpleRepoRadioButton.AutoSize = true;
+            this.SimpleRepoRadioButton.Location = new System.Drawing.Point(121, 66);
+            this.SimpleRepoRadioButton.Name = "SimpleRepoRadioButton";
+            this.SimpleRepoRadioButton.Size = new System.Drawing.Size(61, 19);
+            this.SimpleRepoRadioButton.TabIndex = 8;
+            this.SimpleRepoRadioButton.TabStop = true;
+            this.SimpleRepoRadioButton.Text = "Simple";
+            this.SimpleRepoRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // RepositorySelectorGroupBox
+            // 
+            this.RepositorySelectorGroupBox.Controls.Add(this.label1);
+            this.RepositorySelectorGroupBox.Controls.Add(this.SimpleRepoRadioButton);
+            this.RepositorySelectorGroupBox.Controls.Add(this.label2);
+            this.RepositorySelectorGroupBox.Controls.Add(this.AsyncRepoRadioButton);
+            this.RepositorySelectorGroupBox.Controls.Add(this.SyncRepoRadioButton);
+            this.RepositorySelectorGroupBox.Controls.Add(this.SyncAndAsyncRepoRadioButton);
+            this.RepositorySelectorGroupBox.Location = new System.Drawing.Point(255, 106);
+            this.RepositorySelectorGroupBox.Name = "RepositorySelectorGroupBox";
+            this.RepositorySelectorGroupBox.Size = new System.Drawing.Size(200, 102);
+            this.RepositorySelectorGroupBox.TabIndex = 9;
+            this.RepositorySelectorGroupBox.TabStop = false;
+            this.RepositorySelectorGroupBox.Text = "RepositorySelector";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(90, 159);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 15);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "None";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 159);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Paths Count :";
+            // 
             // Generator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1234, 461);
+            this.ClientSize = new System.Drawing.Size(637, 461);
+            this.Controls.Add(this.RepositorySelectorGroupBox);
             this.Controls.Add(this.GenerateButton);
-            this.Controls.Add(this.PathGroupBox);
+            this.Controls.Add(this.NumberGroupBox);
             this.Controls.Add(this.FileSeletionGroupBox);
             this.Controls.Add(this.DbContextGroupBox);
             this.Controls.Add(this.EntitiesGroupBox);
@@ -343,8 +418,10 @@
             this.DbContextGroupBox.ResumeLayout(false);
             this.FileSeletionGroupBox.ResumeLayout(false);
             this.FileSeletionGroupBox.PerformLayout();
-            this.PathGroupBox.ResumeLayout(false);
-            this.PathGroupBox.PerformLayout();
+            this.NumberGroupBox.ResumeLayout(false);
+            this.NumberGroupBox.PerformLayout();
+            this.RepositorySelectorGroupBox.ResumeLayout(false);
+            this.RepositorySelectorGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -371,10 +448,16 @@
         private Button DbLayerConfigSetButton;
         private Label SetLogicLayerLabel;
         private Button LogicLayerConfigSetButton;
-        private GroupBox PathGroupBox;
-        private ListBox EntitiesPathsListBoxForApplication;
+        private GroupBox NumberGroupBox;
         private Label PahtsCountLabel;
         private Label CountOfPathsTextLabel;
         private Button GenerateButton;
+        private RadioButton SyncAndAsyncRepoRadioButton;
+        private RadioButton SyncRepoRadioButton;
+        private RadioButton AsyncRepoRadioButton;
+        private RadioButton SimpleRepoRadioButton;
+        private GroupBox RepositorySelectorGroupBox;
+        private Label label1;
+        private Label label2;
     }
 }
