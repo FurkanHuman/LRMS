@@ -174,21 +174,6 @@ public partial class Generator : Form
 
         CsFile[] result = CsFileOperation.CsFilesEngine(SelectedEntityTypes, SelectedDbContextName());
 
-        foreach (CsFile csFile in result)
-        {
-            string path = $@"{csFile.Path}";
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            using FileStream fs = File.Create(path + "\\" + csFile.FileName + ".cs");
-
-            using TextWriter tw = new StreamWriter(fs);
-
-            tw.Write(csFile.FileContent);
-
-            tw.Flush();
-
-        }
+        CodeGeneratorHelpers.WriteCsFiles(result);
     }
 }
