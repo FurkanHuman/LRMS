@@ -46,7 +46,7 @@
             this.DbContextListBox = new System.Windows.Forms.ListBox();
             this.FileSeletionGroupBox = new System.Windows.Forms.GroupBox();
             this.SetLogicLayerLabel = new System.Windows.Forms.Label();
-            this.LogicLayerConfigSetButton = new System.Windows.Forms.Button();
+            this.LayerConfigSetButton = new System.Windows.Forms.Button();
             this.NoticeOfFileSelection = new System.Windows.Forms.Label();
             this.GenerateButton = new System.Windows.Forms.Button();
             this.SyncAndAsyncRepoRadioButton = new System.Windows.Forms.RadioButton();
@@ -56,9 +56,7 @@
             this.RepositorySelectorGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.EntitiesGroupBox.SuspendLayout();
             this.NumberGroupBox.SuspendLayout();
             this.DbContextGroupBox.SuspendLayout();
@@ -161,9 +159,9 @@
             // 
             // NumberGroupBox
             // 
-            this.NumberGroupBox.Controls.Add(this.label3);
-            this.NumberGroupBox.Controls.Add(this.label4);
-            this.NumberGroupBox.Controls.Add(this.PahtsCountLabel);
+            this.NumberGroupBox.Controls.Add(this.FileCountLabel);
+            this.NumberGroupBox.Controls.Add(this.FileCountTextLabel);
+            this.NumberGroupBox.Controls.Add(this.PahtCountLabel);
             this.NumberGroupBox.Controls.Add(this.CountOfPathsTextLabel);
             this.NumberGroupBox.Location = new System.Drawing.Point(6, 353);
             this.NumberGroupBox.Name = "NumberGroupBox";
@@ -172,14 +170,32 @@
             this.NumberGroupBox.TabStop = false;
             this.NumberGroupBox.Text = "Numbers";
             // 
-            // PahtsCountLabel
+            // FileCountLabel
             // 
-            this.PahtsCountLabel.AutoSize = true;
-            this.PahtsCountLabel.Location = new System.Drawing.Point(90, 24);
-            this.PahtsCountLabel.Name = "PahtsCountLabel";
-            this.PahtsCountLabel.Size = new System.Drawing.Size(36, 15);
-            this.PahtsCountLabel.TabIndex = 2;
-            this.PahtsCountLabel.Text = "None";
+            this.FileCountLabel.AutoSize = true;
+            this.FileCountLabel.Location = new System.Drawing.Point(96, 48);
+            this.FileCountLabel.Name = "FileCountLabel";
+            this.FileCountLabel.Size = new System.Drawing.Size(36, 15);
+            this.FileCountLabel.TabIndex = 4;
+            this.FileCountLabel.Text = "None";
+            // 
+            // FileCountTextLabel
+            // 
+            this.FileCountTextLabel.AutoSize = true;
+            this.FileCountTextLabel.Location = new System.Drawing.Point(6, 48);
+            this.FileCountTextLabel.Name = "FileCountTextLabel";
+            this.FileCountTextLabel.Size = new System.Drawing.Size(84, 15);
+            this.FileCountTextLabel.TabIndex = 3;
+            this.FileCountTextLabel.Text = ".cs File Count :";
+            // 
+            // PahtCountLabel
+            // 
+            this.PahtCountLabel.AutoSize = true;
+            this.PahtCountLabel.Location = new System.Drawing.Point(90, 24);
+            this.PahtCountLabel.Name = "PahtCountLabel";
+            this.PahtCountLabel.Size = new System.Drawing.Size(36, 15);
+            this.PahtCountLabel.TabIndex = 2;
+            this.PahtCountLabel.Text = "None";
             // 
             // CountOfPathsTextLabel
             // 
@@ -243,7 +259,7 @@
             // FileSeletionGroupBox
             // 
             this.FileSeletionGroupBox.Controls.Add(this.SetLogicLayerLabel);
-            this.FileSeletionGroupBox.Controls.Add(this.LogicLayerConfigSetButton);
+            this.FileSeletionGroupBox.Controls.Add(this.LayerConfigSetButton);
             this.FileSeletionGroupBox.Controls.Add(this.NoticeOfFileSelection);
             this.FileSeletionGroupBox.Location = new System.Drawing.Point(255, 223);
             this.FileSeletionGroupBox.Name = "FileSeletionGroupBox";
@@ -261,15 +277,15 @@
             this.SetLogicLayerLabel.TabIndex = 5;
             this.SetLogicLayerLabel.Text = "Not Selected Logic Layer";
             // 
-            // LogicLayerConfigSetButton
+            // LayerConfigSetButton
             // 
-            this.LogicLayerConfigSetButton.Location = new System.Drawing.Point(6, 64);
-            this.LogicLayerConfigSetButton.Name = "LogicLayerConfigSetButton";
-            this.LogicLayerConfigSetButton.Size = new System.Drawing.Size(137, 25);
-            this.LogicLayerConfigSetButton.TabIndex = 4;
-            this.LogicLayerConfigSetButton.Text = "Set App Any .CsProj File";
-            this.LogicLayerConfigSetButton.UseVisualStyleBackColor = true;
-            this.LogicLayerConfigSetButton.Click += new System.EventHandler(this.LogicLayerConfigSetButton_Click);
+            this.LayerConfigSetButton.Location = new System.Drawing.Point(6, 64);
+            this.LayerConfigSetButton.Name = "LayerConfigSetButton";
+            this.LayerConfigSetButton.Size = new System.Drawing.Size(137, 25);
+            this.LayerConfigSetButton.TabIndex = 4;
+            this.LayerConfigSetButton.Text = "Set App Any .CsProj File";
+            this.LayerConfigSetButton.UseVisualStyleBackColor = true;
+            this.LayerConfigSetButton.Click += new System.EventHandler(this.LayerConfigSetButton_Click);
             // 
             // NoticeOfFileSelection
             // 
@@ -371,38 +387,20 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Paths Count :";
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(255, 479);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(200, 30);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(96, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "None";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 15);
-            this.label4.TabIndex = 3;
-            this.label4.Text = ".cs File Count :";
+            this.progressBar.Location = new System.Drawing.Point(255, 479);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(200, 30);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 10;
             // 
             // Generator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 526);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.RepositorySelectorGroupBox);
             this.Controls.Add(this.GenerateButton);
             this.Controls.Add(this.FileSeletionGroupBox);
@@ -445,9 +443,9 @@
         private GroupBox FileSeletionGroupBox;
         private Label NoticeOfFileSelection;
         private Label SetLogicLayerLabel;
-        private Button LogicLayerConfigSetButton;
+        private Button LayerConfigSetButton;
         private GroupBox NumberGroupBox;
-        private Label PahtsCountLabel;
+        private Label PahtCountLabel;
         private Label CountOfPathsTextLabel;
         private Button GenerateButton;
         private RadioButton SyncAndAsyncRepoRadioButton;
@@ -457,8 +455,8 @@
         private GroupBox RepositorySelectorGroupBox;
         private Label label1;
         private Label label2;
-        private Label label3;
-        private Label label4;
-        private ProgressBar progressBar1;
+        private Label FileCountLabel;
+        private Label FileCountTextLabel;
+        private ProgressBar progressBar;
     }
 }
