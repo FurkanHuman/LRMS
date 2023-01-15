@@ -34,9 +34,11 @@
             this.SelectAllCheckBox = new System.Windows.Forms.CheckBox();
             this.InverseCheckBox = new System.Windows.Forms.CheckBox();
             this.EntitiesGroupBox = new System.Windows.Forms.GroupBox();
-            this.SaveSelectedEntities = new System.Windows.Forms.Button();
             this.SelectedEntitiesCounter = new System.Windows.Forms.Label();
             this.SelectedEntities = new System.Windows.Forms.Label();
+            this.NumberGroupBox = new System.Windows.Forms.GroupBox();
+            this.PahtsCountLabel = new System.Windows.Forms.Label();
+            this.CountOfPathsTextLabel = new System.Windows.Forms.Label();
             this.EntitiesCounter = new System.Windows.Forms.Label();
             this.Reload = new System.Windows.Forms.Button();
             this.CountOfEntities = new System.Windows.Forms.Label();
@@ -45,12 +47,7 @@
             this.FileSeletionGroupBox = new System.Windows.Forms.GroupBox();
             this.SetLogicLayerLabel = new System.Windows.Forms.Label();
             this.LogicLayerConfigSetButton = new System.Windows.Forms.Button();
-            this.SetDbLayerLabel = new System.Windows.Forms.Label();
             this.NoticeOfFileSelection = new System.Windows.Forms.Label();
-            this.DbLayerConfigSetButton = new System.Windows.Forms.Button();
-            this.NumberGroupBox = new System.Windows.Forms.GroupBox();
-            this.PahtsCountLabel = new System.Windows.Forms.Label();
-            this.CountOfPathsTextLabel = new System.Windows.Forms.Label();
             this.GenerateButton = new System.Windows.Forms.Button();
             this.SyncAndAsyncRepoRadioButton = new System.Windows.Forms.RadioButton();
             this.SyncRepoRadioButton = new System.Windows.Forms.RadioButton();
@@ -59,17 +56,20 @@
             this.RepositorySelectorGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.EntitiesGroupBox.SuspendLayout();
+            this.NumberGroupBox.SuspendLayout();
             this.DbContextGroupBox.SuspendLayout();
             this.FileSeletionGroupBox.SuspendLayout();
-            this.NumberGroupBox.SuspendLayout();
             this.RepositorySelectorGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // EntityListBox
             // 
             this.EntityListBox.FormattingEnabled = true;
-            this.EntityListBox.Location = new System.Drawing.Point(6, 50);
+            this.EntityListBox.Location = new System.Drawing.Point(6, 53);
             this.EntityListBox.Name = "EntityListBox";
             this.EntityListBox.Size = new System.Drawing.Size(205, 220);
             this.EntityListBox.TabIndex = 4;
@@ -78,7 +78,7 @@
             // CoreEntitiesCheckBox
             // 
             this.CoreEntitiesCheckBox.AutoSize = true;
-            this.CoreEntitiesCheckBox.Location = new System.Drawing.Point(6, 22);
+            this.CoreEntitiesCheckBox.Location = new System.Drawing.Point(6, 25);
             this.CoreEntitiesCheckBox.Name = "CoreEntitiesCheckBox";
             this.CoreEntitiesCheckBox.Size = new System.Drawing.Size(92, 19);
             this.CoreEntitiesCheckBox.TabIndex = 1;
@@ -89,7 +89,7 @@
             // EntitiesCheckBox
             // 
             this.EntitiesCheckBox.AutoSize = true;
-            this.EntitiesCheckBox.Location = new System.Drawing.Point(104, 22);
+            this.EntitiesCheckBox.Location = new System.Drawing.Point(104, 25);
             this.EntitiesCheckBox.Name = "EntitiesCheckBox";
             this.EntitiesCheckBox.Size = new System.Drawing.Size(107, 19);
             this.EntitiesCheckBox.TabIndex = 2;
@@ -100,7 +100,7 @@
             // SelectAllCheckBox
             // 
             this.SelectAllCheckBox.AutoSize = true;
-            this.SelectAllCheckBox.Location = new System.Drawing.Point(6, 276);
+            this.SelectAllCheckBox.Location = new System.Drawing.Point(6, 279);
             this.SelectAllCheckBox.Name = "SelectAllCheckBox";
             this.SelectAllCheckBox.Size = new System.Drawing.Size(74, 19);
             this.SelectAllCheckBox.TabIndex = 3;
@@ -111,7 +111,7 @@
             // InverseCheckBox
             // 
             this.InverseCheckBox.AutoSize = true;
-            this.InverseCheckBox.Location = new System.Drawing.Point(104, 276);
+            this.InverseCheckBox.Location = new System.Drawing.Point(104, 279);
             this.InverseCheckBox.Name = "InverseCheckBox";
             this.InverseCheckBox.Size = new System.Drawing.Size(63, 19);
             this.InverseCheckBox.TabIndex = 4;
@@ -121,9 +121,9 @@
             // 
             // EntitiesGroupBox
             // 
-            this.EntitiesGroupBox.Controls.Add(this.SaveSelectedEntities);
             this.EntitiesGroupBox.Controls.Add(this.SelectedEntitiesCounter);
             this.EntitiesGroupBox.Controls.Add(this.SelectedEntities);
+            this.EntitiesGroupBox.Controls.Add(this.NumberGroupBox);
             this.EntitiesGroupBox.Controls.Add(this.EntitiesCounter);
             this.EntitiesGroupBox.Controls.Add(this.CoreEntitiesCheckBox);
             this.EntitiesGroupBox.Controls.Add(this.EntitiesCheckBox);
@@ -134,26 +134,15 @@
             this.EntitiesGroupBox.Controls.Add(this.EntityListBox);
             this.EntitiesGroupBox.Location = new System.Drawing.Point(15, 15);
             this.EntitiesGroupBox.Name = "EntitiesGroupBox";
-            this.EntitiesGroupBox.Size = new System.Drawing.Size(220, 430);
+            this.EntitiesGroupBox.Size = new System.Drawing.Size(220, 500);
             this.EntitiesGroupBox.TabIndex = 0;
             this.EntitiesGroupBox.TabStop = false;
             this.EntitiesGroupBox.Text = "Entity";
             // 
-            // SaveSelectedEntities
-            // 
-            this.SaveSelectedEntities.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SaveSelectedEntities.Location = new System.Drawing.Point(6, 359);
-            this.SaveSelectedEntities.Name = "SaveSelectedEntities";
-            this.SaveSelectedEntities.Size = new System.Drawing.Size(208, 65);
-            this.SaveSelectedEntities.TabIndex = 7;
-            this.SaveSelectedEntities.Text = "Move to the side  >>>";
-            this.SaveSelectedEntities.UseVisualStyleBackColor = true;
-            this.SaveSelectedEntities.Click += new System.EventHandler(this.SaveSelectedEntities_Click);
-            // 
             // SelectedEntitiesCounter
             // 
             this.SelectedEntitiesCounter.AutoSize = true;
-            this.SelectedEntitiesCounter.Location = new System.Drawing.Point(171, 329);
+            this.SelectedEntitiesCounter.Location = new System.Drawing.Point(171, 332);
             this.SelectedEntitiesCounter.Name = "SelectedEntitiesCounter";
             this.SelectedEntitiesCounter.Size = new System.Drawing.Size(13, 15);
             this.SelectedEntitiesCounter.TabIndex = 9;
@@ -163,17 +152,48 @@
             // SelectedEntities
             // 
             this.SelectedEntities.AutoSize = true;
-            this.SelectedEntities.Location = new System.Drawing.Point(70, 329);
+            this.SelectedEntities.Location = new System.Drawing.Point(70, 332);
             this.SelectedEntities.Name = "SelectedEntities";
             this.SelectedEntities.Size = new System.Drawing.Size(95, 15);
             this.SelectedEntities.TabIndex = 8;
             this.SelectedEntities.Text = "Selected Entities:";
             this.SelectedEntities.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // NumberGroupBox
+            // 
+            this.NumberGroupBox.Controls.Add(this.label3);
+            this.NumberGroupBox.Controls.Add(this.label4);
+            this.NumberGroupBox.Controls.Add(this.PahtsCountLabel);
+            this.NumberGroupBox.Controls.Add(this.CountOfPathsTextLabel);
+            this.NumberGroupBox.Location = new System.Drawing.Point(6, 353);
+            this.NumberGroupBox.Name = "NumberGroupBox";
+            this.NumberGroupBox.Size = new System.Drawing.Size(205, 141);
+            this.NumberGroupBox.TabIndex = 3;
+            this.NumberGroupBox.TabStop = false;
+            this.NumberGroupBox.Text = "Numbers";
+            // 
+            // PahtsCountLabel
+            // 
+            this.PahtsCountLabel.AutoSize = true;
+            this.PahtsCountLabel.Location = new System.Drawing.Point(90, 24);
+            this.PahtsCountLabel.Name = "PahtsCountLabel";
+            this.PahtsCountLabel.Size = new System.Drawing.Size(36, 15);
+            this.PahtsCountLabel.TabIndex = 2;
+            this.PahtsCountLabel.Text = "None";
+            // 
+            // CountOfPathsTextLabel
+            // 
+            this.CountOfPathsTextLabel.AutoSize = true;
+            this.CountOfPathsTextLabel.Location = new System.Drawing.Point(6, 24);
+            this.CountOfPathsTextLabel.Name = "CountOfPathsTextLabel";
+            this.CountOfPathsTextLabel.Size = new System.Drawing.Size(78, 15);
+            this.CountOfPathsTextLabel.TabIndex = 1;
+            this.CountOfPathsTextLabel.Text = "Paths Count :";
+            // 
             // EntitiesCounter
             // 
             this.EntitiesCounter.AutoSize = true;
-            this.EntitiesCounter.Location = new System.Drawing.Point(176, 305);
+            this.EntitiesCounter.Location = new System.Drawing.Point(176, 308);
             this.EntitiesCounter.Name = "EntitiesCounter";
             this.EntitiesCounter.Size = new System.Drawing.Size(13, 15);
             this.EntitiesCounter.TabIndex = 7;
@@ -182,7 +202,7 @@
             // 
             // Reload
             // 
-            this.Reload.Location = new System.Drawing.Point(6, 305);
+            this.Reload.Location = new System.Drawing.Point(6, 308);
             this.Reload.Name = "Reload";
             this.Reload.Size = new System.Drawing.Size(58, 39);
             this.Reload.TabIndex = 5;
@@ -193,7 +213,7 @@
             // CountOfEntities
             // 
             this.CountOfEntities.AutoSize = true;
-            this.CountOfEntities.Location = new System.Drawing.Point(70, 305);
+            this.CountOfEntities.Location = new System.Drawing.Point(70, 308);
             this.CountOfEntities.Name = "CountOfEntities";
             this.CountOfEntities.Size = new System.Drawing.Size(100, 15);
             this.CountOfEntities.TabIndex = 6;
@@ -218,17 +238,16 @@
             this.DbContextListBox.Name = "DbContextListBox";
             this.DbContextListBox.Size = new System.Drawing.Size(188, 49);
             this.DbContextListBox.TabIndex = 0;
+            this.DbContextListBox.SelectedIndexChanged += new System.EventHandler(this.DbContextListBox_SelectedIndexChanged);
             // 
             // FileSeletionGroupBox
             // 
             this.FileSeletionGroupBox.Controls.Add(this.SetLogicLayerLabel);
             this.FileSeletionGroupBox.Controls.Add(this.LogicLayerConfigSetButton);
-            this.FileSeletionGroupBox.Controls.Add(this.SetDbLayerLabel);
             this.FileSeletionGroupBox.Controls.Add(this.NoticeOfFileSelection);
-            this.FileSeletionGroupBox.Controls.Add(this.DbLayerConfigSetButton);
             this.FileSeletionGroupBox.Location = new System.Drawing.Point(255, 223);
             this.FileSeletionGroupBox.Name = "FileSeletionGroupBox";
-            this.FileSeletionGroupBox.Size = new System.Drawing.Size(200, 185);
+            this.FileSeletionGroupBox.Size = new System.Drawing.Size(200, 112);
             this.FileSeletionGroupBox.TabIndex = 2;
             this.FileSeletionGroupBox.TabStop = false;
             this.FileSeletionGroupBox.Text = "File Seletion";
@@ -236,7 +255,7 @@
             // SetLogicLayerLabel
             // 
             this.SetLogicLayerLabel.AutoSize = true;
-            this.SetLogicLayerLabel.Location = new System.Drawing.Point(6, 159);
+            this.SetLogicLayerLabel.Location = new System.Drawing.Point(6, 92);
             this.SetLogicLayerLabel.Name = "SetLogicLayerLabel";
             this.SetLogicLayerLabel.Size = new System.Drawing.Size(137, 15);
             this.SetLogicLayerLabel.TabIndex = 5;
@@ -244,22 +263,13 @@
             // 
             // LogicLayerConfigSetButton
             // 
-            this.LogicLayerConfigSetButton.Location = new System.Drawing.Point(6, 131);
+            this.LogicLayerConfigSetButton.Location = new System.Drawing.Point(6, 64);
             this.LogicLayerConfigSetButton.Name = "LogicLayerConfigSetButton";
             this.LogicLayerConfigSetButton.Size = new System.Drawing.Size(137, 25);
             this.LogicLayerConfigSetButton.TabIndex = 4;
-            this.LogicLayerConfigSetButton.Text = "Set Logic Layer File";
+            this.LogicLayerConfigSetButton.Text = "Set App Any .CsProj File";
             this.LogicLayerConfigSetButton.UseVisualStyleBackColor = true;
             this.LogicLayerConfigSetButton.Click += new System.EventHandler(this.LogicLayerConfigSetButton_Click);
-            // 
-            // SetDbLayerLabel
-            // 
-            this.SetDbLayerLabel.AutoSize = true;
-            this.SetDbLayerLabel.Location = new System.Drawing.Point(6, 97);
-            this.SetDbLayerLabel.Name = "SetDbLayerLabel";
-            this.SetDbLayerLabel.Size = new System.Drawing.Size(123, 15);
-            this.SetDbLayerLabel.TabIndex = 3;
-            this.SetDbLayerLabel.Text = "Not Selected Db Layer";
             // 
             // NoticeOfFileSelection
             // 
@@ -270,50 +280,11 @@
             this.NoticeOfFileSelection.TabIndex = 0;
             this.NoticeOfFileSelection.Text = "Please select the required files below.";
             // 
-            // DbLayerConfigSetButton
-            // 
-            this.DbLayerConfigSetButton.Location = new System.Drawing.Point(6, 69);
-            this.DbLayerConfigSetButton.Name = "DbLayerConfigSetButton";
-            this.DbLayerConfigSetButton.Size = new System.Drawing.Size(123, 25);
-            this.DbLayerConfigSetButton.TabIndex = 1;
-            this.DbLayerConfigSetButton.Text = "Set Db Layer File";
-            this.DbLayerConfigSetButton.UseVisualStyleBackColor = true;
-            this.DbLayerConfigSetButton.Click += new System.EventHandler(this.DbLayerConfigSetButton_Click);
-            // 
-            // NumberGroupBox
-            // 
-            this.NumberGroupBox.Controls.Add(this.PahtsCountLabel);
-            this.NumberGroupBox.Controls.Add(this.CountOfPathsTextLabel);
-            this.NumberGroupBox.Location = new System.Drawing.Point(475, 15);
-            this.NumberGroupBox.Name = "NumberGroupBox";
-            this.NumberGroupBox.Size = new System.Drawing.Size(145, 195);
-            this.NumberGroupBox.TabIndex = 3;
-            this.NumberGroupBox.TabStop = false;
-            this.NumberGroupBox.Text = "Numbers";
-            // 
-            // PahtsCountLabel
-            // 
-            this.PahtsCountLabel.AutoSize = true;
-            this.PahtsCountLabel.Location = new System.Drawing.Point(90, 24);
-            this.PahtsCountLabel.Name = "PahtsCountLabel";
-            this.PahtsCountLabel.Size = new System.Drawing.Size(36, 15);
-            this.PahtsCountLabel.TabIndex = 2;
-            this.PahtsCountLabel.Text = "None";
-            // 
-            // CountOfPathsTextLabel
-            // 
-            this.CountOfPathsTextLabel.AutoSize = true;
-            this.CountOfPathsTextLabel.Location = new System.Drawing.Point(6, 24);
-            this.CountOfPathsTextLabel.Name = "CountOfPathsTextLabel";
-            this.CountOfPathsTextLabel.Size = new System.Drawing.Size(78, 15);
-            this.CountOfPathsTextLabel.TabIndex = 1;
-            this.CountOfPathsTextLabel.Text = "Paths Count :";
-            // 
             // GenerateButton
             // 
-            this.GenerateButton.Location = new System.Drawing.Point(475, 223);
+            this.GenerateButton.Location = new System.Drawing.Point(255, 360);
             this.GenerateButton.Name = "GenerateButton";
-            this.GenerateButton.Size = new System.Drawing.Size(145, 71);
+            this.GenerateButton.Size = new System.Drawing.Size(200, 71);
             this.GenerateButton.TabIndex = 4;
             this.GenerateButton.Text = "Generate !!!";
             this.GenerateButton.UseVisualStyleBackColor = true;
@@ -329,6 +300,7 @@
             this.SyncAndAsyncRepoRadioButton.TabStop = true;
             this.SyncAndAsyncRepoRadioButton.Text = "SyncAsync";
             this.SyncAndAsyncRepoRadioButton.UseVisualStyleBackColor = true;
+            this.SyncAndAsyncRepoRadioButton.CheckedChanged += new System.EventHandler(this.SyncAndAsyncRepoRadioButton_CheckedChanged);
             // 
             // SyncRepoRadioButton
             // 
@@ -340,6 +312,7 @@
             this.SyncRepoRadioButton.TabStop = true;
             this.SyncRepoRadioButton.Text = "Sync";
             this.SyncRepoRadioButton.UseVisualStyleBackColor = true;
+            this.SyncRepoRadioButton.CheckedChanged += new System.EventHandler(this.SyncRepoRadioButton_CheckedChanged);
             // 
             // AsyncRepoRadioButton
             // 
@@ -351,6 +324,7 @@
             this.AsyncRepoRadioButton.TabStop = true;
             this.AsyncRepoRadioButton.Text = "Async";
             this.AsyncRepoRadioButton.UseVisualStyleBackColor = true;
+            this.AsyncRepoRadioButton.CheckedChanged += new System.EventHandler(this.AsyncRepoRadioButton_CheckedChanged);
             // 
             // SimpleRepoRadioButton
             // 
@@ -362,6 +336,7 @@
             this.SimpleRepoRadioButton.TabStop = true;
             this.SimpleRepoRadioButton.Text = "Simple";
             this.SimpleRepoRadioButton.UseVisualStyleBackColor = true;
+            this.SimpleRepoRadioButton.CheckedChanged += new System.EventHandler(this.SimpleRepoRadioButton_CheckedChanged);
             // 
             // RepositorySelectorGroupBox
             // 
@@ -396,14 +371,40 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Paths Count :";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(255, 479);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(200, 30);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(96, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "None";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 15);
+            this.label4.TabIndex = 3;
+            this.label4.Text = ".cs File Count :";
+            // 
             // Generator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 461);
+            this.ClientSize = new System.Drawing.Size(479, 526);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.RepositorySelectorGroupBox);
             this.Controls.Add(this.GenerateButton);
-            this.Controls.Add(this.NumberGroupBox);
             this.Controls.Add(this.FileSeletionGroupBox);
             this.Controls.Add(this.DbContextGroupBox);
             this.Controls.Add(this.EntitiesGroupBox);
@@ -415,11 +416,11 @@
             this.Load += new System.EventHandler(this.Generator_Load);
             this.EntitiesGroupBox.ResumeLayout(false);
             this.EntitiesGroupBox.PerformLayout();
+            this.NumberGroupBox.ResumeLayout(false);
+            this.NumberGroupBox.PerformLayout();
             this.DbContextGroupBox.ResumeLayout(false);
             this.FileSeletionGroupBox.ResumeLayout(false);
             this.FileSeletionGroupBox.PerformLayout();
-            this.NumberGroupBox.ResumeLayout(false);
-            this.NumberGroupBox.PerformLayout();
             this.RepositorySelectorGroupBox.ResumeLayout(false);
             this.RepositorySelectorGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -439,13 +440,10 @@
         private Label EntitiesCounter;
         private Label SelectedEntitiesCounter;
         private Label SelectedEntities;
-        private Button SaveSelectedEntities;
         private GroupBox DbContextGroupBox;
         private ListBox DbContextListBox;
         private GroupBox FileSeletionGroupBox;
         private Label NoticeOfFileSelection;
-        private Label SetDbLayerLabel;
-        private Button DbLayerConfigSetButton;
         private Label SetLogicLayerLabel;
         private Button LogicLayerConfigSetButton;
         private GroupBox NumberGroupBox;
@@ -459,5 +457,8 @@
         private GroupBox RepositorySelectorGroupBox;
         private Label label1;
         private Label label2;
+        private Label label3;
+        private Label label4;
+        private ProgressBar progressBar1;
     }
 }

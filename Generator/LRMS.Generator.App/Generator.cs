@@ -1,17 +1,19 @@
 ﻿using System.Linq.Dynamic.Core;
 using LRMS.Generator.App.Codes;
 using LRMS.Generator.App.Codes.CreatorCodes;
-using LRMS.Generator.App.Codes.CreatorCodes.Repository;
 
 namespace LRMS.Generator.App;
 
 public partial class Generator : Form
 {
 
-    public static List<Type> SelectedEntityTypes = new();
     private readonly PacketLoader PacketLoader = new();
     private static List<Type> AllEntityTypes = new();
     private static List<Type> AllDbContextTypes = new();
+
+    CsFileOperationConfig Config = new();
+
+    private static string _AppPath;
 
     public Generator()
     {
@@ -44,26 +46,12 @@ public partial class Generator : Form
 
     }
 
-    private async void SaveSelectedEntities_Click(object sender, EventArgs e)
-    {
-        foreach (object item in EntityListBox.CheckedItems)
-            SelectedEntityTypes.Add((Type)item);
-    
-    }
-
-
-    private void DbLayerConfigSetButton_Click(object sender, EventArgs e)
-    {
-        (Stream, string) csName = CsProjFileOperation.CsProjOpenFileDialog();
-        SetDbLayerLabel.Text = csName.Item2 + " Selected";
-    }
-
     private void LogicLayerConfigSetButton_Click(object sender, EventArgs e)
     {
-        (Stream, string) csName = CsProjFileOperation.CsProjOpenFileDialog();
-        SetLogicLayerLabel.Text = csName.Item2 + " Selected";
+        (string Path, string FileName) csName = CsProjFileOperation.CsProjOpenFileDialog();
+        SetLogicLayerLabel.Text = csName.FileName + " Selected";
+        _AppPath = csName.Path;
     }
-
 
     private async void CoreEntitiesCheckBox_CheckedChanged(object sender, EventArgs e)
     {
@@ -126,6 +114,43 @@ public partial class Generator : Form
         SelectedItemCounterUpdate();
     }
 
+    private async void GenerateButton_Click(object sender, EventArgs e)
+    {
+        List<Type> SelectedEntityTypes = new();
+
+        foreach (object item in EntityListBox.CheckedItems)
+            SelectedEntityTypes.Add((Type)item);
+
+        CsFile[] csFiles = CsFileOperation.CsFilesEngine(SelectedEntityTypes, Config);
+
+        CodeGeneratorHelpers.WriteCsFiles(csFiles, _AppPath);
+    }
+
+    private void DbContextListBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Config.SetDbContextForType((Type)DbContextListBox.SelectedItem);
+    }
+
+    private void SyncRepoRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        Config.SelectedRepo = 1;
+    }
+
+    private void AsyncRepoRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        Config.SelectedRepo = 2;
+    }
+
+    private void SyncAndAsyncRepoRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        Config.SelectedRepo = 3;
+    }
+
+    private void SimpleRepoRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        Config.SelectedRepo = 0;
+    }
+
     private async Task ListBoxUpdate()
     {
         this.EntityListBox.DataSource = AllEntityTypes.Distinct().ToArray();
@@ -151,22 +176,6 @@ public partial class Generator : Form
         AllDbContextTypes.AddRange(PacketLoader.GetLoadedPacketDbContexts());
 
         this.DbContextListBox.DataSource = AllDbContextTypes;
-        this.DbContextListBox.DisplayMember = "Name";       
-    }
-        
-    private string SelectedDbContextName()
-    {
-        object obj = DbContextListBox.SelectedItem;
-        Type type = (Type)obj;
-
-        return type.Name;
-    }
-
-    private void GenerateButton_Click(object sender, EventArgs e)
-    {
-
-        CsFile[] result = CsFileOperation.CsFilesEngine(SelectedEntityTypes, SelectedDbContextName());
-        
-        CodeGeneratorHelpers.WriteCsFiles(result);
+        this.DbContextListBox.DisplayMember = "Name";
     }
 }
