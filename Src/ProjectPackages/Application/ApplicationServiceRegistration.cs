@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines.Authorization;
+﻿using Application.Services.ServiceRegistrations;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
@@ -24,6 +25,11 @@ public static class ApplicationServiceRegistration
         //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionScopeBehavior<,>));
+
+        services.AddLrmsInfoRegistration();
+        services.AddLrmsIntermediateTablesRegistration();
+        services.AddLRMSMainRegistration();
+        services.AddLRMSUserRegistration();
 
         return services;
     }
