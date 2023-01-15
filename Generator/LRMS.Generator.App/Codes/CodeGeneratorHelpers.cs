@@ -25,7 +25,7 @@ internal static class CodeGeneratorHelpers
         return $@"{name + type.Name}";
     }
 
-    public static void WriteCsFiles(CsFile[] csFiles,string sPath)
+    public static void WriteCsFiles(IList<CsFile> csFiles, string sPath)
     {
         foreach (CsFile csFile in csFiles)
         {

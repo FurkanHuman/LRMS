@@ -31,7 +31,7 @@ internal static class CsFileOperation
         };
     }
 
-    public static CsFile[] CsFilesEngine(IList<Type> types, CsFileOperationConfig csFileOperationConfig)
+    public static IList<CsFile> CsFilesEngine(IList<Type> types, CsFileOperationConfig csFileOperationConfig)
     {
         List<CsFile> csFiles = new();
 
@@ -43,7 +43,7 @@ internal static class CsFileOperation
             }
         }
 
-        return csFiles.ToArray();
+        return csFiles;
     }
 
     static IList<string> CsFileContentGenerator(Type type, CsFileOperationConfig csFileOperationConfig)
