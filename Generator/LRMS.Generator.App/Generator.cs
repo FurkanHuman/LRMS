@@ -120,14 +120,25 @@ public partial class Generator : Form
 
     private async void GenerateButton_Click(object sender, EventArgs e)
     {
-        List<Type> SelectedEntityTypes = new();
+        IList<CsFile> csFiles = GetCsFiles(SelectedEntityTypeUpdate());
 
-        foreach (object item in EntityListBox.CheckedItems)
-            SelectedEntityTypes.Add((Type)item);
+        int csFileCount = csFiles.Count;
 
-        CsFile[] csFiles = CsFileOperation.CsFilesEngine(SelectedEntityTypes, Config);
+        progressBar.Maximum = csFileCount;
+        progressBar.Value = 0;
 
-        CodeGeneratorHelpers.WriteCsFiles(csFiles, _AppPath);
+        ListBoxUpdate();
+
+        DialogResult diaResult = MessageBox.Show("Are you sure you want to proceed?", "Confirmation", MessageBoxButtons.YesNo);
+
+        if (diaResult == DialogResult.Yes)
+
+            for (int i = 0; i < csFileCount; i++)
+            {
+                CodeGeneratorHelpers.WriteCsFile(csFiles[i], _AppPath);
+                progressBar.Value++;
+            }
+        MessageBox.Show("The generator has successfully completed.", "Success");
     }
 
     private void DbContextListBox_SelectedIndexChanged(object sender, EventArgs e)
