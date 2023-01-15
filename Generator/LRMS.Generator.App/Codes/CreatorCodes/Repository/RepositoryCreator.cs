@@ -43,7 +43,7 @@ public interface I{Type.Name}Repository : IRepository<{Type.Name}>
     public string IAsyncRepository()
     {
         return
-            $@"// this file was created automatically.
+$@"// this file was created automatically.
 using Core.Persistence.Repositories;
 using {Type.Namespace};
 
@@ -65,7 +65,7 @@ using {Type.Namespace};
 
 namespace Application.Repositories;
 
-public interface I{Type.Name}Repository : 
+public interface I{Type.Name}Repository
 {{
 }}
 ";
