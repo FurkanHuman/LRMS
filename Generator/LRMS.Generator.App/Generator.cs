@@ -155,6 +155,31 @@ public partial class Generator : Form
         Config.SelectedRepo = 0;
     }
 
+    private IList<CsFile> GetCsFiles(IList<Type> SelectedEntityTypes)
+    {
+        return CsFileOperation.CsFilesEngine(SelectedEntityTypes, Config);
+    }
+
+    private IList<Type> SelectedEntityTypeUpdate()
+    {
+        List<Type> SelectedEntityTypes = new();
+
+        foreach (object item in EntityListBox.CheckedItems)
+            SelectedEntityTypes.Add((Type)item);
+        return SelectedEntityTypes;
+    }
+
+    private async Task NumbersGroupCounterUpdate()
+    {
+        IList<CsFile> csFiles = GetCsFiles(SelectedEntityTypeUpdate());
+
+        int pathCount = csFiles.Select(c => c.Path).Distinct().Count();
+        int fileCount = csFiles.Select(c => c.FileName).Count();
+
+        PahtCountLabel.Text = pathCount.ToString();
+        FileCountLabel.Text = fileCount.ToString();
+    }
+
     private async Task ListBoxUpdate()
     {
         this.EntityListBox.DataSource = AllEntityTypes.Distinct().ToArray();
@@ -166,6 +191,8 @@ public partial class Generator : Form
 
     private async Task SelectedItemCounterUpdate()
     {
+        NumbersGroupCounterUpdate();
+
         int counter = 0;
         for (int i = 0; i < EntityListBox.CheckedItems.Count; i++)
         {
