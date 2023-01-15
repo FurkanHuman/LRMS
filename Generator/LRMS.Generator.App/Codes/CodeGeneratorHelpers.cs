@@ -25,11 +25,11 @@ internal static class CodeGeneratorHelpers
         return $@"{name + type.Name}";
     }
 
-    public static void WriteCsFiles(CsFile[] result)
+    public static void WriteCsFiles(CsFile[] csFiles,string sPath)
     {
-        foreach (CsFile csFile in result)
+        foreach (CsFile csFile in csFiles)
         {
-            string path = $@"{csFile.Path}";
+            string path = $"{sPath}\\{csFile.Path}";
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
@@ -40,7 +40,7 @@ internal static class CodeGeneratorHelpers
 
             tw.Write(csFile.FileContent);
 
-            tw.Flush();
+            tw.Flush(); 
         }
     }
 }
