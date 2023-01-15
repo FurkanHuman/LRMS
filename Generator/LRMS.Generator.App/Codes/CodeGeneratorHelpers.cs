@@ -29,18 +29,28 @@ internal static class CodeGeneratorHelpers
     {
         foreach (CsFile csFile in csFiles)
         {
-            string path = $"{sPath}\\{csFile.Path}";
+            WriteCsFile(csFile, sPath);
+        }
+    }
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+    public static void WriteCsFile(CsFile csFile, string sPath)
+    {
+        string path = $"{sPath}\\{csFile.Path}";
 
-            using FileStream fs = File.Create($"{path}\\{csFile.FileName}.cs");
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+
+        string fullPath = $"{path}\\{csFile.FileName}.cs";
+
+        if (!File.Exists(fullPath))
+        {
+            using FileStream fs = File.Create(fullPath);
 
             using TextWriter tw = new StreamWriter(fs);
 
             tw.Write(csFile.FileContent);
 
-            tw.Flush(); 
+            tw.Flush();
         }
     }
 }
