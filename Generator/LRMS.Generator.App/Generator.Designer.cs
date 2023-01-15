@@ -275,9 +275,9 @@
             this.SetLogicLayerLabel.AutoSize = true;
             this.SetLogicLayerLabel.Location = new System.Drawing.Point(6, 92);
             this.SetLogicLayerLabel.Name = "SetLogicLayerLabel";
-            this.SetLogicLayerLabel.Size = new System.Drawing.Size(137, 15);
+            this.SetLogicLayerLabel.Size = new System.Drawing.Size(112, 15);
             this.SetLogicLayerLabel.TabIndex = 5;
-            this.SetLogicLayerLabel.Text = "Not Selected Logic Layer";
+            this.SetLogicLayerLabel.Text = "Not Selected .csProj";
             // 
             // LayerConfigSetButton
             // 
