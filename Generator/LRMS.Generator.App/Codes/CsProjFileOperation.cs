@@ -1,8 +1,10 @@
-﻿namespace LRMS.Generator.App.Codes;
+﻿using System;
+
+namespace LRMS.Generator.App.Codes;
 
 internal static class CsProjFileOperation
 {
-    public static (Stream, string) CsProjOpenFileDialog()
+    public static (string Path, string FileName) CsProjOpenFileDialog()
     {
         OpenFileDialog fileDialog = new()
         {
@@ -12,8 +14,13 @@ internal static class CsProjFileOperation
         };
 
         MessageBox.Show("Please select the layer \".csproj\" file within your project.", "Warning");
-        fileDialog.ShowDialog();
 
-        return (fileDialog.OpenFile(), fileDialog.SafeFileName);
+        if (fileDialog.ShowDialog() != DialogResult.OK)
+            MessageBox.Show(new Exception("No file selected").Message);
+
+        string path = Path.GetDirectoryName(fileDialog.FileName);
+        path = Path.GetDirectoryName(path);
+
+        return (path, fileDialog.SafeFileName);
     }
 }
