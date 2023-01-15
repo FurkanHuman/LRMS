@@ -300,6 +300,7 @@
             // 
             // GenerateButton
             // 
+            this.GenerateButton.Enabled = false;
             this.GenerateButton.Location = new System.Drawing.Point(255, 360);
             this.GenerateButton.Name = "GenerateButton";
             this.GenerateButton.Size = new System.Drawing.Size(200, 71);
