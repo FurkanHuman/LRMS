@@ -49,7 +49,10 @@ public partial class Generator : Form
     private void LayerConfigSetButton_Click(object sender, EventArgs e)
     {
         (string Path, string FileName) csName = CsProjFileOperation.CsProjOpenFileDialog();
-        SetLogicLayerLabel.Text = csName.FileName + " Selected";
+
+        if (csName.FileName != null)
+            GenerateButton.Enabled = true;
+
         ConfigLayerLabel.Text = csName.FileName + " Selected";
         _AppPath = csName.Path;
     }
