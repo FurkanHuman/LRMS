@@ -47,7 +47,7 @@
             this.DbContextGroupBox = new System.Windows.Forms.GroupBox();
             this.DbContextListBox = new System.Windows.Forms.ListBox();
             this.FileSeletionGroupBox = new System.Windows.Forms.GroupBox();
-            this.SetLogicLayerLabel = new System.Windows.Forms.Label();
+            this.ConfigLayerLabel = new System.Windows.Forms.Label();
             this.LayerConfigSetButton = new System.Windows.Forms.Button();
             this.NoticeOfFileSelection = new System.Windows.Forms.Label();
             this.GenerateButton = new System.Windows.Forms.Button();
@@ -260,7 +260,7 @@
             // 
             // FileSeletionGroupBox
             // 
-            this.FileSeletionGroupBox.Controls.Add(this.SetLogicLayerLabel);
+            this.FileSeletionGroupBox.Controls.Add(this.ConfigLayerLabel);
             this.FileSeletionGroupBox.Controls.Add(this.LayerConfigSetButton);
             this.FileSeletionGroupBox.Controls.Add(this.NoticeOfFileSelection);
             this.FileSeletionGroupBox.Location = new System.Drawing.Point(255, 223);
@@ -270,14 +270,14 @@
             this.FileSeletionGroupBox.TabStop = false;
             this.FileSeletionGroupBox.Text = "File Seletion";
             // 
-            // SetLogicLayerLabel
+            // ConfigLayerLabel
             // 
-            this.SetLogicLayerLabel.AutoSize = true;
-            this.SetLogicLayerLabel.Location = new System.Drawing.Point(6, 92);
-            this.SetLogicLayerLabel.Name = "SetLogicLayerLabel";
-            this.SetLogicLayerLabel.Size = new System.Drawing.Size(112, 15);
-            this.SetLogicLayerLabel.TabIndex = 5;
-            this.SetLogicLayerLabel.Text = "Not Selected .csProj";
+            this.ConfigLayerLabel.AutoSize = true;
+            this.ConfigLayerLabel.Location = new System.Drawing.Point(6, 92);
+            this.ConfigLayerLabel.Name = "ConfigLayerLabel";
+            this.ConfigLayerLabel.Size = new System.Drawing.Size(112, 15);
+            this.ConfigLayerLabel.TabIndex = 5;
+            this.ConfigLayerLabel.Text = "Not Selected .csProj";
             // 
             // LayerConfigSetButton
             // 
@@ -445,7 +445,7 @@
         private ListBox DbContextListBox;
         private GroupBox FileSeletionGroupBox;
         private Label NoticeOfFileSelection;
-        private Label SetLogicLayerLabel;
+        private Label ConfigLayerLabel;
         private Button LayerConfigSetButton;
         private GroupBox NumberGroupBox;
         private Label PahtCountLabel;

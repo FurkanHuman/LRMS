@@ -50,6 +50,7 @@ public partial class Generator : Form
     {
         (string Path, string FileName) csName = CsProjFileOperation.CsProjOpenFileDialog();
         SetLogicLayerLabel.Text = csName.FileName + " Selected";
+        ConfigLayerLabel.Text = csName.FileName + " Selected";
         _AppPath = csName.Path;
     }
 
