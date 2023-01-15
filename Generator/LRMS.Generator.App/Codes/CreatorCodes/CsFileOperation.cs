@@ -14,8 +14,8 @@ internal static class CsFileOperation
         SyntaxTree tree = CSharpSyntaxTree.ParseText(fileContent);
         CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
 
-        NamespaceDeclarationSyntax namespaceNode = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
-        ClassDeclarationSyntax classNode = root.DescendantNodes().OfType<ClassDeclarationSyntax>().FirstOrDefault();
+        NamespaceDeclarationSyntax? namespaceNode = root.DescendantNodes().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
+        ClassDeclarationSyntax? classNode = root.DescendantNodes().OfType<ClassDeclarationSyntax>().FirstOrDefault();
         InterfaceDeclarationSyntax? interfaceNode = root.DescendantNodes().OfType<InterfaceDeclarationSyntax>().FirstOrDefault();
 
         string path = namespaceNode.Name.ToString().Replace('.', '\\') ?? "";
@@ -31,13 +31,13 @@ internal static class CsFileOperation
         };
     }
 
-    public static CsFile[] CsFilesEngine(IList<Type> types, string dbContextName)
+    public static CsFile[] CsFilesEngine(IList<Type> types, CsFileOperationConfig csFileOperationConfig)
     {
         List<CsFile> csFiles = new();
 
         foreach (Type type in types)
         {
-            foreach (string csFileContent in CsFileContentGenerator(type, dbContextName))
+            foreach (string csFileContent in CsFileContentGenerator(type, csFileOperationConfig))
             {
                 csFiles.Add(GetNamespacesPathsAndFileNames(csFileContent));
             }
@@ -46,7 +46,7 @@ internal static class CsFileOperation
         return csFiles.ToArray();
     }
 
-    static IList<string> CsFileContentGenerator(Type type, string dbContextName)
+    static IList<string> CsFileContentGenerator(Type type, CsFileOperationConfig csFileOperationConfig)
     {
         List<string> fileContents = new();
 
@@ -106,13 +106,26 @@ internal static class CsFileOperation
         fileContents.Add(ruleCreator.RuleCreate());
 
 
-        fileContents.Add(repositoryCreator.ISyncAndAsyncRepository());
-        fileContents.Add(repositoryCreator.Repository(dbContextName));
+        string IRepository = IRepositorySelector(repositoryCreator, csFileOperationConfig.SelectedRepo);
+
+        fileContents.Add(IRepository);
+        fileContents.Add(repositoryCreator.Repository(csFileOperationConfig.GetDbContext));
 
 
         fileContents.Add(altServiceCreator.IServiceCreate());
         fileContents.Add(altServiceCreator.ServiceCreate());
 
         return fileContents;
+    }
+
+    private static string IRepositorySelector(RepositoryCreator repositoryCreator,byte selectedRepo)
+    {
+        return selectedRepo switch
+        {
+            1 => repositoryCreator.ISyncRepository(),
+            2 => repositoryCreator.IAsyncRepository(),
+            3 => repositoryCreator.ISyncAndAsyncRepository(),
+            _ => repositoryCreator.IEmptyRepository(),
+        };
     }
 }
