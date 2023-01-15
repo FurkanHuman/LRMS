@@ -37,7 +37,9 @@
             this.SelectedEntitiesCounter = new System.Windows.Forms.Label();
             this.SelectedEntities = new System.Windows.Forms.Label();
             this.NumberGroupBox = new System.Windows.Forms.GroupBox();
-            this.PahtsCountLabel = new System.Windows.Forms.Label();
+            this.FileCountLabel = new System.Windows.Forms.Label();
+            this.FileCountTextLabel = new System.Windows.Forms.Label();
+            this.PahtCountLabel = new System.Windows.Forms.Label();
             this.CountOfPathsTextLabel = new System.Windows.Forms.Label();
             this.EntitiesCounter = new System.Windows.Forms.Label();
             this.Reload = new System.Windows.Forms.Button();
