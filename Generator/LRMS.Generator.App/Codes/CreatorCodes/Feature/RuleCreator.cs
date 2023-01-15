@@ -19,7 +19,6 @@ internal class RuleCreator : ICreatorCode
 using Application.Repositories;
 using Application.Features.{plural}.Constants;
 using Core.Application.Rules;
-
 using {Type.Namespace};
 
 namespace Application.Features.{plural}.Rules;

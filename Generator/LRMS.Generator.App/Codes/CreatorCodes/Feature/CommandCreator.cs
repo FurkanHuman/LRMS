@@ -28,7 +28,6 @@ public class Create{Type.Name}Command : IRequest<Created{Type.Name}Dto>, ISecure
 {{
 
     public string[] Roles => new[] {{ """" }};
-
 }}
 ";
     }
@@ -49,30 +48,29 @@ using MediatR;
 namespace Application.Features.{plural}.Commands.Create{Type.Name};
  
 public class Create{Type.Name}CommandHandler : IRequestHandler<Create{Type.Name}Command, Created{Type.Name}Dto>
+{{
+    private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
+    private readonly IMapper _mapper;
+    private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
 
+    public Create{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
+                                        {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
     {{
-        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
-        private readonly IMapper _mapper;
-        private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
-
-        public Create{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
-                                         {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
-        {{
-            _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
-            _mapper = mapper;
-            _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
-        }}
-
-        public async Task<Created{Type.Name}Dto> Handle(Create{Type.Name}Command request, CancellationToken cancellationToken)
-        {{
-            // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
-            {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
-            {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-            Created{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Created{Type.Name}Dto>(created{Type.Name});
-            return created{Type.Name}Dto;
-        }}
+        _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
+        _mapper = mapper;
+        _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
+
+    public async Task<Created{Type.Name}Dto> Handle(Create{Type.Name}Command request, CancellationToken cancellationToken)
+    {{
+        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
+
+        {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
+        {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
+        Created{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Created{Type.Name}Dto>(created{Type.Name});
+        return created{Type.Name}Dto;
+    }}
+}}
 ";
     }
 
@@ -112,7 +110,6 @@ public class Delete{Type.Name}Command : IRequest<Deleted{Type.Name}Dto>, ISecure
 {{
 
     public string[] Roles =>new[] {{""""}};
-
 }}
 ";
     }
@@ -133,30 +130,29 @@ using MediatR;
 namespace Application.Features.{plural}.Commands.Delete{Type.Name};
  
 public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}Command, Deleted{Type.Name}Dto>
+{{
+    private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
+    private readonly IMapper _mapper;
+    private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
 
+    public Delete{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
+                                        {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
     {{
-        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
-        private readonly IMapper _mapper;
-        private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
-
-        public Delete{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
-                                         {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
-        {{
-            _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
-            _mapper = mapper;
-            _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
-        }}
-
-        public async Task<Deleted{Type.Name}Dto> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
-        {{
-            // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
-            {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
-            {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-            Deleted{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Deleted{Type.Name}Dto>(created{Type.Name});
-            return created{Type.Name}Dto;
-        }}
+        _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
+        _mapper = mapper;
+        _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
+
+    public async Task<Deleted{Type.Name}Dto> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
+    {{
+        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
+
+        {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
+        {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
+        Deleted{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Deleted{Type.Name}Dto>(created{Type.Name});
+        return created{Type.Name}Dto;
+    }}
+}}
 ";
     }
 
@@ -193,8 +189,7 @@ namespace Application.Features.{plural}.Commands.Update{Type.Name};
 public class Update{Type.Name}Command : IRequest<Updated{Type.Name}Dto>, ISecuredRequest
 {{
 
-public string[] Roles =>new[] {{""""}};
-
+    public string[] Roles =>new[] {{""""}};
 }}
 ";
     }
@@ -215,30 +210,29 @@ using MediatR;
 namespace Application.Features.{plural}.Commands.Update{Type.Name};
  
 public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}Command, Updated{Type.Name}Dto>
+{{
+    private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
+    private readonly IMapper _mapper;
+    private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
 
+    public Update{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
+                                        {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
     {{
-        private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
-        private readonly IMapper _mapper;
-        private readonly {Type.Name}BusinessRules _{Type.Name.ToLower()}BusinessRules;
-
-        public Update{Type.Name}CommandHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper,
-                                         {Type.Name}BusinessRules {Type.Name.ToLower()}BusinessRules)
-        {{
-            _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
-            _mapper = mapper;
-            _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
-        }}
-
-        public async Task<Updated{Type.Name}Dto> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
-        {{
-            // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
-            {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
-            {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-            Updated{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Updated{Type.Name}Dto>(created{Type.Name});
-            return created{Type.Name}Dto;
-        }}
+        _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
+        _mapper = mapper;
+        _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
+
+    public async Task<Updated{Type.Name}Dto> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
+    {{
+        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
+
+        {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
+        {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
+        Updated{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Updated{Type.Name}Dto>(created{Type.Name});
+        return created{Type.Name}Dto;
+    }}
+}}
 ";
     }
 
