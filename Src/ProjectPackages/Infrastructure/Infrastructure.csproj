@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.20.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Adapters\" />
+    <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
 </Project>
