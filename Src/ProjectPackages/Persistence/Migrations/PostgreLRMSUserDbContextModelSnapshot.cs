@@ -11,13 +11,13 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(PostgreLrmsUserDbContext))]
-    partial class PostgreLRMSUserDbContextModelSnapshot : ModelSnapshot
+    partial class PostgreLrmsUserDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.11")
+                .HasAnnotation("ProductVersion", "6.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -33,11 +33,13 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date");
+                        .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasColumnName("is_deleted");
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -46,14 +48,10 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
+                        .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id")
                         .HasName("pk_operation_claims");
-
-                    b.HasIndex(new[] { "Name" }, "UK_OperationClaims_Name")
-                        .IsUnique()
-                        .HasDatabaseName("ix_operation_claims_name");
 
                     b.ToTable("OperationClaims", (string)null);
 
@@ -105,12 +103,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.RefreshToken", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
@@ -123,7 +119,7 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date");
+                        .HasColumnName("CreatedDate");
 
                     b.Property<DateTime>("Expires")
                         .HasColumnType("timestamp with time zone")
@@ -152,10 +148,10 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
+                        .HasColumnName("UpdatedDate");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id")
@@ -169,12 +165,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthenticatorType")
                         .HasColumnType("integer")
@@ -182,7 +176,7 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date");
+                        .HasColumnName("CreatedDate");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -195,8 +189,10 @@ namespace Persistence.Migrations
                         .HasColumnName("FirstName");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasColumnName("is_deleted");
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -215,7 +211,7 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
+                        .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id")
                         .HasName("pk_users");
@@ -233,12 +229,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.UserOperationClaim", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -252,8 +246,8 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_date");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id")
@@ -283,20 +277,20 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.User", b =>
                 {
-                    b.HasOne("Core.Domain.Concrete.Security.Entities.Password", "Passwords")
+                    b.HasOne("Core.Domain.Concrete.Security.Entities.Password", "Password")
                         .WithOne("User")
                         .HasForeignKey("Core.Domain.Concrete.Security.Entities.User", "PasswordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_users_passwords_password_id");
 
-                    b.Navigation("Passwords");
+                    b.Navigation("Password");
                 });
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.UserOperationClaim", b =>
                 {
                     b.HasOne("Core.Domain.Concrete.Security.Entities.OperationClaim", "OperationClaim")
-                        .WithMany("UserOperationClaims")
+                        .WithMany()
                         .HasForeignKey("OperationClaimId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -312,11 +306,6 @@ namespace Persistence.Migrations
                     b.Navigation("OperationClaim");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.OperationClaim", b =>
-                {
-                    b.Navigation("UserOperationClaims");
                 });
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.Password", b =>
