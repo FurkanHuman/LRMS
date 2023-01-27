@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public static class InfrastructureServiceRegistration
 {
-    public static class InfrastructureServiceRegistration
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
-        {
-            return services;
-        }
+    //    services.AddScoped<IFindeksService, FakeFindeksServiceAdapter>();
+    //    services.AddScoped<IPOSService, FakePOSServiceAdapter>();
+    //    services.AddScoped<ImageServiceBase, CloudinaryImageServiceAdapter>();
+        return services;
     }
 }
