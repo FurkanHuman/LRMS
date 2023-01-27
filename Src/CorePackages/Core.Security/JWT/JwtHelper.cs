@@ -66,7 +66,7 @@ public class JwtHelper : ITokenHelper
         return jwt;
     }
 
-    private IEnumerable<Claim> SetClaims(User user, IList<OperationClaim> operationClaims)
+    private static IEnumerable<Claim> SetClaims(User user, IList<OperationClaim> operationClaims)
     {
         List<Claim> claims = new();
         claims.AddNameIdentifier(user.Id.ToString());
@@ -76,7 +76,7 @@ public class JwtHelper : ITokenHelper
         return claims;
     }
 
-    private string RandomRefreshToken()
+    private static string RandomRefreshToken()
     {
         byte[] numberByte = new Byte[32];
         using RandomNumberGenerator random = RandomNumberGenerator.Create();
