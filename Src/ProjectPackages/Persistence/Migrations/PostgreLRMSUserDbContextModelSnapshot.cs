@@ -22,6 +22,43 @@ namespace Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.EmailAuthenticator", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("ActivationKey")
+                        .HasColumnType("text")
+                        .HasColumnName("ActivationKey");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("boolean")
+                        .HasColumnName("IsVerified");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id")
+                        .HasName("pk_email_authenticators");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_email_authenticators_user_id");
+
+                    b.ToTable("EmailAuthenticators", (string)null);
+                });
+
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.OperationClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -64,6 +101,44 @@ namespace Persistence.Migrations
                             Name = "Admin",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.OtpAuthenticator", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("boolean")
+                        .HasColumnName("IsVerified");
+
+                    b.Property<byte[]>("SecretKey")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("SecretKey");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id")
+                        .HasName("pk_otp_authenticators");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_otp_authenticators_user_id");
+
+                    b.ToTable("OtpAuthenticators", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.Password", b =>
@@ -263,6 +338,30 @@ namespace Persistence.Migrations
                     b.ToTable("UserOperationClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.EmailAuthenticator", b =>
+                {
+                    b.HasOne("Core.Domain.Concrete.Security.Entities.User", "User")
+                        .WithOne("EmailAuthenticator")
+                        .HasForeignKey("Core.Domain.Concrete.Security.Entities.EmailAuthenticator", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_email_authenticators_users_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.OtpAuthenticator", b =>
+                {
+                    b.HasOne("Core.Domain.Concrete.Security.Entities.User", "User")
+                        .WithOne("OtpAuthenticator")
+                        .HasForeignKey("Core.Domain.Concrete.Security.Entities.OtpAuthenticator", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_otp_authenticators_users_user_id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Core.Domain.Concrete.Security.Entities.User", "User")
@@ -316,6 +415,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Domain.Concrete.Security.Entities.User", b =>
                 {
+                    b.Navigation("EmailAuthenticator")
+                        .IsRequired();
+
+                    b.Navigation("OtpAuthenticator")
+                        .IsRequired();
+
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("UserOperationClaims");

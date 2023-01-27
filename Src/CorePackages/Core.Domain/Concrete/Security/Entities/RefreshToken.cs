@@ -3,9 +3,9 @@ using Core.Domain.Bases;
 
 namespace Core.Domain.Concrete.Security.Entities;
 
-public class RefreshToken : BaseEntity<int>, IEntity
+public class RefreshToken : BaseEntity<Guid>, IEntity
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public string Token { get; set; }
     public DateTime Expires { get; set; }
     public DateTime Created { get; set; }
@@ -23,7 +23,7 @@ public class RefreshToken : BaseEntity<int>, IEntity
 
     public RefreshToken() { }
 
-    public RefreshToken(int id, string token, DateTime expires, DateTime created, string createdByIp, DateTime? revoked,
+    public RefreshToken(Guid id, string token, DateTime expires, DateTime created, string createdByIp, DateTime? revoked,
                         string revokedByIp, string replacedByToken, string reasonRevoked)
     {
         Id = id;

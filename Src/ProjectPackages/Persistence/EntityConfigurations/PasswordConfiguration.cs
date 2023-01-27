@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.EntityConfigurations;
 
-public class PasswordConfiguration : IEntityTypeConfiguration<Password>
+public partial class PasswordConfiguration : IEntityTypeConfiguration<Password>
 {
     public void Configure(EntityTypeBuilder<Password> builder)
     {
@@ -14,7 +14,6 @@ public class PasswordConfiguration : IEntityTypeConfiguration<Password>
         builder.Property(p => p.ExpiresDate).HasColumnName("ExpiresDate");
         builder.Property(p => p.CreatedDate).HasColumnName("CreatedDate");
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
-        builder.Property(p => p.IsDeleted).HasColumnName("IsDeleted");
 
         builder.Ignore(p => p.Name);
         builder.Ignore(p => p.IsDeleted);

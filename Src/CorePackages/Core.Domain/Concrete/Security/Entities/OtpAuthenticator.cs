@@ -2,10 +2,10 @@
 using Core.Domain.Bases;
 
 namespace Core.Domain.Concrete.Security.Entities;
-
-public class OtpAuthenticator : BaseEntity<int>, IEntity
+// todo: add persistence entity configration..
+public class OtpAuthenticator : BaseEntity<Guid>, IEntity
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public byte[] SecretKey { get; set; }
     public bool IsVerified { get; set; }
 
@@ -13,7 +13,7 @@ public class OtpAuthenticator : BaseEntity<int>, IEntity
 
     public OtpAuthenticator() { }
 
-    public OtpAuthenticator(int id, int userId, byte[] secretKey, bool isVerified) : this()
+    public OtpAuthenticator(Guid id, Guid userId, byte[] secretKey, bool isVerified) : this()
     {
         Id = id;
         UserId = userId;

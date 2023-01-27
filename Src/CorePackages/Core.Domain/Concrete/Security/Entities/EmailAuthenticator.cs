@@ -2,10 +2,10 @@
 using Core.Domain.Bases;
 
 namespace Core.Domain.Concrete.Security.Entities;
-
-public class EmailAuthenticator : BaseEntity<int>, IEntity
+// todo: add persistence entity configration.. 
+public class EmailAuthenticator : BaseEntity<Guid>, IEntity
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public string? ActivationKey { get; set; }
     public bool IsVerified { get; set; }
 
@@ -13,7 +13,7 @@ public class EmailAuthenticator : BaseEntity<int>, IEntity
 
     public EmailAuthenticator() { }
 
-    public EmailAuthenticator(int id, int userId, string? activationKey, bool isVerified) : this()
+    public EmailAuthenticator(Guid id, Guid userId, string? activationKey, bool isVerified) : this()
     {
         Id = id;
         UserId = userId;

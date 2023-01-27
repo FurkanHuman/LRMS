@@ -17,11 +17,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.PasswordId).HasColumnName("PasswordId");
         builder.Property(u => u.Status).HasColumnName("Status").HasDefaultValue(true);
         builder.Property(u => u.AuthenticatorType).HasColumnName("AuthenticatorType");
+        builder.Property(u => u.CreatedDate).HasColumnName("CreatedDate");
+        builder.Property(u => u.UpdatedDate).HasColumnName("UpdatedDate");
+        builder.Property(u => u.IsDeleted).HasColumnName("IsDeleted").HasDefaultValue(false);
 
         builder.Ignore(p => p.Name);
 
-        builder.HasOne(u => u.Passwords);
-        builder.HasMany(u => u.UserOperationClaims);
+        builder.HasOne(u => u.EmailAuthenticator);
+        builder.HasOne(u => u.OtpAuthenticator);
+        builder.HasOne(u => u.Password);
         builder.HasMany(u => u.RefreshTokens);
+        builder.HasMany(u => u.UserOperationClaims);
     }
 }
