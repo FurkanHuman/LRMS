@@ -6,8 +6,6 @@ namespace Core.Domain.Concrete.Security.Entities;
 
 public class User : BaseEntity<Guid>, IEntity
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
     public string Email { get; set; }
     public Guid PasswordId { get; set; }
     public bool Status { get; set; }
@@ -21,7 +19,6 @@ public class User : BaseEntity<Guid>, IEntity
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; }
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     
-
     public User()
     {
         UserOperationClaims = new HashSet<UserOperationClaim>();
@@ -32,8 +29,6 @@ public class User : BaseEntity<Guid>, IEntity
                 bool status, AuthenticatorType authenticatorType) : this()
     {
         Id = id;
-        FirstName = firstName;
-        LastName = lastName;
         Email = email;
         PasswordId = passwordId;
         Status = status;

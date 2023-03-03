@@ -10,8 +10,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.ToTable("Users").HasKey(u => u.Id);
         builder.Property(u => u.Id).HasColumnName("Id");
-        builder.Property(u => u.FirstName).HasColumnName("FirstName");
-        builder.Property(u => u.LastName).HasColumnName("LastName");
         builder.Property(u => u.Email).HasColumnName("Email");
         builder.HasIndex(u => u.Email, "UK_Users_Email").IsUnique();
         builder.Property(u => u.PasswordId).HasColumnName("PasswordId");

@@ -35,8 +35,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
         User newUser = new()
         {
             Email = request.UserForRegisterDto.Email,
-            FirstName = request.UserForRegisterDto.FirstName,
-            LastName = request.UserForRegisterDto.LastName,
             PasswordId = createdPassword.Id,
             Status = true
         };

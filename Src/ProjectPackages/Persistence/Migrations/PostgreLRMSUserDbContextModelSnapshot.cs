@@ -258,21 +258,11 @@ namespace Persistence.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Email");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("FirstName");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(false)
                         .HasColumnName("IsDeleted");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("LastName");
 
                     b.Property<Guid>("PasswordId")
                         .HasColumnType("uuid")
