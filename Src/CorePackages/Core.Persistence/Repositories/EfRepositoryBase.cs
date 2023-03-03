@@ -17,6 +17,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         Context = context;
     }
+
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
                                          IIncludableQueryable<TEntity, object>>? include = null, bool enableTracking = true,
                                          CancellationToken cancellationToken = default)
@@ -26,6 +27,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         if (include != null) queryable = include(queryable);
         return await queryable.FirstOrDefaultAsync(predicate, cancellationToken);
     }
+
     public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null,
                                                        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy =
                                                            null,
@@ -68,6 +70,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         await Context.SaveChangesAsync();
         return entity;
     }
+    
     public async Task<List<TEntity>> AddRangeAsync(List<TEntity> entityList)
     {
         Context.AddRangeAsync(entityList);
@@ -81,6 +84,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         await Context.SaveChangesAsync();
         return entity;
     }
+    
     public async Task<List<TEntity>> UpdateRangeAsync(List<TEntity> entityList)
     {
         Context.Entry(entityList).State = EntityState.Modified;
@@ -94,6 +98,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         await Context.SaveChangesAsync();
         return entity;
     }
+    
     public async Task<List<TEntity>> DeleteRangeAsync(List<TEntity> entity)
     {
         Context.Entry(entity).State = EntityState.Deleted;
@@ -109,6 +114,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         if (include != null) queryable = include(queryable);
         return queryable.FirstOrDefault(predicate);
     }
+
     public IPaginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null,
                                       Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                       Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
@@ -141,6 +147,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context.SaveChanges();
         return entity;
     }
+
     public List<TEntity> AddRange(List<TEntity> entity)
     {
         Context.AddRange(entity);
@@ -154,6 +161,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context.SaveChanges();
         return entity;
     }
+    
     public List<TEntity> UpdateRange(List<TEntity> entity)
     {
         Context.UpdateRange(entity);
@@ -167,12 +175,11 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context.SaveChanges();
         return entity;
     }
+
     public List<TEntity> DeleteRange(List<TEntity> entity)
     {
         Context.RemoveRange(entity);
         Context.SaveChanges();
         return entity;
     }
-
-
 }
