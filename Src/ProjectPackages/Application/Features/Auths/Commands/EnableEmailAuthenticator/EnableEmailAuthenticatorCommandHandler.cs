@@ -27,7 +27,7 @@ public class EnableEmailAuthenticatorCommandHandler : IRequestHandler<EnableEmai
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<Unit> Handle(EnableEmailAuthenticatorCommand request, CancellationToken cancellationToken)
+    public async Task Handle(EnableEmailAuthenticatorCommand request, CancellationToken cancellationToken)
     {
         User user = _userService.GetById(request.UserId);
         await _authBusinessRules.UserShouldBeExists(user);
@@ -49,7 +49,5 @@ public class EnableEmailAuthenticatorCommandHandler : IRequestHandler<EnableEmai
             Subject = "Verify Your Email - L.R.M.S",
             TextBody = $"Click on the link to verify your email: {request.VerifyEmailUrlPrefix}?ActivationKey={HttpUtility.UrlEncode(addedEmailAuthenticator.ActivationKey)}"
         });
-
-        return Unit.Value;
     }
 }

@@ -16,7 +16,7 @@ public class VerifyEmailAuthenticatorCommandHandler : IRequestHandler<VerifyEmai
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<Unit> Handle(VerifyEmailAuthenticatorCommand request, CancellationToken cancellationToken)
+    public async Task Handle(VerifyEmailAuthenticatorCommand request, CancellationToken cancellationToken)
     {
         EmailAuthenticator? emailAuthenticator = _emailAuthenticatorService.GetEmailAuthenticatorByActivationKey(request.ActivationKey);
         
@@ -27,7 +27,5 @@ public class VerifyEmailAuthenticatorCommandHandler : IRequestHandler<VerifyEmai
         emailAuthenticator.IsVerified = true;
 
         _emailAuthenticatorService.VerifyUpdateAsync(emailAuthenticator);
-
-        return Unit.Value;
     }
 }

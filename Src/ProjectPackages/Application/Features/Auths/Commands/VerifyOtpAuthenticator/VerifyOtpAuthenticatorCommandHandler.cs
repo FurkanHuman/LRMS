@@ -23,7 +23,7 @@ public class VerifyOtpAuthenticatorCommandHandler : IRequestHandler<VerifyOtpAut
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<Unit> Handle(VerifyOtpAuthenticatorCommand request, CancellationToken cancellationToken)
+    public async Task Handle(VerifyOtpAuthenticatorCommand request, CancellationToken cancellationToken)
     {
        OtpAuthenticator? otpAuthenticator = _otpAuthenticatorService.GetOtpAuthenticatorByUserId(request.UserId);
         await _authBusinessRules.OtpAuthenticatorShouldBeExists(otpAuthenticator);
@@ -37,7 +37,5 @@ public class VerifyOtpAuthenticatorCommandHandler : IRequestHandler<VerifyOtpAut
 
         _otpAuthenticatorService.UpdateOtpAuthenticator(otpAuthenticator);
         _userService.UpdateUser(user);
-
-        return Unit.Value;
     }
 }
