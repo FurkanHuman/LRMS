@@ -4,7 +4,6 @@ using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Domain.Concrete.Security.Entities;
 using Core.Domain.Concrete.Security.Enums;
-using Core.Persistence.Paging;
 using Core.Security.Hashing;
 using Microsoft.EntityFrameworkCore;
 

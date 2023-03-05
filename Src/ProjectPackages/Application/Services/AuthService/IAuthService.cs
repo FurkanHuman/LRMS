@@ -6,7 +6,7 @@ namespace Application.Services.AuthService;
 
 public interface IAuthService
 {
-    RefreshToken AddRefreshToken(RefreshToken createdRefreshToken);
-    AccessToken CreateAccessToken(User createdUser);
-    RefreshToken CreateRefreshToken(User createdUser, string ýPAddress);
+    AccessToken CreateAccessToken(User user);
+    void VerifyAuthenticatorCode(User user,string authenticatorCode);
+
 }

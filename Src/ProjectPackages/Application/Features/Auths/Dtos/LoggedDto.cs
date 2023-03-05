@@ -10,4 +10,8 @@ public class LoggedDto
     public RefreshToken? RefreshToken { get; set; }
     public AuthenticatorType? RequiredAuthenticatorType { get; set; }
 
+    public LoggedResponseDto CreateResponseDto()
+    {
+        return new() { AccessToken = AccessToken, RequiredAuthenticatorType = RequiredAuthenticatorType };
+    }
 }

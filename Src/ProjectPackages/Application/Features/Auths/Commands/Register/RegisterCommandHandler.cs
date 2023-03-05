@@ -3,6 +3,7 @@ using Application.Features.Auths.Rules;
 using Application.Repositories;
 using Application.Services.AuthService;
 using Application.Services.PasswordService;
+using Application.Services.RefreshTokenService;
 using Application.Services.UserService;
 using Core.Domain.Concrete.Security.Entities;
 using Core.Security.Hashing;
@@ -14,13 +15,15 @@ namespace Application.Features.Auths.Commands.Register;
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredDto>
 {
     private readonly IUserService _userService;
+    private readonly IRefreshTokenService _refreshTokenService;
     private readonly IAuthService _authService;
     private readonly IPasswordService _passwordService;
     private readonly AuthBusinessRules _authBusinessRules;
 
-    public RegisterCommandHandler(IUserService userService, IAuthService authService, IPasswordService passwordService, AuthBusinessRules authBusinessRules)
+    public RegisterCommandHandler(IUserService userService, IRefreshTokenService refreshTokenService, IAuthService authService, IPasswordService passwordService, AuthBusinessRules authBusinessRules)
     {
         _userService = userService;
+        _refreshTokenService = refreshTokenService;
         _authService = authService;
         _passwordService = passwordService;
         _authBusinessRules = authBusinessRules;
@@ -43,9 +46,9 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
 
         AccessToken createdAccessToken = _authService.CreateAccessToken(createdUser);
 
-        RefreshToken createdRefreshToken = _authService.CreateRefreshToken(createdUser, request.IPAddress);
+        RefreshToken createdRefreshToken = _refreshTokenService.CreateRefreshToken(createdUser, request.IPAddress);
 
-        RefreshToken addedRefreshToken = _authService.AddRefreshToken(createdRefreshToken);
+        RefreshToken addedRefreshToken = _refreshTokenService.AddRefreshToken(createdRefreshToken);
 
         return new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
     }
