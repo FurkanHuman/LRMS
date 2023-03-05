@@ -1,27 +1,7 @@
-# i'll be back here
-    
-    I'm currently working on a different project.
-    so I won't be able to look here much
-
-
-
-# Library Resources Management System (LRMS)
-
-## Important Notice:
-
-    I'm paused the project because I'm currently taking a course.
-    perhaps according to the course result,
-    the project can be changed architecturally (most likely). 
-    however, the entity structure may not change.
-
-    The main purpose of the project was to highlight the layers of
-    "Watcher",
-    "Actionist",
-    "Platform Resource Manager (PRM)".
-
 ## What is LRMS
     
     Library Resources Management System. A huge library that allows libraries everywhere to be used together.
+    Briefly, the digital twin project with its contents.
 
 ## Ready for the Future
 
@@ -74,18 +54,3 @@
 ### API
 
     API layer, not much, it can be
-
-### Watcher
-    
-    The watcher layer is the core layer that monitors
-    each connected layer and monitors the statistics data accordingly.
-    what it does is all about watching.
-
-### Actionist
-
-    Actionist is a very important layer that takes action by
-    processing the data it receives from the watcher.
-
-### Platform Resource Manager (PRM)
-
-    PRM is the Layer that manages the resources of the platform on which it runs.
