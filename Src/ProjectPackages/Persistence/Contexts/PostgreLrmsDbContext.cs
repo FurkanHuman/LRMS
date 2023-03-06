@@ -14,23 +14,19 @@ public class PostgreLrmsDbContext : DbContext
     {
         Configuration = configuration;
     }
-        
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
-        IEnumerable<EntityEntry<IEntity>> datas = ChangeTracker
-            .Entries<IEntity>();
+        IEnumerable<EntityEntry<IEntity>> entries = ChangeTracker
+            .Entries<IEntity>()
+            .Where(ie => ie.State == EntityState.Added || ie.State == EntityState.Modified);
 
-        foreach (var data in datas)
-        {
-#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
-            _ = data.State switch
+        foreach (EntityEntry<IEntity> entry in entries)        
+            _ = entry.State switch
             {
-                EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
-                EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow
-            };
-#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
-        }
+                EntityState.Added => entry.Entity.CreatedDate = DateTime.UtcNow,
+                EntityState.Modified => entry.Entity.UpdatedDate = DateTime.UtcNow
+            };        
         return await base.SaveChangesAsync(cancellationToken);
     }
 

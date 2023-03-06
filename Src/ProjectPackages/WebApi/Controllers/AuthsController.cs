@@ -1,14 +1,14 @@
 ﻿using Application.Features.Auths.Commands.EnableEmailAuthenticator;
 using Application.Features.Auths.Commands.EnableOtpAuthenticator;
 using Application.Features.Auths.Commands.Login;
-using Application.Features.Auths.Commands.RefreshTokenCommand;
+using Application.Features.Auths.Commands.RefleshToken;
 using Application.Features.Auths.Commands.Register;
 using Application.Features.Auths.Commands.RevokeToken;
 using Application.Features.Auths.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auths.Commands.VerifyOtpAuthenticator;
 using Application.Features.Auths.Dtos;
+using Core.Application.Dtos;
 using Core.Domain.Concrete.Security.Entities;
-using Core.Security.Dtos;
 using Core.Security.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

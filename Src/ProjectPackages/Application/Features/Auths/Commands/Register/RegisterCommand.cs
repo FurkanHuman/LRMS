@@ -1,5 +1,5 @@
 ﻿using Application.Features.Auths.Dtos;
-using Core.Security.Dtos;
+using Core.Application.Dtos;
 using MediatR;
 
 namespace Application.Features.Auths.Commands.Register;

@@ -1,7 +1,7 @@
 ﻿using Application.Features.Auths.Dtos;
 using MediatR;
 
-namespace Application.Features.Auths.Commands.RefreshTokenCommand;
+namespace Application.Features.Auths.Commands.RefleshToken;
 
 public class RefreshTokenCommand : IRequest<RefreshedTokensDto>
 {

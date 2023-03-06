@@ -7,7 +7,7 @@ using Core.Domain.Concrete.Security.Entities;
 using Core.Security.JWT;
 using MediatR;
 
-namespace Application.Features.Auths.Commands.RefreshTokenCommand;
+namespace Application.Features.Auths.Commands.RefleshToken;
 
 public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshedTokensDto>
 {
