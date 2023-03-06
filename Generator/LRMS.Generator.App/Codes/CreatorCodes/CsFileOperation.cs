@@ -53,7 +53,6 @@ internal static class CsFileOperation
         CommandCreator commandCreator = new(type);
         ConstantsCreator constantsCreator = new(type);
         ResponseCreator responseCreator = new(type);
-        ModelCreator modelCreator = new(type);
         ProfileCreator profileCreator = new(type);
         QueryCreator queryCreator = new(type);
         RuleCreator ruleCreator = new(type);
@@ -80,28 +79,25 @@ internal static class CsFileOperation
         fileContents.Add(constantsCreator.EntityOperationClaimsCreate());
 
 
-        fileContents.Add(responseCreator.CreatedResponseCreate());
-        fileContents.Add(responseCreator.ListResponseCreate());
-        fileContents.Add(responseCreator.ByDynamicQueryResponseCreate());
+        fileContents.Add(responseCreator.GetByIdResponseCreate());
+        fileContents.Add(responseCreator.GetListByResponseCreate());
+        fileContents.Add(responseCreator.GetListByDynamicResponseCreate());
         fileContents.Add(responseCreator.CreatedResponseCreate());
         fileContents.Add(responseCreator.DeletedResponseCreate());
         fileContents.Add(responseCreator.UpdatedResponseCreate());
 
-
-        fileContents.Add(modelCreator.ListModelCreate());
-
-
+                
         fileContents.Add(profileCreator.MappingProfileCreator());
 
 
         fileContents.Add(queryCreator.GetByIdEntityQuery());
         fileContents.Add(queryCreator.GetByIdEntityQueryHandler());
 
-        fileContents.Add(queryCreator.GetListEntityQuery());
-        fileContents.Add(queryCreator.GetListEntityQueryHandler());
+        fileContents.Add(queryCreator.GetListByEntityQuery());
+        fileContents.Add(queryCreator.GetListByEntityQueryHandler());
 
-        fileContents.Add(queryCreator.GetListEntityByDynamicQuery());
-        fileContents.Add(queryCreator.GetListEntityByDynamicQueryHandler());
+        fileContents.Add(queryCreator.GetListByEntityDynamicQuery());
+        fileContents.Add(queryCreator.GetListByEntityDynamicQueryHandler());
 
 
         fileContents.Add(ruleCreator.RuleCreate());

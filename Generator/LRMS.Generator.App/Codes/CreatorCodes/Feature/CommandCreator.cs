@@ -61,8 +61,6 @@ public class Create{Type.Name}CommandHandler : IRequestHandler<Create{Type.Name}
 
     public async Task<Created{Type.Name}Response> Handle(Create{Type.Name}Command request, CancellationToken cancellationToken)
     {{
-        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
         Created{Type.Name}Response created{Type.Name}Response = _mapper.Map<Created{Type.Name}Response>(created{Type.Name});
@@ -141,8 +139,6 @@ public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}
 
     public async Task<Deleted{Type.Name}Response> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
     {{
-        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
         Deleted{Type.Name}Response created{Type.Name}Response = _mapper.Map<Deleted{Type.Name}Response>(created{Type.Name});
@@ -219,8 +215,6 @@ public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}
 
     public async Task<Updated{Type.Name}Response> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
     {{
-        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
-
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
         Updated{Type.Name}Response created{Type.Name}Response = _mapper.Map<Updated{Type.Name}Response>(created{Type.Name});

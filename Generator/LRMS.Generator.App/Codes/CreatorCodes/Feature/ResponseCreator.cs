@@ -11,7 +11,7 @@ internal class ResponseCreator : ICreatorCode
 
     public Type Type { get; set; }
 
-    public string ResponseCreate()
+    public string GetByIdResponseCreate()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
         return
@@ -22,13 +22,13 @@ using Core.Application.Dtos;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
 
-public class {Type.Name}Response : IDto
+public class GetById{Type.Name}Response : IDto
 {{
 }}
 ";
     }
 
-    public string ListResponseCreate()
+    public string GetListByResponseCreate()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
         return
@@ -37,15 +37,15 @@ $@"// this file was created automatically.
 
 using Core.Application.Dtos;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name};
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name};
 
-public class {Type.Name}ListResponse : IDto
+public class GetListBy{Type.Name}Response : IDto
 {{
 }}
 ";
     }
 
-    public string ByDynamicQueryResponseCreate()
+    public string GetListByDynamicResponseCreate()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
         return
@@ -54,9 +54,9 @@ $@"// this file was created automatically.
 
 using Core.Application.Dtos;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name}ByDynamic;
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name}Dynamic;
 
-public class {Type.Name}ByDynamicQueryResponse : IDto
+public class GetListBy{Type.Name}DynamicQueryResponse : IDto
 {{
 }}
 ";

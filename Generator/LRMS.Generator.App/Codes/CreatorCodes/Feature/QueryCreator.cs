@@ -21,7 +21,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
 
-public class GetById{Type.Name}Query : IRequest<{Type.Name}Response>
+public class GetById{Type.Name}Query : IRequest<GetById{Type.Name}Response>
 {{
 
 }}
@@ -43,7 +43,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
 
-public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}Query, {Type.Name}Response>
+public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}Query, GetById{Type.Name}Response>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -56,38 +56,38 @@ public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}
         _mapper = mapper;
     }}
 
-    public async Task<{Type.Name}Response> Handle(GetById{Type.Name}Query request, CancellationToken cancellationToken)
+    public async Task<GetById{Type.Name}Response> Handle(GetById{Type.Name}Query request, CancellationToken cancellationToken)
     {{
-        // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}IdShouldExistWhenSelected(request.Id);
 
         {Type.Name}? {Type.Name.ToLower()} = await _{Type.Name.ToLower()}Repository.GetAsync({letter} => {letter} == {letter} );
             
-        {Type.Name}Response {Type.Name.ToLower()}Response = _mapper.Map<{Type.Name}Response>({Type.Name.ToLower()});
+        GetById{Type.Name}Response {Type.Name.ToLower()}ListModelResponse = _mapper.Map<GetById{Type.Name}Response>({Type.Name.ToLower()});
         return {Type.Name.ToLower()}Response;
     }}
 }}
 ";
     }
 
-    public string GetListEntityQuery()
+    public string GetListByEntityQuery()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
 
         return
             $@"// this file was created automatically.
 using Core.Application.Requests;
+using Core.Persistence.Paging;
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name};
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name};
 
-public class GetList{Type.Name}Query : IRequest<{Type.Name}ListModel>
+public class GetListBy{Type.Name}Query : IRequest<GetListResponse<GetListBy{Type.Name}Response>>
 {{
     public PageRequest PageRequest {{ get; set; }}
 }}
 ";
     }
 
-    public string GetListEntityQueryHandler()
+    public string GetListByEntityQueryHandler()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
 
@@ -99,31 +99,33 @@ using {Type.Namespace};
 using Core.Persistence.Paging;
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name};
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name};
 
-public class GetList{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}Query, {Type.Name}ListModel>
+public class GetListBy{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}Query, GetListResponse<GetListBy{Type.Name}Response>>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
 
-    public GetList{Type.Name}QueryHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper)
+    public GetListBy{Type.Name}QueryHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper)
     {{
         _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
         _mapper = mapper;
     }}
 
-    public async Task<{Type.Name}ListModel> Handle(GetList{Type.Name}Query request, CancellationToken cancellationToken)
+    public async Task<GetListResponse<GetListBy{Type.Name}Response>> Handle(GetList{Type.Name}Query request, CancellationToken cancellationToken)
     {{
         IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListAsync(index: request.PageRequest.Page,
-                                                                        size: request.PageRequest.PageSize);
-        {Type.Name}ListModel mapped{Type.Name}ListModel = _mapper.Map<{Type.Name}ListModel>({plural.ToLower()});
-        return mapped{Type.Name}ListModel;
+                                                                                                        size: request.PageRequest.PageSize,
+                                                                                                        cancellationToken: cancellationToken);
+
+        GetListResponse<GetListBy{Type.Name}Response> mappedGetListResponse = _mapper.Map<GetListResponse<GetListBy{Type.Name}Response>>({plural.ToLower()});
+        return mappedGetListResponse;
     }}
 }}
 ";
     }
 
-    public string GetListEntityByDynamicQuery()
+    public string GetListByEntityDynamicQuery()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
 
@@ -131,23 +133,23 @@ public class GetList{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}
             $@"// this file was created automatically.
 using Core.Application.Requests;
 using Core.Persistence.Dynamic;
+using Core.Persistence.Paging;
 using MediatR;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name}ByDynamic;
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name}Dynamic;
 
-public class GetList{Type.Name}ByDynamicQuery : IRequest<{Type.Name}ListModel>
+public class GetListBy{Type.Name}DynamicQuery : IRequest<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>>
 {{
     public PageRequest PageRequest {{ get; set; }}
-    public Dynamic Dynamic {{ get; set; }}
+    public DynamicQuery DynamicQuery {{ get; set; }}
 }}
 ";
     }
 
-    public string GetListEntityByDynamicQueryHandler()
+    public string GetListByEntityDynamicQueryHandler()
     {
         string plural = PluralizationProvider.Pluralize(Type.Name);
 
-        string letter = Type.Name[0].ToString().ToLower();
         return
             $@"// this file was created automatically.
 using Application.Repositories;
@@ -155,25 +157,30 @@ using AutoMapper;
 using {Type.Namespace};
 using Core.Persistence.Paging;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.{plural}.Queries.GetList{Type.Name}ByDynamic;
+namespace Application.Features.{plural}.Queries.GetListBy{Type.Name}Dynamic;
 
-public class GetList{Type.Name}ByDynamicQueryHandler : IRequestHandler<GetList{Type.Name}ByDynamicQuery, {Type.Name}ListModel>
+public class GetListBy{Type.Name}DynamicQueryHandler : IRequestHandler<GetListBy{Type.Name}DynamicQuery, GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
 
-    public async Task<{Type.Name}ListModel> Handle(GetList{Type.Name}ByDynamicQuery request, CancellationToken cancellationToken)
+    public GetListBy{Type.Name}DynamicQueryHandler(I{Type.Name}Repository {Type.Name.ToLower()}Repository, IMapper mapper)
+    {{
+        _{Type.Name.ToLower()}Repository = {Type.Name.ToLower()}Repository;
+        _mapper = mapper;
+    }}
+
+    public async Task<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>> Handle(GetList{Type.Name}ByDynamicQuery request, CancellationToken cancellationToken)
     {{
         IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListByDynamicAsync(
                                     request.Dynamic,
-                                    {letter} => {letter}.Include({letter} => {letter})
-                                                .Include({letter} => {letter}),                                   
                                     request.PageRequest.Page,
-                                    request.PageRequest.PageSize);
-        {Type.Name}ListModel mapped{Type.Name}ListModel = _mapper.Map<{Type.Name}ListModel>({plural.ToLower()});
-        return mapped{Type.Name}ListModel;
+                                    request.PageRequest.PageSize,
+                                    cancellationToken: cancellationToken);
+
+        GetListResponse<GetListBy{Type.Name}DynamicQueryResponse> mappedGetListResponse = _mapper.Map<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>>({plural.ToLower()});
+        return mappedGetListResponse;
     }}
 }}
 ";
