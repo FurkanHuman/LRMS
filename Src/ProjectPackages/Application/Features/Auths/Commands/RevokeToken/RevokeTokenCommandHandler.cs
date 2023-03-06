@@ -1,5 +1,4 @@
-﻿using Application.Features.Auths.Dtos;
-using Application.Features.Auths.Rules;
+﻿using Application.Features.Auths.Rules;
 using Application.Services.AuthService;
 using Application.Services.RefreshTokenService;
 using AutoMapper;
@@ -8,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Auths.Commands.RevokeToken;
 
-public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, RevokedTokenDto>
+public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, RevokedTokenResponse>
 {
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly AuthBusinessRules _authBusinessRules;
@@ -21,7 +20,7 @@ public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, Rev
         _mapper = mapper;
     }
 
-    public async Task<RevokedTokenDto> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
+    public async Task<RevokedTokenResponse> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
     {
         RefreshToken? refreshToken = _refreshTokenService.GetRefreshTokenByToken(request.Token);
         await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);
@@ -29,7 +28,7 @@ public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, Rev
 
         _refreshTokenService.RevokeRefreshToken(refreshToken, request.IPAddress, "Revoked without replacement");
 
-        RevokedTokenDto revokedTokenDto = _mapper.Map<RevokedTokenDto>(refreshToken);
+        RevokedTokenResponse revokedTokenDto = _mapper.Map<RevokedTokenResponse>(refreshToken);
         return revokedTokenDto;
     }
 }

@@ -52,7 +52,7 @@ internal static class CsFileOperation
 
         CommandCreator commandCreator = new(type);
         ConstantsCreator constantsCreator = new(type);
-        DtoCreator dtoCreator = new(type);
+        ResponseCreator responseCreator = new(type);
         ModelCreator modelCreator = new(type);
         ProfileCreator profileCreator = new(type);
         QueryCreator queryCreator = new(type);
@@ -80,11 +80,12 @@ internal static class CsFileOperation
         fileContents.Add(constantsCreator.EntityOperationClaimsCreate());
 
 
-        fileContents.Add(dtoCreator.DtoCreate());
-        fileContents.Add(dtoCreator.ListDtoCreate());
-        fileContents.Add(dtoCreator.CreatedDtoCreate());
-        fileContents.Add(dtoCreator.DeletedDtoCreate());
-        fileContents.Add(dtoCreator.UpdatedDtoCreate());
+        fileContents.Add(responseCreator.CreatedResponseCreate());
+        fileContents.Add(responseCreator.ListResponseCreate());
+        fileContents.Add(responseCreator.ByDynamicQueryResponseCreate());
+        fileContents.Add(responseCreator.CreatedResponseCreate());
+        fileContents.Add(responseCreator.DeletedResponseCreate());
+        fileContents.Add(responseCreator.UpdatedResponseCreate());
 
 
         fileContents.Add(modelCreator.ListModelCreate());

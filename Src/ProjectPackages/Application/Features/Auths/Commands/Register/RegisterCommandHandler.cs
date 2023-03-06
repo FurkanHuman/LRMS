@@ -1,5 +1,4 @@
-﻿using Application.Features.Auths.Dtos;
-using Application.Features.Auths.Rules;
+﻿using Application.Features.Auths.Rules;
 using Application.Repositories;
 using Application.Services.AuthService;
 using Application.Services.PasswordService;
@@ -12,7 +11,7 @@ using MediatR;
 
 namespace Application.Features.Auths.Commands.Register;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredDto>
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredResponse>
 {
     private readonly IUserService _userService;
     private readonly IRefreshTokenService _refreshTokenService;
@@ -29,7 +28,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<RegisteredDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.Email);
 

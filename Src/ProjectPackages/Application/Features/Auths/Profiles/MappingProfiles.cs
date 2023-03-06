@@ -1,4 +1,4 @@
-using Application.Features.Auths.Dtos;
+using Application.Features.Auths.Commands.RevokeToken;
 using AutoMapper;
 using Core.Domain.Concrete.Security.Entities;
 
@@ -8,6 +8,6 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<RefreshToken, RevokedTokenDto>().ReverseMap();
+        CreateMap<RefreshToken, RevokedTokenResponse>().ReverseMap();
     }
 }

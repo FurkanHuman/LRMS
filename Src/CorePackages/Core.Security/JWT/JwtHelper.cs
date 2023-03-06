@@ -77,7 +77,7 @@ public class JwtHelper : ITokenHelper
 
     private static string RandomRefreshToken()
     {
-        byte[] numberByte = new Byte[32];
+        byte[] numberByte = new byte[32];
         using RandomNumberGenerator random = RandomNumberGenerator.Create();
         random.GetBytes(numberByte);
         return Convert.ToBase64String(numberByte);

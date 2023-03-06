@@ -1,24 +1,24 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Handlers;
+﻿using System.Text.Json;
+using Core.CrossCuttingConcerns.Exceptions.Handlers;
 using Core.CrossCuttingConcerns.Logging;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace Core.CrossCuttingConcerns.Exceptions;
 
 public class ExceptionMiddleware
 {
-    private readonly RequestDelegate _next;
-    private readonly HttpExceptionHandler _httpExceptionHandler;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly HttpExceptionHandler _httpExceptionHandler;
     private readonly LoggerServiceBase _loggerService;
+    private readonly RequestDelegate _next;
 
     public ExceptionMiddleware(RequestDelegate next, IHttpContextAccessor contextAccessor, LoggerServiceBase loggerService)
     {
         _next = next;
         _contextAccessor = contextAccessor;
         _loggerService = loggerService;
-        _httpExceptionHandler = new();
+        _httpExceptionHandler = new HttpExceptionHandler();
     }
 
     public async Task Invoke(HttpContext context)
@@ -43,23 +43,21 @@ public class ExceptionMiddleware
 
     private Task LogException(HttpContext context, Exception exception)
     {
-        List<LogParameter> logParameters = new()
-        {
-            new LogParameter
+        List<LogParameter> logParameters =
+            new()
             {
-                Type = context.GetType().Name,
-                Value = exception.ToString()
-            }
-        };
+                new LogParameter { Type = context.GetType().Name, Value = exception.ToString() }
+            };
 
-        LogDetail logDetail = new()
-        {
-            MethodName = _next.Method.Name,
-            Parameters = logParameters,
-            User = _contextAccessor.HttpContext?.User.Identity?.Name ?? "?"
-        };
+        LogDetail logDetail =
+            new()
+            {
+                MethodName = _next.Method.Name,
+                Parameters = logParameters,
+                User = _contextAccessor.HttpContext?.User.Identity?.Name ?? "?"
+            };
 
-        _loggerService.Info(JsonConvert.SerializeObject(logDetail));
+        _loggerService.Info(JsonSerializer.Serialize(logDetail));
         return Task.CompletedTask;
     }
 }

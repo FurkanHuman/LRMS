@@ -1,14 +1,13 @@
 ﻿using Application.Features.Auths.Commands.EnableEmailAuthenticator;
 using Application.Features.Auths.Commands.EnableOtpAuthenticator;
 using Application.Features.Auths.Commands.Login;
-using Application.Features.Auths.Commands.RefreshTokenCommand;
+using Application.Features.Auths.Commands.RefleshToken;
 using Application.Features.Auths.Commands.Register;
 using Application.Features.Auths.Commands.RevokeToken;
 using Application.Features.Auths.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auths.Commands.VerifyOtpAuthenticator;
-using Application.Features.Auths.Dtos;
+using Core.Application.Dtos;
 using Core.Domain.Concrete.Security.Entities;
-using Core.Security.Dtos;
 using Core.Security.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +34,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
         {
             LoginCommand loginCommand = new() { UserForLoginDto = userForLoginDto, IPAddress = GetIpAddress() };
-            LoggedDto result = await _mediator.Send(loginCommand);
+            LoggedResponse result = await _mediator.Send(loginCommand);
 
             if (result.RefreshToken is not null) SetRefresTokenToCookie(result.RefreshToken);
 
@@ -47,7 +46,7 @@ namespace WebApi.Controllers
         {
             RegisterCommand registerCommand = new() { UserForRegisterDto = register, IPAddress = GetIpAddress() };
 
-            RegisteredDto result = await _mediator.Send(registerCommand);
+            RegisteredResponse result = await _mediator.Send(registerCommand);
 
             SetRefresTokenToCookie(result.RefreshToken);
 
@@ -59,7 +58,7 @@ namespace WebApi.Controllers
         {
             RefreshTokenCommand refreshTokenCommand = new()
             { RefleshToken = GetRefreshTokenFromCookies(), IPAddress = GetIpAddress() };
-            RefreshedTokensDto result = await _mediator.Send(refreshTokenCommand);
+            RefreshedTokensResponse result = await _mediator.Send(refreshTokenCommand);
             SetRefresTokenToCookie(result.RefreshToken);
             return Created("", result.AccessToken);
         }
@@ -72,7 +71,7 @@ namespace WebApi.Controllers
                 Token = refreshToken ?? GetRefreshTokenFromCookies(),
                 IPAddress = GetIpAddress()
             };
-            RevokedTokenDto result = await _mediator.Send(revokeTokenCommand);
+            RevokedTokenResponse result = await _mediator.Send(revokeTokenCommand);
             return Ok(result);
         }
 
@@ -96,7 +95,7 @@ namespace WebApi.Controllers
             {
                 UserId = GetUserIdFromRequest()
             };
-            EnabledOtpAuthenticatorDto result = await _mediator.Send(enableOtpAuthenticatorCommand);
+            EnabledOtpAuthenticatorResponse result = await _mediator.Send(enableOtpAuthenticatorCommand);
 
             return Ok(result);
         }

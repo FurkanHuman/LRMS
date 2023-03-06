@@ -18,13 +18,12 @@ internal class CommandCreator : ICreatorCode
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 
 namespace Application.Features.{plural}.Commands.Create{Type.Name};
 
-public class Create{Type.Name}Command : IRequest<Created{Type.Name}Dto>, ISecuredRequest
+public class Create{Type.Name}Command : IRequest<Created{Type.Name}Response>, ISecuredRequest
 {{
 
     public string[] Roles => new[] {{ """" }};
@@ -38,7 +37,6 @@ public class Create{Type.Name}Command : IRequest<Created{Type.Name}Dto>, ISecure
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Application.Features.{plural}.Rules;
 using Application.Repositories;
 using AutoMapper;
@@ -47,7 +45,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Commands.Create{Type.Name};
  
-public class Create{Type.Name}CommandHandler : IRequestHandler<Create{Type.Name}Command, Created{Type.Name}Dto>
+public class Create{Type.Name}CommandHandler : IRequestHandler<Create{Type.Name}Command, Created{Type.Name}Response>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -61,14 +59,14 @@ public class Create{Type.Name}CommandHandler : IRequestHandler<Create{Type.Name}
         _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
 
-    public async Task<Created{Type.Name}Dto> Handle(Create{Type.Name}Command request, CancellationToken cancellationToken)
+    public async Task<Created{Type.Name}Response> Handle(Create{Type.Name}Command request, CancellationToken cancellationToken)
     {{
         // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
 
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-        Created{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Created{Type.Name}Dto>(created{Type.Name});
-        return created{Type.Name}Dto;
+        Created{Type.Name}Response created{Type.Name}Response = _mapper.Map<Created{Type.Name}Response>(created{Type.Name});
+        return created{Type.Name}Response;
     }}
 }}
 ";
@@ -98,7 +96,6 @@ public class Create{Type.Name}CommandValidator : AbstractValidator<Create{Type.N
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 
@@ -106,7 +103,7 @@ using Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.{plural}.Commands.Delete{Type.Name};
 
-public class Delete{Type.Name}Command : IRequest<Deleted{Type.Name}Dto>, ISecuredRequest
+public class Delete{Type.Name}Command : IRequest<Deleted{Type.Name}Response>, ISecuredRequest
 {{
 
     public string[] Roles =>new[] {{""""}};
@@ -120,7 +117,6 @@ public class Delete{Type.Name}Command : IRequest<Deleted{Type.Name}Dto>, ISecure
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Application.Features.{plural}.Rules;
 using Application.Repositories;
 using AutoMapper;
@@ -129,7 +125,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Commands.Delete{Type.Name};
  
-public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}Command, Deleted{Type.Name}Dto>
+public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}Command, Deleted{Type.Name}Response>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -143,14 +139,14 @@ public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}
         _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
 
-    public async Task<Deleted{Type.Name}Dto> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
+    public async Task<Deleted{Type.Name}Response> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
     {{
         // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
 
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-        Deleted{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Deleted{Type.Name}Dto>(created{Type.Name});
-        return created{Type.Name}Dto;
+        Deleted{Type.Name}Response created{Type.Name}Response = _mapper.Map<Deleted{Type.Name}Response>(created{Type.Name});
+        return created{Type.Name}Response;
     }}
 }}
 ";
@@ -180,13 +176,12 @@ public class Delete{Type.Name}CommandValidator : AbstractValidator<Delete{Type.N
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 
 namespace Application.Features.{plural}.Commands.Update{Type.Name};
 
-public class Update{Type.Name}Command : IRequest<Updated{Type.Name}Dto>, ISecuredRequest
+public class Update{Type.Name}Command : IRequest<Updated{Type.Name}Response>, ISecuredRequest
 {{
 
     public string[] Roles =>new[] {{""""}};
@@ -200,7 +195,6 @@ public class Update{Type.Name}Command : IRequest<Updated{Type.Name}Dto>, ISecure
 
         return
 $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using Application.Features.{plural}.Rules;
 using Application.Repositories;
 using AutoMapper;
@@ -209,7 +203,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Commands.Update{Type.Name};
  
-public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}Command, Updated{Type.Name}Dto>
+public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}Command, Updated{Type.Name}Response>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -223,14 +217,14 @@ public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}
         _{Type.Name.ToLower()}BusinessRules = {Type.Name.ToLower()}BusinessRules;
     }}
 
-    public async Task<Updated{Type.Name}Dto> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
+    public async Task<Updated{Type.Name}Response> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
     {{
         // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}NameCanNotBeDuplicatedWhenInserted(request.Name);
 
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
         {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-        Updated{Type.Name}Dto created{Type.Name}Dto = _mapper.Map<Updated{Type.Name}Dto>(created{Type.Name});
-        return created{Type.Name}Dto;
+        Updated{Type.Name}Response created{Type.Name}Response = _mapper.Map<Updated{Type.Name}Response>(created{Type.Name});
+        return created{Type.Name}Response;
     }}
 }}
 ";

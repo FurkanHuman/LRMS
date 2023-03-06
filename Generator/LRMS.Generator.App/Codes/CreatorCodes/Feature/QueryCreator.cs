@@ -17,12 +17,11 @@ internal class QueryCreator : ICreatorCode
 
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Dtos;
 using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
 
-public class GetById{Type.Name}Query : IRequest<{Type.Name}Dto>
+public class GetById{Type.Name}Query : IRequest<{Type.Name}Response>
 {{
 
 }}
@@ -36,7 +35,6 @@ public class GetById{Type.Name}Query : IRequest<{Type.Name}Dto>
         string letter = Type.Name[0].ToString().ToLower();
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Models;
 using Application.Repositories;
 using AutoMapper;
 using {Type.Namespace};
@@ -45,7 +43,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
 
-public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}Query, {Type.Name}Dto>
+public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}Query, {Type.Name}Response>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -58,14 +56,14 @@ public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}
         _mapper = mapper;
     }}
 
-    public async Task<{Type.Name}Dto> Handle(GetById{Type.Name}Query request, CancellationToken cancellationToken)
+    public async Task<{Type.Name}Response> Handle(GetById{Type.Name}Query request, CancellationToken cancellationToken)
     {{
         // await _{Type.Name.ToLower()}BusinessRules.{Type.Name}IdShouldExistWhenSelected(request.Id);
 
         {Type.Name}? {Type.Name.ToLower()} = await _{Type.Name.ToLower()}Repository.GetAsync({letter} => {letter} == {letter} );
             
-        {Type.Name}Dto {Type.Name.ToLower()}Dto = _mapper.Map<{Type.Name}Dto>({Type.Name.ToLower()});
-        return {Type.Name.ToLower()}Dto;
+        {Type.Name}Response {Type.Name.ToLower()}Response = _mapper.Map<{Type.Name}Response>({Type.Name.ToLower()});
+        return {Type.Name.ToLower()}Response;
     }}
 }}
 ";
@@ -77,7 +75,6 @@ public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}
 
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Models;
 using Core.Application.Requests;
 using MediatR;
 
@@ -96,7 +93,6 @@ public class GetList{Type.Name}Query : IRequest<{Type.Name}ListModel>
 
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Models;
 using Application.Repositories;
 using AutoMapper;
 using {Type.Namespace};
@@ -133,7 +129,6 @@ public class GetList{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}
 
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Models;
 using Core.Application.Requests;
 using Core.Persistence.Dynamic;
 using MediatR;
@@ -155,7 +150,6 @@ public class GetList{Type.Name}ByDynamicQuery : IRequest<{Type.Name}ListModel>
         string letter = Type.Name[0].ToString().ToLower();
         return
             $@"// this file was created automatically.
-using Application.Features.{plural}.Models;
 using Application.Repositories;
 using AutoMapper;
 using {Type.Namespace};

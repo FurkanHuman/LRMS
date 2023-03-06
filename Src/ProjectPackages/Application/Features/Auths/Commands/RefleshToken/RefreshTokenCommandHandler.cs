@@ -1,5 +1,4 @@
-﻿using Application.Features.Auths.Dtos;
-using Application.Features.Auths.Rules;
+﻿using Application.Features.Auths.Rules;
 using Application.Services.AuthService;
 using Application.Services.RefreshTokenService;
 using Application.Services.UserService;
@@ -7,9 +6,9 @@ using Core.Domain.Concrete.Security.Entities;
 using Core.Security.JWT;
 using MediatR;
 
-namespace Application.Features.Auths.Commands.RefreshTokenCommand;
+namespace Application.Features.Auths.Commands.RefleshToken;
 
-public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshedTokensDto>
+public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshedTokensResponse>
 {
     private readonly IAuthService _authService;
     private readonly IRefreshTokenService _refreshTokenService;
@@ -24,7 +23,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<RefreshedTokensDto> Handle(RefreshTokenCommand request,
+    public async Task<RefreshedTokensResponse> Handle(RefreshTokenCommand request,
                                                  CancellationToken cancellationToken)
     {
         RefreshToken? refreshToken = _refreshTokenService.GetRefreshTokenByToken(request.RefleshToken);
@@ -44,7 +43,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
         AccessToken createdAccessToken = _authService.CreateAccessToken(user);
 
-        RefreshedTokensDto refreshedTokensDto = new()
+        RefreshedTokensResponse refreshedTokensDto = new()
         { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
         return refreshedTokensDto;
     }

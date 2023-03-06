@@ -1,5 +1,4 @@
-﻿using Application.Features.Auths.Dtos;
-using Application.Features.Auths.Rules;
+﻿using Application.Features.Auths.Rules;
 using Application.Services.AuthService;
 using Application.Services.EmailAuthenticatorService;
 using Application.Services.OtpAuthenticatorService;
@@ -12,7 +11,7 @@ using MediatR;
 
 namespace Application.Features.Auths.Commands.Login;
 
-public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedDto>
+public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
 {
     private readonly IUserService _userService;
     private readonly IRefreshTokenService _refreshTokenService;
@@ -29,13 +28,13 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedDto>
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<LoggedDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         User? user = _userService.GetByEmail(request.UserForLoginDto.Email);
         _authBusinessRules.UserShouldBeExists(user);
         _authBusinessRules.UserPasswordShouldBeMatch(user.Id, request.UserForLoginDto.Password);
 
-        LoggedDto loggedDto = new();
+        LoggedResponse loggedDto = new();
 
         if (user.AuthenticatorType is not AuthenticatorType.None)
         {

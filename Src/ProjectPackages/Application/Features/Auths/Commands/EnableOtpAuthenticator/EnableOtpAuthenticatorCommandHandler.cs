@@ -1,5 +1,4 @@
-﻿using Application.Features.Auths.Dtos;
-using Application.Features.Auths.Rules;
+﻿using Application.Features.Auths.Rules;
 using Application.Services.AuthService;
 using Application.Services.OtpAuthenticatorService;
 using Application.Services.UserService;
@@ -8,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Auths.Commands.EnableOtpAuthenticator;
 
-public class EnableOtpAuthenticatorCommandHandler : IRequestHandler<EnableOtpAuthenticatorCommand, EnabledOtpAuthenticatorDto>
+public class EnableOtpAuthenticatorCommandHandler : IRequestHandler<EnableOtpAuthenticatorCommand, EnabledOtpAuthenticatorResponse>
 {
     private readonly IUserService _userService;
     private readonly IOtpAuthenticatorService _otpAuthenticatorService;
@@ -21,7 +20,7 @@ public class EnableOtpAuthenticatorCommandHandler : IRequestHandler<EnableOtpAut
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<EnabledOtpAuthenticatorDto> Handle(EnableOtpAuthenticatorCommand request,
+    public async Task<EnabledOtpAuthenticatorResponse> Handle(EnableOtpAuthenticatorCommand request,
                                                          CancellationToken cancellationToken)
     {
         User user = _userService.GetById(request.UserId);
@@ -37,7 +36,7 @@ public class EnableOtpAuthenticatorCommandHandler : IRequestHandler<EnableOtpAut
         OtpAuthenticator newOtpAuthenticator = _otpAuthenticatorService.CreateOtpAuthenticator(user);
         OtpAuthenticator addedOtpAuthenticator = _otpAuthenticatorService.AddOtpAuthenticator(newOtpAuthenticator);
 
-        return new EnabledOtpAuthenticatorDto()
+        return new EnabledOtpAuthenticatorResponse()
         {
             SecretKey = _otpAuthenticatorService.ConvertSecretKeyToString(addedOtpAuthenticator.SecretKey)
         };

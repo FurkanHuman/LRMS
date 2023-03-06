@@ -1,6 +1,7 @@
 // this file was created automatically.
 using Application.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Domain.Concrete.Security.Entities;
 using Core.Domain.Concrete.Security.Enums;
 using Core.Mailing;
