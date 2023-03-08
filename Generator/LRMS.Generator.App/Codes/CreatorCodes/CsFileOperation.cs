@@ -1,4 +1,5 @@
-﻿using LRMS.Generator.App.Codes.CreatorCodes.Feature;
+﻿using LRMS.Generator.App.Codes.CreatorCodes.Configuration;
+using LRMS.Generator.App.Codes.CreatorCodes.Feature;
 using LRMS.Generator.App.Codes.CreatorCodes.Repository;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -51,6 +52,7 @@ internal static class CsFileOperation
         List<string> fileContents = new();
 
         CommandCreator commandCreator = new(type);
+        ConfigurationCreator configurationCreator = new(type);
         ConstantsCreator constantsCreator = new(type);
         ResponseCreator responseCreator = new(type);
         ProfileCreator profileCreator = new(type);
@@ -74,6 +76,7 @@ internal static class CsFileOperation
         fileContents.Add(commandCreator.UpdateEntitiyCommandHandler());
         fileContents.Add(commandCreator.UpdateEntitiyCommandValidator());
 
+        fileContents.Add(configurationCreator.CreateEntityConfiguration());
 
         fileContents.Add(constantsCreator.ConstantsCreate());
         fileContents.Add(constantsCreator.EntityOperationClaimsCreate());
@@ -86,7 +89,7 @@ internal static class CsFileOperation
         fileContents.Add(responseCreator.DeletedResponseCreate());
         fileContents.Add(responseCreator.UpdatedResponseCreate());
 
-                
+
         fileContents.Add(profileCreator.MappingProfileCreator());
 
 
