@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Abstract;
 using Core.Domain.Bases;
+using Domain.Entities.Mains;
 using Domain.Enums;
 
 namespace Domain.Entities.Infos;
@@ -12,10 +13,13 @@ public class CloudStorage : BaseEntity<uint>, IEntity
 
     public bool IsActive { get; set; }
 
-    public CloudStorageTransferType CloudStorageTransferType { get; set; }
+    public CloudStorageType CloudStorageType { get; set; }
 
+    public CloudStorageTransferType CloudStorageTransferType { get; set; }
+    
     public Continent Continent { get; set; }
 
     public IList<Image> Images { get; set; }
     public IList<EMaterialFile> EMaterialFiles { get; set; }
+    public IList<ElectronicsResource> ElectronicsResources { get; set; }
 }

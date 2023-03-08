@@ -6,7 +6,7 @@ namespace Domain.Entities.Infos;
 
 public class Consultant : FirstPagePersonBase, IEntity
 {
-    public string? NamePreAttachment { get; set; }
+    public string NamePreAttachment { get; set; }
 
     public IList<Thesis> Theses { get; set; }
 }
