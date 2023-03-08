@@ -1,6 +1,7 @@
 ﻿using Core.Domain.Abstract;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace LRMS.Generator.App.Codes;
 
@@ -77,7 +78,9 @@ internal class PacketLoader
         foreach (Assembly assembly in assemblies)
         {
             Type[] types = assembly.GetTypes()
-                .Where(x => typeof(Microsoft.EntityFrameworkCore.DbContext).IsAssignableFrom(x) && x.IsClass).ToArray();
+                .Where(x => typeof(Microsoft.EntityFrameworkCore.DbContext).IsAssignableFrom(x) 
+                && x.IsClass 
+                && !Regex.IsMatch(x.Name, "^.*Base.*Context$")).ToArray();
 
             entities.AddRange(types);
         }
