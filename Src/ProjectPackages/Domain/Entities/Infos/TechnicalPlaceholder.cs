@@ -1,13 +1,12 @@
 ﻿using Core.Domain.Abstract;
+using Core.Domain.Bases;
 using Domain.Entities.Mains;
 
 
 namespace Domain.Entities.Infos;
 
-public class TechnicalPlaceholder : IEntity
+public class TechnicalPlaceholder :BaseEntity<Guid>, IEntity
 {
-    public Guid Id { get; set; }
-
     public Guid LibraryId { get; set; }
 
     public Library Library { get; set; }
@@ -17,10 +16,7 @@ public class TechnicalPlaceholder : IEntity
     public string RowCode { get; set; }
 
     public string? SpecialLocation { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdatedDate { get; set; }
-    public bool IsDeleted { get; set; }
-
+    
     public IList<AcademicJournal> AcademicJournals { get; set; }
     public IList<AudioRecord> AudioRecords { get; set; }
     public IList<Book> Books { get; set; }

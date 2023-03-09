@@ -1,11 +1,11 @@
 ﻿using Core.Domain.Abstract;
+using Core.Domain.Bases;
+using System.Collections.Specialized;
 
 namespace Domain.Entities.Infos;
 
-public class Stock : IEntity
+public class Stock : BaseEntity<Guid>,IEntity
 {
-    public Guid Id { get; set; }
-
     public Guid LibraryId { get; set; }
 
     public Library Library { get; set; }
@@ -13,8 +13,4 @@ public class Stock : IEntity
     public string StockCode { get; set; }
 
     public uint Quantity { get; set; } = 1;
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdatedDate { get; set; }
-    public bool IsDeleted { get; set; }
-
 }
