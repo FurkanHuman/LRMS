@@ -10,6 +10,17 @@ public class GraphicDirectorConfiguration : IEntityTypeConfiguration<GraphicDire
     public void Configure(EntityTypeBuilder<GraphicDirector> builder)
     {
         builder.HasKey(G => G.Id);
+        builder.Property(G => G.Name).IsRequired();
+        builder.Property(G => G.SurName).IsRequired();
+        builder.Property(G => G.IsDeleted);
 
+        builder.Ignore(G => G.CreatedDate);
+        builder.Ignore(G => G.UpdatedDate);
+
+        builder.HasMany(G => G.Books);
+        builder.HasMany(G => G.BookSeries);
+        builder.HasMany(G => G.Encyclopedias);
+        builder.HasMany(G => G.Magazines);
+        builder.HasMany(G => G.NewsPapers);
     }
 }

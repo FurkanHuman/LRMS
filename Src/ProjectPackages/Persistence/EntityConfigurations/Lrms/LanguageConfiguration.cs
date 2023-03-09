@@ -10,6 +10,11 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
     public void Configure(EntityTypeBuilder<Language> builder)
     {
         builder.HasKey(L => L.Id);
+        builder.Property(L => L.Id);
+        builder.Property(L => L.Name).IsRequired();
 
+        builder.Ignore(I => I.CreatedDate);
+        builder.Ignore(I => I.UpdatedDate);
+        builder.Ignore(I => I.IsDeleted);
     }
 }
