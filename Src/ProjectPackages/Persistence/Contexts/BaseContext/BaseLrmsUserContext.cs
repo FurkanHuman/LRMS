@@ -32,7 +32,7 @@ public class BaseLrmsUserContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(), e => e.Namespace == "Persistence.EntityConfigurations.LrmsUser");
     }
 
     // Core.Entities Security

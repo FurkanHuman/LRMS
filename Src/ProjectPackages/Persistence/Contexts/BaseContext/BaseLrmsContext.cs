@@ -28,7 +28,7 @@ public class BaseLrmsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(), e => e.Namespace == "Persistence.EntityConfigurations.Lrms");
     }
 
 
