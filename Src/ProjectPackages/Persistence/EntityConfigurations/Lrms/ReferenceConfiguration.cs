@@ -15,7 +15,7 @@ public class ReferenceConfiguration : IEntityTypeConfiguration<Reference>
         builder.Property(R => R.OwnerId).IsRequired();
         builder.Property(R => R.StartPageNumber).IsRequired();
         builder.Property(R => R.EndPageNumber).IsRequired();
-        builder.Property(R => R.TechnicalNumber).IsRequired();
+        builder.Property(R => R.TechnicalNumberId).IsRequired();
         builder.Property(R => R.ReferenceDate).IsRequired();
 
         builder.Property(R => R.CreatedDate).IsRequired();

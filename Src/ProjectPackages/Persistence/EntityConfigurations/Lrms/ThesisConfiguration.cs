@@ -21,7 +21,7 @@ public class ThesisConfiguration : IEntityTypeConfiguration<Thesis>
         builder.Property(T => T.ThesisDegree).IsRequired();
         builder.Property(T => T.ResearcherId).IsRequired();
         builder.Property(T => T.ConsultantId).IsRequired();
-        builder.Property(T => T.City).IsRequired();
+        builder.Property(T => T.CityId).IsRequired();
         builder.Property(T => T.DateTimeYear).IsRequired();
         builder.Property(T => T.LanguageId).IsRequired();
         builder.Property(T => T.ThesisNumber).IsRequired();
