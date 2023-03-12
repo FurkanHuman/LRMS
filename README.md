@@ -31,26 +31,3 @@
 ## System Structure 
 
     The system structure is decentralized, simple and based on scalability.
-
-### Entity
-
-    Entities are the counterparts of the Databases tables.
-    Abstract,DTOs (Data Transfer Object), concrete layer, base, infos layers in it.
-
-### Dataccess
-
-    The DataAccess tier is the databases access tier.
-    The database consists of classes, interfaces, contexts, layers for configuration and access.
-
-### Core
-
-    The core layer is the most important layer.
-    is the kernel layer used to aggregate kernel codes, plugins, tools, more.
-
-### Business (Logic)
-
-    The business layer is the logic layer for the API. There may be more
-
-### API
-
-    API layer, not much, it can be
