@@ -1,4 +1,5 @@
 ﻿using LRMS.Generator.App.Codes.CreatorCodes.Configuration;
+using LRMS.Generator.App.Codes.CreatorCodes.Controller;
 using LRMS.Generator.App.Codes.CreatorCodes.Feature;
 using LRMS.Generator.App.Codes.CreatorCodes.Repository;
 using Microsoft.CodeAnalysis;
@@ -53,6 +54,7 @@ internal static class CsFileOperation
 
         CommandCreator commandCreator = new(type);
         ConfigurationCreator configurationCreator = new(type);
+        ControllerCreator controllerCreator = new(type);
         ConstantsCreator constantsCreator = new(type);
         ResponseCreator responseCreator = new(type);
         ProfileCreator profileCreator = new(type);
@@ -71,16 +73,16 @@ internal static class CsFileOperation
         fileContents.Add(commandCreator.DeleteEntitiyCommandHandler());
         fileContents.Add(commandCreator.DeleteEntitiyCommandValidator());
 
-
         fileContents.Add(commandCreator.UpdateEntitiyCommand());
         fileContents.Add(commandCreator.UpdateEntitiyCommandHandler());
         fileContents.Add(commandCreator.UpdateEntitiyCommandValidator());
 
         fileContents.Add(configurationCreator.CreateEntityConfiguration());
 
+        fileContents.Add(controllerCreator.ControllerCreate());
+
         fileContents.Add(constantsCreator.ConstantsCreate());
         fileContents.Add(constantsCreator.EntityOperationClaimsCreate());
-
 
         fileContents.Add(responseCreator.GetByIdResponseCreate());
         fileContents.Add(responseCreator.GetListByResponseCreate());
@@ -89,9 +91,7 @@ internal static class CsFileOperation
         fileContents.Add(responseCreator.DeletedResponseCreate());
         fileContents.Add(responseCreator.UpdatedResponseCreate());
 
-
         fileContents.Add(profileCreator.MappingProfileCreator());
-
 
         fileContents.Add(queryCreator.GetByIdEntityQuery());
         fileContents.Add(queryCreator.GetByIdEntityQueryHandler());
@@ -102,15 +102,12 @@ internal static class CsFileOperation
         fileContents.Add(queryCreator.GetListByEntityDynamicQuery());
         fileContents.Add(queryCreator.GetListByEntityDynamicQueryHandler());
 
-
         fileContents.Add(ruleCreator.RuleCreate());
-
 
         string IRepository = IRepositorySelector(repositoryCreator, csFileOperationConfig.SelectedRepo);
 
         fileContents.Add(IRepository);
         fileContents.Add(repositoryCreator.Repository(csFileOperationConfig.GetDbContext));
-
 
         fileContents.Add(altServiceCreator.IServiceCreate());
         fileContents.Add(altServiceCreator.ServiceCreate());

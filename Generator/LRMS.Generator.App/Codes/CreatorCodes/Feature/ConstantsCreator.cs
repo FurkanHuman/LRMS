@@ -16,7 +16,8 @@ internal class ConstantsCreator : ICreatorCode
 
         string plural = PluralizationProvider.Pluralize(Type.Name);
         return
-            $@"namespace Application.Features.{plural}.Constants;
+            $@"// this file was created automatically.
+namespace Application.Features.{plural}.Constants;
 
 public static class {Type.Name}Messages
 {{
@@ -27,7 +28,8 @@ public static class {Type.Name}Messages
 
         string plural = PluralizationProvider.Pluralize(Type.Name);
         return
-            $@"namespace Application.Features.{plural}.Constants;
+            $@"// this file was created automatically.
+namespace Application.Features.{plural}.Constants;
 
 public static class {Type.Name}OperationClaims
 {{
