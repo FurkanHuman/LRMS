@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\CorePackages\Core.Domain\Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\IntermediateTables\" />
-  </ItemGroup>
-
 </Project>
