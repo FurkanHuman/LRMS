@@ -5,7 +5,7 @@ using Domain.Entities.Mains;
 
 namespace Domain.Entities.Infos;
 
-public class TechnicalPlaceholder :BaseEntity<Guid>, IEntity
+public class TechnicalPlaceholder : BaseEntity<Guid>, IEntity
 {
     public Guid LibraryId { get; set; }
 
@@ -16,7 +16,7 @@ public class TechnicalPlaceholder :BaseEntity<Guid>, IEntity
     public string RowCode { get; set; }
 
     public string? SpecialLocation { get; set; }
-    
+
     public IList<AcademicJournal> AcademicJournals { get; set; }
     public IList<AudioRecord> AudioRecords { get; set; }
     public IList<Book> Books { get; set; }

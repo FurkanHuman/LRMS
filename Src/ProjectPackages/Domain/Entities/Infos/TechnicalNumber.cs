@@ -13,7 +13,7 @@ public class TechnicalNumber : BaseEntity<Guid>, IEntity
     public ulong? ISSN { get; set; }
 
     public string? CertificateCode { get; set; }
-    
+
     public IList<Book> Books { get; set; }
     public IList<BookSeries> BookSeries { get; set; }
     public IList<Encyclopedia> Encyclopedias { get; set; }

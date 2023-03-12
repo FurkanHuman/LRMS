@@ -16,7 +16,7 @@ public class CloudStorage : BaseEntity<uint>, IEntity
     public CloudStorageType CloudStorageType { get; set; }
 
     public CloudStorageTransferType CloudStorageTransferType { get; set; }
-    
+
     public Continent Continent { get; set; }
 
     public IList<Image> Images { get; set; }
