@@ -35,10 +35,10 @@ public class GetById{Type.Name}Query : IRequest<GetById{Type.Name}Response>
         string letter = Type.Name[0].ToString().ToLower();
         return
             $@"// this file was created automatically.
+using Application.Features.{plural}.Rules;
 using Application.Repositories;
 using AutoMapper;
 using {Type.Namespace};
-using Core.Persistence.Paging;
 using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetById{Type.Name};
@@ -62,7 +62,7 @@ public class GetById{Type.Name}QueryHandler : IRequestHandler<GetById{Type.Name}
         {Type.Name}? {Type.Name.ToLower()} = await _{Type.Name.ToLower()}Repository.GetAsync({letter} => {letter} == {letter} );
             
         GetById{Type.Name}Response {Type.Name.ToLower()}ListModelResponse = _mapper.Map<GetById{Type.Name}Response>({Type.Name.ToLower()});
-        return {Type.Name.ToLower()}Response;
+        return {Type.Name.ToLower()}ListModelResponse;
     }}
 }}
 ";
@@ -101,7 +101,7 @@ using MediatR;
 
 namespace Application.Features.{plural}.Queries.GetListBy{Type.Name};
 
-public class GetListBy{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Name}Query, GetListResponse<GetListBy{Type.Name}Response>>
+public class GetListBy{Type.Name}QueryHandler : IRequestHandler<GetListBy{Type.Name}Query, GetListResponse<GetListBy{Type.Name}Response>>
 {{
     private readonly I{Type.Name}Repository _{Type.Name.ToLower()}Repository;
     private readonly IMapper _mapper;
@@ -112,7 +112,7 @@ public class GetListBy{Type.Name}QueryHandler : IRequestHandler<GetList{Type.Nam
         _mapper = mapper;
     }}
 
-    public async Task<GetListResponse<GetListBy{Type.Name}Response>> Handle(GetList{Type.Name}Query request, CancellationToken cancellationToken)
+    public async Task<GetListResponse<GetListBy{Type.Name}Response>> Handle(GetListBy{Type.Name}Query request, CancellationToken cancellationToken)
     {{
         IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListAsync(index: request.PageRequest.Page,
                                                                                                         size: request.PageRequest.PageSize,
@@ -171,13 +171,13 @@ public class GetListBy{Type.Name}DynamicQueryHandler : IRequestHandler<GetListBy
         _mapper = mapper;
     }}
 
-    public async Task<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>> Handle(GetList{Type.Name}ByDynamicQuery request, CancellationToken cancellationToken)
+    public async Task<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>> Handle(GetListBy{Type.Name}DynamicQuery request, CancellationToken cancellationToken)
     {{
         IPaginate<{Type.Name}> {plural.ToLower()} = await _{Type.Name.ToLower()}Repository.GetListByDynamicAsync(
-                                    request.Dynamic,
-                                    request.PageRequest.Page,
-                                    request.PageRequest.PageSize,
-                                    cancellationToken: cancellationToken);
+                                                                                                                  dynamic: request.DynamicQuery,
+                                                                                                                  index: request.PageRequest.Page,
+                                                                                                                  size: request.PageRequest.PageSize,
+                                                                                                                  cancellationToken: cancellationToken);
 
         GetListResponse<GetListBy{Type.Name}DynamicQueryResponse> mappedGetListResponse = _mapper.Map<GetListResponse<GetListBy{Type.Name}DynamicQueryResponse>>({plural.ToLower()});
         return mappedGetListResponse;
