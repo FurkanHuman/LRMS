@@ -5,6 +5,7 @@ using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
+using Core.Application.Rules;
 using Core.Mailing;
 using Core.Mailing.MailKitImplementations;
 using FluentValidation;
@@ -18,7 +19,7 @@ namespace Application;
 public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-    {        
+    {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(configuration =>
         {
@@ -32,12 +33,25 @@ public static class ApplicationServiceRegistration
         });
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        services.AddSubClassesOfType(assembly: Assembly.GetExecutingAssembly(), type: typeof(BaseBusinessRules));
+
         services.AddCoreServices();
         services.AddLrmsInfoRegistration();
         services.AddLrmsIntermediateTablesRegistration();
         services.AddLRMSMainRegistration();
         services.AddLRMSUserRegistration();
 
+        return services;
+    }
+
+    public static IServiceCollection AddSubClassesOfType(this IServiceCollection services, Assembly assembly, Type type, Func<IServiceCollection, Type, IServiceCollection>? addWithLifeCycle = null)
+    {
+        List<Type> types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+        foreach (Type item in types)
+            if (addWithLifeCycle == null)
+                services.AddScoped(item);
+            else
+                addWithLifeCycle(services, type);
         return services;
     }
 }
