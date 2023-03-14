@@ -1,9 +1,7 @@
-﻿using Application.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
-using Persistence.Repositories;
 using Persistence.ServiceRegistrations;
 
 namespace Persistence;
@@ -25,6 +23,7 @@ public static class PersistenceServiceRegistration
         });
                 
         services.AddLRMSUserRegistration();
+        services.AddLrmsInfoRegistration();
         services.AddLRMSMainRegistration();
         
         return services;
