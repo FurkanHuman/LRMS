@@ -19,7 +19,7 @@ using Application.Services.PosterService;
 using Application.Services.ThesisService;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Services.ServiceRegistrations;
+namespace Application.ServiceRegistrations;
 
 public static class LrmsMainRegistration
 {

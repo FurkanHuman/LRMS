@@ -9,14 +9,14 @@ using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Services.ServiceRegistrations;
+namespace Application.ServiceRegistrations;
 
 public static class LrmsAuthRegistration
 {
     public static IServiceCollection AddLRMSUserRegistration(this IServiceCollection services)
     {
         // LRMS User & Auth
-        
+
         services.AddScoped<AuthBusinessRules>();
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IPasswordService, PasswordManager>();

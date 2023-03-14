@@ -32,7 +32,7 @@ using Application.Services.UniversityService;
 using Application.Services.WriterService;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Services.ServiceRegistrations;
+namespace Application.ServiceRegistrations;
 
 public static class LrmsInfoRegistration
 {

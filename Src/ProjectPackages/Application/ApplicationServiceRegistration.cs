@@ -1,5 +1,4 @@
 ﻿using Application.ServiceRegistrations;
-using Application.Services.ServiceRegistrations;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
