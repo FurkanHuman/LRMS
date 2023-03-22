@@ -12,7 +12,6 @@ using Core.Security.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using WebAPI;
 
 namespace WebApi.Controllers
 {

@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using WebAPI;
+using WebApi;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
