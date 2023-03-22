@@ -140,9 +140,9 @@ public class Delete{Type.Name}CommandHandler : IRequestHandler<Delete{Type.Name}
     public async Task<Deleted{Type.Name}Response> Handle(Delete{Type.Name}Command request, CancellationToken cancellationToken)
     {{
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
-        {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-        Deleted{Type.Name}Response created{Type.Name}Response = _mapper.Map<Deleted{Type.Name}Response>(created{Type.Name});
-        return created{Type.Name}Response;
+        {Type.Name} deleted{Type.Name} = await _{Type.Name.ToLower()}Repository.DeleteAsync(mapped{Type.Name});
+        Deleted{Type.Name}Response deleted{Type.Name}Response = _mapper.Map<Deleted{Type.Name}Response>(deleted{Type.Name});
+        return deleted{Type.Name}Response;
     }}
 }}
 ";
@@ -216,9 +216,9 @@ public class Update{Type.Name}CommandHandler : IRequestHandler<Update{Type.Name}
     public async Task<Updated{Type.Name}Response> Handle(Update{Type.Name}Command request, CancellationToken cancellationToken)
     {{
         {Type.Name} mapped{Type.Name} = _mapper.Map<{Type.Name}>(request);
-        {Type.Name} created{Type.Name} = await _{Type.Name.ToLower()}Repository.AddAsync(mapped{Type.Name});
-        Updated{Type.Name}Response created{Type.Name}Response = _mapper.Map<Updated{Type.Name}Response>(created{Type.Name});
-        return created{Type.Name}Response;
+        {Type.Name} updated{Type.Name} = await _{Type.Name.ToLower()}Repository.UpdateAsync(mapped{Type.Name});
+        Updated{Type.Name}Response updated{Type.Name}Response = _mapper.Map<Updated{Type.Name}Response>(updated{Type.Name});
+        return updated{Type.Name}Response;
     }}
 }}
 ";
