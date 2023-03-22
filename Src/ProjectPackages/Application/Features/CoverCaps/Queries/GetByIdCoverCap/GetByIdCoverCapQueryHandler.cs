@@ -25,7 +25,7 @@ public class GetByIdCoverCapQueryHandler : IRequestHandler<GetByIdCoverCapQuery,
     {
         _covercapBusinessRules.IdIsExit(new() { Id = request.Id });
 
-        CoverCap covercap = await _covercapRepository.GetAsync(c =>
+        CoverCap? covercap = await _covercapRepository.GetAsync(c =>
                                                                c.Id == request.Id,
                                                       //include: c => c.Include(c => c.Books)
                                                       //               .Include(c => c.BookSeries)
