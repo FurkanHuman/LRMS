@@ -10,6 +10,7 @@ public class GraphicDirectorConfiguration : IEntityTypeConfiguration<GraphicDire
     public void Configure(EntityTypeBuilder<GraphicDirector> builder)
     {
         builder.HasKey(G => G.Id);
+        builder.Property(G => G.Id);
         builder.Property(G => G.Name).IsRequired();
         builder.Property(G => G.SurName).IsRequired();
         builder.Property(G => G.IsDeleted);

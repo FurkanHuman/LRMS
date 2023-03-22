@@ -9,6 +9,7 @@ public class OtpAuthenticatorConfiguration : IEntityTypeConfiguration<OtpAuthent
     public void Configure(EntityTypeBuilder<OtpAuthenticator> builder)
     {
         builder.HasKey(oa => oa.Id);
+        builder.Property(oa => oa.Id);
         builder.Property(oa => oa.UserId);
         builder.Property(oa => oa.SecretKey);
         builder.Property(oa => oa.IsVerified);

@@ -11,7 +11,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         builder.HasKey(C => C.Id);
 
-        builder.Property(C => C.Id);
+        builder.Property(C => C.Id).UseIdentityColumn();
         builder.Property(C => C.Name).IsRequired();
 
         builder.Property(C => C.IsDeleted);

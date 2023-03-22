@@ -9,6 +9,7 @@ public partial class PasswordConfiguration : IEntityTypeConfiguration<Password>
     public void Configure(EntityTypeBuilder<Password> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id);
         builder.Property(p => p.PasswordHash);
         builder.Property(p => p.PasswordSalt);
         builder.Property(p => p.ExpiresDate);

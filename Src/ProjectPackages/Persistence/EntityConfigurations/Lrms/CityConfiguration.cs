@@ -10,7 +10,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
     public void Configure(EntityTypeBuilder<City> builder)
     {
         builder.HasKey(C => C.Id);
-        builder.Property(C => C.Id);
+        builder.Property(C => C.Id).UseIdentityColumn();
         builder.Property(C => C.Name).IsRequired();
         builder.Property(C => C.CountryId).IsRequired();
 

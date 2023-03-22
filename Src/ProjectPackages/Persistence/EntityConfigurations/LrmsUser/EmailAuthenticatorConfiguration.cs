@@ -9,7 +9,7 @@ public class EmailAuthenticatorConfiguration : IEntityTypeConfiguration<EmailAut
     public void Configure(EntityTypeBuilder<EmailAuthenticator> builder)
     {
         builder.HasKey(ea => ea.Id);
-
+        builder.Property(ea => ea.Id);
         builder.Property(ea => ea.UserId);
         builder.Property(ea => ea.ActivationKey);
         builder.Property(ea => ea.IsVerified);

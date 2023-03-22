@@ -10,6 +10,7 @@ public class TechnicalPlaceholderConfiguration : IEntityTypeConfiguration<Techni
     public void Configure(EntityTypeBuilder<TechnicalPlaceholder> builder)
     {
         builder.HasKey(T => T.Id);
+        builder.Property(T => T.Id);
         builder.Property(T => T.LibraryId).IsRequired();
         builder.Property(T => T.ColumnCode).IsRequired();
         builder.Property(T => T.RowCode).IsRequired();

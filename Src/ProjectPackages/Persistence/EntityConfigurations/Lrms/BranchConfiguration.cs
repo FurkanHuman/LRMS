@@ -10,7 +10,7 @@ public class BranchConfiguration : IEntityTypeConfiguration<Branch>
     public void Configure(EntityTypeBuilder<Branch> builder)
     {
         builder.HasKey(B => B.Id);
-        builder.Property(B => B.Id);
+        builder.Property(B => B.Id).UseIdentityColumn();
         builder.Property(B => B.Name).IsRequired();
         
         builder.Property(B => B.UpdatedDate);

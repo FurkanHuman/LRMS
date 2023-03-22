@@ -10,6 +10,7 @@ public class GraphicDesignerConfiguration : IEntityTypeConfiguration<GraphicDesi
     public void Configure(EntityTypeBuilder<GraphicDesigner> builder)
     {
         builder.HasKey(G => G.Id);
+        builder.Property(G => G.Id);
         builder.Property(G => G.Name).IsRequired();
         builder.Property(G => G.SurName).IsRequired();
         builder.Property(G => G.IsDeleted);

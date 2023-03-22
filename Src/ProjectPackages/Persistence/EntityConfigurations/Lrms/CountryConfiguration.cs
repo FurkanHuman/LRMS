@@ -10,7 +10,7 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
     public void Configure(EntityTypeBuilder<Country> builder)
     {
         builder.HasKey(C => C.Id);
-        builder.Property(C => C.Id);
+        builder.Property(C => C.Id).UseIdentityColumn();
         builder.Property(C => C.Name).IsRequired();
         builder.Property(C => C.CountryCode).IsRequired();
 

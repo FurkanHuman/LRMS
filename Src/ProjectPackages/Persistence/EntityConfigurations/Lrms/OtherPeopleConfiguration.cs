@@ -10,6 +10,7 @@ public class OtherPeopleConfiguration : IEntityTypeConfiguration<OtherPeople>
     public void Configure(EntityTypeBuilder<OtherPeople> builder)
     {
         builder.HasKey(O => O.Id);
+        builder.Property(O => O.Id);
         builder.Property(O => O.Name).IsRequired();
         builder.Property(O => O.SurName).IsRequired();
         builder.Property(O => O.Title).IsRequired();

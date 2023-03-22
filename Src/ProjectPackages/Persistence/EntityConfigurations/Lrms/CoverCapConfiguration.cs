@@ -10,7 +10,7 @@ public class CoverCapConfiguration : IEntityTypeConfiguration<CoverCap>
     public void Configure(EntityTypeBuilder<CoverCap> builder)
     {
         builder.HasKey(C => C.Id);
-        builder.Property(C => C.Id);
+        builder.Property(C => C.Id).UseIdentityColumn();
         builder.Property(C => C.Name).IsRequired();
 
         builder.Ignore(C => C.CreatedDate);

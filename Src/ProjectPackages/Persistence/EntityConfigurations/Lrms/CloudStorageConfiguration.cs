@@ -11,7 +11,7 @@ public class CloudStorageConfiguration : IEntityTypeConfiguration<CloudStorage>
     public void Configure(EntityTypeBuilder<CloudStorage> builder)
     {
         builder.HasKey(C => C.Id);
-        builder.Property(C => C.Id);
+        builder.Property(C => C.Id).UseIdentityColumn();
         builder.Property(C => C.CompanyName).IsRequired();
         builder.Property(C => C.SubDomain).IsRequired();
         builder.Property(C => C.IsActive).IsRequired();
