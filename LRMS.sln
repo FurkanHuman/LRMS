@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Src\Proje
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Src\ProjectPackages\Persistence\Persistence.csproj", "{6D1D7151-BCA6-479D-9E28-43D0EA27FF84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "Src\ProjectPackages\WebAPI\WebAPI.csproj", "{7D80908C-F23D-43CB-B9DA-8436D8844AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "Src\ProjectPackages\WebAPI\WebApi.csproj", "{7D80908C-F23D-43CB-B9DA-8436D8844AF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
