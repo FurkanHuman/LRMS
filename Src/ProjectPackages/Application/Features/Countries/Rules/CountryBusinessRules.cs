@@ -42,7 +42,7 @@ public class CountryBusinessRules : BaseBusinessRules
     internal void IdIsExit(int id)
     {
         bool country = _countryRepository.Any(c => c.Id == id);
-        if (country)
+        if (!country)
             throw new BusinessException(CountryMessages.CountryIdNotExit);
     }
 }
