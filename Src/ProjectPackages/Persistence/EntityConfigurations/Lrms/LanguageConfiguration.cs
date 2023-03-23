@@ -13,8 +13,8 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(L => L.Id).UseIdentityColumn();
         builder.Property(L => L.Name).IsRequired();
 
-        builder.Ignore(I => I.CreatedDate);
-        builder.Ignore(I => I.UpdatedDate);
-        builder.Ignore(I => I.IsDeleted);
+        builder.Ignore(L => L.CreatedDate);
+        builder.Ignore(L => L.UpdatedDate);
+        builder.Ignore(L => L.IsDeleted);
     }
 }
